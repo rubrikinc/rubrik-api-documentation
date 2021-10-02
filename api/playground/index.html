@@ -8,10 +8,10 @@
     
     
     
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
 
     
-    <title>Home - Rubrik API</title>
+    <title>Playground - Rubrik API</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/cinder.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
 
     
         
@@ -40,7 +40,7 @@
      
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -63,7 +63,7 @@
       <!-- Main title -->
 
       
-      <a class="navbar-brand" href="."
+      <a class="navbar-brand" href="../.."
         >Rubrik API</a
       >
       
@@ -74,28 +74,28 @@
       <!-- Main navigation -->
       <ul class="nav navbar-nav">
          
-        <li class="active" >
-          <a href=".">Home</a>
+        <li >
+          <a href="../..">Home</a>
         </li>
           
-        <li class="dropdown">
+        <li class="dropdown active">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"
             >Usage <b class="caret"></b
           ></a>
           <ul class="dropdown-menu">
              
 <li >
-  <a href="api/auth/">Authentication</a>
+  <a href="../auth/">Authentication</a>
 </li>
 
              
 <li >
-  <a href="api/errors/">Errors</a>
+  <a href="../errors/">Errors</a>
 </li>
 
              
-<li >
-  <a href="api/playground/">Playground</a>
+<li class="active" >
+  <a href="./">Playground</a>
 </li>
 
             
@@ -103,7 +103,7 @@
         </li>
           
         <li >
-          <a href="reference/">Reference</a>
+          <a href="../../reference/">Reference</a>
         </li>
          
       </ul>
@@ -125,108 +125,35 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
   <ul class="nav bs-sidenav">
     <li class="first-level active">
-      <a href="#rubrik-graphql-api">Rubrik GraphQL API</a>
+      <a href="#graphql-playground">GraphQL Playground</a>
     </li>
-    <li class="second-level">
-      <a href="#graphql-query-type">GraphQL query type</a>
-    </li>
-    
   </ul>
 </div></div>
-        <div class="col-md-9" role="main"> <h1 id="rubrik-graphql-api">Rubrik GraphQL API</h1>
-<p>GraphQL is an <a href="https://graphql.org/">API query language</a> that allows you
-to retrieve just the data you need. GraphQL eliminates the common experience
-of an API call returning either too much or not enough data.</p>
-<p>GraphQL queries are defined in terms of types and fields. Rather than using
-various endpoints identified by path-based URIs and HTTP verbs, GraphQL uses a
-single endpoint backed by a schema that specifies how to retrieve and modify
-application data based on the relationship between the types and fields.</p>
-<p>You can use GraphQL queries to retrieve data, and mutations to modify data.
-A GraphQL query is a request to retrieve specific fields of an object type,
-and a GraphQL mutation is a request to modify specific fields of an object
-type. The GraphQL runtime engine validates the incoming queries and mutations
-against the schema and fulfils the valid requests.</p>
-<p>Every GraphQL service has a <code>Query</code> type, and may also have a <code>Mutation</code> type.
-The <code>Query</code> and <code>Mutation</code> types are special object types in the schema,
-as they serve as entry points to the API.</p>
-<h2 id="graphql-query-type">GraphQL query type</h2>
-<pre><code class="language-yaml">type Query {
-    # Retrieves the user that is currently logged-in
-    currentUser: User!
-
-    # Retrieves the user with the specified user ID
-    user(userId: UUID!): User!
-}
-</code></pre>
-<p>In the above example, the <code>Query</code> object type has two fields: <code>currentUser</code> and
-<code>user</code>. This implies that the above schema supports the following types of
-requests:</p>
-<ul>
-<li>Request for the details of the currently logged-in user.</li>
-<li>Request for the details of any other user identified by the <code>userId</code>
-  argument.</li>
-</ul>
-<p>A GraphQL query with either of these fields returns an object of type <code>User</code>:</p>
-<pre><code class="language-yaml">type User {
-    # User ID
-    userID: UUID!
-
-    # User name
-    email: String!
-
-    # Roles that the user has
-    roles: [String!]!
-}
-</code></pre>
-<p>Based on the definition of the <code>User</code> object type, you can define the fields to
-be selected from the <code>User</code> object that is returned by the query.</p>
-<p>The following example provides a sample query and response based on the above
-schema definition.</p>
-<table>
-  <tr>
-    <th>Sample GraphQL query</th>
-    <th>Sample response</th>
-  </tr>
-  <tr>
-    <td>
-
-<pre><code class="language-yaml">
-
-query {
-    currentUser {
-        email
-        roles {
-            name
-        }
-    }
-}
-
-
-</code></pre>
-
-</td>
-    <td>
-
-<pre><code class="language-yaml">{
-  &quot;data&quot;: {
-    &quot;currentUser&quot;: {
-      &quot;email&quot;: &quot;happy.user@rubrik.com&quot;,
-      &quot;roles&quot;: [
-        {
-          &quot;name&quot;: &quot;Administrator&quot;,
-        }
-      ],
-    }
-  },
-}
-</code></pre>
-
-</td>
-  </tr>
-</table>
-
-<p>More information on GraphQL queries and mutations available on
-<a href="https://graphql.org">graphql.org</a>.</p></div>
+        <div class="col-md-9" role="main"> <h1 id="graphql-playground">GraphQL Playground</h1>
+<p>Running sample queries against Rubrik GraphQL API is an essential part
+of building and debugging integration code. A number of tools are available
+that facilitate query execution and schema exploration. One such tool is
+<a href="https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm?hl=en-US">Apollo Client Devtools</a>
+Chrome extension.</p>
+<ol>
+<li>Download the extension and add it to Chrome.</li>
+<li>Log in to the Rubrik application.</li>
+<li>Open <em>Developer Tools</em>.</li>
+<li>Find <em>Apollo</em> tab (<em>Elements</em>, <em>Console</em>, <em>Sources</em>, ..., <em>Apollo</em>).</li>
+</ol>
+<p><img src="/img/apollo1.png" style="border: 1px solid #aaa"></p>
+<p>On the left, there is a list of all queries executed by the current page.
+Select a query and click <em>Run in GraphiQL</em>.</p>
+<p><img src="/img/apollo2.png" style="border: 1px solid #aaa"></p>
+<p>GraphiQL allows you to execute arbitrary queries, aiding query authoring
+with code completion. <em>Docs</em> button in the top, right corner opens a
+Documentation Explorer, allowing for easy schema exploration.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Any mutation issued through Apollo client will result in the
+modification of real data in your account. Be careful when
+experimenting with mutations!</p>
+</div></div>
         
         
     </div>
@@ -247,7 +174,7 @@ query {
       </footer>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
 
     
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
@@ -255,10 +182,10 @@ query {
     <script>hljs.initHighlightingOnLoad();</script>
     
 
-    <script>var base_url = "."</script>
+    <script>var base_url = "../.."</script>
     
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
 
     <div
   class="modal"
@@ -350,8 +277,3 @@ query {
     </body>
 
 </html>
-
-<!--
-MkDocs version : 1.2.2
-Build Date UTC : 2021-10-02 00:07:12.735096+00:00
--->
