@@ -236,6 +236,11 @@
                 AzureNativeManagedDiskTypeEnum
             </a>
         </li>
+        <li  title="AzureNativeProtectionFeature">
+            <a href="azurenativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeProtectionFeature
+            </a>
+        </li>
         <li  title="AzureNativeRegionEnum">
             <a href="azurenativeregionenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeRegionEnum
@@ -529,6 +534,11 @@
         <li  title="SnapshotTypeEnum">
             <a href="snapshottypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SnapshotTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotTypeForRestoreIfSourceExpired">
+            <a href="snapshottypeforrestoreifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeForRestoreIfSourceExpired
             </a>
         </li>
         <li  title="SnapshotTypeToUseIfSourceExpired">
@@ -1081,6 +1091,16 @@
                 AzureResourceGroup
             </a>
         </li>
+        <li  title="AzureSqlDatabaseDbConfig">
+            <a href="azuresqldatabasedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlDatabaseDbConfig
+            </a>
+        </li>
+        <li  title="AzureSqlManagedInstanceDbConfig">
+            <a href="azuresqlmanagedinstancedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlManagedInstanceDbConfig
+            </a>
+        </li>
         <li  title="AzureSubscriptionMissingPermissions">
             <a href="azuresubscriptionmissingpermissions.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureSubscriptionMissingPermissions
@@ -1179,6 +1199,11 @@
         <li  title="ClusterNodeEdge">
             <a href="clusternodeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterNodeEdge
+            </a>
+        </li>
+        <li  title="ClusterNodeInterfaceCidr">
+            <a href="clusternodeinterfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeInterfaceCidr
             </a>
         </li>
         <li  title="clusterState">
@@ -1506,24 +1531,24 @@
                 SlaLogFrequencyConfigResult
             </a>
         </li>
-        <li  title="SlaMigration">
-            <a href="slamigration.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigration
-            </a>
-        </li>
-        <li  title="SlaMigrationEligibility">
-            <a href="slamigrationeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationEligibility
-            </a>
-        </li>
-        <li  title="SlaMigrationInfo">
-            <a href="slamigrationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationInfo
-            </a>
-        </li>
         <li  title="SlaReplicationCluster">
             <a href="slareplicationcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SlaReplicationCluster
+            </a>
+        </li>
+        <li  title="SlaUpgrade">
+            <a href="slaupgrade.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgrade
+            </a>
+        </li>
+        <li  title="SlaUpgradeEligibility">
+            <a href="slaupgradeeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeEligibility
+            </a>
+        </li>
+        <li  title="SlaUpgradeInfo">
+            <a href="slaupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeInfo
             </a>
         </li>
         <li  title="Snappable">
@@ -2260,7 +2285,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">FeatureDetail</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Feature enum.</span></span></li><li><span class="tab"><span class="meta">feature</span>: <a class="support type" href="cloudaccountfeatureenum.doc.html">CloudAccountFeatureEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Role arn for feature.</span></span></li><li><span class="tab"><span class="meta">roleArn</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Stack arn for feature.</span></span></li><li><span class="tab"><span class="meta">stackArn</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Feature status for a cloud account.</span></span></li><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="cloudaccountstatusenum.doc.html">CloudAccountStatusEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Aws regions.</span></span></li><li><span class="tab"><span class="meta">awsRegions</span>: [<a class="support type" href="awscloudaccountregionenum.doc.html">AwsCloudAccountRegionEnum</a>!]! </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">FeatureDetail</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Feature enum.</span></span></li><li><span class="tab"><span class="meta">feature</span>: <a class="support type" href="cloudaccountfeatureenum.doc.html">CloudAccountFeatureEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Role ARN for feature. This field has a non-empty value only for CFT-based </span></span></li><li><span class="tab"><span class="comment line">#   accounts.</span></span></li><li><span class="tab"><span class="meta">roleArn</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Stack ARN for feature. This field has a non-empty value only for CFT-based </span></span></li><li><span class="tab"><span class="comment line">#   accounts.</span></span></li><li><span class="tab"><span class="meta">stackArn</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Feature status for a cloud account.</span></span></li><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="cloudaccountstatusenum.doc.html">CloudAccountStatusEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Aws regions.</span></span></li><li><span class="tab"><span class="meta">awsRegions</span>: [<a class="support type" href="awscloudaccountregionenum.doc.html">AwsCloudAccountRegionEnum</a>!]! </span></li><li></li><li><span class="tab"><span class="comment line">#   User ARN for feature. This field has a non-empty value only for accounts with an </span></span></li><li><span class="tab"><span class="comment line">#   IAM user credential provider.</span></span></li><li><span class="tab"><span class="meta">userArn</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   IAM user access key for feature. This field has a non-empty value only for </span></span></li><li><span class="tab"><span class="comment line">#   accounts with an IAM user credential provider.</span></span></li><li><span class="tab"><span class="meta">accessKey</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

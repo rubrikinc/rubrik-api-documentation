@@ -236,6 +236,11 @@
                 AzureNativeManagedDiskTypeEnum
             </a>
         </li>
+        <li  title="AzureNativeProtectionFeature">
+            <a href="azurenativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeProtectionFeature
+            </a>
+        </li>
         <li  title="AzureNativeRegionEnum">
             <a href="azurenativeregionenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeRegionEnum
@@ -529,6 +534,11 @@
         <li  title="SnapshotTypeEnum">
             <a href="snapshottypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SnapshotTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotTypeForRestoreIfSourceExpired">
+            <a href="snapshottypeforrestoreifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeForRestoreIfSourceExpired
             </a>
         </li>
         <li  title="SnapshotTypeToUseIfSourceExpired">
@@ -1081,6 +1091,16 @@
                 AzureResourceGroup
             </a>
         </li>
+        <li  title="AzureSqlDatabaseDbConfig">
+            <a href="azuresqldatabasedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlDatabaseDbConfig
+            </a>
+        </li>
+        <li  title="AzureSqlManagedInstanceDbConfig">
+            <a href="azuresqlmanagedinstancedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlManagedInstanceDbConfig
+            </a>
+        </li>
         <li  title="AzureSubscriptionMissingPermissions">
             <a href="azuresubscriptionmissingpermissions.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureSubscriptionMissingPermissions
@@ -1179,6 +1199,11 @@
         <li  title="ClusterNodeEdge">
             <a href="clusternodeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterNodeEdge
+            </a>
+        </li>
+        <li  title="ClusterNodeInterfaceCidr">
+            <a href="clusternodeinterfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeInterfaceCidr
             </a>
         </li>
         <li  title="clusterState">
@@ -1506,24 +1531,24 @@
                 SlaLogFrequencyConfigResult
             </a>
         </li>
-        <li  title="SlaMigration">
-            <a href="slamigration.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigration
-            </a>
-        </li>
-        <li  title="SlaMigrationEligibility">
-            <a href="slamigrationeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationEligibility
-            </a>
-        </li>
-        <li  title="SlaMigrationInfo">
-            <a href="slamigrationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationInfo
-            </a>
-        </li>
         <li  title="SlaReplicationCluster">
             <a href="slareplicationcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SlaReplicationCluster
+            </a>
+        </li>
+        <li  title="SlaUpgrade">
+            <a href="slaupgrade.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgrade
+            </a>
+        </li>
+        <li  title="SlaUpgradeEligibility">
+            <a href="slaupgradeeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeEligibility
+            </a>
+        </li>
+        <li  title="SlaUpgradeInfo">
+            <a href="slaupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeInfo
             </a>
         </li>
         <li  title="Snappable">
@@ -2260,7 +2285,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">GlobalSla</span> <span class="keyword operator ts">implements</span> <a class="support type" href="sladomain.doc.html">SlaDomain</a> {</li><li></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">name</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">version</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">description</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">protectedObjectCount</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="meta">uiColor</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">snapshotSchedule</span>: <a class="support type" href="snapshotschedule.doc.html">SnapshotSchedule</a> </span></li><li></li><li><span class="tab"><span class="meta">localRetentionLimit</span>: <a class="support type" href="sladuration.doc.html">SlaDuration</a> </span></li><li></li><li><span class="tab"><span class="meta">archivalSpec</span>: <a class="support type" href="archivalspec.doc.html">ArchivalSpec</a> </span></li><li></li><li><span class="tab"><span class="meta">archivalSpecList</span>: [<a class="support type" href="archivalspec.doc.html">ArchivalSpec</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">replicationSpec</span>: <a class="support type" href="replicationspec.doc.html">ReplicationSpec</a> </span></li><li></li><li><span class="tab"><span class="meta">replicationSpecV2</span>: [<a class="support type" href="replicationspecv2.doc.html">ReplicationSpecV2</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">snapshotScheduleLastUpdatedAt</span>: <a class="support type" href="datetime.doc.html">DateTime</a> </span></li><li></li><li><span class="tab"><span class="meta">baseFrequency</span>: <a class="support type" href="sladuration.doc.html">SlaDuration</a> </span></li><li></li><li><span class="tab"><span class="meta">isArchived</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="meta">stateVersion</span>: <a class="support type" href="long.doc.html">Long</a>! </span></li><li></li><li><span class="tab"><span class="meta">firstFullBackupWindows</span>: [<a class="support type" href="backupwindow.doc.html">BackupWindow</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">backupWindows</span>: [<a class="support type" href="backupwindow.doc.html">BackupWindow</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">clusterToSyncStatusMap</span>: [<a class="support type" href="polarisslasyncstatus.doc.html">PolarisSLASyncStatus</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">logConfig</span>: <a class="support type" href="logconfigresult.doc.html">LogConfigResult</a> </span></li><li></li><li><span class="tab"><span class="meta">objectSpecificConfigs</span>: <a class="support type" href="objectspecificconfigs.doc.html">ObjectSpecificConfigs</a> </span></li><li></li><li><span class="tab"><span class="meta">objectTypeList</span>: [<a class="support type" href="slaobjecttypeenum.doc.html">SLAObjectTypeEnum</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">clusterUUID</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">isDefault</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="meta">migrationInfo</span>: <a class="support type" href="slamigrationinfo.doc.html">SlaMigrationInfo</a> </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">GlobalSla</span> <span class="keyword operator ts">implements</span> <a class="support type" href="sladomain.doc.html">SlaDomain</a> {</li><li></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">name</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">version</span>: <a class="support type" href="string.doc.html">String</a> </span></li><li></li><li><span class="tab"><span class="meta">description</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">protectedObjectCount</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="meta">uiColor</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">snapshotSchedule</span>: <a class="support type" href="snapshotschedule.doc.html">SnapshotSchedule</a> </span></li><li></li><li><span class="tab"><span class="meta">localRetentionLimit</span>: <a class="support type" href="sladuration.doc.html">SlaDuration</a> </span></li><li></li><li><span class="tab"><span class="meta">archivalSpec</span>: <a class="support type" href="archivalspec.doc.html">ArchivalSpec</a> </span></li><li></li><li><span class="tab"><span class="meta">archivalSpecList</span>: [<a class="support type" href="archivalspec.doc.html">ArchivalSpec</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">replicationSpec</span>: <a class="support type" href="replicationspec.doc.html">ReplicationSpec</a> </span></li><li></li><li><span class="tab"><span class="meta">replicationSpecV2</span>: [<a class="support type" href="replicationspecv2.doc.html">ReplicationSpecV2</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">snapshotScheduleLastUpdatedAt</span>: <a class="support type" href="datetime.doc.html">DateTime</a> </span></li><li></li><li><span class="tab"><span class="meta">baseFrequency</span>: <a class="support type" href="sladuration.doc.html">SlaDuration</a> </span></li><li></li><li><span class="tab"><span class="meta">isArchived</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="meta">stateVersion</span>: <a class="support type" href="long.doc.html">Long</a>! </span></li><li></li><li><span class="tab"><span class="meta">firstFullBackupWindows</span>: [<a class="support type" href="backupwindow.doc.html">BackupWindow</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">backupWindows</span>: [<a class="support type" href="backupwindow.doc.html">BackupWindow</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">clusterToSyncStatusMap</span>: [<a class="support type" href="polarisslasyncstatus.doc.html">PolarisSLASyncStatus</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">logConfig</span>: <a class="support type" href="logconfigresult.doc.html">LogConfigResult</a> </span></li><li></li><li><span class="tab"><span class="meta">objectSpecificConfigs</span>: <a class="support type" href="objectspecificconfigs.doc.html">ObjectSpecificConfigs</a> </span></li><li></li><li><span class="tab"><span class="meta">objectTypeList</span>: [<a class="support type" href="slaobjecttypeenum.doc.html">SLAObjectTypeEnum</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">clusterUUID</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">isDefault</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   SLA Domain upgrade information.</span></span></li><li><span class="tab"><span class="meta">upgradeInfo</span>: <a class="support type" href="slaupgradeinfo.doc.html">SlaUpgradeInfo</a> </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

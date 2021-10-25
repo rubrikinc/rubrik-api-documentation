@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="styles/graphdoc.css" />
-    <title>SlaMigration</title>
+    <title>SlaUpgradeEligibility</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
 </head>
 <body class="slds-scrollable--y">
@@ -234,6 +234,11 @@
         <li  title="AzureNativeManagedDiskTypeEnum">
             <a href="azurenativemanageddisktypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeManagedDiskTypeEnum
+            </a>
+        </li>
+        <li  title="AzureNativeProtectionFeature">
+            <a href="azurenativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeProtectionFeature
             </a>
         </li>
         <li  title="AzureNativeRegionEnum">
@@ -529,6 +534,11 @@
         <li  title="SnapshotTypeEnum">
             <a href="snapshottypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SnapshotTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotTypeForRestoreIfSourceExpired">
+            <a href="snapshottypeforrestoreifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeForRestoreIfSourceExpired
             </a>
         </li>
         <li  title="SnapshotTypeToUseIfSourceExpired">
@@ -1081,6 +1091,16 @@
                 AzureResourceGroup
             </a>
         </li>
+        <li  title="AzureSqlDatabaseDbConfig">
+            <a href="azuresqldatabasedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlDatabaseDbConfig
+            </a>
+        </li>
+        <li  title="AzureSqlManagedInstanceDbConfig">
+            <a href="azuresqlmanagedinstancedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlManagedInstanceDbConfig
+            </a>
+        </li>
         <li  title="AzureSubscriptionMissingPermissions">
             <a href="azuresubscriptionmissingpermissions.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureSubscriptionMissingPermissions
@@ -1179,6 +1199,11 @@
         <li  title="ClusterNodeEdge">
             <a href="clusternodeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterNodeEdge
+            </a>
+        </li>
+        <li  title="ClusterNodeInterfaceCidr">
+            <a href="clusternodeinterfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeInterfaceCidr
             </a>
         </li>
         <li  title="clusterState">
@@ -1506,24 +1531,24 @@
                 SlaLogFrequencyConfigResult
             </a>
         </li>
-        <li class="slds-is-active" title="SlaMigration">
-            <a href="slamigration.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigration
-            </a>
-        </li>
-        <li  title="SlaMigrationEligibility">
-            <a href="slamigrationeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationEligibility
-            </a>
-        </li>
-        <li  title="SlaMigrationInfo">
-            <a href="slamigrationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationInfo
-            </a>
-        </li>
         <li  title="SlaReplicationCluster">
             <a href="slareplicationcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SlaReplicationCluster
+            </a>
+        </li>
+        <li  title="SlaUpgrade">
+            <a href="slaupgrade.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgrade
+            </a>
+        </li>
+        <li class="slds-is-active" title="SlaUpgradeEligibility">
+            <a href="slaupgradeeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeEligibility
+            </a>
+        </li>
+        <li  title="SlaUpgradeInfo">
+            <a href="slaupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeInfo
             </a>
         </li>
         <li  title="Snappable">
@@ -2242,13 +2267,13 @@
     </div>
     <div class="container">
         <p class="slds-text-title--caps slds-text-color--weak">OBJECT</p>
-        <h1 class="slds-text-heading--large">SlaMigration</h1>
+        <h1 class="slds-text-heading--large">SlaUpgradeEligibility</h1>
     </div>
 </section>
 <section>
   <div class="container">
     <h2 class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">Description</h2>
-    <div class="slds-text-body--regular"><p>Information about the most recently attempted SLA migration.</p>
+    <div class="slds-text-body--regular"><p>Information about eligibility of the SLA Domain for upgrade.</p>
 </div>
   </div>
 </section>
@@ -2260,7 +2285,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">SlaMigration</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Status of the migration.</span></span></li><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="slamigrationstatus.doc.html">SlaMigrationStatus</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Failure message.</span></span></li><li><span class="tab"><span class="meta">msg</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Taskchain ID for migration.</span></span></li><li><span class="tab"><span class="meta">taskchainId</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">type</span> <span class="identifier">SlaUpgradeEligibility</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Specifies whether the SLA Domain is eligible for upgrade.</span></span></li><li><span class="tab"><span class="meta">isEligible</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Reason for the SLA Domain being ineligible for upgrade.</span></span></li><li><span class="tab"><span class="meta">ineligibilityReason</span>: <a class="support type" href="slamigrationineligibilityreason.doc.html">SlaMigrationIneligibilityReason</a>! </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
@@ -2271,7 +2296,7 @@
             </a>
             Require by
         </h2>
-        <ul class="require-by"><li><a href="slamigrationinfo.doc.html" title="SlaMigrationInfo - SLA migration information.">SlaMigrationInfo<em>SLA migration information.</em></a><li></ul>
+        <ul class="require-by"><li><a href="slaupgradeinfo.doc.html" title="SlaUpgradeInfo - SLA Domain upgrade information.">SlaUpgradeInfo<em>SLA Domain upgrade information.</em></a><li></ul>
     </div>
 </section>
 <footer>

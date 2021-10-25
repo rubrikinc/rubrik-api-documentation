@@ -236,6 +236,11 @@
                 AzureNativeManagedDiskTypeEnum
             </a>
         </li>
+        <li  title="AzureNativeProtectionFeature">
+            <a href="azurenativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeProtectionFeature
+            </a>
+        </li>
         <li  title="AzureNativeRegionEnum">
             <a href="azurenativeregionenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeRegionEnum
@@ -529,6 +534,11 @@
         <li  title="SnapshotTypeEnum">
             <a href="snapshottypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SnapshotTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotTypeForRestoreIfSourceExpired">
+            <a href="snapshottypeforrestoreifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeForRestoreIfSourceExpired
             </a>
         </li>
         <li  title="SnapshotTypeToUseIfSourceExpired">
@@ -1081,6 +1091,16 @@
                 AzureResourceGroup
             </a>
         </li>
+        <li  title="AzureSqlDatabaseDbConfig">
+            <a href="azuresqldatabasedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlDatabaseDbConfig
+            </a>
+        </li>
+        <li  title="AzureSqlManagedInstanceDbConfig">
+            <a href="azuresqlmanagedinstancedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlManagedInstanceDbConfig
+            </a>
+        </li>
         <li  title="AzureSubscriptionMissingPermissions">
             <a href="azuresubscriptionmissingpermissions.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureSubscriptionMissingPermissions
@@ -1179,6 +1199,11 @@
         <li  title="ClusterNodeEdge">
             <a href="clusternodeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterNodeEdge
+            </a>
+        </li>
+        <li  title="ClusterNodeInterfaceCidr">
+            <a href="clusternodeinterfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeInterfaceCidr
             </a>
         </li>
         <li  title="clusterState">
@@ -1506,24 +1531,24 @@
                 SlaLogFrequencyConfigResult
             </a>
         </li>
-        <li  title="SlaMigration">
-            <a href="slamigration.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigration
-            </a>
-        </li>
-        <li  title="SlaMigrationEligibility">
-            <a href="slamigrationeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationEligibility
-            </a>
-        </li>
-        <li  title="SlaMigrationInfo">
-            <a href="slamigrationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
-                SlaMigrationInfo
-            </a>
-        </li>
         <li  title="SlaReplicationCluster">
             <a href="slareplicationcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 SlaReplicationCluster
+            </a>
+        </li>
+        <li  title="SlaUpgrade">
+            <a href="slaupgrade.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgrade
+            </a>
+        </li>
+        <li  title="SlaUpgradeEligibility">
+            <a href="slaupgradeeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeEligibility
+            </a>
+        </li>
+        <li  title="SlaUpgradeInfo">
+            <a href="slaupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeInfo
             </a>
         </li>
         <li  title="Snappable">
@@ -2253,7 +2278,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">SLAObjectTypeEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AWS_EC2_EBS_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AWS_RDS_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_SQL_DATABASE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_SQL_MANAGED_INSTANCE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CASSANDRA_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">FILESET_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">GCP_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">KUPR_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">MSSQL_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">O365_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">SAP_HANA_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">UNKNOWN_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VOLUME_GROUP_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VSPHERE_OBJECT_TYPE</span></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">SLAObjectTypeEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AWS_EC2_EBS_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AWS_RDS_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_SQL_DATABASE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AZURE_SQL_MANAGED_INSTANCE_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CASSANDRA_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">FILESET_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">GCP_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">KUPR_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">MSSQL_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">O365_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">SAP_HANA_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">SNAPMIRROR_CLOUD_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">UNKNOWN_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VOLUME_GROUP_OBJECT_TYPE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VSPHERE_OBJECT_TYPE</span></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
