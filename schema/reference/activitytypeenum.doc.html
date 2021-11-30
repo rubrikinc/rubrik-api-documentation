@@ -121,6 +121,11 @@
                 ArchivalGroupTypeEnum
             </a>
         </li>
+        <li  title="ArchivalLocationStatus">
+            <a href="archivallocationstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationStatus
+            </a>
+        </li>
         <li  title="ArchivalLocationType">
             <a href="archivallocationtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ArchivalLocationType
@@ -349,6 +354,11 @@
         <li  title="ClusterStatus">
             <a href="clusterstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterStatus
+            </a>
+        </li>
+        <li  title="ClusterSystemStatus">
+            <a href="clustersystemstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterSystemStatus
             </a>
         </li>
         <li  title="ClusterTypeEnum">
@@ -1011,6 +1021,11 @@
                 AzureNativeManagedDiskEdge
             </a>
         </li>
+        <li  title="AzureNativeRegionSpec">
+            <a href="azurenativeregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionSpec
+            </a>
+        </li>
         <li  title="AzureNativeResourceGroup">
             <a href="azurenativeresourcegroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeResourceGroup
@@ -1059,6 +1074,11 @@
         <li  title="AzureNativeSubscriptionEdge">
             <a href="azurenativesubscriptionedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeSubscriptionEdge
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionEnabledFeature">
+            <a href="azurenativesubscriptionenabledfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionEnabledFeature
             </a>
         </li>
         <li  title="AzureNativeVirtualMachine">
@@ -1119,6 +1139,11 @@
         <li  title="AzureTag">
             <a href="azuretag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureTag
+            </a>
+        </li>
+        <li  title="AzureUserAssignedManagedIdentity">
+            <a href="azureuserassignedmanagedidentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureUserAssignedManagedIdentity
             </a>
         </li>
         <li  title="BackupWindow">
@@ -1234,6 +1259,11 @@
         <li  title="DayOfWeekOpt">
             <a href="dayofweekopt.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfWeekOpt
+            </a>
+        </li>
+        <li  title="Db2Config">
+            <a href="db2config.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2Config
             </a>
         </li>
         <li  title="DbParameterGroup">
@@ -1604,6 +1634,11 @@
         <li  title="TargetMapping">
             <a href="targetmapping.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 TargetMapping
+            </a>
+        </li>
+        <li  title="TargetMappingBasic">
+            <a href="targetmappingbasic.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetMappingBasic
             </a>
         </li>
         <li  title="TimeRangeWithUnit">
@@ -2278,7 +2313,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">ActivityTypeEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Anomaly</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Archive</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AuthDomain</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AwsEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Backup</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Classification</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeSource</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeVirtualMachine</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeVm</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Configuration</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Connection</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Conversion</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Diagnostic</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Discovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Download</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">EmbeddedEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Failover</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Fileset</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Hardware</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Hdfs</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HostEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HypervScvmm</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HypervServer</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Index</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Instantiate</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">LegalHold</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">LocalRecovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Maintenance</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">NutanixCluster</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">RadarAnalysis</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Recovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Replication</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">ResourceOperations</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Storage</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">StorageArray</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">StormResource</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Support</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Sync</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">System</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">TestFailover</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">UnknownEventType</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Upgrade</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VCenter</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Vcd</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VolumeGroup</span></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">ActivityTypeEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Anomaly</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Archive</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AuthDomain</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">AwsEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Backup</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Classification</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeSource</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeVirtualMachine</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">CloudNativeVm</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Configuration</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Connection</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Conversion</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Diagnostic</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Discovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Download</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">EmbeddedEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Failover</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Fileset</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Hardware</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Hdfs</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HostEvent</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HypervScvmm</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">HypervServer</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Index</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Instantiate</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">LegalHold</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">LocalRecovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Maintenance</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">NutanixCluster</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">RadarAnalysis</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Recovery</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Replication</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">ResourceOperations</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Storage</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">StorageArray</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">StormResource</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Support</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Sync</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">System</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">TestFailover</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">ThreatHunt</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">UnknownEventType</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Upgrade</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VCenter</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">Vcd</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">VolumeGroup</span></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>REST APIs - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href=".."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="..">Home</a>
+        </li>
+          
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../api/playground/">Playground</a>
+</li>
+
+             
+<li class="active" >
+  <a href="./">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+            <i class="fas fa-search"></i> Search
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#rest-apis">REST APIs</a>
+    </li>
+    <li class="second-level">
+      <a href="#accessing-the-appliance-api-with-a-service-account">Accessing the appliance API with a service account</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#setup">Setup</a>
+    </li>
+    <li class="third-level">
+      <a href="#authentication">Authentication</a>
+    </li>
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <h1 id="rest-apis">REST APIs</h1>
+<p>While the Rubrik GraphQL API allows many of the operations related to
+Rubrik workloads and clusters, there are some operations that are only
+available via the appliance REST API endpoints that a Rubrik cluster provides.
+For example: the
+<a href="https://rubrikinc.github.io/api-doc-v1-6.0/#section/Introduction">appliance REST API v1-6.0</a>
+.</p>
+<p>The goal of this document is to describe the steps involved in accessing
+the appliance REST API endpoints using a service account.
+Refer to other authentication mechanisms
+<a href="https://rubrikinc.github.io/api-doc-v1-6.0/#section/Authentication">here</a>.</p>
+<h2 id="accessing-the-appliance-api-with-a-service-account">Accessing the appliance API with a service account</h2>
+<p>The following sections describe the steps involved in accessing the REST API
+endpoints of the appliance.
+The setup involves creating a service account, registering the cluster with
+the Rubrik instance, and retrieving the UUID of the cluster.
+The service account credentials and the cluster UUID are used to obtain
+an access token for the cluster. Subsequently, the cluster access token
+is used to authenticate requests to the REST API server of the cluster.</p>
+<h3 id="setup">Setup</h3>
+<h4 id="creating-a-service-account">Creating a service account</h4>
+<p>Create a <a href="../api/auth/#service-accounts">service account</a>.
+Copy the values of the generated client credentials:
+<code>CLIENT_ID</code> and <code>CLIENT_SECRET</code> to use in subsequent steps.</p>
+<p>For example:</p>
+<pre><code class="language-shell">CLIENT_ID=&quot;client|rjSOLdenk7gtFWSnSiSgX4G1SprdkF6I&quot;
+CLIENT_SECRET=&quot;qzY2TtYxPB0WYvqviWtHvK2w5P3wvQ39YXTPpIAEZCxLkSkfDCE0IV4DTWu3_o2S&quot;
+</code></pre>
+<h4 id="registering-the-cluster">Registering the cluster</h4>
+<p>Rubrik allows the registration of a specific cluster to one and only one
+Rubrik instance.</p>
+<p>Steps to register a cluster to a Rubrik instance:</p>
+<ol>
+<li>Log in to the Rubrik web UI.</li>
+<li>On the navigation bar, click <strong>Clusters</strong>.</li>
+<li>Click the + icon to add a new cluster.</li>
+<li>In the <strong>Copy the single-use token below</strong> section,
+   click <strong>Copy to clipboard</strong>.</li>
+<li>Click <strong>Done</strong>.</li>
+<li>Log in to the Rubrik cluster using an account with administrative privileges.</li>
+<li>Click the gear icon on the top bar of the web UI to open the Settings menu.</li>
+<li>From the Settings menu, select <strong>System Configuration &gt; Cluster Settings</strong>.</li>
+<li>In <strong>Global Cluster Manager Token</strong>, paste the token from your clipboard.</li>
+<li>In <strong>Cluster Location</strong>, type a location for the Rubrik cluster.</li>
+<li>Click <strong>Update</strong>.</li>
+</ol>
+<p>The cluster saves the values and initiates a secure connection with the Rubrik
+domain. After a secure connection is established, the cluster appears on the
+Clusters page of the Rubrik web UI.</p>
+<h4 id="retrieving-the-cluster-uuid">Retrieving the cluster UUID</h4>
+<p>Use the GraphQL API to determine the UUID of the cluster connected
+to the Rubrik instance.
+The following GraphQL query retrieves the ID and lastConnectionTime
+for all the clusters registered with the Rubrik instance, in the
+increasing order of the time of registration.</p>
+<pre><code class="language-graphql">{
+    clusterConnection(sortBy:RegisteredAt) {
+        edges{
+            node{
+                id,
+                lastConnectionTime
+            }
+        }
+    }
+}
+</code></pre>
+<p>Sample response:</p>
+<pre><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;clusterConnection&quot;: {
+      &quot;edges&quot;: [
+        {
+          &quot;node&quot;: {
+            &quot;id&quot;: &quot;40505837-9772-4a91-a18a-db6108c66b59&quot;,
+            &quot;lastConnectionTime&quot;: &quot;2021-11-04T11:54:00.000Z&quot;
+          }
+        },
+        {
+          &quot;node&quot;: {
+            &quot;id&quot;: &quot;7bf7c2fc-dbed-4ee7-88e3-1e7fee57d02a&quot;,
+            &quot;lastConnectionTime&quot;: &quot;2021-11-03T03:34:18.000Z&quot;
+          }
+        },
+        {
+          &quot;node&quot;: {
+            &quot;id&quot;: &quot;eb1f16c6-9c9a-4825-8879-d0e0d80c88a4&quot;,
+            &quot;lastConnectionTime&quot;: &quot;2021-10-30T07:29:38.000Z&quot;
+          }
+        }
+      ]
+    }
+  }
+}
+</code></pre>
+<p>From the response, identify the cluster to access the REST API and copy the
+value of the <code>"id"</code> field for that cluster. <code>CLUSTER_UUID</code> refers to this
+value. For instance:</p>
+<pre><code class="language-shell">CLUSTER_UUID=&quot;40505837-9772-4a91-a18a-db6108c66b59&quot;
+</code></pre>
+<h3 id="authentication">Authentication</h3>
+<p>Use the client credentials of the <a href="#creating-a-service-account">service account</a>
+to authenticate to the Rubrik API that generates an access token for the
+registered clusters.
+Next, use the access token to authenticate all the requests to the
+appliance REST API server.</p>
+<h4 id="retrieving-an-access-token-for-a-cluster">Retrieving an access token for a cluster</h4>
+<p>To retrieve the access token for the registered cluster, send a POST request
+to the <code>https://$account.my.rubrik-lab.com/api/cdm_client_token</code> endpoint
+with the required payload.</p>
+<pre><code class="language-shell">  payload=&quot;{\&quot;client_id\&quot;:\&quot;$CLIENT_ID\&quot;, \
+    \&quot;client_secret\&quot;:\&quot;$CLIENT_SECRET\&quot;, \
+    \&quot;cluster_uuid\&quot;:\&quot;$CLUSTER_UUID\&quot; }&quot;
+  curl -X POST https://$account.my.rubrik-lab.com/api/cdm_client_token \
+    --header &quot;Content-Type: application/json&quot; \
+    --data &quot;$payload&quot;
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>$CLIENT_ID</code> is the client ID of the service account.</li>
+<li><code>$CLIENT_SECRET</code> is the client secret of the service account.</li>
+<li><code>$CLUSTER_UUID</code> is the ID of the registered cluster</li>
+<li><code>$account</code> is the account name of the Rubrik instance</li>
+</ul>
+<p>Sample response when request is successful:</p>
+<p>The REST API server of the Rubrik instance responds with a token and the
+expiration time of the token.</p>
+<pre><code class="language-json">{
+  &quot;session&quot;: {
+    &quot;id&quot;: &quot;009e7254-3e1b-4bef-a06a-6a0dc63cb6fe&quot;,
+    &quot;token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmNjFkN2RkNS1mN2M4LTQ3MDEtYWFiOS00ZGJmZDkxN2IwMmNfY2xpZW50fHJqU09MZGVuazdndEZXU25TaVNnWDRHMVNwcmRrRjZJIiwiaXNNZmFSZW1lbWJlclRva2VuIjpmYWxzZSwiaXNzIjoiZjYxZDdkZDUtZjdjOC00NzAxLWFhYjktNGRiZmQ5MTdiMDJjIiwiaWF0IjoxNjM2MDY4OTUxLCJqdGkiOiIwMDllNzI1NC0zZTFiLTRiZWYtYTA2YS02YTBkYzYzY2I2ZmUifQ.jTVcmpfF9jh1u4O69Yp2MGmcXOP8cxTO2TwKfXEP13U&quot;,
+    &quot;expiration&quot;: &quot;2021-11-05T23:35:51Z&quot;
+  }
+}
+</code></pre>
+<p>The <code>"token"</code> is the access token for sending requests to the REST API of the
+cluster. Save the token value as CLUSTER_ACCESS_TOKEN, as shown below:</p>
+<pre><code class="language-shell">CLUSTER_ACCESS_TOKEN=&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmNjFkN2RkNS1mN2M4LTQ3MDEtYWFiOS00ZGJmZDkxN2IwMmNfY2xpZW50fHJqU09MZGVuazdndEZXU25TaVNnWDRHMVNwcmRrRjZJIiwiaXNNZmFSZW1lbWJlclRva2VuIjpmYWxzZSwiaXNzIjoiZjYxZDdkZDUtZjdjOC00NzAxLWFhYjktNGRiZmQ5MTdiMDJjIiwiaWF0IjoxNjM2MDY4OTUxLCJqdGkiOiIwMDllNzI1NC0zZTFiLTRiZWYtYTA2YS02YTBkYzYzY2I2ZmUifQ.jTVcmpfF9jh1u4O69Yp2MGmcXOP8cxTO2TwKfXEP13U&quot;
+</code></pre>
+<p>Sample response when cluster is in disconnected state:</p>
+<p>If the cluster is not connected to the Rubrik instance,
+the appliance API server sends the following response:</p>
+<pre><code class="language-json">{
+  &quot;code&quot;: 500,
+  &quot;uri&quot;: &quot;/api/cdm_client_token&quot;,
+  &quot;traceSpan&quot;: {
+    &quot;traceId&quot;: &quot;h6tabRovn8sRY2PnOioEOg==&quot;,
+    &quot;operation&quot;: &quot;/api/cdm_client_token&quot;,
+    &quot;spanId&quot;: &quot;SHG3VDimBm0=&quot;
+  },
+  &quot;message&quot;: &quot;UNKNOWN: cdm cluster disconnected&quot;
+}
+</code></pre>
+<h4 id="using-the-cluster-access-token-to-access-the-rubrik-appliance-rest-api">Using the cluster access token to access the Rubrik appliance REST API</h4>
+<p>To invoke a REST API endpoint on the appliance, authenticate to the REST API
+server by using the access token of the cluster,
+<a href="https://rubrikinc.github.io/api-doc-v1-6.0/#section/Authentication/Authentication-session">as described here (for v1-6.0)</a>.</p>
+<p>For example:</p>
+<pre><code class="language-shell">curl -k -H &quot;Authorization: Bearer $CLUSTER_TOKEN&quot; -X GET\
+  &quot;https://$cluster_address/api/v1/cluster/me&quot;
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2021-11-30</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_search_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="searchModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="searchModalLabel">Search</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          From here you can search these documents. Enter your search terms
+          below.
+        </p>
+        <form>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search..."
+              id="mkdocs-search-query"
+              title="Type search term here"
+            />
+          </div>
+        </form>
+        <div id="mkdocs-search-results"></div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div><div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

@@ -121,6 +121,11 @@
                 ArchivalGroupTypeEnum
             </a>
         </li>
+        <li  title="ArchivalLocationStatus">
+            <a href="archivallocationstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationStatus
+            </a>
+        </li>
         <li  title="ArchivalLocationType">
             <a href="archivallocationtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ArchivalLocationType
@@ -349,6 +354,11 @@
         <li  title="ClusterStatus">
             <a href="clusterstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterStatus
+            </a>
+        </li>
+        <li  title="ClusterSystemStatus">
+            <a href="clustersystemstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterSystemStatus
             </a>
         </li>
         <li  title="ClusterTypeEnum">
@@ -1011,6 +1021,11 @@
                 AzureNativeManagedDiskEdge
             </a>
         </li>
+        <li  title="AzureNativeRegionSpec">
+            <a href="azurenativeregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionSpec
+            </a>
+        </li>
         <li  title="AzureNativeResourceGroup">
             <a href="azurenativeresourcegroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeResourceGroup
@@ -1059,6 +1074,11 @@
         <li  title="AzureNativeSubscriptionEdge">
             <a href="azurenativesubscriptionedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeSubscriptionEdge
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionEnabledFeature">
+            <a href="azurenativesubscriptionenabledfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionEnabledFeature
             </a>
         </li>
         <li  title="AzureNativeVirtualMachine">
@@ -1119,6 +1139,11 @@
         <li  title="AzureTag">
             <a href="azuretag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureTag
+            </a>
+        </li>
+        <li  title="AzureUserAssignedManagedIdentity">
+            <a href="azureuserassignedmanagedidentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureUserAssignedManagedIdentity
             </a>
         </li>
         <li  title="BackupWindow">
@@ -1234,6 +1259,11 @@
         <li  title="DayOfWeekOpt">
             <a href="dayofweekopt.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfWeekOpt
+            </a>
+        </li>
+        <li  title="Db2Config">
+            <a href="db2config.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2Config
             </a>
         </li>
         <li  title="DbParameterGroup">
@@ -1604,6 +1634,11 @@
         <li  title="TargetMapping">
             <a href="targetmapping.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 TargetMapping
+            </a>
+        </li>
+        <li  title="TargetMappingBasic">
+            <a href="targetmappingbasic.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetMappingBasic
             </a>
         </li>
         <li  title="TimeRangeWithUnit">
@@ -2285,7 +2320,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">SlaMigrationIneligibilityReason</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The remote SLA Domain has an archival policy configured, which is not supported </span></span></li><li><span class="tab"><span class="comment line">#   in Polaris currently.</span></span></li><li><span class="tab"><span class="meta">CASCADED_ARCHIVAL_CONFIGURED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Rubrik cluster associated with the SLA Domain is disconnected.</span></span></li><li><span class="tab"><span class="meta">CLUSTER_DISCONNECTED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The version of the Rubrik cluster associated with the SLA Domain is not valid </span></span></li><li><span class="tab"><span class="comment line">#   for SLA migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_CLUSTER_VERSION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   SLA Domain is not associated with a Rubrik cluster.</span></span></li><li><span class="tab"><span class="meta">INVALID_LOCAL_SLA</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The type of replication targets is invalid for migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_REPLICATION_TARGET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Replication targets associated with the SLA Domain have invalid cluster version </span></span></li><li><span class="tab"><span class="comment line">#   for migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_REPLICATION_TARGET_VERSION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   SLA Domain is eligible for migration.</span></span></li><li><span class="tab"><span class="meta">NOT_APPLICABLE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Replication targets associated with the SLA Domain are disconnected.</span></span></li><li><span class="tab"><span class="meta">REPLICATION_TARGET_DISCONNECTED</span></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">SlaMigrationIneligibilityReason</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The remote SLA Domain has an archival policy configured, which is not supported </span></span></li><li><span class="tab"><span class="comment line">#   in Polaris currently.</span></span></li><li><span class="tab"><span class="meta">CASCADED_ARCHIVAL_CONFIGURED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Rubrik cluster associated with the SLA Domain is disconnected.</span></span></li><li><span class="tab"><span class="meta">CLUSTER_DISCONNECTED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The version of the Rubrik cluster associated with the SLA Domain is not valid </span></span></li><li><span class="tab"><span class="comment line">#   for SLA migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_CLUSTER_VERSION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   SLA Domain is not associated with a Rubrik cluster.</span></span></li><li><span class="tab"><span class="meta">INVALID_LOCAL_SLA</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The type of replication targets is invalid for migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_REPLICATION_TARGET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Replication targets associated with the SLA Domain have invalid cluster version </span></span></li><li><span class="tab"><span class="comment line">#   for migration.</span></span></li><li><span class="tab"><span class="meta">INVALID_REPLICATION_TARGET_VERSION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   SLA Domain is eligible for migration.</span></span></li><li><span class="tab"><span class="meta">NOT_APPLICABLE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Replication targets associated with the SLA Domain are disconnected.</span></span></li><li><span class="tab"><span class="meta">REPLICATION_TARGET_DISCONNECTED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   The SLA Domain has retention lock configured, which is not supported in Polaris </span></span></li><li><span class="tab"><span class="comment line">#   currently.</span></span></li><li><span class="tab"><span class="meta">RETENTION_LOCK_CONFIGURED</span></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

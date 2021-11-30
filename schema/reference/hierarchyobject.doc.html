@@ -121,6 +121,11 @@
                 ArchivalGroupTypeEnum
             </a>
         </li>
+        <li  title="ArchivalLocationStatus">
+            <a href="archivallocationstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationStatus
+            </a>
+        </li>
         <li  title="ArchivalLocationType">
             <a href="archivallocationtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ArchivalLocationType
@@ -349,6 +354,11 @@
         <li  title="ClusterStatus">
             <a href="clusterstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ClusterStatus
+            </a>
+        </li>
+        <li  title="ClusterSystemStatus">
+            <a href="clustersystemstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterSystemStatus
             </a>
         </li>
         <li  title="ClusterTypeEnum">
@@ -1011,6 +1021,11 @@
                 AzureNativeManagedDiskEdge
             </a>
         </li>
+        <li  title="AzureNativeRegionSpec">
+            <a href="azurenativeregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionSpec
+            </a>
+        </li>
         <li  title="AzureNativeResourceGroup">
             <a href="azurenativeresourcegroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeResourceGroup
@@ -1059,6 +1074,11 @@
         <li  title="AzureNativeSubscriptionEdge">
             <a href="azurenativesubscriptionedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureNativeSubscriptionEdge
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionEnabledFeature">
+            <a href="azurenativesubscriptionenabledfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionEnabledFeature
             </a>
         </li>
         <li  title="AzureNativeVirtualMachine">
@@ -1119,6 +1139,11 @@
         <li  title="AzureTag">
             <a href="azuretag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureTag
+            </a>
+        </li>
+        <li  title="AzureUserAssignedManagedIdentity">
+            <a href="azureuserassignedmanagedidentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureUserAssignedManagedIdentity
             </a>
         </li>
         <li  title="BackupWindow">
@@ -1234,6 +1259,11 @@
         <li  title="DayOfWeekOpt">
             <a href="dayofweekopt.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfWeekOpt
+            </a>
+        </li>
+        <li  title="Db2Config">
+            <a href="db2config.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2Config
             </a>
         </li>
         <li  title="DbParameterGroup">
@@ -1604,6 +1634,11 @@
         <li  title="TargetMapping">
             <a href="targetmapping.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 TargetMapping
+            </a>
+        </li>
+        <li  title="TargetMappingBasic">
+            <a href="targetmappingbasic.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetMappingBasic
             </a>
         </li>
         <li  title="TimeRangeWithUnit">
@@ -2285,7 +2320,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">interface</span> <span class="identifier">HierarchyObject</span> {</li><li></li><li><span class="tab"><span class="comment line">#   The fid of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="uuid.doc.html">UUID</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The name of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">name</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The object type of this object.</span></span></li><li><span class="tab"><span class="meta">objectType</span>: <a class="support type" href="hierarchyobjecttypeenum.doc.html">HierarchyObjectTypeEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The assignmennt type for this object's SLA</span></span></li><li><span class="tab"><span class="meta">slaAssignment</span>: <a class="support type" href="slaassignmenttypeenum.doc.html">SlaAssignmentTypeEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The Effective SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">effectiveSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The pause status of the hierarchy object's effective SLA Domain.</span></span></li><li><span class="tab"><span class="meta">slaPauseStatus</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The distribution of the snapshots of the hierarchy object</span></span></li><li><span class="tab"><span class="meta">snapshotDistribution</span>: <a class="support type" href="snapshotdistribution.doc.html">SnapshotDistribution</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The Effective Retention SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">effectiveRetentionSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   The configured SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">configuredSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The path node of the effective SLA source</span></span></li><li><span class="tab"><span class="meta">effectiveSlaSourceObject</span>: <a class="support type" href="pathnode.doc.html">PathNode</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   A sequential list containing this object's logical ancestors.</span></span></li><li><span class="tab"><span class="meta">logicalPath</span>: [<a class="support type" href="pathnode.doc.html">PathNode</a>!]! </span></li><li></li><li><span class="tab"><span class="comment line">#   A sequential list containing this object's physical ancestors.</span></span></li><li><span class="tab"><span class="meta">physicalPath</span>: [<a class="support type" href="pathnode.doc.html">PathNode</a>!]! </span></li><li></li><li><span class="tab"><span class="comment line">#   The number of snappable descendants of this object</span></span></li><li><span class="tab"><span class="meta">numSnappableDescendants</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">interface</span> <span class="identifier">HierarchyObject</span> {</li><li></li><li><span class="tab"><span class="comment line">#   The fid of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">id</span>: <a class="support type" href="uuid.doc.html">UUID</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The name of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">name</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The object type of this object.</span></span></li><li><span class="tab"><span class="meta">objectType</span>: <a class="support type" href="hierarchyobjecttypeenum.doc.html">HierarchyObjectTypeEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The assignment type for this object's SLA.</span></span></li><li><span class="tab"><span class="meta">slaAssignment</span>: <a class="support type" href="slaassignmenttypeenum.doc.html">SlaAssignmentTypeEnum</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The Effective SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">effectiveSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The pause status of the hierarchy object's effective SLA Domain.</span></span></li><li><span class="tab"><span class="meta">slaPauseStatus</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The distribution of the snapshots of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">snapshotDistribution</span>: <a class="support type" href="snapshotdistribution.doc.html">SnapshotDistribution</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The Effective Retention SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">effectiveRetentionSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   The configured SLA Domain of the hierarchy object.</span></span></li><li><span class="tab"><span class="meta">configuredSlaDomain</span>: <a class="support type" href="sladomain.doc.html">SlaDomain</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   The path node of the effective SLA source.</span></span></li><li><span class="tab"><span class="meta">effectiveSlaSourceObject</span>: <a class="support type" href="pathnode.doc.html">PathNode</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   A sequential list containing this object's logical ancestors.</span></span></li><li><span class="tab"><span class="meta">logicalPath</span>: [<a class="support type" href="pathnode.doc.html">PathNode</a>!]! </span></li><li></li><li><span class="tab"><span class="comment line">#   A sequential list containing this object's physical ancestors.</span></span></li><li><span class="tab"><span class="meta">physicalPath</span>: [<a class="support type" href="pathnode.doc.html">PathNode</a>!]! </span></li><li></li><li><span class="tab"><span class="comment line">#   The number of snappable descendants of this object.</span></span></li><li><span class="tab"><span class="meta">numSnappableDescendants</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
@@ -2296,7 +2331,7 @@
             </a>
             Require by
         </h2>
-        <ul class="require-by"><li><a href="awsnativeaccount.doc.html" title="AwsNativeAccount - ">AwsNativeAccount<em></em></a><li><li><a href="awsnativeebsvolume.doc.html" title="AwsNativeEbsVolume - ">AwsNativeEbsVolume<em></em></a><li><li><a href="awsnativeec2instance.doc.html" title="AwsNativeEc2Instance - ">AwsNativeEc2Instance<em></em></a><li><li><a href="awsnativerdsinstance.doc.html" title="AwsNativeRdsInstance - ">AwsNativeRdsInstance<em></em></a><li><li><a href="azurenativemanageddisk.doc.html" title="AzureNativeManagedDisk - An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.">AzureNativeManagedDisk<em>An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.</em></a><li><li><a href="azurenativeresourcegroup.doc.html" title="AzureNativeResourceGroup - An Azure Native Resource Group. Refers to a collection of resources in which multiple Azure services can reside.">AzureNativeResourceGroup<em>An Azure Native Resource Group. Refers to a collection of resources in which multiple Azure services can reside.</em></a><li><li><a href="azurenativesubscription.doc.html" title="AzureNativeSubscription - An Azure Native Subscription. Refers to the logical entity that provides entitlement to deploy and consume Azure resources. ">AzureNativeSubscription<em>An Azure Native Subscription. Refers to the logical entity that provides entitlement to deploy and consume Azure resources. </em></a><li><li><a href="azurenativevirtualmachine.doc.html" title="AzureNativeVirtualMachine - An Azure Native Virtual Machine that refers to the Azure infrastructure as a service (IaaS) used to deploy persistent VMs. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/.">AzureNativeVirtualMachine<em>An Azure Native Virtual Machine that refers to the Azure infrastructure as a service (IaaS) used to deploy persistent VMs. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/.</em></a><li></ul>
+        <ul class="require-by"><li><a href="awsnativeaccount.doc.html" title="AwsNativeAccount - ">AwsNativeAccount<em></em></a><li><li><a href="awsnativeebsvolume.doc.html" title="AwsNativeEbsVolume - ">AwsNativeEbsVolume<em></em></a><li><li><a href="awsnativeec2instance.doc.html" title="AwsNativeEc2Instance - ">AwsNativeEc2Instance<em></em></a><li><li><a href="awsnativerdsinstance.doc.html" title="AwsNativeRdsInstance - ">AwsNativeRdsInstance<em></em></a><li><li><a href="azurenativemanageddisk.doc.html" title="AzureNativeManagedDisk - An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.">AzureNativeManagedDisk<em>An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.</em></a><li><li><a href="azurenativeresourcegroup.doc.html" title="AzureNativeResourceGroup - An Azure Native Resource Group. Refers to a collection of resources in which multiple Azure services can reside.">AzureNativeResourceGroup<em>An Azure Native Resource Group. Refers to a collection of resources in which multiple Azure services can reside.</em></a><li><li><a href="azurenativesubscription.doc.html" title="AzureNativeSubscription - An Azure Native Subscription. Refers to the logical entity that provides entitlement to deploy and consume Azure resources.">AzureNativeSubscription<em>An Azure Native Subscription. Refers to the logical entity that provides entitlement to deploy and consume Azure resources.</em></a><li><li><a href="azurenativevirtualmachine.doc.html" title="AzureNativeVirtualMachine - An Azure Native Virtual Machine that refers to the Azure infrastructure as a service (IaaS) used to deploy persistent VMs. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/.">AzureNativeVirtualMachine<em>An Azure Native Virtual Machine that refers to the Azure infrastructure as a service (IaaS) used to deploy persistent VMs. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/.</em></a><li></ul>
     </div>
 </section>
 <footer>
