@@ -5622,6 +5622,10 @@ main code.highlight {
   /* min-width: 50rem; */
 }
 
+/* Needed for proper rendering of "@deprecated" directive */
+main code .meta::after {
+  content: ' ';
+}
 /* main code.highlight::after,
 main code.highlight::before {
   content: "";
