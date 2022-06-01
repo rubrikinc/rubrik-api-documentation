@@ -188,17 +188,18 @@ failures on a specified Rubrik cluster.</p>
 <h4 id="graphql-query">GraphQL query</h4>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query {
-     activitySeriesConnection(
-     filters: {
+    activitySeriesConnection(
+      filters: {
         cluster: {
-           id:&quot;$cluster_id&quot;
+          id: &quot;$cluster_id&quot;
         },
         lastActivityType: [Backup],
         lastActivityStatus: [Failure]
-     }{
-        count
-     }
-   }
+      }
+    ) {
+      count
+    }
+  }&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -210,14 +211,14 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 defined in the <code>Cluster</code> object type to request the details of
 activities related to the Rubrik cluster identified by <code>$cluster_id</code>.</p>
 <pre><code class="language-bash">type Cluster {
-       activitySeriesConnection(
-               first: Int,
-               after: String,
-               last: Int,
-               before: String,
-               sortBy: ActivitySeriesSortByEnum,
-               filters: ActivitySeriesFilterInput
-       ): ActivitySeriesConnection!
+   activitySeriesConnection(
+       first: Int,
+       after: String,
+       last: Int,
+       before: String,
+       sortBy: ActivitySeriesSortByEnum,
+       filters: ActivitySeriesFilterInput
+   ): ActivitySeriesConnection!
 }
 </code></pre>
 <p>The <code>filters</code> argument of <code>activitySeriesConnection</code> specifies the
@@ -232,10 +233,10 @@ as a value of <code>count</code>.</p>
 <p>The <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/activityseriesconnection.doc.html"><code>ActivitySeriesConnection</code></a>
 object models the response of the GraphQL query.</p>
 <pre><code class="language-bash">type ActivitySeriesConnection {
-        edges: [ActivitySeriesEdge!]!
-        nodes: [ActivitySeries!]!
-        pageInfo: PageInfo!
-        count: Int!
+    edges: [ActivitySeriesEdge!]!
+    nodes: [ActivitySeries!]!
+    pageInfo: PageInfo!
+    count: Int!
 }
 </code></pre>
 <p>The definition of ActivitySeriesConnection allows the
@@ -271,22 +272,22 @@ machines on the specified Rubrik cluster.</p>
 <h4 id="graphql-query_1">GraphQL query</h4>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query {
-       snappableConnection(
-          filter: {
-             cluster: {
-                 id: &quot;$cluster_id&quot;
-             },
-             objectType: VmwareVirtualMachine,
-             protectionStatus: Protected
-         }
-        ) {
-             count
-             aggregation {
-                 totalSnapshots
-                 missedSnapshots
-             }
-          }
-  }
+    snappableConnection(
+      filter: {
+        cluster: {
+          id: &quot;$cluster_id&quot;
+        },
+        objectType: VmwareVirtualMachine,
+        protectionStatus: Protected
+      }
+    ) {
+      count
+      aggregation {
+        totalSnapshots
+        missedSnapshots
+      }
+    }
+  }&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -298,13 +299,13 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 defined in the <code>Cluster</code> object type to create a GraphQL query that
 requests the details of the protected virtual machines.</p>
 <pre><code class="language-bash">type Cluster {
-        snappableConnection(
-             first: Int,
-             after: String,
-             last: Int,
-             before: String,
-             filter: SnappableFilterInput
-        ): SnappableConnection!
+    snappableConnection(
+        first: Int,
+        after: String,
+        last: Int,
+        before: String,
+        filter: SnappableFilterInput
+    ): SnappableConnection!
 }
 </code></pre>
 <p>The <code>filter</code> argument of <code>snappableConnection</code> specifies the
@@ -323,11 +324,11 @@ object models the data in the response of the GraphQL query.</p>
 the specified criteria. The <code>totalSnapshots</code> and <code>missedSnapshots</code> are
 fields of <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/snappableaggregation.doc.html"><code>SnappableAggregation</code></a> type.</p>
 <pre><code class="language-bash">type SnappableConnection {
-        edges: [SnappableEdge!]!
-        nodes: [Snappable!]!
-        pageInfo: PageInfo!
-        count: Int!
-        aggregation: SnappableAggregation!
+    edges: [SnappableEdge!]!
+    nodes: [Snappable!]!
+    pageInfo: PageInfo!
+    count: Int!
+    aggregation: SnappableAggregation!
 }
 </code></pre>
 <h4 id="sample-response_1">Sample response</h4>
@@ -359,7 +360,7 @@ fields of <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/r
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2022-02-23</small>
+            <small>Revised on: 2022-06-01</small>
             </p>
           
 

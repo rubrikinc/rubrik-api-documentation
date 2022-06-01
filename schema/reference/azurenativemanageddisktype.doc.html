@@ -1,0 +1,2928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/graphdoc.css" />
+    <title>AzureNativeManagedDiskType</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet"><link type="text/css" rel="stylesheet" href="./assets/code.css" /><link type="text/css" rel="stylesheet" href="./assets/require-by.css" />
+</head>
+<body class="slds-scrollable--y">
+    <nav class="slds-grid slds-grid--vertical slds-col--rule-right" style="padding: 0">
+        <header class="slds-p-around--medium slds-col slds-shrik slds-grow-none">
+            <button class="slds-button slds-button--icon slds-float--right js-toggle-navigation less-than-medium">
+                <i class="material-icons">close</i>
+            </button>
+                <h3 class="slds-text-heading--medium"><a href="./">GraphQL Schema</a></h3>
+            <div class="slds-p-top--small">
+                <input id="type-search" type="text" placeholder="Search a type" autofocus="" class="slds-input" />
+            </div>
+        </header>
+        <div id="navication-scroll" class="slds-scrollable--y slds-col slds-grow">
+
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Schema</h4>
+    <ul>
+        <li  title="Query">
+            <a href="query.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Query
+            </a>
+        </li>
+        <li  title="Mutation">
+            <a href="mutation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Mutation
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Scalars</h4>
+    <ul>
+        <li  title="Boolean">
+            <a href="boolean.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Boolean
+            </a>
+        </li>
+        <li  title="DateTime">
+            <a href="datetime.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DateTime
+            </a>
+        </li>
+        <li  title="Float">
+            <a href="float.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Float
+            </a>
+        </li>
+        <li  title="ID">
+            <a href="id.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ID
+            </a>
+        </li>
+        <li  title="Int">
+            <a href="int.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Int
+            </a>
+        </li>
+        <li  title="Long">
+            <a href="long.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Long
+            </a>
+        </li>
+        <li  title="String">
+            <a href="string.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                String
+            </a>
+        </li>
+        <li  title="UUID">
+            <a href="uuid.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UUID
+            </a>
+        </li>
+        <li  title="Void">
+            <a href="void.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Void
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Enums</h4>
+    <ul>
+        <li  title="ActivityObjectTypeEnum">
+            <a href="activityobjecttypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivityObjectTypeEnum
+            </a>
+        </li>
+        <li  title="ActivitySeriesSortByEnum">
+            <a href="activityseriessortbyenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeriesSortByEnum
+            </a>
+        </li>
+        <li  title="ActivitySeverityEnum">
+            <a href="activityseverityenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeverityEnum
+            </a>
+        </li>
+        <li  title="ActivityStatusEnum">
+            <a href="activitystatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivityStatusEnum
+            </a>
+        </li>
+        <li  title="ActivityTypeEnum">
+            <a href="activitytypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivityTypeEnum
+            </a>
+        </li>
+        <li  title="AmiType">
+            <a href="amitype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AmiType
+            </a>
+        </li>
+        <li  title="ArchivalGroupTieringStatus">
+            <a href="archivalgrouptieringstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalGroupTieringStatus
+            </a>
+        </li>
+        <li  title="ArchivalGroupTypeEnum">
+            <a href="archivalgrouptypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalGroupTypeEnum
+            </a>
+        </li>
+        <li  title="ArchivalLocationStatus">
+            <a href="archivallocationstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationStatus
+            </a>
+        </li>
+        <li  title="ArchivalLocationType">
+            <a href="archivallocationtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationType
+            </a>
+        </li>
+        <li  title="AuthTypeEnum">
+            <a href="authtypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AuthTypeEnum
+            </a>
+        </li>
+        <li  title="AwsAccountStatus">
+            <a href="awsaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsAccountStatus
+            </a>
+        </li>
+        <li  title="AwsAuthServerBasedCloudAccountRegion">
+            <a href="awsauthserverbasedcloudaccountregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsAuthServerBasedCloudAccountRegion
+            </a>
+        </li>
+        <li  title="AwsCloudAccountRegion">
+            <a href="awscloudaccountregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountRegion
+            </a>
+        </li>
+        <li  title="AwsCloudType">
+            <a href="awscloudtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudType
+            </a>
+        </li>
+        <li  title="AwsNativeAccountSortFields">
+            <a href="awsnativeaccountsortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountSortFields
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeSortFields">
+            <a href="awsnativeebsvolumesortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeSortFields
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeType">
+            <a href="awsnativeebsvolumetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeType
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceSortFields">
+            <a href="awsnativeec2instancesortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceSortFields
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceType">
+            <a href="awsnativeec2instancetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceType
+            </a>
+        </li>
+        <li  title="AwsNativeFileRecoveryStatus">
+            <a href="awsnativefilerecoverystatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeFileRecoveryStatus
+            </a>
+        </li>
+        <li  title="AwsNativeProtectionFeature">
+            <a href="awsnativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeProtectionFeature
+            </a>
+        </li>
+        <li  title="AwsNativeRdsDbEngine">
+            <a href="awsnativerdsdbengine.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsDbEngine
+            </a>
+        </li>
+        <li  title="AwsNativeRdsDbInstanceClass">
+            <a href="awsnativerdsdbinstanceclass.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsDbInstanceClass
+            </a>
+        </li>
+        <li  title="AwsNativeRdsInstanceSortFields">
+            <a href="awsnativerdsinstancesortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsInstanceSortFields
+            </a>
+        </li>
+        <li  title="AwsNativeRdsStorageType">
+            <a href="awsnativerdsstoragetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsStorageType
+            </a>
+        </li>
+        <li  title="AwsNativeRegion">
+            <a href="awsnativeregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRegion
+            </a>
+        </li>
+        <li  title="AwsNativeRegionForReplication">
+            <a href="awsnativeregionforreplication.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRegionForReplication
+            </a>
+        </li>
+        <li  title="AwsRegion">
+            <a href="awsregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsRegion
+            </a>
+        </li>
+        <li  title="AwsRetrievalTier">
+            <a href="awsretrievaltier.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsRetrievalTier
+            </a>
+        </li>
+        <li  title="AwsStorageClassTypeEnum">
+            <a href="awsstorageclasstypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsStorageClassTypeEnum
+            </a>
+        </li>
+        <li  title="AzureCloudAccountRegion">
+            <a href="azurecloudaccountregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountRegion
+            </a>
+        </li>
+        <li  title="AzureCloudType">
+            <a href="azurecloudtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudType
+            </a>
+        </li>
+        <li  title="AzureNativeCommonResourceGroupSortFields">
+            <a href="azurenativecommonresourcegroupsortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeCommonResourceGroupSortFields
+            </a>
+        </li>
+        <li  title="AzureNativeDiskSortFields">
+            <a href="azurenativedisksortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskSortFields
+            </a>
+        </li>
+        <li  title="AzureNativeFileIndexingStatus">
+            <a href="azurenativefileindexingstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeFileIndexingStatus
+            </a>
+        </li>
+        <li class="slds-is-active" title="AzureNativeManagedDiskType">
+            <a href="azurenativemanageddisktype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeManagedDiskType
+            </a>
+        </li>
+        <li  title="AzureNativeProtectionFeature">
+            <a href="azurenativeprotectionfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeProtectionFeature
+            </a>
+        </li>
+        <li  title="AzureNativeRegion">
+            <a href="azurenativeregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegion
+            </a>
+        </li>
+        <li  title="AzureNativeRegionForReplication">
+            <a href="azurenativeregionforreplication.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionForReplication
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionSortFields">
+            <a href="azurenativesubscriptionsortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionSortFields
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualMachineSortFields">
+            <a href="azurenativevirtualmachinesortfields.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualMachineSortFields
+            </a>
+        </li>
+        <li  title="AzureNativeVmOsType">
+            <a href="azurenativevmostype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmOsType
+            </a>
+        </li>
+        <li  title="AzureRedundancy">
+            <a href="azureredundancy.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureRedundancy
+            </a>
+        </li>
+        <li  title="AzureRegion">
+            <a href="azureregion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureRegion
+            </a>
+        </li>
+        <li  title="AzureSnapshotType">
+            <a href="azuresnapshottype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSnapshotType
+            </a>
+        </li>
+        <li  title="AzureStorageTier">
+            <a href="azurestoragetier.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureStorageTier
+            </a>
+        </li>
+        <li  title="AzureSubscriptionStatus">
+            <a href="azuresubscriptionstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSubscriptionStatus
+            </a>
+        </li>
+        <li  title="CcpJobStatus">
+            <a href="ccpjobstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CcpJobStatus
+            </a>
+        </li>
+        <li  title="CcpJobType">
+            <a href="ccpjobtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CcpJobType
+            </a>
+        </li>
+        <li  title="CcpVendorType">
+            <a href="ccpvendortype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CcpVendorType
+            </a>
+        </li>
+        <li  title="CdmClusterStatusTypeEnum">
+            <a href="cdmclusterstatustypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmClusterStatusTypeEnum
+            </a>
+        </li>
+        <li  title="CloudAccountAction">
+            <a href="cloudaccountaction.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudAccountAction
+            </a>
+        </li>
+        <li  title="CloudAccountFeature">
+            <a href="cloudaccountfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudAccountFeature
+            </a>
+        </li>
+        <li  title="CloudAccountStatus">
+            <a href="cloudaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudAccountStatus
+            </a>
+        </li>
+        <li  title="CloudAccountType">
+            <a href="cloudaccounttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudAccountType
+            </a>
+        </li>
+        <li  title="CloudNativeLocTemplateType">
+            <a href="cloudnativeloctemplatetype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudNativeLocTemplateType
+            </a>
+        </li>
+        <li  title="CloudNativeRbaStatusType">
+            <a href="cloudnativerbastatustype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudNativeRbaStatusType
+            </a>
+        </li>
+        <li  title="CloudProvider">
+            <a href="cloudprovider.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudProvider
+            </a>
+        </li>
+        <li  title="ClusterDiskStatus">
+            <a href="clusterdiskstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDiskStatus
+            </a>
+        </li>
+        <li  title="ClusterDiskType">
+            <a href="clusterdisktype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDiskType
+            </a>
+        </li>
+        <li  title="ClusterJobStatusTypeEnum">
+            <a href="clusterjobstatustypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterJobStatusTypeEnum
+            </a>
+        </li>
+        <li  title="ClusterNodeStatus">
+            <a href="clusternodestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeStatus
+            </a>
+        </li>
+        <li  title="ClusterPauseStatus">
+            <a href="clusterpausestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterPauseStatus
+            </a>
+        </li>
+        <li  title="ClusterProductEnum">
+            <a href="clusterproductenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterProductEnum
+            </a>
+        </li>
+        <li  title="ClusterRemovalState">
+            <a href="clusterremovalstate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterRemovalState
+            </a>
+        </li>
+        <li  title="ClusterStatus">
+            <a href="clusterstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterStatus
+            </a>
+        </li>
+        <li  title="ClusterSystemStatus">
+            <a href="clustersystemstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterSystemStatus
+            </a>
+        </li>
+        <li  title="ClusterTypeEnum">
+            <a href="clustertypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterTypeEnum
+            </a>
+        </li>
+        <li  title="ColdStorageClass">
+            <a href="coldstorageclass.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ColdStorageClass
+            </a>
+        </li>
+        <li  title="ComplianceStatusEnum">
+            <a href="compliancestatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ComplianceStatusEnum
+            </a>
+        </li>
+        <li  title="ConnectionStatusType">
+            <a href="connectionstatustype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ConnectionStatusType
+            </a>
+        </li>
+        <li  title="DayOfMonth">
+            <a href="dayofmonth.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DayOfMonth
+            </a>
+        </li>
+        <li  title="DayOfQuarter">
+            <a href="dayofquarter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DayOfQuarter
+            </a>
+        </li>
+        <li  title="DayOfWeek">
+            <a href="dayofweek.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DayOfWeek
+            </a>
+        </li>
+        <li  title="DayOfYear">
+            <a href="dayofyear.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DayOfYear
+            </a>
+        </li>
+        <li  title="FieldEnum">
+            <a href="fieldenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FieldEnum
+            </a>
+        </li>
+        <li  title="GcpRegionEnum">
+            <a href="gcpregionenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GcpRegionEnum
+            </a>
+        </li>
+        <li  title="GcpStorageClassTypeEnum">
+            <a href="gcpstorageclasstypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GcpStorageClassTypeEnum
+            </a>
+        </li>
+        <li  title="GuestOsTypeEnum">
+            <a href="guestostypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GuestOsTypeEnum
+            </a>
+        </li>
+        <li  title="HierarchyFilterField">
+            <a href="hierarchyfilterfield.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HierarchyFilterField
+            </a>
+        </li>
+        <li  title="HierarchyObjectTypeEnum">
+            <a href="hierarchyobjecttypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HierarchyObjectTypeEnum
+            </a>
+        </li>
+        <li  title="HierarchySortByField">
+            <a href="hierarchysortbyfield.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HierarchySortByField
+            </a>
+        </li>
+        <li  title="HierarchySortOrder">
+            <a href="hierarchysortorder.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HierarchySortOrder
+            </a>
+        </li>
+        <li  title="HostConnectivityStatusEnum">
+            <a href="hostconnectivitystatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HostConnectivityStatusEnum
+            </a>
+        </li>
+        <li  title="InstanceTypeEnum">
+            <a href="instancetypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                InstanceTypeEnum
+            </a>
+        </li>
+        <li  title="InterfaceTypeEnum">
+            <a href="interfacetypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                InterfaceTypeEnum
+            </a>
+        </li>
+        <li  title="LocationScope">
+            <a href="locationscope.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LocationScope
+            </a>
+        </li>
+        <li  title="LocationTypeEnum">
+            <a href="locationtypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LocationTypeEnum
+            </a>
+        </li>
+        <li  title="LogLevelEnum">
+            <a href="loglevelenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LogLevelEnum
+            </a>
+        </li>
+        <li  title="ManagedObjectType">
+            <a href="managedobjecttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ManagedObjectType
+            </a>
+        </li>
+        <li  title="Month">
+            <a href="month.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Month
+            </a>
+        </li>
+        <li  title="ObjectTypeEnum">
+            <a href="objecttypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ObjectTypeEnum
+            </a>
+        </li>
+        <li  title="OperationEnum">
+            <a href="operationenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                OperationEnum
+            </a>
+        </li>
+        <li  title="OsTypeEnum">
+            <a href="ostypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                OsTypeEnum
+            </a>
+        </li>
+        <li  title="PendingActionStatusEnum">
+            <a href="pendingactionstatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PendingActionStatusEnum
+            </a>
+        </li>
+        <li  title="PolarisObjectAuthorizedOperationsEnum">
+            <a href="polarisobjectauthorizedoperationsenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisObjectAuthorizedOperationsEnum
+            </a>
+        </li>
+        <li  title="PolarisSnappableAuthorizedOperationsEnum">
+            <a href="polarissnappableauthorizedoperationsenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnappableAuthorizedOperationsEnum
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByEnum">
+            <a href="polarissnapshotgroupbyenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByEnum
+            </a>
+        </li>
+        <li  title="PolarisSnapshotSortByEnum">
+            <a href="polarissnapshotsortbyenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotSortByEnum
+            </a>
+        </li>
+        <li  title="ProtectionStatusEnum">
+            <a href="protectionstatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ProtectionStatusEnum
+            </a>
+        </li>
+        <li  title="RcsRegionEnumType">
+            <a href="rcsregionenumtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RcsRegionEnumType
+            </a>
+        </li>
+        <li  title="RcsTierEnumType">
+            <a href="rcstierenumtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RcsTierEnumType
+            </a>
+        </li>
+        <li  title="ReaderRetrievalMethod">
+            <a href="readerretrievalmethod.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReaderRetrievalMethod
+            </a>
+        </li>
+        <li  title="ReplicationTypeEnum">
+            <a href="replicationtypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationTypeEnum
+            </a>
+        </li>
+        <li  title="RetentionUnitEnum">
+            <a href="retentionunitenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RetentionUnitEnum
+            </a>
+        </li>
+        <li  title="SlaAssignmentTypeEnum">
+            <a href="slaassignmenttypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaAssignmentTypeEnum
+            </a>
+        </li>
+        <li  title="SLAComplianceTimeRangeEnum">
+            <a href="slacompliancetimerangeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SLAComplianceTimeRangeEnum
+            </a>
+        </li>
+        <li  title="SlaMigrationIneligibilityReason">
+            <a href="slamigrationineligibilityreason.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaMigrationIneligibilityReason
+            </a>
+        </li>
+        <li  title="SlaMigrationStatus">
+            <a href="slamigrationstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaMigrationStatus
+            </a>
+        </li>
+        <li  title="SLAObjectTypeEnum">
+            <a href="slaobjecttypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SLAObjectTypeEnum
+            </a>
+        </li>
+        <li  title="SlaSyncStatus">
+            <a href="slasyncstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaSyncStatus
+            </a>
+        </li>
+        <li  title="SnappableLevelHierarchyTypeEnum">
+            <a href="snappablelevelhierarchytypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableLevelHierarchyTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotConsistencyLevelEnum">
+            <a href="snapshotconsistencylevelenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotConsistencyLevelEnum
+            </a>
+        </li>
+        <li  title="SnapshotGroupByTimeEnum">
+            <a href="snapshotgroupbytimeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotGroupByTimeEnum
+            </a>
+        </li>
+        <li  title="SnapshotQueryFilterField">
+            <a href="snapshotqueryfilterfield.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotQueryFilterField
+            </a>
+        </li>
+        <li  title="SnapshotQuerySortByField">
+            <a href="snapshotquerysortbyfield.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotQuerySortByField
+            </a>
+        </li>
+        <li  title="SnapshotServiceConsistencyLevel">
+            <a href="snapshotserviceconsistencylevel.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotServiceConsistencyLevel
+            </a>
+        </li>
+        <li  title="SnapshotType">
+            <a href="snapshottype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotType
+            </a>
+        </li>
+        <li  title="SnapshotTypeEnum">
+            <a href="snapshottypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeEnum
+            </a>
+        </li>
+        <li  title="SnapshotTypeForRestoreIfSourceExpired">
+            <a href="snapshottypeforrestoreifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeForRestoreIfSourceExpired
+            </a>
+        </li>
+        <li  title="SnapshotTypeToUseIfSourceExpired">
+            <a href="snapshottypetouseifsourceexpired.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotTypeToUseIfSourceExpired
+            </a>
+        </li>
+        <li  title="SortOrderEnum">
+            <a href="sortorderenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SortOrderEnum
+            </a>
+        </li>
+        <li  title="TagFilterType">
+            <a href="tagfiltertype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TagFilterType
+            </a>
+        </li>
+        <li  title="TargetEncryptionTypeEnum">
+            <a href="targetencryptiontypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetEncryptionTypeEnum
+            </a>
+        </li>
+        <li  title="TargetSyncStatusEnum">
+            <a href="targetsyncstatusenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetSyncStatusEnum
+            </a>
+        </li>
+        <li  title="TargetTypeEnum">
+            <a href="targettypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetTypeEnum
+            </a>
+        </li>
+        <li  title="TimeUnitEnum">
+            <a href="timeunitenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TimeUnitEnum
+            </a>
+        </li>
+        <li  title="UnmanagedObjectAvailabilityFilter">
+            <a href="unmanagedobjectavailabilityfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UnmanagedObjectAvailabilityFilter
+            </a>
+        </li>
+        <li  title="VersionStatusTypeEnum">
+            <a href="versionstatustypeenum.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                VersionStatusTypeEnum
+            </a>
+        </li>
+        <li  title="__DirectiveLocation">
+            <a href="directivelocation.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __DirectiveLocation
+            </a>
+        </li>
+        <li  title="__TypeKind">
+            <a href="typekind.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __TypeKind
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Interfaces</h4>
+    <ul>
+        <li  title="AwsNativeAccountDescendantType">
+            <a href="awsnativeaccountdescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountDescendantType
+            </a>
+        </li>
+        <li  title="AwsNativeAccountLogicalChildType">
+            <a href="awsnativeaccountlogicalchildtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountLogicalChildType
+            </a>
+        </li>
+        <li  title="CdmHierarchyObject">
+            <a href="cdmhierarchyobject.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmHierarchyObject
+            </a>
+        </li>
+        <li  title="CloudAccount">
+            <a href="cloudaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CloudAccount
+            </a>
+        </li>
+        <li  title="Db2InstanceDescendantType">
+            <a href="db2instancedescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2InstanceDescendantType
+            </a>
+        </li>
+        <li  title="Db2InstancePhysicalChildType">
+            <a href="db2instancephysicalchildtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2InstancePhysicalChildType
+            </a>
+        </li>
+        <li  title="GenericSnapshot">
+            <a href="genericsnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GenericSnapshot
+            </a>
+        </li>
+        <li  title="HierarchyObject">
+            <a href="hierarchyobject.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HierarchyObject
+            </a>
+        </li>
+        <li  title="ManagedVolumeDescendantType">
+            <a href="managedvolumedescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ManagedVolumeDescendantType
+            </a>
+        </li>
+        <li  title="ManagedVolumeMountDescendantType">
+            <a href="managedvolumemountdescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ManagedVolumeMountDescendantType
+            </a>
+        </li>
+        <li  title="ManagedVolumeMountPhysicalChildType">
+            <a href="managedvolumemountphysicalchildtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ManagedVolumeMountPhysicalChildType
+            </a>
+        </li>
+        <li  title="MssqlTopLevelDescendantType">
+            <a href="mssqltopleveldescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                MssqlTopLevelDescendantType
+            </a>
+        </li>
+        <li  title="PhysicalHostDescendantType">
+            <a href="physicalhostdescendanttype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostDescendantType
+            </a>
+        </li>
+        <li  title="PhysicalHostPhysicalChildType">
+            <a href="physicalhostphysicalchildtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostPhysicalChildType
+            </a>
+        </li>
+        <li  title="PolarisHierarchyObject">
+            <a href="polarishierarchyobject.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisHierarchyObject
+            </a>
+        </li>
+        <li  title="PolarisHierarchySnappable">
+            <a href="polarishierarchysnappable.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisHierarchySnappable
+            </a>
+        </li>
+        <li  title="PolarisSpecificSnapshot">
+            <a href="polarisspecificsnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSpecificSnapshot
+            </a>
+        </li>
+        <li  title="SlaDomain">
+            <a href="sladomain.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaDomain
+            </a>
+        </li>
+        <li  title="Target">
+            <a href="target.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Target
+            </a>
+        </li>
+        <li  title="TargetTemplate">
+            <a href="targettemplate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetTemplate
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Unions</h4>
+    <ul>
+        <li  title="ClusterMetricGroupByInfo">
+            <a href="clustermetricgroupbyinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterMetricGroupByInfo
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByInfo">
+            <a href="polarissnapshotgroupbyinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByInfo
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Objects</h4>
+    <ul>
+        <li  title="Activity">
+            <a href="activity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Activity
+            </a>
+        </li>
+        <li  title="ActivityConnection">
+            <a href="activityconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivityConnection
+            </a>
+        </li>
+        <li  title="ActivityEdge">
+            <a href="activityedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivityEdge
+            </a>
+        </li>
+        <li  title="ActivitySeries">
+            <a href="activityseries.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeries
+            </a>
+        </li>
+        <li  title="ActivitySeriesConnection">
+            <a href="activityseriesconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeriesConnection
+            </a>
+        </li>
+        <li  title="ActivitySeriesEdge">
+            <a href="activityseriesedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeriesEdge
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountExocomputeConfigurationsReply">
+            <a href="addazurecloudaccountexocomputeconfigurationsreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountExocomputeConfigurationsReply
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountReply">
+            <a href="addazurecloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountReply
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountStatus">
+            <a href="addazurecloudaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountStatus
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountWithoutOauthReply">
+            <a href="addazurecloudaccountwithoutoauthreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountWithoutOauthReply
+            </a>
+        </li>
+        <li  title="AmiTypeForAwsNativeArchivedSnapshotExportReply">
+            <a href="amitypeforawsnativearchivedsnapshotexportreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AmiTypeForAwsNativeArchivedSnapshotExportReply
+            </a>
+        </li>
+        <li  title="ArchivalGroupConnectionStatus">
+            <a href="archivalgroupconnectionstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalGroupConnectionStatus
+            </a>
+        </li>
+        <li  title="ArchivalLocation">
+            <a href="archivallocation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocation
+            </a>
+        </li>
+        <li  title="ArchivalLocationToClusterMapping">
+            <a href="archivallocationtoclustermapping.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalLocationToClusterMapping
+            </a>
+        </li>
+        <li  title="ArchivalSpec">
+            <a href="archivalspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalSpec
+            </a>
+        </li>
+        <li  title="ArchivalTieringSpec">
+            <a href="archivaltieringspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ArchivalTieringSpec
+            </a>
+        </li>
+        <li  title="AsyncJobStatus">
+            <a href="asyncjobstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AsyncJobStatus
+            </a>
+        </li>
+        <li  title="AsyncJobStatusJobError">
+            <a href="asyncjobstatusjoberror.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AsyncJobStatusJobError
+            </a>
+        </li>
+        <li  title="AsyncJobStatusJobId">
+            <a href="asyncjobstatusjobid.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AsyncJobStatusJobId
+            </a>
+        </li>
+        <li  title="AttachmentSpecForEbsVolume">
+            <a href="attachmentspecforebsvolume.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AttachmentSpecForEbsVolume
+            </a>
+        </li>
+        <li  title="AttachmentSpecForEc2Instance">
+            <a href="attachmentspecforec2instance.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AttachmentSpecForEc2Instance
+            </a>
+        </li>
+        <li  title="AttachmentSpecsForManagedDisk">
+            <a href="attachmentspecsformanageddisk.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AttachmentSpecsForManagedDisk
+            </a>
+        </li>
+        <li  title="AttachmentSpecsForVirtualMachine">
+            <a href="attachmentspecsforvirtualmachine.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AttachmentSpecsForVirtualMachine
+            </a>
+        </li>
+        <li  title="AuthorizedOperations">
+            <a href="authorizedoperations.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AuthorizedOperations
+            </a>
+        </li>
+        <li  title="AwsAccount">
+            <a href="awsaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsAccount
+            </a>
+        </li>
+        <li  title="AwsAccountValidationResponse">
+            <a href="awsaccountvalidationresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsAccountValidationResponse
+            </a>
+        </li>
+        <li  title="AwsAuthServerDetail">
+            <a href="awsauthserverdetail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsAuthServerDetail
+            </a>
+        </li>
+        <li  title="AwsCloudAccount">
+            <a href="awscloudaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccount
+            </a>
+        </li>
+        <li  title="AwsCloudAccountCreateResponse">
+            <a href="awscloudaccountcreateresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountCreateResponse
+            </a>
+        </li>
+        <li  title="AwsCloudAccountFeatureVersion">
+            <a href="awscloudaccountfeatureversion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountFeatureVersion
+            </a>
+        </li>
+        <li  title="AwsCloudAccountValidateResponse">
+            <a href="awscloudaccountvalidateresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountValidateResponse
+            </a>
+        </li>
+        <li  title="AwsCloudAccountWithFeatures">
+            <a href="awscloudaccountwithfeatures.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountWithFeatures
+            </a>
+        </li>
+        <li  title="AwsComputeSettings">
+            <a href="awscomputesettings.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsComputeSettings
+            </a>
+        </li>
+        <li  title="AwsExocomputeConfig">
+            <a href="awsexocomputeconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeConfig
+            </a>
+        </li>
+        <li  title="AwsExocomputeConfigsDeletionStatusType">
+            <a href="awsexocomputeconfigsdeletionstatustype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeConfigsDeletionStatusType
+            </a>
+        </li>
+        <li  title="AwsExocomputeGetConfigResponse">
+            <a href="awsexocomputegetconfigresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeGetConfigResponse
+            </a>
+        </li>
+        <li  title="AwsExocomputeSubnetType">
+            <a href="awsexocomputesubnettype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeSubnetType
+            </a>
+        </li>
+        <li  title="AwsFeatureConfig">
+            <a href="awsfeatureconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsFeatureConfig
+            </a>
+        </li>
+        <li  title="AwsImmutabilitySettingsType">
+            <a href="awsimmutabilitysettingstype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsImmutabilitySettingsType
+            </a>
+        </li>
+        <li  title="AwsNativeAccount">
+            <a href="awsnativeaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccount
+            </a>
+        </li>
+        <li  title="AwsNativeAccountConnection">
+            <a href="awsnativeaccountconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountConnection
+            </a>
+        </li>
+        <li  title="AwsNativeAccountEdge">
+            <a href="awsnativeaccountedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountEdge
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolume">
+            <a href="awsnativeebsvolume.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolume
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeConnection">
+            <a href="awsnativeebsvolumeconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeConnection
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeEdge">
+            <a href="awsnativeebsvolumeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeEdge
+            </a>
+        </li>
+        <li  title="AwsNativeEc2Instance">
+            <a href="awsnativeec2instance.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2Instance
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceConnection">
+            <a href="awsnativeec2instanceconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceConnection
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceEdge">
+            <a href="awsnativeec2instanceedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceEdge
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceSpecificSnapshot">
+            <a href="awsnativeec2instancespecificsnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceSpecificSnapshot
+            </a>
+        </li>
+        <li  title="AwsNativeRdsInstance">
+            <a href="awsnativerdsinstance.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsInstance
+            </a>
+        </li>
+        <li  title="AwsNativeRdsInstanceConnection">
+            <a href="awsnativerdsinstanceconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsInstanceConnection
+            </a>
+        </li>
+        <li  title="AwsNativeRdsInstanceEdge">
+            <a href="awsnativerdsinstanceedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsInstanceEdge
+            </a>
+        </li>
+        <li  title="AwsNativeRdsPointInTimeRestoreWindow">
+            <a href="awsnativerdspointintimerestorewindow.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsPointInTimeRestoreWindow
+            </a>
+        </li>
+        <li  title="AwsNativeRegionSpec">
+            <a href="awsnativeregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRegionSpec
+            </a>
+        </li>
+        <li  title="AwsNativeSubnet">
+            <a href="awsnativesubnet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeSubnet
+            </a>
+        </li>
+        <li  title="AwsRdsConfig">
+            <a href="awsrdsconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsRdsConfig
+            </a>
+        </li>
+        <li  title="AwsReplicationTarget">
+            <a href="awsreplicationtarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsReplicationTarget
+            </a>
+        </li>
+        <li  title="AwsRoleBasedAccount">
+            <a href="awsrolebasedaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsRoleBasedAccount
+            </a>
+        </li>
+        <li  title="AwsSecurityGroup">
+            <a href="awssecuritygroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsSecurityGroup
+            </a>
+        </li>
+        <li  title="AwsSubnet">
+            <a href="awssubnet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsSubnet
+            </a>
+        </li>
+        <li  title="AwsTargetTemplate">
+            <a href="awstargettemplate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsTargetTemplate
+            </a>
+        </li>
+        <li  title="AwsVpc">
+            <a href="awsvpc.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsVpc
+            </a>
+        </li>
+        <li  title="AzureAccount">
+            <a href="azureaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureAccount
+            </a>
+        </li>
+        <li  title="AzureCloudAccountFeatureDetail">
+            <a href="azurecloudaccountfeaturedetail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountFeatureDetail
+            </a>
+        </li>
+        <li  title="AzureCloudAccountPermissionConfigResponse">
+            <a href="azurecloudaccountpermissionconfigresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountPermissionConfigResponse
+            </a>
+        </li>
+        <li  title="AzureCloudAccountRolePermission">
+            <a href="azurecloudaccountrolepermission.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountRolePermission
+            </a>
+        </li>
+        <li  title="AzureCloudAccountSubscription">
+            <a href="azurecloudaccountsubscription.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountSubscription
+            </a>
+        </li>
+        <li  title="AzureCloudAccountSubscriptionDetail">
+            <a href="azurecloudaccountsubscriptiondetail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountSubscriptionDetail
+            </a>
+        </li>
+        <li  title="AzureCloudAccountTenant">
+            <a href="azurecloudaccounttenant.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountTenant
+            </a>
+        </li>
+        <li  title="AzureCloudAccountTenantWithExoConfigs">
+            <a href="azurecloudaccounttenantwithexoconfigs.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountTenantWithExoConfigs
+            </a>
+        </li>
+        <li  title="AzureCloudNativeTargetCompanion">
+            <a href="azurecloudnativetargetcompanion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudNativeTargetCompanion
+            </a>
+        </li>
+        <li  title="AzureCmk">
+            <a href="azurecmk.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCmk
+            </a>
+        </li>
+        <li  title="AzureComputeSettings">
+            <a href="azurecomputesettings.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureComputeSettings
+            </a>
+        </li>
+        <li  title="AzureExocomputeConfigDetails">
+            <a href="azureexocomputeconfigdetails.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeConfigDetails
+            </a>
+        </li>
+        <li  title="AzureExocomputeConfigsInAccount">
+            <a href="azureexocomputeconfigsinaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeConfigsInAccount
+            </a>
+        </li>
+        <li  title="AzureExocomputeConfigValidationInfo">
+            <a href="azureexocomputeconfigvalidationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeConfigValidationInfo
+            </a>
+        </li>
+        <li  title="AzureExocomputeGetConfigResponse">
+            <a href="azureexocomputegetconfigresponse.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeGetConfigResponse
+            </a>
+        </li>
+        <li  title="AzureExocomputeRegionConfig">
+            <a href="azureexocomputeregionconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeRegionConfig
+            </a>
+        </li>
+        <li  title="AzureImmutabilitySettingsType">
+            <a href="azureimmutabilitysettingstype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureImmutabilitySettingsType
+            </a>
+        </li>
+        <li  title="AzureMappedExocomputeSubscription">
+            <a href="azuremappedexocomputesubscription.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureMappedExocomputeSubscription
+            </a>
+        </li>
+        <li  title="AzureNativeAttachedDiskSpecificSnapshot">
+            <a href="azurenativeattacheddiskspecificsnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeAttachedDiskSpecificSnapshot
+            </a>
+        </li>
+        <li  title="AzureNativeAvailabilitySet">
+            <a href="azurenativeavailabilityset.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeAvailabilitySet
+            </a>
+        </li>
+        <li  title="AzureNativeExportCompatibleDiskTypes">
+            <a href="azurenativeexportcompatibledisktypes.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeExportCompatibleDiskTypes
+            </a>
+        </li>
+        <li  title="AzureNativeExportCompatibleVmSizes">
+            <a href="azurenativeexportcompatiblevmsizes.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeExportCompatibleVmSizes
+            </a>
+        </li>
+        <li  title="AzureNativeManagedDisk">
+            <a href="azurenativemanageddisk.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeManagedDisk
+            </a>
+        </li>
+        <li  title="AzureNativeManagedDiskConnection">
+            <a href="azurenativemanageddiskconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeManagedDiskConnection
+            </a>
+        </li>
+        <li  title="AzureNativeManagedDiskEdge">
+            <a href="azurenativemanageddiskedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeManagedDiskEdge
+            </a>
+        </li>
+        <li  title="AzureNativeRegionSpec">
+            <a href="azurenativeregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionSpec
+            </a>
+        </li>
+        <li  title="AzureNativeResourceGroup">
+            <a href="azurenativeresourcegroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeResourceGroup
+            </a>
+        </li>
+        <li  title="AzureNativeResourceGroupConnection">
+            <a href="azurenativeresourcegroupconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeResourceGroupConnection
+            </a>
+        </li>
+        <li  title="AzureNativeResourceGroupEdge">
+            <a href="azurenativeresourcegroupedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeResourceGroupEdge
+            </a>
+        </li>
+        <li  title="AzureNativeResourceGroupSlaAssignment">
+            <a href="azurenativeresourcegroupslaassignment.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeResourceGroupSlaAssignment
+            </a>
+        </li>
+        <li  title="AzureNativeSecurityGroup">
+            <a href="azurenativesecuritygroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSecurityGroup
+            </a>
+        </li>
+        <li  title="AzureNativeStorageAccount">
+            <a href="azurenativestorageaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeStorageAccount
+            </a>
+        </li>
+        <li  title="AzureNativeSubnet">
+            <a href="azurenativesubnet.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubnet
+            </a>
+        </li>
+        <li  title="AzureNativeSubscription">
+            <a href="azurenativesubscription.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscription
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionConnection">
+            <a href="azurenativesubscriptionconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionConnection
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionEdge">
+            <a href="azurenativesubscriptionedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionEdge
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionEnabledFeature">
+            <a href="azurenativesubscriptionenabledfeature.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionEnabledFeature
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualMachine">
+            <a href="azurenativevirtualmachine.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualMachine
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualMachineConnection">
+            <a href="azurenativevirtualmachineconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualMachineConnection
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualMachineEdge">
+            <a href="azurenativevirtualmachineedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualMachineEdge
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualNetwork">
+            <a href="azurenativevirtualnetwork.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualNetwork
+            </a>
+        </li>
+        <li  title="AzureNativeVmSpecificSnapshot">
+            <a href="azurenativevmspecificsnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmSpecificSnapshot
+            </a>
+        </li>
+        <li  title="AzureReplicationTarget">
+            <a href="azurereplicationtarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureReplicationTarget
+            </a>
+        </li>
+        <li  title="AzureResourceGroup">
+            <a href="azureresourcegroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureResourceGroup
+            </a>
+        </li>
+        <li  title="AzureRoleBasedAccount">
+            <a href="azurerolebasedaccount.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureRoleBasedAccount
+            </a>
+        </li>
+        <li  title="AzureSqlDatabaseDbConfig">
+            <a href="azuresqldatabasedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlDatabaseDbConfig
+            </a>
+        </li>
+        <li  title="AzureSqlManagedInstanceDbConfig">
+            <a href="azuresqlmanagedinstancedbconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSqlManagedInstanceDbConfig
+            </a>
+        </li>
+        <li  title="AzureSubscriptionMissingPermissions">
+            <a href="azuresubscriptionmissingpermissions.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSubscriptionMissingPermissions
+            </a>
+        </li>
+        <li  title="AzureSubscriptionWithExoConfigs">
+            <a href="azuresubscriptionwithexoconfigs.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSubscriptionWithExoConfigs
+            </a>
+        </li>
+        <li  title="AzureSubscriptionWithFeaturesType">
+            <a href="azuresubscriptionwithfeaturestype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSubscriptionWithFeaturesType
+            </a>
+        </li>
+        <li  title="AzureTag">
+            <a href="azuretag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureTag
+            </a>
+        </li>
+        <li  title="AzureTargetTemplate">
+            <a href="azuretargettemplate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureTargetTemplate
+            </a>
+        </li>
+        <li  title="AzureUserAssignedManagedIdentity">
+            <a href="azureuserassignedmanagedidentity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureUserAssignedManagedIdentity
+            </a>
+        </li>
+        <li  title="BackupWindow">
+            <a href="backupwindow.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                BackupWindow
+            </a>
+        </li>
+        <li  title="BasicSnapshotSchedule">
+            <a href="basicsnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                BasicSnapshotSchedule
+            </a>
+        </li>
+        <li  title="BatchAsyncJobStatus">
+            <a href="batchasyncjobstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                BatchAsyncJobStatus
+            </a>
+        </li>
+        <li  title="BidirectionalReplicationSpec">
+            <a href="bidirectionalreplicationspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                BidirectionalReplicationSpec
+            </a>
+        </li>
+        <li  title="CascadingArchivalSpec">
+            <a href="cascadingarchivalspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CascadingArchivalSpec
+            </a>
+        </li>
+        <li  title="CcprovisionInfo">
+            <a href="ccprovisioninfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CcprovisionInfo
+            </a>
+        </li>
+        <li  title="CdmClusterStatus">
+            <a href="cdmclusterstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmClusterStatus
+            </a>
+        </li>
+        <li  title="CdmClusterStatusInfo">
+            <a href="cdmclusterstatusinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmClusterStatusInfo
+            </a>
+        </li>
+        <li  title="CdmHostVolume">
+            <a href="cdmhostvolume.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmHostVolume
+            </a>
+        </li>
+        <li  title="CdmManagedAwsTarget">
+            <a href="cdmmanagedawstarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedAwsTarget
+            </a>
+        </li>
+        <li  title="CdmManagedAzureTarget">
+            <a href="cdmmanagedazuretarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedAzureTarget
+            </a>
+        </li>
+        <li  title="CdmManagedGcpTarget">
+            <a href="cdmmanagedgcptarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedGcpTarget
+            </a>
+        </li>
+        <li  title="CdmManagedNfsTarget">
+            <a href="cdmmanagednfstarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedNfsTarget
+            </a>
+        </li>
+        <li  title="CdmManagedS3CompatibleTarget">
+            <a href="cdmmanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="CdmNodeDetail">
+            <a href="cdmnodedetail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmNodeDetail
+            </a>
+        </li>
+        <li  title="CdmTarget">
+            <a href="cdmtarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmTarget
+            </a>
+        </li>
+        <li  title="CdmUpgradeInfo">
+            <a href="cdmupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmUpgradeInfo
+            </a>
+        </li>
+        <li  title="Cluster">
+            <a href="cluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Cluster
+            </a>
+        </li>
+        <li  title="ClusterArchivalSpec">
+            <a href="clusterarchivalspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterArchivalSpec
+            </a>
+        </li>
+        <li  title="ClusterCloudInfoReply">
+            <a href="clustercloudinforeply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterCloudInfoReply
+            </a>
+        </li>
+        <li  title="ClusterDisk">
+            <a href="clusterdisk.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDisk
+            </a>
+        </li>
+        <li  title="ClusterDiskConnection">
+            <a href="clusterdiskconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDiskConnection
+            </a>
+        </li>
+        <li  title="ClusterDiskEdge">
+            <a href="clusterdiskedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDiskEdge
+            </a>
+        </li>
+        <li  title="ClusterInfCidrs">
+            <a href="clusterinfcidrs.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterInfCidrs
+            </a>
+        </li>
+        <li  title="ClusterMetric">
+            <a href="clustermetric.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterMetric
+            </a>
+        </li>
+        <li  title="ClusterNode">
+            <a href="clusternode.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNode
+            </a>
+        </li>
+        <li  title="ClusterNodeConnection">
+            <a href="clusternodeconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeConnection
+            </a>
+        </li>
+        <li  title="ClusterNodeEdge">
+            <a href="clusternodeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeEdge
+            </a>
+        </li>
+        <li  title="ClusterNodeInterfaceCidr">
+            <a href="clusternodeinterfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeInterfaceCidr
+            </a>
+        </li>
+        <li  title="ClusterNodeStats">
+            <a href="clusternodestats.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeStats
+            </a>
+        </li>
+        <li  title="ClusterSlaDomain">
+            <a href="clustersladomain.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterSlaDomain
+            </a>
+        </li>
+        <li  title="clusterState">
+            <a href="clusterstate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                clusterState
+            </a>
+        </li>
+        <li  title="CompleteAzureCloudAccountOauthReply">
+            <a href="completeazurecloudaccountoauthreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CompleteAzureCloudAccountOauthReply
+            </a>
+        </li>
+        <li  title="CreateAwsExocomputeConfigsReply">
+            <a href="createawsexocomputeconfigsreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateAwsExocomputeConfigsReply
+            </a>
+        </li>
+        <li  title="DailySnapshotSchedule">
+            <a href="dailysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DailySnapshotSchedule
+            </a>
+        </li>
+        <li  title="DataLocation">
+            <a href="datalocation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DataLocation
+            </a>
+        </li>
+        <li  title="DayOfWeekOpt">
+            <a href="dayofweekopt.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DayOfWeekOpt
+            </a>
+        </li>
+        <li  title="Db2Config">
+            <a href="db2config.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2Config
+            </a>
+        </li>
+        <li  title="DbParameterGroup">
+            <a href="dbparametergroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DbParameterGroup
+            </a>
+        </li>
+        <li  title="DeleteAwsExocomputeConfigsReply">
+            <a href="deleteawsexocomputeconfigsreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAwsExocomputeConfigsReply
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountExocomputeConfigurationsReply">
+            <a href="deleteazurecloudaccountexocomputeconfigurationsreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountExocomputeConfigurationsReply
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountReply">
+            <a href="deleteazurecloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountReply
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountStatus">
+            <a href="deleteazurecloudaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountStatus
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountWithoutOauthReply">
+            <a href="deleteazurecloudaccountwithoutoauthreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountWithoutOauthReply
+            </a>
+        </li>
+        <li  title="DevicePathToVolumeSnapshotId">
+            <a href="devicepathtovolumesnapshotid.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DevicePathToVolumeSnapshotId
+            </a>
+        </li>
+        <li  title="DevicePathToVolumeSnapshotIdMap">
+            <a href="devicepathtovolumesnapshotidmap.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DevicePathToVolumeSnapshotIdMap
+            </a>
+        </li>
+        <li  title="DlsArchivalLocation">
+            <a href="dlsarchivallocation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DlsArchivalLocation
+            </a>
+        </li>
+        <li  title="Duration">
+            <a href="duration.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Duration
+            </a>
+        </li>
+        <li  title="FeatureDetail">
+            <a href="featuredetail.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FeatureDetail
+            </a>
+        </li>
+        <li  title="FinalizeAwsCloudAccountDeletionReply">
+            <a href="finalizeawscloudaccountdeletionreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FinalizeAwsCloudAccountDeletionReply
+            </a>
+        </li>
+        <li  title="FinalizeAwsCloudAccountProtectionReply">
+            <a href="finalizeawscloudaccountprotectionreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FinalizeAwsCloudAccountProtectionReply
+            </a>
+        </li>
+        <li  title="GenericSnapshotConnection">
+            <a href="genericsnapshotconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GenericSnapshotConnection
+            </a>
+        </li>
+        <li  title="GenericSnapshotEdge">
+            <a href="genericsnapshotedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GenericSnapshotEdge
+            </a>
+        </li>
+        <li  title="GeoLocation">
+            <a href="geolocation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GeoLocation
+            </a>
+        </li>
+        <li  title="GetLambdaConfigReply">
+            <a href="getlambdaconfigreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GetLambdaConfigReply
+            </a>
+        </li>
+        <li  title="GlobalManagerConnectivity">
+            <a href="globalmanagerconnectivity.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GlobalManagerConnectivity
+            </a>
+        </li>
+        <li  title="GlobalManagerUrl">
+            <a href="globalmanagerurl.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GlobalManagerUrl
+            </a>
+        </li>
+        <li  title="GlobalSla">
+            <a href="globalsla.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                GlobalSla
+            </a>
+        </li>
+        <li  title="HostConnectionStatus">
+            <a href="hostconnectionstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HostConnectionStatus
+            </a>
+        </li>
+        <li  title="HourlySnapshotSchedule">
+            <a href="hourlysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                HourlySnapshotSchedule
+            </a>
+        </li>
+        <li  title="InterfaceCidr">
+            <a href="interfacecidr.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                InterfaceCidr
+            </a>
+        </li>
+        <li  title="IsVolumeSnapshotRestorableReply">
+            <a href="isvolumesnapshotrestorablereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                IsVolumeSnapshotRestorableReply
+            </a>
+        </li>
+        <li  title="JobMetadata">
+            <a href="jobmetadata.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                JobMetadata
+            </a>
+        </li>
+        <li  title="JobReply">
+            <a href="jobreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                JobReply
+            </a>
+        </li>
+        <li  title="JobsReply">
+            <a href="jobsreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                JobsReply
+            </a>
+        </li>
+        <li  title="KmsEncryptionKey">
+            <a href="kmsencryptionkey.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                KmsEncryptionKey
+            </a>
+        </li>
+        <li  title="LambdaFeatureHistory">
+            <a href="lambdafeaturehistory.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LambdaFeatureHistory
+            </a>
+        </li>
+        <li  title="LatestUserNote">
+            <a href="latestusernote.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LatestUserNote
+            </a>
+        </li>
+        <li  title="LogConfigResult">
+            <a href="logconfigresult.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                LogConfigResult
+            </a>
+        </li>
+        <li  title="metricTimeSeries">
+            <a href="metrictimeseries.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                metricTimeSeries
+            </a>
+        </li>
+        <li  title="MinuteSnapshotSchedule">
+            <a href="minutesnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                MinuteSnapshotSchedule
+            </a>
+        </li>
+        <li  title="MonthlySnapshotSchedule">
+            <a href="monthlysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                MonthlySnapshotSchedule
+            </a>
+        </li>
+        <li  title="MssqlConfig">
+            <a href="mssqlconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                MssqlConfig
+            </a>
+        </li>
+        <li  title="ObjectSpecificConfigs">
+            <a href="objectspecificconfigs.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ObjectSpecificConfigs
+            </a>
+        </li>
+        <li  title="OptionGroup">
+            <a href="optiongroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                OptionGroup
+            </a>
+        </li>
+        <li  title="OracleConfig">
+            <a href="oracleconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                OracleConfig
+            </a>
+        </li>
+        <li  title="OracleUserDetails">
+            <a href="oracleuserdetails.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                OracleUserDetails
+            </a>
+        </li>
+        <li  title="PageInfo">
+            <a href="pageinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PageInfo
+            </a>
+        </li>
+        <li  title="PathNode">
+            <a href="pathnode.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PathNode
+            </a>
+        </li>
+        <li  title="PausedClustersInfo">
+            <a href="pausedclustersinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PausedClustersInfo
+            </a>
+        </li>
+        <li  title="PendingSnapshotsOfObjectDeletion">
+            <a href="pendingsnapshotsofobjectdeletion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PendingSnapshotsOfObjectDeletion
+            </a>
+        </li>
+        <li  title="PersistentStorage">
+            <a href="persistentstorage.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PersistentStorage
+            </a>
+        </li>
+        <li  title="PhysicalHost">
+            <a href="physicalhost.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHost
+            </a>
+        </li>
+        <li  title="PhysicalHostDescendantTypeConnection">
+            <a href="physicalhostdescendanttypeconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostDescendantTypeConnection
+            </a>
+        </li>
+        <li  title="PhysicalHostDescendantTypeEdge">
+            <a href="physicalhostdescendanttypeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostDescendantTypeEdge
+            </a>
+        </li>
+        <li  title="PhysicalHostPhysicalChildTypeConnection">
+            <a href="physicalhostphysicalchildtypeconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostPhysicalChildTypeConnection
+            </a>
+        </li>
+        <li  title="PhysicalHostPhysicalChildTypeEdge">
+            <a href="physicalhostphysicalchildtypeedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PhysicalHostPhysicalChildTypeEdge
+            </a>
+        </li>
+        <li  title="PolarisManagedAwsTarget">
+            <a href="polarismanagedawstarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedAwsTarget
+            </a>
+        </li>
+        <li  title="PolarisManagedAzureTarget">
+            <a href="polarismanagedazuretarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedAzureTarget
+            </a>
+        </li>
+        <li  title="PolarisManagedGcpTarget">
+            <a href="polarismanagedgcptarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedGcpTarget
+            </a>
+        </li>
+        <li  title="PolarisManagedNfsTarget">
+            <a href="polarismanagednfstarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedNfsTarget
+            </a>
+        </li>
+        <li  title="PolarisManagedRcsTarget">
+            <a href="polarismanagedrcstarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedRcsTarget
+            </a>
+        </li>
+        <li  title="PolarisManagedS3CompatibleTarget">
+            <a href="polarismanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="PolarisSlaSyncStatus">
+            <a href="polarisslasyncstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSlaSyncStatus
+            </a>
+        </li>
+        <li  title="PolarisSnapshot">
+            <a href="polarissnapshot.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshot
+            </a>
+        </li>
+        <li  title="PolarisSnapshotConnection">
+            <a href="polarissnapshotconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotConnection
+            </a>
+        </li>
+        <li  title="PolarisSnapshotEdge">
+            <a href="polarissnapshotedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotEdge
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupBy">
+            <a href="polarissnapshotgroupby.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupBy
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByConnection">
+            <a href="polarissnapshotgroupbyconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByConnection
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByEdge">
+            <a href="polarissnapshotgroupbyedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByEdge
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByNew">
+            <a href="polarissnapshotgroupbynew.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByNew
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByNewConnection">
+            <a href="polarissnapshotgroupbynewconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByNewConnection
+            </a>
+        </li>
+        <li  title="PolarisSnapshotGroupByNewEdge">
+            <a href="polarissnapshotgroupbynewedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotGroupByNewEdge
+            </a>
+        </li>
+        <li  title="PolarisSyncStatus">
+            <a href="polarissyncstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSyncStatus
+            </a>
+        </li>
+        <li  title="PrepareAwsCloudAccountDeletionReply">
+            <a href="prepareawscloudaccountdeletionreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrepareAwsCloudAccountDeletionReply
+            </a>
+        </li>
+        <li  title="PrepareFeatureUpdateForAwsCloudAccountReply">
+            <a href="preparefeatureupdateforawscloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrepareFeatureUpdateForAwsCloudAccountReply
+            </a>
+        </li>
+        <li  title="PreviewerClusterConfig">
+            <a href="previewerclusterconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PreviewerClusterConfig
+            </a>
+        </li>
+        <li  title="ProtectedObjectTypeToSla">
+            <a href="protectedobjecttypetosla.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ProtectedObjectTypeToSla
+            </a>
+        </li>
+        <li  title="ProxySettings">
+            <a href="proxysettings.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ProxySettings
+            </a>
+        </li>
+        <li  title="QuarterlySnapshotSchedule">
+            <a href="quarterlysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                QuarterlySnapshotSchedule
+            </a>
+        </li>
+        <li  title="RcsAzureTargetTemplate">
+            <a href="rcsazuretargettemplate.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RcsAzureTargetTemplate
+            </a>
+        </li>
+        <li  title="RcsImmutabilitySettings">
+            <a href="rcsimmutabilitysettings.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RcsImmutabilitySettings
+            </a>
+        </li>
+        <li  title="RdsInstanceDetailsFromAws">
+            <a href="rdsinstancedetailsfromaws.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RdsInstanceDetailsFromAws
+            </a>
+        </li>
+        <li  title="RdsInstanceExportDefaults">
+            <a href="rdsinstanceexportdefaults.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RdsInstanceExportDefaults
+            </a>
+        </li>
+        <li  title="ReplicationSource">
+            <a href="replicationsource.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationSource
+            </a>
+        </li>
+        <li  title="ReplicationSpec">
+            <a href="replicationspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationSpec
+            </a>
+        </li>
+        <li  title="ReplicationSpecV2">
+            <a href="replicationspecv2.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationSpecV2
+            </a>
+        </li>
+        <li  title="ReplicationTarget">
+            <a href="replicationtarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationTarget
+            </a>
+        </li>
+        <li  title="ReplicationToCloudLocationSpec">
+            <a href="replicationtocloudlocationspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationToCloudLocationSpec
+            </a>
+        </li>
+        <li  title="ReplicationToCloudRegionSpec">
+            <a href="replicationtocloudregionspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ReplicationToCloudRegionSpec
+            </a>
+        </li>
+        <li  title="SapHanaConfig">
+            <a href="saphanaconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SapHanaConfig
+            </a>
+        </li>
+        <li  title="SlaArchivalCluster">
+            <a href="slaarchivalcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaArchivalCluster
+            </a>
+        </li>
+        <li  title="SlaLogFrequencyConfigResult">
+            <a href="slalogfrequencyconfigresult.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaLogFrequencyConfigResult
+            </a>
+        </li>
+        <li  title="SlaReplicationCluster">
+            <a href="slareplicationcluster.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaReplicationCluster
+            </a>
+        </li>
+        <li  title="SlaUpgrade">
+            <a href="slaupgrade.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgrade
+            </a>
+        </li>
+        <li  title="SlaUpgradeEligibility">
+            <a href="slaupgradeeligibility.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeEligibility
+            </a>
+        </li>
+        <li  title="SlaUpgradeInfo">
+            <a href="slaupgradeinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SlaUpgradeInfo
+            </a>
+        </li>
+        <li  title="Snappable">
+            <a href="snappable.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Snappable
+            </a>
+        </li>
+        <li  title="SnappableAggregation">
+            <a href="snappableaggregation.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableAggregation
+            </a>
+        </li>
+        <li  title="SnappableConnection">
+            <a href="snappableconnection.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableConnection
+            </a>
+        </li>
+        <li  title="SnappableEdge">
+            <a href="snappableedge.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableEdge
+            </a>
+        </li>
+        <li  title="SnappableTypeToBackupSetupSpecs">
+            <a href="snappabletypetobackupsetupspecs.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableTypeToBackupSetupSpecs
+            </a>
+        </li>
+        <li  title="SnapshotDistribution">
+            <a href="snapshotdistribution.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotDistribution
+            </a>
+        </li>
+        <li  title="SnapshotSchedule">
+            <a href="snapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotSchedule
+            </a>
+        </li>
+        <li  title="SpecificReplicationSpec">
+            <a href="specificreplicationspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SpecificReplicationSpec
+            </a>
+        </li>
+        <li  title="StartAzureCloudAccountOauthReply">
+            <a href="startazurecloudaccountoauthreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAzureCloudAccountOauthReply
+            </a>
+        </li>
+        <li  title="StartTimeAttributes">
+            <a href="starttimeattributes.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartTimeAttributes
+            </a>
+        </li>
+        <li  title="SubnetGroup">
+            <a href="subnetgroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SubnetGroup
+            </a>
+        </li>
+        <li  title="Tag">
+            <a href="tag.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Tag
+            </a>
+        </li>
+        <li  title="TagObject">
+            <a href="tagobject.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TagObject
+            </a>
+        </li>
+        <li  title="TargetMapping">
+            <a href="targetmapping.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetMapping
+            </a>
+        </li>
+        <li  title="TargetMappingBasic">
+            <a href="targetmappingbasic.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TargetMappingBasic
+            </a>
+        </li>
+        <li  title="TimeRangeWithUnit">
+            <a href="timerangewithunit.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TimeRangeWithUnit
+            </a>
+        </li>
+        <li  title="UnidirectionalReplicationSpec">
+            <a href="unidirectionalreplicationspec.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UnidirectionalReplicationSpec
+            </a>
+        </li>
+        <li  title="UpdateAwsCloudAccountFeatureReply">
+            <a href="updateawscloudaccountfeaturereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAwsCloudAccountFeatureReply
+            </a>
+        </li>
+        <li  title="UpdateAzureCloudAccountReply">
+            <a href="updateazurecloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAzureCloudAccountReply
+            </a>
+        </li>
+        <li  title="UpdateAzureCloudAccountStatus">
+            <a href="updateazurecloudaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAzureCloudAccountStatus
+            </a>
+        </li>
+        <li  title="UpgradeAzureCloudAccountPermissionsWithoutOauthReply">
+            <a href="upgradeazurecloudaccountpermissionswithoutoauthreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeAzureCloudAccountPermissionsWithoutOauthReply
+            </a>
+        </li>
+        <li  title="UpgradeAzureCloudAccountReply">
+            <a href="upgradeazurecloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeAzureCloudAccountReply
+            </a>
+        </li>
+        <li  title="UpgradeAzureCloudAccountStatus">
+            <a href="upgradeazurecloudaccountstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeAzureCloudAccountStatus
+            </a>
+        </li>
+        <li  title="UpgradeDurationReply">
+            <a href="upgradedurationreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeDurationReply
+            </a>
+        </li>
+        <li  title="UpgradeRecommendationInfo">
+            <a href="upgraderecommendationinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeRecommendationInfo
+            </a>
+        </li>
+        <li  title="ValidateAndCreateAwsCloudAccountReply">
+            <a href="validateandcreateawscloudaccountreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValidateAndCreateAwsCloudAccountReply
+            </a>
+        </li>
+        <li  title="ValidateAwsNativeRdsInstanceNameForExportReply">
+            <a href="validateawsnativerdsinstancenameforexportreply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValidateAwsNativeRdsInstanceNameForExportReply
+            </a>
+        </li>
+        <li  title="ValidateAzureSubnetsForCloudAccountExocomputeReply">
+            <a href="validateazuresubnetsforcloudaccountexocomputereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValidateAzureSubnetsForCloudAccountExocomputeReply
+            </a>
+        </li>
+        <li  title="VmAppConsistentSpecsInternal">
+            <a href="vmappconsistentspecsinternal.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                VmAppConsistentSpecsInternal
+            </a>
+        </li>
+        <li  title="VmwareVmConfig">
+            <a href="vmwarevmconfig.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                VmwareVmConfig
+            </a>
+        </li>
+        <li  title="WeeklySnapshotSchedule">
+            <a href="weeklysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                WeeklySnapshotSchedule
+            </a>
+        </li>
+        <li  title="YearlySnapshotSchedule">
+            <a href="yearlysnapshotschedule.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                YearlySnapshotSchedule
+            </a>
+        </li>
+        <li  title="__Directive">
+            <a href="directive.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Directive
+            </a>
+        </li>
+        <li  title="__EnumValue">
+            <a href="enumvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __EnumValue
+            </a>
+        </li>
+        <li  title="__Field">
+            <a href="field.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Field
+            </a>
+        </li>
+        <li  title="__InputValue">
+            <a href="inputvalue.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __InputValue
+            </a>
+        </li>
+        <li  title="__Schema">
+            <a href="schema.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Schema
+            </a>
+        </li>
+        <li  title="__Type">
+            <a href="type.spec.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                __Type
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Input Objects</h4>
+    <ul>
+        <li  title="ActivitySeriesFilterInput">
+            <a href="activityseriesfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ActivitySeriesFilterInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountExocomputeConfigurationsInput">
+            <a href="addazurecloudaccountexocomputeconfigurationsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountExocomputeConfigurationsInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountFeatureInput">
+            <a href="addazurecloudaccountfeatureinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountFeatureInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountFeatureInputWithoutOauth">
+            <a href="addazurecloudaccountfeatureinputwithoutoauth.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountFeatureInputWithoutOauth
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountInput">
+            <a href="addazurecloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountResourceGroupInput">
+            <a href="addazurecloudaccountresourcegroupinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountResourceGroupInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountSpecificFeatureInput">
+            <a href="addazurecloudaccountspecificfeatureinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountSpecificFeatureInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountSubscriptionInput">
+            <a href="addazurecloudaccountsubscriptioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountSubscriptionInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountSubscriptionInputWithoutOauth">
+            <a href="addazurecloudaccountsubscriptioninputwithoutoauth.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountSubscriptionInputWithoutOauth
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountUserAssignedManagedIdentityInput">
+            <a href="addazurecloudaccountuserassignedmanagedidentityinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountUserAssignedManagedIdentityInput
+            </a>
+        </li>
+        <li  title="AddAzureCloudAccountWithoutOauthInput">
+            <a href="addazurecloudaccountwithoutoauthinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AddAzureCloudAccountWithoutOauthInput
+            </a>
+        </li>
+        <li  title="AmiTypeForAwsNativeArchivedSnapshotExportInput">
+            <a href="amitypeforawsnativearchivedsnapshotexportinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AmiTypeForAwsNativeArchivedSnapshotExportInput
+            </a>
+        </li>
+        <li  title="AwsCloudAccountConfigsInput">
+            <a href="awscloudaccountconfigsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountConfigsInput
+            </a>
+        </li>
+        <li  title="AwsCloudAccountFeatureVersionInput">
+            <a href="awscloudaccountfeatureversioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountFeatureVersionInput
+            </a>
+        </li>
+        <li  title="AwsCloudAccountInput">
+            <a href="awscloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountInput
+            </a>
+        </li>
+        <li  title="AwsCloudAccountsWithFeaturesInput">
+            <a href="awscloudaccountswithfeaturesinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountsWithFeaturesInput
+            </a>
+        </li>
+        <li  title="AwsCloudAccountWithFeaturesInput">
+            <a href="awscloudaccountwithfeaturesinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsCloudAccountWithFeaturesInput
+            </a>
+        </li>
+        <li  title="AwsExocomputeConfigInput">
+            <a href="awsexocomputeconfiginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeConfigInput
+            </a>
+        </li>
+        <li  title="AwsExocomputeSubnetInputType">
+            <a href="awsexocomputesubnetinputtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsExocomputeSubnetInputType
+            </a>
+        </li>
+        <li  title="AwsNativeAccountFilter">
+            <a href="awsnativeaccountfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountFilter
+            </a>
+        </li>
+        <li  title="AwsNativeAccountFilters">
+            <a href="awsnativeaccountfilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAccountFilters
+            </a>
+        </li>
+        <li  title="AwsNativeAttachedInstanceFilter">
+            <a href="awsnativeattachedinstancefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeAttachedInstanceFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeFileRecoveryStatusFilter">
+            <a href="awsnativeebsvolumefilerecoverystatusfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeFileRecoveryStatusFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeFilters">
+            <a href="awsnativeebsvolumefilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeFilters
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeNameOrIdSubstringFilter">
+            <a href="awsnativeebsvolumenameoridsubstringfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeNameOrIdSubstringFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEbsVolumeTypeFilter">
+            <a href="awsnativeebsvolumetypefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEbsVolumeTypeFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceFileRecoveryStatusFilter">
+            <a href="awsnativeec2instancefilerecoverystatusfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceFileRecoveryStatusFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceFilters">
+            <a href="awsnativeec2instancefilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceFilters
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceNameOrIdSubstringFilter">
+            <a href="awsnativeec2instancenameoridsubstringfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceNameOrIdSubstringFilter
+            </a>
+        </li>
+        <li  title="AwsNativeEc2InstanceTypeFilter">
+            <a href="awsnativeec2instancetypefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeEc2InstanceTypeFilter
+            </a>
+        </li>
+        <li  title="AwsNativeRdsDbEngineFilter">
+            <a href="awsnativerdsdbenginefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsDbEngineFilter
+            </a>
+        </li>
+        <li  title="AwsNativeRdsDbInstanceClassFilter">
+            <a href="awsnativerdsdbinstanceclassfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsDbInstanceClassFilter
+            </a>
+        </li>
+        <li  title="AwsNativeRdsInstanceFilters">
+            <a href="awsnativerdsinstancefilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRdsInstanceFilters
+            </a>
+        </li>
+        <li  title="AwsNativeRegionFilter">
+            <a href="awsnativeregionfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeRegionFilter
+            </a>
+        </li>
+        <li  title="AwsNativeTagFilter">
+            <a href="awsnativetagfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeTagFilter
+            </a>
+        </li>
+        <li  title="AwsNativeVpcFilter">
+            <a href="awsnativevpcfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AwsNativeVpcFilter
+            </a>
+        </li>
+        <li  title="AzureCloudAccountSubscriptionInput">
+            <a href="azurecloudaccountsubscriptioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureCloudAccountSubscriptionInput
+            </a>
+        </li>
+        <li  title="AzureExocomputeAddConfigInputType">
+            <a href="azureexocomputeaddconfiginputtype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureExocomputeAddConfigInputType
+            </a>
+        </li>
+        <li  title="AzureNativeAttachedVmFilter">
+            <a href="azurenativeattachedvmfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeAttachedVmFilter
+            </a>
+        </li>
+        <li  title="AzureNativeCommonResourceGroupFilters">
+            <a href="azurenativecommonresourcegroupfilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeCommonResourceGroupFilters
+            </a>
+        </li>
+        <li  title="AzureNativeCommonRgSubscriptionFilter">
+            <a href="azurenativecommonrgsubscriptionfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeCommonRgSubscriptionFilter
+            </a>
+        </li>
+        <li  title="AzureNativeDiskExocomputeConnectedFilter">
+            <a href="azurenativediskexocomputeconnectedfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskExocomputeConnectedFilter
+            </a>
+        </li>
+        <li  title="AzureNativeDiskFileIndexingFilter">
+            <a href="azurenativediskfileindexingfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskFileIndexingFilter
+            </a>
+        </li>
+        <li  title="AzureNativeDiskFilters">
+            <a href="azurenativediskfilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskFilters
+            </a>
+        </li>
+        <li  title="AzureNativeDiskResourceGroupFilter">
+            <a href="azurenativediskresourcegroupfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskResourceGroupFilter
+            </a>
+        </li>
+        <li  title="AzureNativeDiskSubscriptionFilter">
+            <a href="azurenativedisksubscriptionfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskSubscriptionFilter
+            </a>
+        </li>
+        <li  title="AzureNativeDiskTypeFilter">
+            <a href="azurenativedisktypefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeDiskTypeFilter
+            </a>
+        </li>
+        <li  title="AzureNativeRegionFilter">
+            <a href="azurenativeregionfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRegionFilter
+            </a>
+        </li>
+        <li  title="AzureNativeRgSlaFilter">
+            <a href="azurenativergslafilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeRgSlaFilter
+            </a>
+        </li>
+        <li  title="AzureNativeSubscriptionFilters">
+            <a href="azurenativesubscriptionfilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeSubscriptionFilters
+            </a>
+        </li>
+        <li  title="AzureNativeTagFilter">
+            <a href="azurenativetagfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeTagFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVirtualMachineFilters">
+            <a href="azurenativevirtualmachinefilters.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVirtualMachineFilters
+            </a>
+        </li>
+        <li  title="AzureNativeVmExocomputeConnectedFilter">
+            <a href="azurenativevmexocomputeconnectedfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmExocomputeConnectedFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVmFileIndexingFilter">
+            <a href="azurenativevmfileindexingfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmFileIndexingFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVmResourceGroupFilter">
+            <a href="azurenativevmresourcegroupfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmResourceGroupFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVmSizeFilter">
+            <a href="azurenativevmsizefilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmSizeFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVmSubscriptionFilter">
+            <a href="azurenativevmsubscriptionfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVmSubscriptionFilter
+            </a>
+        </li>
+        <li  title="AzureNativeVnetFilter">
+            <a href="azurenativevnetfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureNativeVnetFilter
+            </a>
+        </li>
+        <li  title="AzureSubscriptionInput">
+            <a href="azuresubscriptioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureSubscriptionInput
+            </a>
+        </li>
+        <li  title="ClusterDiskFilterInput">
+            <a href="clusterdiskfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterDiskFilterInput
+            </a>
+        </li>
+        <li  title="CommonClusterFilterInput">
+            <a href="commonclusterfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CommonClusterFilterInput
+            </a>
+        </li>
+        <li  title="CompleteAzureCloudAccountOauthInput">
+            <a href="completeazurecloudaccountoauthinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CompleteAzureCloudAccountOauthInput
+            </a>
+        </li>
+        <li  title="CreateAwsExocomputeConfigsInput">
+            <a href="createawsexocomputeconfigsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CreateAwsExocomputeConfigsInput
+            </a>
+        </li>
+        <li  title="DeleteAwsExocomputeConfigsInput">
+            <a href="deleteawsexocomputeconfigsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAwsExocomputeConfigsInput
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountExocomputeConfigurationsInput">
+            <a href="deleteazurecloudaccountexocomputeconfigurationsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountExocomputeConfigurationsInput
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountInput">
+            <a href="deleteazurecloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountInput
+            </a>
+        </li>
+        <li  title="DeleteAzureCloudAccountWithoutOauthInput">
+            <a href="deleteazurecloudaccountwithoutoauthinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                DeleteAzureCloudAccountWithoutOauthInput
+            </a>
+        </li>
+        <li  title="EffectiveSlaFilter">
+            <a href="effectiveslafilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                EffectiveSlaFilter
+            </a>
+        </li>
+        <li  title="ExcludeAwsNativeEbsVolumesFromSnapshotInput">
+            <a href="excludeawsnativeebsvolumesfromsnapshotinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeAwsNativeEbsVolumesFromSnapshotInput
+            </a>
+        </li>
+        <li  title="ExcludeAzureNativeManagedDisksFromSnapshotInput">
+            <a href="excludeazurenativemanageddisksfromsnapshotinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeAzureNativeManagedDisksFromSnapshotInput
+            </a>
+        </li>
+        <li  title="Filter">
+            <a href="filter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Filter
+            </a>
+        </li>
+        <li  title="FinalizeAwsCloudAccountDeletionInput">
+            <a href="finalizeawscloudaccountdeletioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FinalizeAwsCloudAccountDeletionInput
+            </a>
+        </li>
+        <li  title="FinalizeAwsCloudAccountProtectionInput">
+            <a href="finalizeawscloudaccountprotectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                FinalizeAwsCloudAccountProtectionInput
+            </a>
+        </li>
+        <li  title="ManagedDiskExclusion">
+            <a href="manageddiskexclusion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ManagedDiskExclusion
+            </a>
+        </li>
+        <li  title="NameSubstringFilter">
+            <a href="namesubstringfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                NameSubstringFilter
+            </a>
+        </li>
+        <li  title="PolarisSnapshotFilterInput">
+            <a href="polarissnapshotfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotFilterInput
+            </a>
+        </li>
+        <li  title="PolarisSnapshotFilterNewInput">
+            <a href="polarissnapshotfilternewinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PolarisSnapshotFilterNewInput
+            </a>
+        </li>
+        <li  title="PrepareAwsCloudAccountDeletionInput">
+            <a href="prepareawscloudaccountdeletioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrepareAwsCloudAccountDeletionInput
+            </a>
+        </li>
+        <li  title="PrepareFeatureUpdateForAwsCloudAccountInput">
+            <a href="preparefeatureupdateforawscloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrepareFeatureUpdateForAwsCloudAccountInput
+            </a>
+        </li>
+        <li  title="RelicFilter">
+            <a href="relicfilter.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                RelicFilter
+            </a>
+        </li>
+        <li  title="SetAzureCloudAccountCustomerAppCredentialsInput">
+            <a href="setazurecloudaccountcustomerappcredentialsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SetAzureCloudAccountCustomerAppCredentialsInput
+            </a>
+        </li>
+        <li  title="SnappableFilterInput">
+            <a href="snappablefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableFilterInput
+            </a>
+        </li>
+        <li  title="SnappableSlaDomainFilterInput">
+            <a href="snappablesladomainfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnappableSlaDomainFilterInput
+            </a>
+        </li>
+        <li  title="SnapshotQueryFilterInput">
+            <a href="snapshotqueryfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                SnapshotQueryFilterInput
+            </a>
+        </li>
+        <li  title="StartAwsExocomputeDisableJobInput">
+            <a href="startawsexocomputedisablejobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAwsExocomputeDisableJobInput
+            </a>
+        </li>
+        <li  title="StartAwsNativeAccountDisableJobInput">
+            <a href="startawsnativeaccountdisablejobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAwsNativeAccountDisableJobInput
+            </a>
+        </li>
+        <li  title="StartAwsNativeEc2InstanceSnapshotsJobInput">
+            <a href="startawsnativeec2instancesnapshotsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAwsNativeEc2InstanceSnapshotsJobInput
+            </a>
+        </li>
+        <li  title="StartAwsNativeRdsInstanceSnapshotsJobInput">
+            <a href="startawsnativerdsinstancesnapshotsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAwsNativeRdsInstanceSnapshotsJobInput
+            </a>
+        </li>
+        <li  title="StartAzureCloudAccountOauthInput">
+            <a href="startazurecloudaccountoauthinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartAzureCloudAccountOauthInput
+            </a>
+        </li>
+        <li  title="StartCreateAwsNativeEbsVolumeSnapshotsJobInput">
+            <a href="startcreateawsnativeebsvolumesnapshotsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartCreateAwsNativeEbsVolumeSnapshotsJobInput
+            </a>
+        </li>
+        <li  title="StartCreateAzureNativeManagedDiskSnapshotsJobInput">
+            <a href="startcreateazurenativemanageddisksnapshotsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartCreateAzureNativeManagedDiskSnapshotsJobInput
+            </a>
+        </li>
+        <li  title="StartCreateAzureNativeVirtualMachineSnapshotsJobInput">
+            <a href="startcreateazurenativevirtualmachinesnapshotsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartCreateAzureNativeVirtualMachineSnapshotsJobInput
+            </a>
+        </li>
+        <li  title="StartDisableAzureNativeSubscriptionProtectionJobInput">
+            <a href="startdisableazurenativesubscriptionprotectionjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartDisableAzureNativeSubscriptionProtectionJobInput
+            </a>
+        </li>
+        <li  title="StartEc2InstanceSnapshotExportJobInput">
+            <a href="startec2instancesnapshotexportjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartEc2InstanceSnapshotExportJobInput
+            </a>
+        </li>
+        <li  title="StartExportAwsNativeEbsVolumeSnapshotJobInput">
+            <a href="startexportawsnativeebsvolumesnapshotjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartExportAwsNativeEbsVolumeSnapshotJobInput
+            </a>
+        </li>
+        <li  title="StartExportAzureNativeManagedDiskJobInput">
+            <a href="startexportazurenativemanageddiskjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartExportAzureNativeManagedDiskJobInput
+            </a>
+        </li>
+        <li  title="StartExportAzureNativeVirtualMachineJobInput">
+            <a href="startexportazurenativevirtualmachinejobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartExportAzureNativeVirtualMachineJobInput
+            </a>
+        </li>
+        <li  title="StartExportRdsInstanceJobInput">
+            <a href="startexportrdsinstancejobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartExportRdsInstanceJobInput
+            </a>
+        </li>
+        <li  title="StartRefreshAwsNativeAccountsJobInput">
+            <a href="startrefreshawsnativeaccountsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartRefreshAwsNativeAccountsJobInput
+            </a>
+        </li>
+        <li  title="StartRefreshAzureNativeSubscriptionsJobInput">
+            <a href="startrefreshazurenativesubscriptionsjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartRefreshAzureNativeSubscriptionsJobInput
+            </a>
+        </li>
+        <li  title="StartRestoreAwsNativeEc2InstanceSnapshotJobInput">
+            <a href="startrestoreawsnativeec2instancesnapshotjobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartRestoreAwsNativeEc2InstanceSnapshotJobInput
+            </a>
+        </li>
+        <li  title="StartRestoreAzureNativeVirtualMachineJobInput">
+            <a href="startrestoreazurenativevirtualmachinejobinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                StartRestoreAzureNativeVirtualMachineJobInput
+            </a>
+        </li>
+        <li  title="TagFilterParams">
+            <a href="tagfilterparams.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TagFilterParams
+            </a>
+        </li>
+        <li  title="TagInput">
+            <a href="taginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TagInput
+            </a>
+        </li>
+        <li  title="TagsInput">
+            <a href="tagsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TagsInput
+            </a>
+        </li>
+        <li  title="TimeRangeInput">
+            <a href="timerangeinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                TimeRangeInput
+            </a>
+        </li>
+        <li  title="UpdateAwsCloudAccountFeatureInput">
+            <a href="updateawscloudaccountfeatureinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAwsCloudAccountFeatureInput
+            </a>
+        </li>
+        <li  title="UpdateAwsCloudAccountInput">
+            <a href="updateawscloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAwsCloudAccountInput
+            </a>
+        </li>
+        <li  title="UpdateAzureCloudAccountInput">
+            <a href="updateazurecloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpdateAzureCloudAccountInput
+            </a>
+        </li>
+        <li  title="UpgradeAzureCloudAccountInput">
+            <a href="upgradeazurecloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeAzureCloudAccountInput
+            </a>
+        </li>
+        <li  title="UpgradeAzureCloudAccountPermissionsWithoutOauthInput">
+            <a href="upgradeazurecloudaccountpermissionswithoutoauthinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                UpgradeAzureCloudAccountPermissionsWithoutOauthInput
+            </a>
+        </li>
+        <li  title="ValidateAndCreateAwsCloudAccountInput">
+            <a href="validateandcreateawscloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValidateAndCreateAwsCloudAccountInput
+            </a>
+        </li>
+        <li  title="ValidateAzureCloudAccountExocomputeConfigurationsInput">
+            <a href="validateazurecloudaccountexocomputeconfigurationsinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ValidateAzureCloudAccountExocomputeConfigurationsInput
+            </a>
+        </li>
+        <li  title="VolumeIdExclusion">
+            <a href="volumeidexclusion.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                VolumeIdExclusion
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+    <h4 class="slds-text-title--caps slds-p-around--medium">Directives</h4>
+    <ul>
+        <li  title="deprecated">
+            <a href="deprecated.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                deprecated
+            </a>
+        </li>
+        <li  title="include">
+            <a href="include.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                include
+            </a>
+        </li>
+        <li  title="skip">
+            <a href="skip.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                skip
+            </a>
+        </li>
+    </ul>
+</div>
+        </div>
+    </nav>
+    <main><section class="title slds-theme--inverse">
+    <div class="container slds-grid">
+        <div>
+        <button class="slds-button js-toggle-navigation less-than-medium">
+            <i class="material-icons slds-button__icon slds-button__icon--left">menu</i>
+            <span class="slds-text-title--caps">Types<span>
+        </button>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="slds-text-title--caps slds-text-color--weak">ENUM</p>
+        <h1 class="slds-text-heading--large">AzureNativeManagedDiskType</h1>
+    </div>
+</section>
+<section>
+  <div class="container">
+    <h2 class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">Description</h2>
+    <div class="slds-text-body--regular"><p>Azure Managed Disk types.</p>
+</div>
+  </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="graphql-schema-definition" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#graphql-schema-definition">
+                <i class="material-icons">link</i>
+            </a>
+            GraphQL Schema definition
+        </h2>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">AzureNativeManagedDiskType</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is not specified.</span></span></li><li><span class="tab"><span class="meta">NOT_SPECIFIED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is Premium LRS.</span></span></li><li><span class="tab"><span class="meta">PREMIUM_LRS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is Standard SSD LRS.</span></span></li><li><span class="tab"><span class="meta">STANDARDSSD_LRS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is Standard LRS.</span></span></li><li><span class="tab"><span class="meta">STANDARD_LRS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is Ultra SSD LRS.</span></span></li><li><span class="tab"><span class="meta">ULTRASSD_LRS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Azure Managed Disk type is unknown.</span></span></li><li><span class="tab"><span class="meta">UNKNOWN</span></span></li><li>}</li></ul></code>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h2 id="require-by" class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">
+            <a href="#require-by">
+                <i class="material-icons">link</i>
+            </a>
+            Require by
+        </h2>
+        <ul class="require-by"><li><a href="azurenativeexportcompatibledisktypes.doc.html" title="AzureNativeExportCompatibleDiskTypes - List of disk types available for use in an Azure availability zone. Not all disk types are supported in all the regions. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types.">AzureNativeExportCompatibleDiskTypes<em>List of disk types available for use in an Azure availability zone. Not all disk types are supported in all the regions. For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types.</em></a><li><li><a href="azurenativemanageddisk.doc.html" title="AzureNativeManagedDisk - An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.">AzureNativeManagedDisk<em>An Azure Native Managed Disk that refers to the block storage designed to be used with Azure Virtual Machines. Some examples are: ultra disks, premium solid-state drives (SSD), standard SSDs, and standard hard disk drives (HDD). For more information, see https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.</em></a><li><li><a href="startexportazurenativemanageddiskjobinput.doc.html" title="StartExportAzureNativeManagedDiskJobInput - Input for the job to export the specified Azure Native Managed Disks to the specified destination.">StartExportAzureNativeManagedDiskJobInput<em>Input for the job to export the specified Azure Native Managed Disks to the specified destination.</em></a><li></ul>
+    </div>
+</section>
+<footer>
+</footer>
+</main>
+    <script src="./scripts/focus-active.js"></script>
+    <script src="./scripts/filter-types.js"></script>
+    <script src="./scripts/toggle-navigation.js"></script>
+</body>
