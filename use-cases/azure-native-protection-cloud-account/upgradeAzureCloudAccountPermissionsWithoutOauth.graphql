@@ -1,0 +1,9 @@
+mutation UpgradeAzureCloudAccountPermissionsWithoutOauth(
+  $cloudAccountId: UUID!
+) {
+  upgradeAzureCloudAccountPermissionsWithoutOauth(
+    input: {cloudAccountId: $cloudAccountId, feature: CLOUD_NATIVE_PROTECTION}
+  ) {
+    status
+  }
+}

@@ -306,6 +306,11 @@
                 AzureNativeVmOsType
             </a>
         </li>
+        <li  title="AzureOauthResource">
+            <a href="azureoauthresource.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureOauthResource
+            </a>
+        </li>
         <li  title="AzureRedundancy">
             <a href="azureredundancy.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureRedundancy
@@ -1836,6 +1841,11 @@
                 OracleUserDetails
             </a>
         </li>
+        <li  title="Org">
+            <a href="org.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Org
+            </a>
+        </li>
         <li  title="PageInfo">
             <a href="pageinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PageInfo
@@ -2581,6 +2591,11 @@
                 ClusterDiskFilterInput
             </a>
         </li>
+        <li  title="ClusterNodeFilterInput">
+            <a href="clusternodefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeFilterInput
+            </a>
+        </li>
         <li  title="CommonClusterFilterInput">
             <a href="commonclusterfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CommonClusterFilterInput
@@ -2898,7 +2913,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">ReplicationSpecV2</span> {</li><li></li><li><span class="tab"><span class="meta">retentionDuration</span>: <a class="support type" href="duration.doc.html">Duration</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Time snapshot is kept on local target cluster.</span></span></li><li><span class="tab"><span class="meta">replicationLocalRetentionDuration</span>: <a class="support type" href="duration.doc.html">Duration</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Cascading Archival Specifications.</span></span></li><li><span class="tab"><span class="meta">cascadingArchivalSpecs</span>: [<a class="support type" href="cascadingarchivalspec.doc.html">CascadingArchivalSpec</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">targetMapping</span>: <a class="support type" href="targetmapping.doc.html">TargetMapping</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Cluster used as replication target</span></span></li><li><span class="tab"><span class="meta">cluster</span>: <a class="support type" href="slareplicationcluster.doc.html">SlaReplicationCluster</a> </span></li><li></li><li><span class="tab"><span class="meta">awsRegion</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">azureRegion</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   AWS location used as the replication target</span></span></li><li><span class="tab"><span class="meta">awsTarget</span>: <a class="support type" href="awsreplicationtarget.doc.html">AwsReplicationTarget</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Azure location used as the replication target</span></span></li><li><span class="tab"><span class="meta">azureTarget</span>: <a class="support type" href="azurereplicationtarget.doc.html">AzureReplicationTarget</a>! </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">ReplicationSpecV2</span> {</li><li></li><li><span class="tab"><span class="meta">retentionDuration</span>: <a class="support type" href="duration.doc.html">Duration</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Time snapshot is kept on local target cluster.</span></span></li><li><span class="tab"><span class="meta">replicationLocalRetentionDuration</span>: <a class="support type" href="duration.doc.html">Duration</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Cascading Archival Specifications.</span></span></li><li><span class="tab"><span class="meta">cascadingArchivalSpecs</span>: [<a class="support type" href="cascadingarchivalspec.doc.html">CascadingArchivalSpec</a>!]! </span></li><li></li><li><span class="tab"><span class="meta">targetMapping</span>: <a class="support type" href="targetmapping.doc.html">TargetMapping</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Rubrik cluster used as the replication target.</span></span></li><li><span class="tab"><span class="meta">cluster</span>: <a class="support type" href="slareplicationcluster.doc.html">SlaReplicationCluster</a> </span></li><li></li><li><span class="tab"><span class="meta">awsRegion</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">azureRegion</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   AWS location used as the replication target.</span></span></li><li><span class="tab"><span class="meta">awsTarget</span>: <a class="support type" href="awsreplicationtarget.doc.html">AwsReplicationTarget</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Azure location used as the replication target.</span></span></li><li><span class="tab"><span class="meta">azureTarget</span>: <a class="support type" href="azurereplicationtarget.doc.html">AzureReplicationTarget</a>! </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

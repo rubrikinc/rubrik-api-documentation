@@ -1,0 +1,15 @@
+mutation DeleteAzureCloudAccountWithoutOauth(
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccountWithoutOauth(
+    input: {
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}

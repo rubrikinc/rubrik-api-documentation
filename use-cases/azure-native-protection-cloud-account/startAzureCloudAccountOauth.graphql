@@ -1,0 +1,14 @@
+mutation StartAzureCloudAccountOauth(
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  startAzureCloudAccountOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+    }
+  ) {
+    clientId
+    sessionId
+  }
+}

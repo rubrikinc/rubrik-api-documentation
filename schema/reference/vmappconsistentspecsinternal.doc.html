@@ -306,6 +306,11 @@
                 AzureNativeVmOsType
             </a>
         </li>
+        <li  title="AzureOauthResource">
+            <a href="azureoauthresource.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureOauthResource
+            </a>
+        </li>
         <li  title="AzureRedundancy">
             <a href="azureredundancy.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureRedundancy
@@ -1836,6 +1841,11 @@
                 OracleUserDetails
             </a>
         </li>
+        <li  title="Org">
+            <a href="org.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Org
+            </a>
+        </li>
         <li  title="PageInfo">
             <a href="pageinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PageInfo
@@ -2581,6 +2591,11 @@
                 ClusterDiskFilterInput
             </a>
         </li>
+        <li  title="ClusterNodeFilterInput">
+            <a href="clusternodefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeFilterInput
+            </a>
+        </li>
         <li  title="CommonClusterFilterInput">
             <a href="commonclusterfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CommonClusterFilterInput
@@ -2905,7 +2920,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">VmAppConsistentSpecsInternal</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Path for the script to be run before taking snapshot.</span></span></li><li><span class="tab"><span class="meta">preSnapshotScriptPath</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="meta">preScriptTimeoutInSeconds</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Path for the script to be run after taking snapshot.</span></span></li><li><span class="tab"><span class="meta">postSnapshotScriptPath</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Timeout, in seconds, for the post snapshot script.</span></span></li><li><span class="tab"><span class="meta">postScriptTimeoutInSeconds</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Specifies whether to cancel backup if the pre-snapshot script fails.</span></span></li><li><span class="tab"><span class="meta">cancelBackupIfPreScriptFails</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Rubrik Backup Service status.</span></span></li><li><span class="tab"><span class="meta">rbaStatus</span>: <a class="support type" href="cloudnativerbastatustype.doc.html">CloudNativeRbaStatusType</a>! </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">VmAppConsistentSpecsInternal</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Path for the script to be run before taking snapshot.</span></span></li><li><span class="tab"><span class="meta">preSnapshotScriptPath</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Timeout value in seconds for the pre snapshot script.</span></span></li><li><span class="tab"><span class="meta">preScriptTimeoutInSeconds</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Path for the script to be run after taking snapshot.</span></span></li><li><span class="tab"><span class="meta">postSnapshotScriptPath</span>: <a class="support type" href="string.doc.html">String</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Pre-snapshot script timeout in seconds.</span></span></li><li><span class="tab"><span class="meta">postScriptTimeoutInSeconds</span>: <a class="support type" href="int.doc.html">Int</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Specifies whether to cancel backup if the pre-snapshot script fails.</span></span></li><li><span class="tab"><span class="meta">cancelBackupIfPreScriptFails</span>: <a class="support type" href="boolean.doc.html">Boolean</a>! </span></li><li></li><li><span class="tab"><span class="comment line">#   Rubrik Backup Service status.</span></span></li><li><span class="tab"><span class="meta">rbaStatus</span>: <a class="support type" href="cloudnativerbastatustype.doc.html">CloudNativeRbaStatusType</a>! </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

@@ -1,0 +1,17 @@
+mutation DeleteAzureCloudAccount(
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}

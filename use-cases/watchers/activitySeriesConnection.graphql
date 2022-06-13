@@ -1,0 +1,11 @@
+query ActivitySeriesConnection($clusterId: [UUID!]) {
+  activitySeriesConnection(
+    filters: {
+      cluster: {id: $clusterId}
+      lastActivityType: [Backup]
+      lastActivityStatus: [Failure]
+    }
+  ) {
+    count
+  }
+}

@@ -1,0 +1,19 @@
+mutation UpdateAzureCloudAccount(
+  $subscriptions: [AzureCloudAccountSubscriptionInput!]!
+  $regionsToAdd: [AzureCloudAccountRegion!]!
+  $regionsToRemove: [AzureCloudAccountRegion!]!
+) {
+  updateAzureCloudAccount(
+    input: {
+      subscriptions: $subscriptions
+      features: [CLOUD_NATIVE_PROTECTION]
+      regionsToAdd: $regionsToAdd
+      regionsToRemove: $regionsToRemove
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}

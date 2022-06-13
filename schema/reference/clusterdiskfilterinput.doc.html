@@ -306,6 +306,11 @@
                 AzureNativeVmOsType
             </a>
         </li>
+        <li  title="AzureOauthResource">
+            <a href="azureoauthresource.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AzureOauthResource
+            </a>
+        </li>
         <li  title="AzureRedundancy">
             <a href="azureredundancy.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AzureRedundancy
@@ -1836,6 +1841,11 @@
                 OracleUserDetails
             </a>
         </li>
+        <li  title="Org">
+            <a href="org.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Org
+            </a>
+        </li>
         <li  title="PageInfo">
             <a href="pageinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PageInfo
@@ -2581,6 +2591,11 @@
                 ClusterDiskFilterInput
             </a>
         </li>
+        <li  title="ClusterNodeFilterInput">
+            <a href="clusternodefilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ClusterNodeFilterInput
+            </a>
+        </li>
         <li  title="CommonClusterFilterInput">
             <a href="commonclusterfilterinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CommonClusterFilterInput
@@ -2893,7 +2908,7 @@
 <section>
   <div class="container">
     <h2 class="graphdoc-section__title slds-text-heading--medium slds-m-top--small">Description</h2>
-    <div class="slds-text-body--regular"><p>Filters for the cluster disk list</p>
+    <div class="slds-text-body--regular"><p>Filters for the list of Rubrik cluster disks.</p>
 </div>
   </div>
 </section>
@@ -2905,7 +2920,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">input</span> <span class="identifier">ClusterDiskFilterInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="meta">type</span>: <a class="support type" href="clusterdisktype.doc.html">ClusterDiskType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="clusterdiskstatus.doc.html">ClusterDiskStatus</a></span></li></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:28px"><li><span class="keyword operator ts">input</span> <span class="identifier">ClusterDiskFilterInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="comment line">#   The type of the Rubrik cluster disk.</span></span></li><li><span class="tab"><span class="meta">type</span>: <a class="support type" href="clusterdisktype.doc.html">ClusterDiskType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   The status of the Rubrik cluster disk.</span></span></li><li><span class="tab"><span class="meta">status</span>: <a class="support type" href="clusterdiskstatus.doc.html">ClusterDiskStatus</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   The Rubrik cluster node ID.</span></span></li><li><span class="tab"><span class="meta">nodeId</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

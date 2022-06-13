@@ -1,0 +1,29 @@
+mutation AddAzureCloudAccountWithoutOauth(
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+  $subscriptionName: String!
+  $azureSubscriptionNativeId: String!
+  $regions: [AzureCloudAccountRegion!]!
+) {
+  addAzureCloudAccountWithoutOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+      subscriptions: {
+        subscription: {
+          name: $subscriptionName
+          nativeId: $azureSubscriptionNativeId
+        }
+        features: [{featureType: CLOUD_NATIVE_PROTECTION, policyVersion: 1}]
+      }
+      regions: $regions
+    }
+  ) {
+    tenantId
+    status {
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+      error
+    }
+  }
+}

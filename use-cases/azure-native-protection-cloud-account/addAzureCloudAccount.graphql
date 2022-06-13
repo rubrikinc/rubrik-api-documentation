@@ -1,0 +1,31 @@
+mutation AddAzureCloudAccount(
+  $sessionId: String!
+  $regions: [AzureCloudAccountRegion!]!
+  $azureSubscriptionNativeId: String!
+  $subscriptionName: String!
+  $tenantDomainName: String!
+) {
+  addAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      regions: $regions
+      subscriptions: [
+        {
+          features: [{featureType: CLOUD_NATIVE_PROTECTION}]
+          subscription: {
+            nativeId: $azureSubscriptionNativeId
+            name: $subscriptionName
+          }
+        }
+      ]
+      tenantDomainName: $tenantDomainName
+    }
+  ) {
+    status {
+      error
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+    }
+    tenantId
+  }
+}

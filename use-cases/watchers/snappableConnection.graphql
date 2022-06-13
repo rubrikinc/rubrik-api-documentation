@@ -1,0 +1,15 @@
+query SnappableConnection($clusterId: [UUID!]) {
+  snappableConnection(
+    filter: {
+      cluster: {id: $clusterId}
+      objectType: VmwareVirtualMachine
+      protectionStatus: Protected
+    }
+  ) {
+    count
+    aggregation {
+      totalSnapshots
+      missedSnapshots
+    }
+  }
+}

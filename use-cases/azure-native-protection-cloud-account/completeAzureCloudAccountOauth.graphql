@@ -1,0 +1,20 @@
+mutation CompleteAzureCloudAccountOauth(
+  $sessionId: String!
+  $authorizationCode: String!
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  completeAzureCloudAccountOauth(
+    input: {
+      sessionId: $sessionId
+      authorizationCode: $authorizationCode
+      redirectUrl: "https://$account.my.rubrik.com/setup_azure"
+      tenantDomainName: $tenantDomainName
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureCloudType: $azureCloudType
+      shouldSkipPermissionChecks: false
+    }
+  ) {
+    isSuccess
+  }
+}

@@ -1,0 +1,17 @@
+mutation UpgradeAzureCloudAccount(
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  upgradeAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}

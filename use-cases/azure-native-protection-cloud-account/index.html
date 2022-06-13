@@ -138,11 +138,6 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-            <i class="fas fa-search"></i> Search
-          </a>
-        </li>
       </ul>
     </div>
   </div>
@@ -186,46 +181,58 @@
 cloud provider domain. A cloud account enables Rubrik to access and protect 
 the cloud-native workloads of the tenant.</p>
 <h2 id="cloud-account-for-azure-workloads">Cloud account for Azure workloads</h2>
-<p>Protection of Azure workloads in Rubrik begins with the addition of a cloud account. The cloud account authorizes Rubrik 
+<p>Protection of Azure workloads in Rubrik begins with the addition of a cloud account.
+The cloud account authorizes Rubrik
 to access the Azure subscriptions to be protected.</p>
-<p>At a high-level, the process of adding a cloud account for Azure workloads involves the following steps:</p>
+<p>At a high-level, the process of adding a cloud account for Azure
+workloads involves the following steps:</p>
 <ol>
 <li>Creating a service principal for Rubrik in your Azure Active Directory (AAD) tenant domain</li>
 <li>Creating custom roles required for cloud-native protection of workloads in Azure subscriptions</li>
-<li>Assigning the custom roles to the Rubrik service principal to allow access to Azure APIs for cloud-native protection</li>
+<li>Assigning the custom roles to the Rubrik service principal to allow access
+    to Azure APIs for cloud-native protection</li>
 </ol>
-<p>Different roles and roles assignments can be created for different features, also known as use cases. This page discusses the cloud-native 
-protection use case.</p>
+<p>Different roles and roles assignments can be created for different features,
+also known as use cases. This page discusses the cloud-native protection use case.</p>
 <p>The permissions required to access the Azure APIs for cloud-native protection are available 
-<a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/blob/master/polaris-custom-role-definition.json">here</a>.</p>
+<a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/
+blob/master/polaris-custom-role-definition.json">here</a>.</p>
 <p>Rubrik provides options for managing cloud accounts using OAuth 2.0 and without using OAuth 2.0. 
 The OAuth protocol allows you to authorize Rubrik to access Azure APIs on your behalf.</p>
 <p>OAuth is required to <code>add</code>, <code>upgrade</code>, and <code>delete</code> cloud accounts.</p>
-<p>When adding a cloud account with OAuth, Rubrik gains your consent and automatically creates the service principal with custom roles required to access 
+<p>When adding a cloud account with OAuth, Rubrik gains your consent and automatically creates
+the service principal with custom roles required to access
 the Azure account associated with the AAD tenant.</p>
 <p>Without OAuth, Rubrik requires you to create an application in 
 the AAD tenant with custom role assignments and provide the application ID to Rubrik.</p>
 <h3 id="prerequisites-for-cloud-account-management-using-oauth">Prerequisites for cloud account management using OAuth</h3>
 <p>To initiate the process of adding a cloud account with OAuth, first obtain an access token
 to authenticate requests to the Rubrik GraphQL API server,
-as described in <a href="https://rubrikinc.github.io/rubrik-api-documentation/api/auth/">Authentication</a>.</p>
-<p>Then, perform the following steps in preparation for using OAuth to <code>add</code>, <code>upgrade</code>, and <code>delete</code> cloud accounts. </p>
+as described in <a href="/api/auth/">Authentication</a>.</p>
+<p>Then, perform the following steps in preparation for using OAuth to
+<code>add</code>, <code>upgrade</code>, and <code>delete</code> cloud accounts.</p>
 <h4 id="creating-an-azure-session">Creating an Azure session</h4>
-<p>Create an Azure session using the <code>initiateAzureCloudAccountOAuth</code> mutation.</p>
-<p>The <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/initiateazurecloudaccountoauthresponse.doc.html">response</a> 
-includes the ID of the client application that gets registered with the AAD and the ID of the Azure session that is created.</p>
+<p>Create an Azure session using the <code>startAzureCloudAccountOauth</code> mutation.</p>
+<p>The <a href="/schema/reference/initiateazurecloudaccountoauthresponse.doc.html">response</a>
+includes the ID of the client application that gets registered with the
+AAD and the ID of the Azure session that is created.</p>
 <p>The session expires after 60 minutes.</p>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     initiateAzureCloudAccountOAuth(
-     input: {
-            tenantDomainName: $tenantDomainName,
-            azureCloudType: $azureCloudType
-      }){
-        clientId
-        sessionId
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation StartAzureCloudAccountOauth(
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  startAzureCloudAccountOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+    }
+  ) {
+    clientId
+    sessionId
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -233,37 +240,54 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/initiateazurecloudaccountoauthinput.doc.html"><code>InitiateAzureCloudAccountOAuthInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/initiateazurecloudaccountoauthinput.doc.html"><code>InitiateAzureCloudAccountOAuthInput</code></a> object as the input.</p>
 <h4 id="requesting-an-authorization-code">Requesting an authorization code</h4>
-<p>Request a temporary authorization code using the session ID and client ID generated as a result of <a href="#creating-an-azure-session">creating an Azure session</a>.
-The authorization code is used by Rubrik to request an access token. Rubrik uses the access token 
-to authenticate to the Azure APIs for creating a service principal required for cloud account management.</p>
+<p>Request a temporary authorization code using the session ID and client ID generated as a
+result of <a href="#creating-an-azure-session">creating an Azure session</a>.
+The authorization code is used by Rubrik to request an access token.
+Rubrik uses the access token to authenticate to the Azure APIs for creating
+a service principal required for cloud account management.</p>
 <p>The URL for requesting an authorization code has the following format:</p>
-<pre><code>https://login.microsoftonline.com/$tenantDomainName/oauth2/authorize?client_id=$clientID&amp;resource=https%3A%2F%2Fmanagement.azure.com&amp;state=$sessionID&amp;prompt=select_account&amp;&amp;response_mode=query&amp;response_type=code
+<pre><code>https://login.microsoftonline.com/$tenantDomainName/oauth2/authorize?
+    client_id=$clientID&amp;resource=https%3A%2F%2Fmanagement.azure.com
+    &amp;state=$sessionID
+    &amp;prompt=select_account
+    &amp;response_mode=query
+    &amp;response_type=code
 </code></pre>
 <p>Where,
 <code>$tenantDomainName</code> is the name of the AAD tenant domain of the Azure subscription.
 <code>$clientID</code> is the ID of the client application that gets registered with the AAD.
 <code>$sessionID</code> is the ID of the Azure session.</p>
-<p>For more information about generating a temporary authorization code, refer to the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-authorization-code">Azure documentation</a>.</p>
+<p>For more information about generating a temporary authorization code, refer to
+the <a href="https://docs.microsoft.com/en-us/azure/active-directory/
+develop/v2-oauth2-auth-code-flow#request-an-authorization-code">Azure documentation</a>.</p>
 <h4 id="generating-service-principal-to-access-azure-subscriptions">Generating service principal to access Azure subscriptions</h4>
-<p>Use the <a href="#requesting-an-authorization-code">authorization code</a> in the <code>completeAzureCloudAccountOAuth</code> GraphQL mutation to generate and store 
+<p>Use the <a href="#requesting-an-authorization-code">authorization code</a> in the
+<code>completeAzureCloudAccountOauth</code> GraphQL mutation to generate and store
 a service principal for accessing the Azure subscription.</p>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     completeAzureCloudAccountOAuth(
-     input: {
-            sessionId: $sessionId,
-            authorizationCode: $authorizationCode,
-            redirectUrl: &quot;https://$account.my.rubrik.com/setup_azure&quot;,
-            tenantDomainName: $tenantDomainName,
-            features: [CLOUD_NATIVE_PROTECTION],
-            azureCloudType: $azureCloudType,
-            shouldSkipPermissionChecks: false
-      }){
-        isSuccess
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation CompleteAzureCloudAccountOauth(
+  $sessionId: String!
+  $authorizationCode: String!
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  completeAzureCloudAccountOauth(
+    input: {
+      sessionId: $sessionId
+      authorizationCode: $authorizationCode
+      redirectUrl: &quot;https://$account.my.rubrik.com/setup_azure&quot;
+      tenantDomainName: $tenantDomainName
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureCloudType: $azureCloudType
+      shouldSkipPermissionChecks: false
+    }
+  ) {
+    isSuccess
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -271,48 +295,56 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/completeazurecloudaccountoauthinput.doc.html"><code>CompleteAzureCloudAccountOAuthInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/completeazurecloudaccountoauthinput.doc.html"><code>CompleteAzureCloudAccountOAuthInput</code></a> object as the input.</p>
 <h3 id="use-case-adding-a-cloud-account">Use case: Adding a cloud account</h3>
 <p>Rubrik allows adding a cloud account in two ways:</p>
 <ul>
-<li><strong>With OAuth</strong>, Rubrik generates the service principal, role definitions, and custom role assignments.</li>
-<li><strong>Without OAuth</strong>, you create the service principal, role definitions, and custom role assignments.</li>
+<li><strong>With OAuth</strong>, Rubrik generates the service principal,
+    role definitions, and custom role assignments.</li>
+<li><strong>Without OAuth</strong>, you create the service principal,
+    role definitions, and custom role assignments.</li>
 </ul>
 <h4 id="adding-a-cloud-account-with-oauth">Adding a cloud account with OAuth</h4>
 <p>To add a cloud account using OAuth, perform the following steps.</p>
 <ul>
-<li>Obtain a session ID and access token to access Azure APIs using OAuth, as described in the <a href="prerequisites-for-cloud-account-management-using-OAuth">Prerequisites</a> section.</li>
-<li>Use a GraphQL mutation to add Azure cloud account in Rubrik using the session ID created during the OAuth workflow.</li>
+<li>Obtain a session ID and access token to access Azure APIs using OAuth, as described in the
+    <a href="#prerequisites-for-cloud-account-management-using-oauth">Prerequisites</a> section.</li>
+<li>Use a GraphQL mutation to add Azure cloud account in Rubrik using the
+    session ID created during the OAuth workflow.</li>
 </ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     addAzureCloudAccount(
-     input: {
-        sessionId: $sessionId,
-        regions: $regions,
-        subscriptions: [
-          {
-            features: [
-              {
-                featureType: CLOUD_NATIVE_PROTECTION
-              }
-            ],
-            subscription: {
-              nativeId: $azureSubscriptionNativeId,
-              name: $subscriptionName
-            }
+  &quot;mutation&quot;: &quot;mutation AddAzureCloudAccount(
+  $sessionId: String!
+  $regions: [AzureCloudAccountRegion!]!
+  $azureSubscriptionNativeId: String!
+  $subscriptionName: String!
+  $tenantDomainName: String!
+) {
+  addAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      regions: $regions
+      subscriptions: [
+        {
+          features: [{featureType: CLOUD_NATIVE_PROTECTION}]
+          subscription: {
+            nativeId: $azureSubscriptionNativeId
+            name: $subscriptionName
           }
-        ],
-        tenantDomainName: $tenantDomainName
-      }){
-        status {
-          error
-          azureSubscriptionRubrikId
-          azureSubscriptionNativeId
         }
-        tenantId
-     }
-   }
+      ]
+      tenantDomainName: $tenantDomainName
+    }
+  ) {
+    status {
+      error
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+    }
+    tenantId
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -320,30 +352,48 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/addazurecloudaccountinput.doc.html"><code>AddAzureCloudAccountInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/addazurecloudaccountinput.doc.html"><code>AddAzureCloudAccountInput</code></a> object as the input.</p>
 <h4 id="adding-a-cloud-account-without-using-oauth">Adding a cloud account without using OAuth</h4>
 <p>To add a cloud account without using OAuth, perform the following steps.</p>
 <ul>
 <li>Create an Azure AD application, as described in <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app">Azure documentation</a>.</li>
-<li>Create a custom role definition for the Azure subscription, as described in <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/custom-create">Azure documentation</a>.</li>
-<li>Create role assignments for the Azure subscription, as described in <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current">Azure documentation</a> and assign the role to created Azure AD app.<ul>
-<li>To determine the permissions missing from the role definition, fetch the list of permissions required for cloud accounts using the <code>allLatestFeaturePermissionsForCloudAccounts</code> query.</li>
-<li>Alternatively, you can also compare the permissions assigned to the role definition with the <a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/blob/master/polaris-custom-role-definition.json">list of permissions required</a>.</li>
+<li>Create a custom role definition for the Azure subscription, as described in
+    <a href="https://docs.microsoft.com/en-us/azure/active-directory/roles/custom-create">Azure documentation</a>.</li>
+<li>Create role assignments for the Azure subscription, as described in
+    <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/
+    role-assignments-portal?tabs=current">Azure documentation</a> and assign the role to created Azure AD app.<ul>
+<li>To determine the permissions missing from the role definition, fetch the list of
+    permissions required for cloud accounts using the
+    <code>allLatestFeaturePermissionsForCloudAccounts</code> query.</li>
+<li>Alternatively, you can also compare the permissions assigned
+    to the role definition with the <a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/
+    blob/master/polaris-custom-role-definition.json">list of permissions required</a>.</li>
 </ul>
 </li>
-<li>Register the Azure AD application with Rubrik using the <code>setAzureCloudAccountCustomerAppCredentials</code> mutation.</li>
+<li>Register the Azure AD application with Rubrik using the
+    <code>setAzureCloudAccountCustomerAppCredentials</code> mutation.</li>
 </ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-    setAzureCloudAccountCustomerAppCredentials(input: {
-            appId: $appClientId,
-            appSecretKey: $appClientSecret,
-            appTenantId: $appTenantId,
-            appName: $appName,
-            tenantDomainName: $tenantDomainName,
-            azureCloudType: $azureCloudType
-        })
-   }
+  &quot;mutation&quot;: &quot;mutation SetAzureCloudAccountCustomerAppCredentials(
+  $appClientId: String!
+  $appClientSecret: String!
+  $appTenantId: String!
+  $appName: String!
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  setAzureCloudAccountCustomerAppCredentials(
+    input: {
+      appId: $appClientId
+      appSecretKey: $appClientSecret
+      appTenantId: $appTenantId
+      appName: $appName
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+    }
+  )
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -351,32 +401,41 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/setazurecloudaccountcustomerappcredentialsinput.doc.html"><code>SetAzureCloudAccountCustomerAppCredentialsInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/setazurecloudaccountcustomerappcredentialsinput.doc.html"><code>SetAzureCloudAccountCustomerAppCredentialsInput</code></a> object as the input.</p>
 <ul>
-<li>Add cloud account to Rubrik using the <code>addAzureCloudAccountWithoutOAuth</code> mutation.</li>
+<li>Add cloud account to Rubrik using the <code>addAzureCloudAccountWithoutOauth</code> mutation.</li>
 </ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-    addAzureCloudAccountWithoutOAuth(input: {
-            tenantDomainName: $tenantDomainName,
-            azureCloudType:   $azureCloudType,
-            subscriptions: {
-                subscription: {
-                    name:     $subscriptionName,
-                    nativeId: $azureSubscriptionNativeId
-                },
-                features: [CLOUD_NATIVE_PROTECTION]
-            },
-            regions:          $regions
-        }) {
-            tenantId
-            status {
-                azureSubscriptionRubrikId
-                azureSubscriptionNativeId
-                error
-            }
+  &quot;mutation&quot;: &quot;mutation AddAzureCloudAccountWithoutOauth(
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+  $subscriptionName: String!
+  $azureSubscriptionNativeId: String!
+  $regions: [AzureCloudAccountRegion!]!
+) {
+  addAzureCloudAccountWithoutOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+      subscriptions: {
+        subscription: {
+          name: $subscriptionName
+          nativeId: $azureSubscriptionNativeId
         }
-   }
+        features: [{featureType: CLOUD_NATIVE_PROTECTION, policyVersion: 1}]
+      }
+      regions: $regions
+    }
+  ) {
+    tenantId
+    status {
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+      error
+    }
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -384,32 +443,41 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/addazurecloudaccountwithoutoauthinput.doc.html"><code>AddAzureCloudAccountWithoutOAuthInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/addazurecloudaccountwithoutoauthinput.doc.html"><code>AddAzureCloudAccountWithoutOauthInput</code></a> object as the input.</p>
 <h3 id="use-case-upgrading-permissions-for-a-cloud-account">Use case: Upgrading permissions for a cloud account</h3>
 <p>Upgrading a cloud account involves updating permissions for roles associated with the 
 Azure cloud account.
 The permissions may change with changes in the features being protected as part of the
-Azure cloud account in Rubrik. When this happens, the state of the cloud account changes from <code>connected</code> to 
-<code>missing permissions</code>.</p>
+Azure cloud account in Rubrik. When this happens, the state of the cloud account
+changes from <code>connected</code> to <code>missing permissions</code>.</p>
 <p>Upgrade the cloud account permissions to change it back to the <code>connected</code> state.</p>
 <h4 id="upgrading-permissions-for-a-cloud-account-with-oauth">Upgrading permissions for a cloud account with OAuth</h4>
-<p>To upgrade a cloud account with OAuth, perform the following steps.
-- Obtain a session ID and access token to access Azure APIs using OAuth, as described in the <a href="prerequisites-for-cloud-account-management-using-OAuth">Prerequisites</a> section.
-- Use a GraphQL mutation to upgrade the Azure cloud account in Rubrik using the session ID created during the OAuth workflow.</p>
+<p>To upgrade a cloud account with OAuth, perform the following steps.</p>
+<ul>
+<li>Obtain a session ID and access token to access Azure APIs using OAuth, as described in the
+    <a href="#prerequisites-for-cloud-account-management-using-oauth">Prerequisites</a> section.</li>
+<li>Use a GraphQL mutation to upgrade the Azure cloud account in Rubrik using the session ID
+    created during the OAuth workflow.</li>
+</ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     upgradeAzureCloudAccount(
-     input: {
-            sessionId: $sessionId,
-            features: [CLOUD_NATIVE_PROTECTION],
-            azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
-      }){
-        status {
-          azureSubscriptionNativeId
-          isSuccess
-        }
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation UpgradeAzureCloudAccount(
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  upgradeAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -417,30 +485,37 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/upgradeazurecloudaccountinput.doc.html"><code>UpgradeAzureCloudAccountInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/upgradeazurecloudaccountinput.doc.html"><code>UpgradeAzureCloudAccountInput</code></a> object as the input.</p>
 <h4 id="upgrading-permissions-for-a-cloud-account-without-using-oauth">Upgrading permissions for a cloud account without using OAuth</h4>
 <p>To upgrade a cloud account without using OAuth, perform the following steps.</p>
 <ul>
 <li>Update the permissions of role definitions for the cloud account.<ul>
-<li>To determine the permissions missing from the role definition, fetch the list of permissions required for cloud accounts using the <code>allLatestFeaturePermissionsForCloudAccounts</code> query.</li>
-<li>Alternatively, you can also compare the permissions assigned to the role definition with the <a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/blob/master/polaris-custom-role-definition.json">list of permissions required</a>.</li>
+<li>To determine the permissions missing from the role definition, fetch the
+    list of permissions required for cloud accounts using the
+    <code>allLatestFeaturePermissionsForCloudAccounts</code> query.</li>
+<li>Alternatively, you can also compare the permissions assigned to
+    the role definition with the <a href="https://github.com/rubrikinc/azure-roledefinition-cloud-native-protection-for-azure/
+blob/master/polaris-custom-role-definition.json">list of permissions required</a>.</li>
 </ul>
 </li>
 </ul>
-<p>For more information about checking permissions for role definitions, check <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-definitions">this Azure documentation</a>.</p>
+<p>For more information about checking permissions for role definitions,
+check <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/role-definitions">this Azure documentation</a>.</p>
 <ul>
-<li>Update the status of cloud account to <code>connected</code> using the <code>upgradeAzureCloudAccountPermissionsWithoutOauth</code> mutation.</li>
+<li>Update the status of cloud account to <code>connected</code> using the
+  <code>upgradeAzureCloudAccountPermissionsWithoutOauth</code> mutation.</li>
 </ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     upgradeAzureCloudAccountPermissionsWithoutOauth(
-     input: {
-            cloudAccountId: $cloudAccountId,
-            feature: CLOUD_NATIVE_PROTECTION
-      }){
-        status
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation UpgradeAzureCloudAccountPermissionsWithoutOauth(
+  $cloudAccountId: UUID!
+) {
+  upgradeAzureCloudAccountPermissionsWithoutOauth(
+    input: {cloudAccountId: $cloudAccountId, feature: CLOUD_NATIVE_PROTECTION}
+  ) {
+    status
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -448,22 +523,31 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/upgradeazurecloudaccountpermissionswithoutoauthinput.doc.html"><code>UpgradeAzureCloudAccountPermissionsWithoutOauthInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/upgradeazurecloudaccountpermissionswithoutoauthinput.doc.html"><code>UpgradeAzureCloudAccountPermissionsWithoutOauthInput</code></a>
+object as the input.</p>
 <h3 id="use-case-updating-a-cloud-account">Use case: Updating a cloud account</h3>
 <p>Updating a cloud account involves updating its properties, like the name or the Azure subscription regions configured of the cloud account.</p>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     updateAzureCloudAccount(
-     input: {
-            subscriptions: $subscriptions,
-            features: [CLOUD_NATIVE_PROTECTION],
-            regionsToAdd: $regionsToAdd,
-            regionsToRemove: $regionsToRemove
-      }){
-        jobId
-        error
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation UpdateAzureCloudAccount(
+  $subscriptions: [AzureCloudAccountSubscriptionInput!]!
+  $regionsToAdd: [AzureCloudAccountRegion!]!
+  $regionsToRemove: [AzureCloudAccountRegion!]!
+) {
+  updateAzureCloudAccount(
+    input: {
+      subscriptions: $subscriptions
+      features: [CLOUD_NATIVE_PROTECTION]
+      regionsToAdd: $regionsToAdd
+      regionsToRemove: $regionsToRemove
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -471,7 +555,7 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/updateazurecloudaccountinput.doc.html"><code>UpdateAzureCloudAccountInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/updateazurecloudaccountinput.doc.html"><code>UpdateAzureCloudAccountInput</code></a> object as the input.</p>
 <h3 id="use-case-disabling-a-cloud-account">Use case: Disabling a cloud account</h3>
 <p>Disabling a cloud account stops the protection for workloads in the subscriptions 
 being managed by Rubrik as part of the cloud account.</p>
@@ -479,17 +563,22 @@ being managed by Rubrik as part of the cloud account.</p>
 mutation to initiate an asynchronous job to disable the subscription.
 When the job completes, the subscription will be in <code>disabled</code> state.</p>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     startDisableAzureNativeSubscriptionProtectionJob(
-     input: {
-            azureSubscriptionRubrikId: $azureSubscriptionRubrikId,
-            shouldDeleteNativeSnapshots: $shouldDeleteNativeSnapshots,
-            azureNativeProtectionFeature: CLOUD_NATIVE_PROTECTION
-      }){
-        jobId
-        error
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation StartDisableAzureNativeSubscriptionProtectionJob(
+  $azureSubscriptionRubrikId: UUID!
+  $shouldDeleteNativeSnapshots: Boolean!
+) {
+  startDisableAzureNativeSubscriptionProtectionJob(
+    input: {
+      azureSubscriptionRubrikId: $azureSubscriptionRubrikId
+      shouldDeleteNativeSnapshots: $shouldDeleteNativeSnapshots
+      azureNativeProtectionFeature: SQL_DB
+    }
+  ) {
+    jobId
+    error
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -497,32 +586,43 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/startdisableazurenativesubscriptionprotectionjobinput.doc.html"><code>StartDisableAzureNativeSubscriptionProtectionJobInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/startdisableazurenativesubscriptionprotectionjobinput.doc.html"><code>StartDisableAzureNativeSubscriptionProtectionJobInput</code></a>
+object as the input.</p>
 <h3 id="use-case-deleting-a-cloud-account">Use case: Deleting a cloud account</h3>
 <p>Deleting a cloud account results in deleting the Azure subscriptions associated with 
 the cloud account for a specified feature from Rubrik.</p>
 <p>Using OAuth to delete a cloud account results in deleting the role definitions and 
 role assignments associated with the subscription as well.</p>
 <p>To delete a cloud account it must be in the disabled state.
-Disable the cloud account, as described in <a href="#use-case-disabling-a-cloud-account">Disabling a cloud account</a>.</p>
+Disable the cloud account, as described
+in <a href="#use-case-disabling-a-cloud-account">Disabling a cloud account</a>.</p>
 <h4 id="deleting-a-cloud-account-with-oauth">Deleting a cloud account with OAuth</h4>
-<p>To delete a cloud account with OAuth, perform the following steps.
-- Obtain a session ID and access token to access Azure APIs using OAuth, as described in the <a href="prerequisites-for-cloud-account-management-using-OAuth">Prerequisites</a> section.
-- Use a GraphQL mutation to delete the Azure cloud account from Rubrik using the session ID created during the OAuth workflow.</p>
+<p>To delete a cloud account with OAuth, perform the following steps.</p>
+<ul>
+<li>Obtain a session ID and access token to access Azure APIs using OAuth, as described
+    in the <a href="#prerequisites-for-cloud-account-management-using-oauth">Prerequisites</a> section.</li>
+<li>Use a GraphQL mutation to delete the Azure cloud account from Rubrik using the session
+    ID created during the OAuth workflow.</li>
+</ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     deleteAzureCloudAccount(
-     input: {
-            sessionId: $sessionId,
-            features: CLOUD_NATIVE_PROTECTION,
-            azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
-      }){
-        status {
-          isSuccess
-          error
-        }
-     }
-   }
+  &quot;mutation&quot;: &quot;mutation DeleteAzureCloudAccount(
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -530,25 +630,30 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/deleteazurecloudaccountinput.doc.html"><code>DeleteAzureCloudAccountInput</code></a> object as the input.</p>
+<p>The mutation takes the <a href="/schema/reference/deleteazurecloudaccountinput.doc.html"><code>DeleteAzureCloudAccountInput</code></a> object as the input.</p>
 <h4 id="deleting-a-cloud-account-without-using-oauth">Deleting a cloud account without using OAuth</h4>
 <p>To delete a cloud account without using OAuth, perform the following steps.</p>
 <ul>
-<li>Delete the cloud account using the <code>deleteAzureCloudAccountWithoutOAuth</code> mutation.</li>
+<li>Delete the cloud account using the <code>deleteAzureCloudAccountWithoutOauth</code> mutation.</li>
 </ul>
 <pre><code class="language-bash">MUTATION='{
-  &quot;mutation&quot;: &quot;mutation {
-     deleteAzureCloudAccountWithoutOAuth(
-     input: {
-            features: &quot;CLOUD_NATIVE_PROTECTION&quot;,
-            azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId],
-      }){
-        status {
-          isSuccess
-          error
-        }
-     }
-   }
+  &quot;mutation&quot;:
+&quot;mutation DeleteAzureCloudAccountWithoutOauth(
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccountWithoutOauth(
+    input: {
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}
+&quot;
 }'
 
 curl -X POST https://$account.rubrik.com/api/graphql \
@@ -556,7 +661,9 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo MUTATION)&quot;
 </code></pre>
-<p>The mutation takes the <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/reference/deleteazurecloudaccountwithoutoauthinput.doc.html"><code>DeleteAzureCloudAccountWithoutOAuthInput</code></a> object as the input.</p>
+<p>The mutation takes the
+<a href="/schema/reference/deleteazurecloudaccountwithoutoauthinput.doc.html"><code>DeleteAzureCloudAccountWithoutOauthInput</code></a>
+object as the input.</p>
 <ul>
 <li>Delete the role assignments and role definition for the cloud account subscriptions from Azure.</li>
 </ul></div>
@@ -571,7 +678,7 @@ curl -X POST https://$account.rubrik.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2022-06-01</small>
+            <small>Revised on: 2022-06-13</small>
             </p>
           
 
@@ -591,47 +698,8 @@ curl -X POST https://$account.rubrik.com/api/graphql \
     <script>var base_url = "../.."</script>
     
     <script src="../../js/base.js"></script>
-    <script src="../../search/main.js"></script>
 
     <div
-  class="modal"
-  id="mkdocs_search_modal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="searchModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title" id="searchModalLabel">Search</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          From here you can search these documents. Enter your search terms
-          below.
-        </p>
-        <form>
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search..."
-              id="mkdocs-search-query"
-              title="Type search term here"
-            />
-          </div>
-        </form>
-        <div id="mkdocs-search-results"></div>
-      </div>
-      <div class="modal-footer"></div>
-    </div>
-  </div>
-</div><div
   class="modal"
   id="mkdocs_keyboard_modal"
   tabindex="-1"
