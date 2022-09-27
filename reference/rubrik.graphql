@@ -1026,6 +1026,12 @@ type ActivitySeries {
   isCancelable: Boolean
   location: String!
   isPolarisEventSeries: Boolean!
+
+  # The organization ID of this event series.
+  orgId: UUID
+
+  # The organization name of this event series.
+  orgName: String
   fid: UUID
   progress: String
   failureReason: String
@@ -1069,57 +1075,78 @@ type ActivitySeriesEdge {
   # The actual ActivitySeries object wrapped by this edge.
   node: ActivitySeries!
 }
-# Filter event series data.
-input ActivitySeriesFilterInput {
-  # Status of the last event in the event series.
-  lastActivityStatus: [ActivityStatusEnum!]
+# Filters for list of event series.
+input ActivitySeriesFilter {
+  # Filter by last activity status.
+  lastActivityStatus: [EventStatus!]
 
-  # Type of the last event in the event series.
-  lastActivityType: [ActivityTypeEnum!]
+  # Filter by last activity type.
+  lastActivityType: [EventType!]
 
-  # Severity of the event series.
-  severity: [ActivitySeverityEnum!]
+  # Filter by severity of the activity.
+  severity: [EventSeverity!]
 
-  # Name of the object.
+  # Filter by object name.
   objectName: String
 
-  # Object type.
-  objectType: [ActivityObjectTypeEnum!]
+  # Filter by object type.
+  objectType: [EventObjectType!]
 
-  # Start time greater than.
+  # Filter activities having start time after the specified value.
   startTimeGt: DateTime
 
-  # Start time less than.
+  # Filter activities having start time before the specified value.
   startTimeLt: DateTime
 
-  # Last updated time greater than.
-  lastUpdatedGt: DateTime
+  # Filter activites having last updated time after the specified value.
+  lastUpdatedTimeGt: DateTime
 
-  # Last updated time less than.
-  lastUpdatedLt: DateTime
+  # Filter activites having last updated time before than the specified value.
+  lastUpdatedTimeLt: DateTime
 
-  # Cluster ID and type.
-  cluster: CommonClusterFilterInput
+  # Filter by cluster UUID.
+  clusterId: [UUID!]
 
-  # Forever IDs of objects.
-  objectFids: [UUID!]
+  # Filter by cluster type.
+  clusterType: [EventClusterType!]
 
-  # Ancestor ID of the object.
+  # Filter by object fid.
+  objectFid: [UUID!]
+
+  # Filter by ancestor ID.
   ancestorId: UUID
 
-  # Text to search event content.
+  # Filter by search term.
   searchTerm: String
 }
-enum ActivitySeriesSortByEnum {
-  ActivityStatus
-  ActivityType
-  ClusterName
-  LastUpdated
-  Location
-  ObjectName
-  ObjectType
-  Severity
-  StartTime
+# Sort field.
+enum ActivitySeriesSortField {
+  # Sort event series by status.
+  ACTIVITY_STATUS
+
+  # Sort event series by type.
+  ACTIVITY_TYPE
+
+  # Sort event series by name of the cluster.
+  CLUSTER_NAME
+
+  # Sort event series by last updated time.
+  LAST_UPDATED
+
+  # Sort event series by location.
+  LOCATION
+
+  # Sort event series by name of the object.
+  OBJECT_NAME
+
+  # Sort event series by type of the object.
+  OBJECT_TYPE
+
+  # Sort event series by severity.
+  SEVERITY
+
+  # Sort event series by start time.
+  START_TIME
 }
 enum ActivitySeverityEnum {
   Critical
@@ -1138,6 +1165,7 @@ enum ActivityStatusEnum {
   TaskSuccess
   Warning
 }
+# Enum representing different type of activities.
 enum ActivityTypeEnum {
   Anomaly
   Archive
@@ -1162,6 +1190,9 @@ enum ActivityTypeEnum {
   HostEvent
   HypervScvmm
   HypervServer
+
+  # Recovering selected objects to an Isolated Recovery Environment (IRE).
+  ISOLATED_RECOVERY
   Index
   Instantiate
   LegalHold
@@ -1169,6 +1200,9 @@ enum ActivityTypeEnum {
   LockSnapshot
   Maintenance
   NutanixCluster
+
+  # Activity representing change of account ownership.
+  OWNERSHIP
   RadarAnalysis
   Recovery
   Replication
@@ -1395,13 +1429,6 @@ enum ArchivalGroupTypeEnum {
   # Type of archival location is unknown.
   UNKNOWN_ARCHIVAL_GROUP
 }
-type ArchivalLocation {
-  id: String!
-  name: String!
-  locationType: ArchivalLocationType!
-  isActive: Boolean!
-  bucket: String
-}
 # Availability status of the archival location.
 enum ArchivalLocationStatus {
   # Location is deleted.
@@ -1429,19 +1456,6 @@ type ArchivalLocationToClusterMapping {
 
   # Location used as archival target.
   location: DlsArchivalLocation
-}
-enum ArchivalLocationType {
-  Azure
-  Cleversafe
-  Glacier
-  Google
-  HDS
-  Nfs
-  Qstar
-  Rehydrated
-  S3
-  S3Compatible
-  Scality
 }
 type ArchivalSpec {
   threshold: Int!
@@ -2080,7 +2094,7 @@ type AwsNativeAccount implements PolarisHierarchyObject , HierarchyObject {
     # Sort hierarchy object by hierarchy order.
     sortOrder: HierarchySortOrder, rdsInstanceFilters: AwsNativeRdsInstanceFilters): AwsNativeRdsInstanceConnection!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -2104,7 +2118,7 @@ type AwsNativeAccount implements PolarisHierarchyObject , HierarchyObject {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -2117,7 +2131,7 @@ type AwsNativeAccount implements PolarisHierarchyObject , HierarchyObject {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -2137,7 +2151,7 @@ type AwsNativeAccountConnection {
   count: Int!
 }
 interface AwsNativeAccountDescendantType {
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -2161,7 +2175,7 @@ interface AwsNativeAccountDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -2174,7 +2188,7 @@ interface AwsNativeAccountDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -2201,7 +2215,7 @@ input AwsNativeAccountFilters {
   effectiveSlaFilter: EffectiveSlaFilter
 }
 interface AwsNativeAccountLogicalChildType {
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -2225,7 +2239,7 @@ interface AwsNativeAccountLogicalChildType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -2238,7 +2252,7 @@ interface AwsNativeAccountLogicalChildType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -2318,7 +2332,7 @@ type AwsNativeEbsVolume implements PolarisHierarchyObject , PolarisHierarchySnap
   # EC2 Instances to which this volume is attached.
   attachedEc2Instances: [AwsNativeEc2Instance!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -2342,7 +2356,7 @@ type AwsNativeEbsVolume implements PolarisHierarchyObject , PolarisHierarchySnap
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -2355,7 +2369,7 @@ type AwsNativeEbsVolume implements PolarisHierarchyObject , PolarisHierarchySnap
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -2381,7 +2395,7 @@ type AwsNativeEbsVolume implements PolarisHierarchyObject , PolarisHierarchySnap
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -2401,7 +2415,7 @@ type AwsNativeEbsVolume implements PolarisHierarchyObject , PolarisHierarchySnap
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -2522,6 +2536,9 @@ input AwsNativeEbsVolumeFilters {
 
   # Filter by tags.
   tagFilter: AwsNativeTagFilter
+
+  # Filter by organization ID.
+  orgFilter: OrgFilter
 }
 # Filter to return AWS EBS volumes with a given substring in their name or instance ID.
 input AwsNativeEbsVolumeNameOrIdSubstringFilter {
@@ -2653,7 +2670,7 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
   # Rubrik CDM host information for the AWS EC2 instance added as a host to the cluster. The value is Null when the virtual machine is not added as a host on any Rubrik cluster.
   hostInfo: PhysicalHost
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -2677,7 +2694,7 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -2690,7 +2707,7 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -2716,7 +2733,7 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -2736,7 +2753,7 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -2863,6 +2880,9 @@ input AwsNativeEc2InstanceFilters {
 
   # Filter by RBS connection status.
   rbsStatusFilter: AwsInstanceCcOrCnpRbsConnectionStatusFilter
+
+  # Filter by organization ID.
+  orgFilter: OrgFilter
 }
 # Filter to return AWS EC2 instances with a given substring in their name or instance ID.
 input AwsNativeEc2InstanceNameOrIdSubstringFilter {
@@ -4265,7 +4285,7 @@ type AwsNativeRdsInstance implements PolarisHierarchyObject , PolarisHierarchySn
   # AWS account of the Amazon Relational Database Service (RDS) instance.
   awsNativeAccount: AwsNativeAccount!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -4289,7 +4309,7 @@ type AwsNativeRdsInstance implements PolarisHierarchyObject , PolarisHierarchySn
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -4302,7 +4322,7 @@ type AwsNativeRdsInstance implements PolarisHierarchyObject , PolarisHierarchySn
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -4328,7 +4348,7 @@ type AwsNativeRdsInstance implements PolarisHierarchyObject , PolarisHierarchySn
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -4348,7 +4368,7 @@ type AwsNativeRdsInstance implements PolarisHierarchyObject , PolarisHierarchySn
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -4464,6 +4484,9 @@ input AwsNativeRdsInstanceFilters {
 
   # Filter by database instance class.
   dbInstanceClassFilter: AwsNativeRdsDbInstanceClassFilter
+
+  # Filter by organization ID.
+  orgFilter: OrgFilter
 }
 # The field type used to sort the RDS instances.
 enum AwsNativeRdsInstanceSortFields {
@@ -4853,13 +4876,16 @@ type AwsSecurityGroup {
 }
 # Storage class for AWS type location.
 enum AwsStorageClassTypeEnum {
-  # One Zone-IA AWS storage class.
+  # Amazon S3 Glacier Instant Retrieval storage class.
+  GLACIER_INSTANT_RETRIEVAL
+
+  # Amazon S3 One Zone-IA storage class.
   ONEZONE_IA
 
-  # Standard AWS storage class.
+  # Amazon S3 Standard storage class.
   STANDARD
 
-  # Standard-IA AWS storage class.
+  # Amazon S3 Standard-IA storage class.
   STANDARD_IA
 
   # Unknown AWS storage class.
@@ -4949,6 +4975,9 @@ type AzureCloudAccountFeatureDetail {
 
   # Resource group for the feature.
   resourceGroup: AzureResourceGroup!
+
+  # Role details for the feature.
+  role: AzureRole!
 }
 # Configuration consisting of role permissions and feature policy version required for Azure subscription setup. Features refer to the Polaris features that the customer wants to be enabled on the cloud account.
 type AzureCloudAccountPermissionConfigResponse {
@@ -5179,6 +5208,9 @@ type AzureCloudAccountTenant {
 
   # Type of Azure Tenant. Possible values: Azure Public Cloud, Azure China Cloud.
   cloudType: AzureCloudType!
+
+  # App name of the application configured for authentication of the Azure tenant.
+  appName: String!
 }
 # Azure Cloud Account Tenant with details of exocompute configured for subscriptions for a given feature.
 type AzureCloudAccountTenantWithExoConfigs {
@@ -5193,6 +5225,9 @@ type AzureCloudAccountTenantWithExoConfigs {
 
   # Type of Azure Tenant. Can be Azure Public Cloud or Azure China Cloud.
   cloudType: AzureCloudType!
+
+  # App name of Azure application for the tenant.
+  appName: String!
 
   # Details of subscriptions for the tenant.
   subscriptions: [AzureSubscriptionWithExoConfigs!]!
@@ -5256,10 +5291,13 @@ type AzureComputeSettings {
 }
 # Azure exocompute configuration to add.
 input AzureExocomputeAddConfigInputType {
+  # Subnet native ID where exocompute pods should be launched.
+  podSubnetNativeId: String = ""
+
   # The region for which the configuration is specified.
   region: AzureCloudAccountRegion!
 
-  # Subnet native ID where exocompute should be launched.
+  # Subnet native ID where exocompute cluster should be launched.
   subnetNativeId: String!
 
   # Specifies if this configuration is managed by Polaris.
@@ -5273,8 +5311,11 @@ type AzureExocomputeConfigDetails {
   # Region in which exocompute is configured. It will be in the format like EASTUS.
   region: AzureCloudAccountRegion!
 
-  # Native ID of subnet coresponding to exocompute. This will be the subnet provided during setting up exocompute.
+  # Native ID of cluster subnet corresponding to the Exocompute configuration. This subnet will be used to allocate IP addresses to the nodes of the cluster. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni.
   subnetNativeId: String!
+
+  # Native ID of cluster subnet corresponding to the Exocompute configuration. This subnet will be used to allocate IP addresses to the nodes of the cluster. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni.
+  podSubnetNativeId: String!
 
   # Whether exocompute is polaris managed or not.
   isPolarisManaged: Boolean!
@@ -5296,8 +5337,14 @@ type AzureExocomputeConfigValidationInfo {
   # Specifies whether the configuration has the corresponding subnet address range overlap with Azure restricted address ranges. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni#prerequisites.
   hasRestrictedAddressRangeOverlap: Boolean!
 
-  # Specifies whether the the subnet specified in configuration is delegated. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni#prerequisites.
+  # Specifies whether the subnet specified in configuration is delegated. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni#prerequisites.
   isSubnetDelegated: Boolean!
+
+  # Specifies whether the subnet specified in configuration is same for the pod and cluster. Pod and cluster subnets should be different for a valid configuration. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni#dynamic-allocation-of-ip-addresses-and-enhanced-subnet-support-faqs.
+  isPodAndClusterSubnetSame: Boolean!
+
+  # Specifies whether the VNET associated with the subnet specified in configuration is different for the pod and cluster. Pod and cluster VNETs should be same for a valid configuration. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni#dynamic-allocation-of-ip-addresses-and-enhanced-subnet-support-faqs.
+  isPodAndClusterVnetDifferent: Boolean!
 
   # Error received while validating Exocompute configuration.
   errorMessage: String!
@@ -5324,8 +5371,11 @@ type AzureExocomputeGetConfigResponse {
   # Azure region for the cloud account in which exocompute is configured.
   region: AzureCloudAccountRegion!
 
-  # Native ID of the subnet which is configured for usage in this region.
+  # Native ID of cluster subnet corresponding to the Exocompute configuration. This subnet will be used to allocate IP addresses to the nodes of the cluster. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni.
   subnetNativeId: String!
+
+  # Native ID of cluster subnet corresponding to the Exocompute configuration. This subnet will be used to allocate IP addresses to the nodes of the cluster. For more details, visit https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni.
+  podSubnetNativeId: String!
 
   # Specifies whether Exocompute is managed by Polaris or not.
   isPolarisManaged: Boolean!
@@ -5341,11 +5391,14 @@ type AzureExocomputeRegionConfig {
   # Azure region for the cloud account in which exocompute is configured.
   region: AzureCloudAccountRegion!
 
-  # Native ID of the subnet which is configured for usage in this region.
+  # Native ID of the subnet, configured for usage in this region for the Exocompute cluster.
   subnetNativeId: String!
 
   # Specifies whether Exocompute is managed by Polaris or not.
   isPolarisManaged: Boolean!
+
+  # Native ID of the subnet, configured for usage in this region for the Exocompute pods.
+  podSubnetNativeId: String!
 }
 # Immutability settings for azure cdm target.
 type AzureImmutabilitySettingsType {
@@ -5607,7 +5660,7 @@ type AzureNativeManagedDisk implements PolarisHierarchyObject , PolarisHierarchy
   # All Virtual Machines (VMs) attached to the Managed Disk.
   allAttachedAzureNativeVirtualMachines: [AzureNativeVirtualMachine!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -5631,7 +5684,7 @@ type AzureNativeManagedDisk implements PolarisHierarchyObject , PolarisHierarchy
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -5644,7 +5697,7 @@ type AzureNativeManagedDisk implements PolarisHierarchyObject , PolarisHierarchy
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -5670,7 +5723,7 @@ type AzureNativeManagedDisk implements PolarisHierarchyObject , PolarisHierarchy
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -5690,7 +5743,7 @@ type AzureNativeManagedDisk implements PolarisHierarchyObject , PolarisHierarchy
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -6184,7 +6237,7 @@ type AzureNativeResourceGroup implements PolarisHierarchyObject , HierarchyObjec
     # Sort hierarchy object by hierarchy order.
     sortOrder: HierarchySortOrder, virtualMachineFilters: AzureNativeVirtualMachineFilters): AzureNativeVirtualMachineConnection!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -6208,7 +6261,7 @@ type AzureNativeResourceGroup implements PolarisHierarchyObject , HierarchyObjec
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -6221,7 +6274,7 @@ type AzureNativeResourceGroup implements PolarisHierarchyObject , HierarchyObjec
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -6373,7 +6426,7 @@ type AzureNativeSubscription implements PolarisHierarchyObject , HierarchyObject
     # Filters for listing Azure resource groups
     commonResourceGroupFilters: AzureNativeCommonResourceGroupFilters): AzureNativeResourceGroupConnection!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -6397,7 +6450,7 @@ type AzureNativeSubscription implements PolarisHierarchyObject , HierarchyObject
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -6410,7 +6463,7 @@ type AzureNativeSubscription implements PolarisHierarchyObject , HierarchyObject
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -6555,7 +6608,7 @@ type AzureNativeVirtualMachine implements PolarisHierarchyObject , PolarisHierar
   # Rubrik CDM host information for the Azure Virtual Machine added as a host to the cluster. The value is Null when the virtual machine is not added as a host on any Rubrik cluster.
   hostInfo: PhysicalHost
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -6579,7 +6632,7 @@ type AzureNativeVirtualMachine implements PolarisHierarchyObject , PolarisHierar
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -6592,7 +6645,7 @@ type AzureNativeVirtualMachine implements PolarisHierarchyObject , PolarisHierar
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -6618,7 +6671,7 @@ type AzureNativeVirtualMachine implements PolarisHierarchyObject , PolarisHierar
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -6638,7 +6691,7 @@ type AzureNativeVirtualMachine implements PolarisHierarchyObject , PolarisHierar
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -7059,6 +7112,34 @@ type AzureResourceGroup {
   # The tags present in the resource group.
   tags: [AzureTag!]!
 }
+# Azure retrieval tier.
+enum AzureRetrievalTier {
+  # Unspecified Azure retrieval tier.
+  AZURE_TIER_UNSPECIFIED
+
+  # High priority Azure retrieval tier.
+  HIGH_PRIORITY_AZURE_TIER
+
+  # Standard Azure retrieval tier.
+  STANDARD_AZURE_TIER
+}
+# Azure Role details.
+type AzureRole {
+  # ID of the role definition.
+  roleDefinitionId: UUID!
+
+  # Name of the role.
+  roleDisplayName: String!
+
+  # Name of the role assignment.
+  roleAssignmentName: String!
+
+  # Scope of the role in Azure. The format of the scope is `/subscriptions/<subscription-native-id>`.
+  scope: String!
+
+  # Specifies whether role is created by Rubrik via OAuth flow or manually by the customer without OAuth flow.
+  isRubrikManaged: Boolean!
+}
 type AzureRoleBasedAccount implements CloudAccount {
   # The subscription info with feature details.
   subscriptionWithFeatures: AzureSubscriptionWithFeaturesType!
@@ -7413,7 +7494,7 @@ interface CdmHierarchyObject {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -7434,7 +7515,7 @@ interface CdmHierarchyObject {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -7458,7 +7539,7 @@ interface CdmHierarchyObject {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -7471,7 +7552,7 @@ interface CdmHierarchyObject {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -7503,19 +7584,19 @@ type CdmManagedAwsTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7527,19 +7608,19 @@ type CdmManagedAwsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7562,19 +7643,19 @@ type CdmManagedAzureTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7586,19 +7667,19 @@ type CdmManagedAzureTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7615,19 +7696,19 @@ type CdmManagedGcpTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7639,19 +7720,19 @@ type CdmManagedGcpTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7668,19 +7749,19 @@ type CdmManagedNfsTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7692,19 +7773,19 @@ type CdmManagedNfsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7721,19 +7802,19 @@ type CdmManagedS3CompatibleTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7745,19 +7826,19 @@ type CdmManagedS3CompatibleTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7784,19 +7865,19 @@ type CdmTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -7808,19 +7889,19 @@ type CdmTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -7892,6 +7973,9 @@ type CdmUpgradeInfo {
 
   # Time taken by the last upgrade.
   lastUpgradeDuration: UpgradeDurationReply
+
+  # Upgrade type in cdm cluster.
+  fastUpgradePreferred: Boolean
 }
 # Cloud Account (AWS, Azure etc.) information.
 interface CloudAccount {
@@ -8112,6 +8196,9 @@ type Cluster {
   # The cluster status.
   status: ClusterStatus!
 
+  # The cluster sub status.
+  subStatus: ClusterSubStatus!
+
   # The cluster state.
   state: clusterState!
 
@@ -8133,9 +8220,6 @@ type Cluster {
   # When the global manager connectivity was last updated.
   connectivityLastUpdated: DateTime
 
-  # The cluster's archival locations.
-  archivalLocations: [ArchivalLocation!]!
-
   # The cluster's replication sources.
   replicationSources: [ReplicationSource!]!
 
@@ -8153,6 +8237,9 @@ type Cluster {
   # This field contains information about the various jobs that sync data from the CDM cluster to Polaris.
   polarisSyncStatus: PolarisSyncStatus!
 
+  # The organizations to which this cluster is authorized.
+  allOrgs: [Org!]!
+
   # The cluster's activity series.
   activitySeriesConnection(
     # Returns the first n elements from the list.
@@ -8168,7 +8255,7 @@ type Cluster {
     before: String,
 
     # Sort activity series by field.
-    sortBy: ActivitySeriesSortByEnum = LastUpdated, filters: ActivitySeriesFilterInput): ActivitySeriesConnection!
+    sortBy: ActivitySeriesSortField, filters: ActivitySeriesFilter): ActivitySeriesConnection!
 
   # The cluster's snappables.
   snappableConnection(
@@ -8258,6 +8345,12 @@ type Cluster {
 
   # Total number of protected NoSql workloads.
   noSqlSnappableCount: Int!
+
+  # Config protection information.
+  configProtectionInfo: ConfigProtectionInfo
+
+  # The licensed products that belong to this cluster.
+  licensedProducts: [Product!]!
 }
 type ClusterArchivalSpec {
   archivalLocationName: String!
@@ -8518,6 +8611,9 @@ type ClusterNodeStats {
   # Write Input/output throughput, in bytes per second.
   writeThroughputBytesPerSecond: Long!
 
+  # Memory used on the node, in percentage.
+  usedMemoryStat: Int!
+
   # Time at which the performance metrics were retrieved.
   time: DateTime!
 
@@ -8567,9 +8663,18 @@ enum ClusterPauseStatus {
   # Unknown Status.
   UNKNOWN
 }
+# Product type of the registered cluster.
 enum ClusterProductEnum {
+  # The cluster is CDM cluster.
   CDM
+
+  # The cluster is CLOUD_DIRECT cluster.
+  CLOUD_DIRECT
+
+  # The cluster is DATOS cluster.
   DATOS
+
+  # The cluster is POLARIS cluster.
   POLARIS
 }
 enum ClusterRemovalState {
@@ -8614,6 +8719,20 @@ enum ClusterStatus {
   Connected
   Disconnected
   Initializing
+}
+# Sub status of the cluster.
+enum ClusterSubStatus {
+  # The cluster has no sub status.
+  DEFAULT
+
+  # The cluster is currently initializing events.
+  INITIALIZING_EVENTS
+
+  # The cluster is currently syncing objects and SLAs.
+  INITIALIZING_METADATA
+
+  # The cluster is currently initializing reports.
+  INITIALIZING_REPORTS
 }
 # Cluster system status.
 enum ClusterSystemStatus {
@@ -8702,6 +8821,55 @@ enum ComplianceStatusEnum {
   Null
   OutOfCompliance
   Unprotected
+}
+# Configuration protection information.
+type ConfigProtectionInfo {
+  # The cluster UUID.
+  clusterUuid: UUID!
+
+  # Status of configuration protection.
+  configProtectionStatus: ConfigProtectionStatus!
+
+  # Type of upload location.
+  uploadLocation: UploadLocationType!
+
+  # The replication target name of the upload location.
+  replicationTargetName: String
+
+  # Date and time of last successful backup.
+  lastSuccessfulBackupTime: DateTime
+}
+# Represents configuration protection status values.
+enum ConfigProtectionStatus {
+  # Configuration backup failed.
+  BACKUP_FAILED
+
+  # Configuration backup completed with warnings.
+  BACKUP_PARTIALLY_COMPLETED
+
+  # Configuration backup is in progress.
+  BACKUP_RUNNING
+
+  # Configuration backup succeeded.
+  BACKUP_SUCCEED
+
+  # Cluster is disconnected.
+  CLUSTER_DISCONNECTED
+
+  # Configuration protection is not set up.
+  NOT_SETUP
+
+  # Configuration restore failed.
+  RESTORE_FAILED
+
+  # Configuration restore completed with warnings.
+  RESTORE_PARTIALLY_COMPLETED
+
+  # Configuration restore is in progress.
+  RESTORE_RUNNING
+
+  # Configuration restore succeeded.
+  RESTORE_SUCCEED
 }
 # The connection status type enum.
 enum ConnectionStatusType {
@@ -8797,7 +8965,7 @@ interface Db2InstanceDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -8818,7 +8986,7 @@ interface Db2InstanceDescendantType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -8842,7 +9010,7 @@ interface Db2InstanceDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -8855,7 +9023,7 @@ interface Db2InstanceDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -8864,7 +9032,7 @@ interface Db2InstancePhysicalChildType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -8885,7 +9053,7 @@ interface Db2InstancePhysicalChildType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -8909,7 +9077,7 @@ interface Db2InstancePhysicalChildType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -8922,7 +9090,7 @@ interface Db2InstancePhysicalChildType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -9030,6 +9198,34 @@ type Duration {
 input EffectiveSlaFilter {
   effectiveSlaIds: [String!]!
 }
+# A user's EULA acceptance state.
+type EulaState {
+  # Specifies whether a user has accepted the EULA.
+  isAccepted: Boolean!
+
+  # Specifies whether PactSafe EULA should be used.
+  isPactsafeEnabled: Boolean!
+}
+# Enum representing all the cluster types.
+enum EventClusterType {
+  # Cloud Cluster.
+  CLOUD
+
+  # Exocompute cluster.
+  EXO_COMPUTE
+
+  # On-premises cluster.
+  ON_PREM
+
+  # ROBO cluster.
+  ROBO
+
+  # Rubrik SaaS cluster.
+  RUBRIK_SAAS
+
+  # Unknown cluster type.
+  UNKNOWN_CLUSTER_TYPE
+}
 # An Event Digest.
 type EventDigest {
   # Account related to the event digest.
@@ -9058,6 +9254,503 @@ type EventDigest {
 
   # Specifies whether to include events in the event digest.
   includeEvents: Boolean!
+}
+# Enum representing all the possible object types which generate events.
+enum EventObjectType {
+  # App Blueprint object.
+  APP_BLUEPRINT
+
+  # AppRecovery object.
+  APP_FLOWS
+
+  # AWS account object.
+  AWS_ACCOUNT
+
+  # AWS object.
+  AWS_EVENT_TYPE
+
+  # AWS native account object.
+  AWS_NATIVE_ACCOUNT
+
+  # AWS native EBS volume object.
+  AWS_NATIVE_EBS_VOLUME
+
+  # AWS native EC2 instance object.
+  AWS_NATIVE_EC2_INSTANCE
+
+  # AWS native RDS instance.
+  AWS_NATIVE_RDS_INSTANCE
+
+  # Azure native disk object.
+  AZURE_NATIVE_DISK
+
+  # Azure native subscription object.
+  AZURE_NATIVE_SUBSCRIPTION
+
+  # Azure native virtual machine object.
+  AZURE_NATIVE_VM
+
+  # Azure SQL database object.
+  AZURE_SQL_DATABASE
+
+  # Azure SQL database server object.
+  AZURE_SQL_DATABASE_SERVER
+
+  # Azure SQL managed instance object.
+  AZURE_SQL_MANAGED_INSTANCE
+
+  # Azure SQL managed instance database object.
+  AZURE_SQL_MANAGED_INSTANCE_DATABASE
+
+  # Capacity bundle object.
+  CAPACITY_BUNDLE
+
+  # Cassandra column family.
+  CASSANDRA_COLUMN_FAMILY
+
+  # Cassandra keyspace.
+  CASSANDRA_KEYSPACE
+
+  # Cassandra source.
+  CASSANDRA_SOURCE
+
+  # Certificate object.
+  CERTIFICATE
+
+  # Cluster object.
+  CLUSTER
+
+  # Compute instance object.
+  COMPUTE_INSTANCE
+
+  # Data location object.
+  DATA_LOCATION
+
+  # Db2 database object.
+  DB2_DATABASE
+
+  # Db2 instance object.
+  DB2_INSTANCE
+
+  # EC2 instance object.
+  EC2_INSTANCE
+
+  # Envoy object.
+  ENVOY
+
+  # Exchange database object.
+  EXCHANGE_DATABASE
+
+  # Exocompute object.
+  EXOCOMPUTE
+
+  # Failover cluster app.
+  FAILOVER_CLUSTER_APP
+
+  # GCP native disk.
+  GCP_NATIVE_DISK
+
+  # GCP native GCE instance.
+  GCP_NATIVE_GCE_INSTANCE
+
+  # GCP native project.
+  GCP_NATIVE_PROJECT
+
+  # Host object.
+  HOST
+
+  # HyperV virtual machine object.
+  HYPERV_VM
+
+  # Job instance.
+  JOB_INSTANCE
+
+  # Kubernetes cluster object.
+  KUPR_CLUSTER
+
+  # Kubernetes namespace object.
+  KUPR_NAMESPACE
+
+  # LDAP object.
+  LDAP
+
+  # Linux fileset object.
+  LINUX_FILESET
+
+  # Linux host object.
+  LINUX_HOST
+
+  # Managed Volume object.
+  MANAGED_VOLUME
+
+  # MongoDB collection.
+  MONGODB_COLLECTION
+
+  # MongoDB database.
+  MONGODB_DATABASE
+
+  # MongoDB source.
+  MONGODB_SOURCE
+
+  # MsSQL Object.
+  MSSQL
+
+  # NAS fileset object.
+  NAS_FILESET
+
+  # NAS host object.
+  NAS_HOST
+
+  # NAS system.
+  NAS_SYSTEM
+
+  # Nutanix virtual machine object.
+  NUTANIX_VM
+
+  # O365 Calendar object.
+  O365_CALENDAR
+
+  # O365 Group.
+  O365_GROUP
+
+  # O365 Mailbox object.
+  O365_MAILBOX
+
+  # O365 OneDrive object.
+  O365_ONEDRIVE
+
+  # O365 Organization object.
+  O365_ORGANIZATION
+
+  # O365 SharePoint drive object.
+  O365_SHARE_POINT_DRIVE
+
+  # O365 SharePoint list object.
+  O365_SHARE_POINT_LIST
+
+  # O365 Site object.
+  O365_SITE
+
+  # O365 Team object.
+  O365_TEAM
+
+  # Object protection.
+  OBJECT_PROTECTION
+
+  # Auth domain object.
+  OBJECT_TYPE_AUTH_DOMAIN
+
+  # Cloud-native virtual machine object.
+  OBJECT_TYPE_CLOUD_NATIVE_VIRTUAL_MACHINE
+
+  # Cloud-native virtual machine.
+  OBJECT_TYPE_CLOUD_NATIVE_VM
+
+  # HDFS object.
+  OBJECT_TYPE_HDFS
+
+  # HyperV SCVMM object.
+  OBJECT_TYPE_HYPERV_SCVMM
+
+  # HyperV server object.
+  OBJECT_TYPE_HYPERV_SERVER
+
+  # Nutanix cluster object.
+  OBJECT_TYPE_NUTANIX_CLUSTER
+
+  # Storage array.
+  OBJECT_TYPE_STORAGE_ARRAY
+
+  # Upgrade.
+  OBJECT_TYPE_UPGRADE
+
+  # VCD.
+  OBJECT_TYPE_VCD
+
+  # VCenter.
+  OBJECT_TYPE_VCENTER
+
+  # Volume group.
+  OBJECT_TYPE_VOLUME_GROUP
+
+  # Oracle.
+  ORACLE
+
+  # Oracle database object.
+  ORACLE_DB
+
+  # Oracle host object.
+  ORACLE_HOST
+
+  # Oracle RAC object.
+  ORACLE_RAC
+
+  # Public cloud machine instance.
+  PUBLIC_CLOUD_MACHINE_INSTANCE
+
+  # Rubrik SaaS account object.
+  RUBRIK_SAAS_ACCOUNT
+
+  # Rubrik SAAS EBS volume.
+  RUBRIK_SAAS_EBS_VOLUME
+
+  # Rubrik SAAS EC2 instance.
+  RUBRIK_SAAS_EC2_INSTANCE
+
+  # SAML single sign-on.
+  SAML_SSO
+
+  # SAP HANA database.
+  SAP_HANA_DB
+
+  # SAP HANA system.
+  SAP_HANA_SYSTEM
+
+  # Share fileset object.
+  SHARE_FILESET
+
+  # SLA domain.
+  SLA_DOMAIN
+
+  # Samba domain.
+  SMB_DOMAIN
+
+  # SnapMirror cloud.
+  SNAP_MIRROR_CLOUD
+
+  # Storage array Volume group.
+  STORAGE_ARRAY_VOLUME_GROUP
+
+  # Storage location.
+  STORAGE_LOCATION
+
+  # Storm object.
+  STORM
+
+  # Support bundle.
+  SUPPORT_BUNDLE
+
+  # Unknown event object type.
+  UNKNOWN_EVENT_OBJECT_TYPE
+
+  # User.
+  USER
+
+  # VCD vApp.
+  VCD_VAPP
+
+  # VMware compute cluster.
+  VMWARE_COMPUTE_CLUSTER
+
+  # VMware virtual machine.
+  VMWARE_VM
+
+  # Webhook object.
+  WEBHOOK
+
+  # Windows fileset.
+  WINDOWS_FILESET
+
+  # Windows host.
+  WINDOWS_HOST
+}
+# Enum representing the severity of the event.
+enum EventSeverity {
+  # Severity Critical.
+  SEVERITY_CRITICAL
+
+  # Severity Informational.
+  SEVERITY_INFO
+
+  # Severity Warning.
+  SEVERITY_WARNING
+}
+# Enum representing all the possible event statuses.
+enum EventStatus {
+  # Canceled.
+  CANCELED
+
+  # Cancelling.
+  CANCELING
+
+  # Failure.
+  FAILURE
+
+  # Information.
+  INFO
+
+  # Queued status.
+  QUEUED
+
+  # Running.
+  RUNNING
+
+  # Success.
+  SUCCESS
+
+  # Task failure status.
+  TASK_FAILURE
+
+  # Task success status.
+  TASK_SUCCESS
+
+  # Unknown event status.
+  UNKNOWN_EVENT_STATUS
+
+  # Warning.
+  WARNING
+}
+# Enum representing all the possible event types.
+enum EventType {
+  # Anomaly event.
+  ANOMALY
+
+  # Archive event.
+  ARCHIVE
+
+  # Auth domain event.
+  AUTH_DOMAIN
+
+  # Aws event.
+  AWS_EVENT
+
+  # Backup event.
+  BACKUP
+
+  # Classification event.
+  CLASSIFICATION
+
+  # Event from cloud-native source.
+  CLOUD_NATIVE_SOURCE
+
+  # Event from cloud-native virtual machine.
+  CLOUD_NATIVE_VIRTUAL_MACHINE
+
+  # Event from cloud-native virtual machine.
+  CLOUD_NATIVE_VM
+
+  # Configuration event.
+  CONFIGURATION
+
+  # Connection event.
+  CONNECTION
+
+  # Conversion event.
+  CONVERSION
+
+  # Diagnostic event.
+  DIAGNOSTIC
+
+  # Discovery event.
+  DISCOVERY
+
+  # Download event.
+  DOWNLOAD
+
+  # Embedded event.
+  EMBEDDED_EVENT
+
+  # Failover event.
+  FAILOVER
+
+  # Fileset event.
+  FILESET
+
+  # Hardware event.
+  HARDWARE
+
+  # HDFS event.
+  HDFS
+
+  # Host event.
+  HOST_EVENT
+
+  # Hyper-V system center virtual machine event.
+  HYPERV_SCVMM
+
+  # HyperV Server event.
+  HYPERV_SERVER
+
+  # Index event.
+  INDEX
+
+  # Instantiate event.
+  INSTANTIATE
+
+  # Isolated recovery.
+  ISOLATED_RECOVERY
+
+  # Legal hold event.
+  LEGAL_HOLD
+
+  # Local recovery event.
+  LOCAL_RECOVERY
+
+  # Snapshot lock event.
+  LOCK_SNAPSHOT
+
+  # Maintenance event.
+  MAINTENANCE
+
+  # Nutanix cluster event.
+  NUTANIX_CLUSTER
+
+  # Ownership change event.
+  OWNERSHIP
+
+  # Ransomware Investigation analysis event.
+  RANSOMWARE_INVESTIGATION_ANALYSIS
+
+  # Recovery event.
+  RECOVERY
+
+  # Replication event.
+  REPLICATION
+
+  # Resource operations event.
+  RESOURCE_OPERATIONS
+
+  # Storage event.
+  STORAGE
+
+  # Storage array event.
+  STORAGE_ARRAY
+
+  # Storm resource event.
+  STORM_RESOURCE
+
+  # Support event.
+  SUPPORT
+
+  # Sync event.
+  SYNC
+
+  # System event.
+  SYSTEM
+
+  # Test failover event.
+  TEST_FAILOVER
+
+  # Threat hunt event.
+  THREAT_HUNT
+
+  # TPR event.
+  TPR
+
+  # Unknown event type.
+  UNKNOWN_EVENT_TYPE
+
+  # Upgrade event.
+  UPGRADE
+
+  # VCD event.
+  VCD
+
+  # Vcenter event.
+  VCENTER
+
+  # Volume group event.
+  VOLUME_GROUP
 }
 # Input to mark volumes to be excluded for EC2 snapshot.
 input ExcludeAwsNativeEbsVolumesFromSnapshotInput {
@@ -9449,6 +10142,9 @@ type GlobalSlaReply implements SlaDomain {
 
   # Specifies if this SLA Domain is retention-locked or not.
   isRetentionLockedSla: Boolean!
+
+  # Specifies the list of organizations that have view access for the SLA Domain.
+  allOrgsWithAccess: [Org!]!
 }
 # The guest operating system.
 enum GuestOsTypeEnum {
@@ -9461,10 +10157,36 @@ enum GuestOsTypeEnum {
   # Windows operating system.
   Windows
 }
+# Represents policies for checking hardware health.
+enum HardwareHealthPolicyName {
+  # Policy to check health of Chassis.
+  CHASSIS_CHECKER
+
+  # Policy to check health of DIMM.
+  DIMM_CHECKER
+
+  # Policy to check disk status.
+  DISK_CHECKER
+
+  # Policy to trigger on-demand hardware health check.
+  HARDWARE_HEALTH_UPDATER
+
+  # Policy to check health of primary network interface.
+  NETWORK_INTERFACE_CHECKER_PRIMARY
+
+  # Policy to check health of secondary network interface.
+  NETWORK_INTERFACE_CHECKER_SECONDARY
+
+  # Policy to check health of Node FRU.
+  NODE_CHECKER
+
+  # Policy to check health of power supply.
+  P_S_U_CHECKER
+}
 # Health-check status.
 type HealthPolicyStatus {
   # Name of the policy used for the hardware component health check.
-  policyName: String!
+  policyName: HardwareHealthPolicyName!
 
   # Result of the hardware health check.
   isHealthy: Boolean!
@@ -9610,6 +10332,27 @@ enum HierarchyFilterField {
   # Filter by status of CassandraSource.
   CASSANDRA_SOURCE_STATUS
 
+  # Filter by IO filter installation status of CDP Virtual Machine.
+  CDP_IO_FILTER_STATUS
+
+  # Filter by CDP state of CDP Virtual Machine.
+  CDP_LOCAL_STATUS
+
+  # Filter by CDP replication state of CDP Virtual Machine.
+  CDP_REPLICATION_STATUS
+
+  # Filter by CDP Virtual Machines.
+  CDP_VMS
+
+  # Filter by effective SLA Domain name of CDP Virtual Machine.
+  CDP_VM_EFFECTIVE_SLA_ID
+
+  # Filter by name of CDP Virtual Machine.
+  CDP_VM_NAME
+
+  # Filter by source cluster of the CDP Virtual Machine.
+  CDP_VM_SOURCE_CLUSTER_ID
+
   # Filter cloud instances based on whether CDM App Protection
   # is setup through a cloud cluster.
   CLOUD_INSTANCE_CDM_APP_PROTECTION_SETUP
@@ -9693,6 +10436,11 @@ enum HierarchyFilterField {
 
   # Filter by the SLA type of the effective SLA.
   EFFECTIVE_SLA_TYPE
+
+  # The behavior of this filter is similar to the EFFECTIVE_SLA filter,
+  # except, the behavior when it returns objects that have a
+  # retention SLA Domain assigned along with the DoNotProtect SLA Domain.
+  EFFECTIVE_SLA_WITH_RETENTION_SLA
 
   # Filter Exchange Databases by the ID of the Exchange Dag.
   EXCHANGE_DATABASE_BY_DAG_ID
@@ -9937,6 +10685,9 @@ enum HierarchyFilterField {
   # Filter by the name by a given regex expression
   REGEX
 
+  # Filter by the Rubrik CDM ID of the SAP HANA database.
+  SAP_HANA_DATABASE_CDM_ID
+
   # Filter by the ID of parent SAP HANA system.
   SAP_HANA_SYSTEM_ID
 
@@ -9958,7 +10709,7 @@ enum HierarchyFilterField {
 }
 # A generic hierarchy object.
 interface HierarchyObject {
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -9982,7 +10733,7 @@ interface HierarchyObject {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -9995,7 +10746,7 @@ interface HierarchyObject {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -10070,6 +10821,9 @@ enum HierarchyObjectTypeEnum {
   # MongoDB Source Cluster.
   MONGODB_SOURCE
   MONGO_COLLECTION
+
+  # MongoDB Database.
+  MONGO_DATABASE
   MONGO_DB
   MONGO_SOURCE
 
@@ -10173,6 +10927,33 @@ enum HierarchySortByField {
   AZURE_VM_CRG_SUBSCRIPTION_NAME
   AZURE_VM_SIZE
   AZURE_VNET_NAME
+
+  # Sort based on the IO filter status of the CDP virtual machines.
+  CDP_IO_FILTER_STATUS
+
+  # Sort based on the latest snapshot time of the CDP virtual machine.
+  CDP_LATEST_SNAPSHOT_TIME
+
+  # Sort based on the local CDP status of the CDP virtual machine.
+  CDP_LOCAL_STATUS
+
+  # Sort based on the replication cluster name of the CDP virtual machine.
+  CDP_REPLICATION_CLUSTER_NAME
+
+  # Sort based on the replication CDP status of the CDP virtual machine.
+  CDP_REPLICATION_STATUS
+
+  # Sort based on the source cluster name of the CDP virtual machine.
+  CDP_VM_CLUSTER_NAME
+
+  # Sort based on the effective SLA Domain name of the CDP virtual machine.
+  CDP_VM_EFFECTIVE_SLA_NAME
+
+  # Sort based on the name of the CDP virtual machine.
+  CDP_VM_NAME
+
+  # Sort based on the vCenter of the CDP virtual machine.
+  CDP_VM_VCENTER_LOCATION
 
   # Sort DB2 Instance based on instance ID
   DB2_INSTANCE_ID
@@ -10304,6 +11085,37 @@ enum InterfaceTypeEnum {
   BOND1
   CUSTOM
   UNKNOWN_TYPE
+}
+# Inventory workloads that are supported on Rubrik.
+enum InventorySubHierarchyRootEnum {
+  APPFLOWS_ROOT
+  AWSNATIVE_ROOT
+  AZURENATIVE_ROOT
+  CASSANDRA_ROOT
+  CLOUD_NATIVE_TAG_RULE_ROOT
+  DB2_ROOT
+
+  # Root of exchange hierarchy.
+  EXCHANGE_ROOT
+  FELDSPAR_ROOT
+  GCPNATIVE_ROOT
+  HYPERV_ROOT
+  KUPR_ROOT
+  LINUX_HOST_ROOT
+  MANAGED_VOLUME_ROOT
+  MONGODB_ROOT
+  MONGO_ROOT
+  MSSQL_ROOT
+  NAS_HOST_ROOT
+  NAS_ROOT
+  NUTANIX_ROOT
+  O365_ROOT
+  ORACLE_ROOT
+  PHYSICAL_HOST_ROOT
+  SAP_HANA_ROOT
+  VCD_ROOT
+  VSPHERE_ROOT
+  WINDOWS_HOST_ROOT
 }
 # Specifies whether the volume snapshot is restorable.
 type IsVolumeSnapshotRestorableReply {
@@ -10600,6 +11412,9 @@ enum ManagedObjectType {
   MONGO_COLLECTION
 
   # Mongo database.
+  MONGO_DATABASE
+
+  # Mongo database - deprecated.
   MONGO_DB
 
   # Mongo source.
@@ -10779,11 +11594,12 @@ enum ManagedObjectType {
   # Windows fileset.
   WINDOWS_FILESET
 }
+# Managed Volume descendant type, eg. ManagedVolumeMount, PhysicalHost.
 interface ManagedVolumeDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -10804,7 +11620,7 @@ interface ManagedVolumeDescendantType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -10828,7 +11644,7 @@ interface ManagedVolumeDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -10841,16 +11657,17 @@ interface ManagedVolumeDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
 }
+# Descendant type of Managed Volume Export, eg. PhysicalHost.
 interface ManagedVolumeMountDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -10871,7 +11688,7 @@ interface ManagedVolumeMountDescendantType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -10895,7 +11712,7 @@ interface ManagedVolumeMountDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -10908,16 +11725,17 @@ interface ManagedVolumeMountDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
 }
+# Managed Volume Export physical child type, eg. PhysicalHost.
 interface ManagedVolumeMountPhysicalChildType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -10938,7 +11756,7 @@ interface ManagedVolumeMountPhysicalChildType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -10962,7 +11780,7 @@ interface ManagedVolumeMountPhysicalChildType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -10975,7 +11793,7 @@ interface ManagedVolumeMountPhysicalChildType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11013,7 +11831,7 @@ interface MssqlTopLevelDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -11034,7 +11852,7 @@ interface MssqlTopLevelDescendantType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11058,7 +11876,7 @@ interface MssqlTopLevelDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11071,7 +11889,7 @@ interface MssqlTopLevelDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11213,6 +12031,9 @@ enum Operation {
   ExportFiles
   ExportSnapshots
   InstantRecover
+
+  # The operation to manage CDP IO Filter.
+  MANAGE_CDP_IO_FILTER
 
   # The operation to manage the SMB domain.
   MANAGE_SMB_DOMAIN
@@ -11356,8 +12177,19 @@ type Org {
   # Permissions given to the organization.
   permissions: [Permission!]!
 
+  # Self-service permissions assigned to the organization.
+  selfServicePermissions: [SelfServicePermission!]!
+
   # SSO groups authorized for the organization.
   ssoGroups: [SsoGroup!]!
+
+  # All URLs associated with the organization.
+  allUrls: [String!]!
+}
+# Input to filter objects assigned to one of the specified organizations.
+input OrgFilter {
+  # List of organization IDs to filter by.
+  orgIds: [String!]!
 }
 enum OsTypeEnum {
   Linux
@@ -11451,7 +12283,10 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
     sortBy: HierarchySortByField,
 
     # Sort hierarchy object by hierarchy order.
-    sortOrder: HierarchySortOrder, typeFilter: [HierarchyObjectTypeEnum!],
+    sortOrder: HierarchySortOrder,
+
+    # Types of objects to include.
+    typeFilter: [HierarchyObjectTypeEnum!],
 
     # The hierarchy object filter.
     filter: [Filter!],
@@ -11471,7 +12306,10 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
     sortBy: HierarchySortByField,
 
     # Sort hierarchy object by hierarchy order.
-    sortOrder: HierarchySortOrder, typeFilter: [HierarchyObjectTypeEnum!],
+    sortOrder: HierarchySortOrder,
+
+    # Types of objects to include.
+    typeFilter: [HierarchyObjectTypeEnum!],
 
     # The hierarchy object filter.
     filter: [Filter!],
@@ -11482,7 +12320,7 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -11503,7 +12341,7 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11527,7 +12365,7 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11540,7 +12378,7 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11549,7 +12387,7 @@ interface PhysicalHostDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -11570,7 +12408,7 @@ interface PhysicalHostDescendantType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11594,7 +12432,7 @@ interface PhysicalHostDescendantType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11607,7 +12445,7 @@ interface PhysicalHostDescendantType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11638,7 +12476,7 @@ interface PhysicalHostPhysicalChildType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 
-  # The source cluster of this object. Returned as a data location because there is no guarantee that Polaris has knowledge about the source cluster.
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
   primaryClusterLocation: DataLocation!
 
   # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
@@ -11659,7 +12497,7 @@ interface PhysicalHostPhysicalChildType {
   # The authorized operations on the object.
   authorizedOperations: [Operation!]!
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11683,7 +12521,7 @@ interface PhysicalHostPhysicalChildType {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11696,7 +12534,7 @@ interface PhysicalHostPhysicalChildType {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11725,7 +12563,7 @@ type PhysicalHostPhysicalChildTypeEdge {
 }
 # A Polaris Managed Hierarchy Object.
 interface PolarisHierarchyObject {
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11749,7 +12587,7 @@ interface PolarisHierarchyObject {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11762,7 +12600,7 @@ interface PolarisHierarchyObject {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
@@ -11790,7 +12628,7 @@ interface PolarisHierarchySnappable {
     sortBy: PolarisSnapshotSortByEnum = Date,
 
     # Sort order.
-    sortOrder: SortOrderEnum): PolarisSnapshotConnection
+    sortOrder: SortOrder): PolarisSnapshotConnection
 
   # The list of snapshots taken for this workload.
   snapshotsOfSnappableConnection(
@@ -11810,7 +12648,7 @@ interface PolarisHierarchySnappable {
     snapshotFilter: [SnapshotQueryFilterInput!],
 
     # Sort order.
-    sortOrder: SortOrderEnum, sortBy: SnapshotQuerySortByField,
+    sortOrder: SortOrder, sortBy: SnapshotQuerySortByField,
 
     # Time range input.
     timeRange: TimeRangeInput,
@@ -11876,7 +12714,7 @@ interface PolarisHierarchySnappable {
   # The newest snapshot that is indexed and unexpired, and therefore restorable.
   newestIndexedSnapshot: PolarisSnapshot
 
-  # The fid of the hierarchy object.
+  # The FID of the hierarchy object.
   id: UUID!
 
   # The name of the hierarchy object.
@@ -11900,7 +12738,7 @@ interface PolarisHierarchySnappable {
   # The effective Retention SLA Domain of the hierarchy object.
   effectiveRetentionSlaDomain: SlaDomain
 
-  # The configured SLA Domain of the hierarchy object.
+  # The SLA Domain configured for the hierarchy object.
   configuredSlaDomain: SlaDomain!
 
   # The path node of the effective SLA Domain source.
@@ -11913,12 +12751,12 @@ interface PolarisHierarchySnappable {
   physicalPath: [PathNode!]!
 
   # The number of descendant workloads of this object.
-  numSnappableDescendants: Int!
+  numWorkloadDescendants: Int!
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
 }
-# Specific information for Amazon Web Services (AWS) target created on Polaris.
+# Specific information for Amazon Web Services (AWS) target created on Rubrik.
 type PolarisManagedAwsTarget implements Target {
   # Template type of the storage settings.
   cloudNativeLocTemplateType: CloudNativeLocTemplateType!
@@ -11965,25 +12803,28 @@ type PolarisManagedAwsTarget implements Target {
   # Connected/Disconnected status of the AWS target.
   connectionStatus: ConnectionStatusType!
 
+  # Specifies whether the proxy settings should be bypassed for creating this target location.
+  bypassProxy: Boolean!
+
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -11995,25 +12836,25 @@ type PolarisManagedAwsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
   locationConnectionStatus: ConnectionStatusType!
 }
-# Specific information for Azure target created on Polaris
+# Specific information for Azure target created on Rubrik.
 type PolarisManagedAzureTarget implements Target {
   accessKey: String!
 
@@ -12054,25 +12895,31 @@ type PolarisManagedAzureTarget implements Target {
   # Flag to determine if tiering is supported in the Azure target.
   isAzureTieringSupported: Boolean
 
+  # Specifies whether the proxy settings should be bypassed for creating this target location.
+  bypassProxy: Boolean!
+
+  # Retrieval tier of the Azure target.
+  retrievalTier: AzureRetrievalTier!
+
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -12084,29 +12931,26 @@ type PolarisManagedAzureTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
   locationConnectionStatus: ConnectionStatusType!
 }
-# Specific information for Google Cloud Platform (GCP) target created on Polaris.
+# Specific information for Google Cloud Platform (GCP) target created on Rubrik.
 type PolarisManagedGcpTarget implements Target {
-  encryptionPassword: String!
-  serviceAccountJsonKey: String!
-
   # Proxy setting of this GCP target.
   archivalProxySettings: ProxySettings
 
@@ -12128,25 +12972,28 @@ type PolarisManagedGcpTarget implements Target {
   # Reason why sync of this target with CDM failed.
   syncFailureReason: String!
 
+  # Specifies whether the proxy settings should be bypassed for creating this target location.
+  bypassProxy: Boolean!
+
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -12158,25 +13005,25 @@ type PolarisManagedGcpTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
   locationConnectionStatus: ConnectionStatusType!
 }
-# Specific information for Network File System (NFS) target created on Polaris.
+# Specific information for Network File System (NFS) target created on Rubrik.
 type PolarisManagedNfsTarget implements Target {
   # Field for specifying the authentication type of NFS.
   nfsAuthType: AuthTypeEnum!
@@ -12214,22 +13061,22 @@ type PolarisManagedNfsTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -12241,28 +13088,26 @@ type PolarisManagedNfsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
   locationConnectionStatus: ConnectionStatusType!
 }
-# Specific information for Rich Communication Services (RCS) target created on Polaris.
+# Specific information for Rubrik Cloud Vault (RCV) target created on Rubrik.
 type PolarisManagedRcsTarget implements Target {
-  rsaKey: String!
-
   # Sync status of RCV target.
   syncStatus: TargetSyncStatusEnum!
 
@@ -12284,25 +13129,28 @@ type PolarisManagedRcsTarget implements Target {
   # Immutability lock duration of RCV target in days.
   immutabilityPeriodDays: Long!
 
+  # RCV Private endpoint connection details.
+  privateEndpointConnection: PrivateEndpointConnection
+
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -12314,29 +13162,27 @@ type PolarisManagedRcsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
   locationConnectionStatus: ConnectionStatusType!
 }
-# Specific information for Amazon S3 compatible target created on Polaris.
+# Specific information for Amazon S3 compatible target created on Rubrik.
 type PolarisManagedS3CompatibleTarget implements Target {
   accessKey: String!
-  secretKey: String!
-  encryptionKeyInDer: String!
 
   # Connection status of the S3Compatible target.
   connectionStatus: ConnectionStatusType!
@@ -12353,6 +13199,9 @@ type PolarisManagedS3CompatibleTarget implements Target {
   # Number of buckets in the S3Compatible target.
   numberOfBuckets: Int!
 
+  # S3-compatible target subtype.
+  subType: S3CompatibleSubType!
+
   # Flag to check if consolidation is enabled or not in this target.
   isConsolidationEnabled: Boolean!
 
@@ -12365,22 +13214,22 @@ type PolarisManagedS3CompatibleTarget implements Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -12392,19 +13241,19 @@ type PolarisManagedS3CompatibleTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -12524,7 +13373,7 @@ type PolarisSnapshotGroupBy {
     before: String,
 
     # Sort order.
-    sortOrder: SortOrderEnum,
+    sortOrder: SortOrder,
 
     # Sort Polaris snapshots by field.
     sortBy: PolarisSnapshotSortByEnum = Date): PolarisSnapshotConnection!
@@ -12660,6 +13509,57 @@ type PrepareFeatureUpdateForAwsCloudAccountReply {
 type PreviewerClusterConfig {
   clusterId: String!
   enabled: Boolean!
+}
+# RCV private endpoint connection details.
+type PrivateEndpointConnection {
+  # RCV private endpoint Azure Resource ID.
+  privateEndpointId: String!
+
+  # RCV private endpoint connection status.
+  privateEndpointConnectionStatus: PrivateEndpointConnectionStatus!
+}
+# Private endpoint connection status for an RCV archival location.
+enum PrivateEndpointConnectionStatus {
+  # RCV private endpoint connection is in approved state.
+  APPROVED
+
+  # RCV private endpoint connection is in pending state.
+  PENDING
+
+  # RCV private endpoint connection is in rejected state.
+  REJECTED
+
+  # RCV private endpoint connection is in removed state.
+  REMOVED
+
+  # Not specified RCV private endpoint connection.
+  UNSPECIFIED_PE_CONNECTION_STATUS
+}
+# Represents a licensed product.
+enum Product {
+  # Represents a Cloud Cluster product.
+  CLOUD
+
+  # Represents an E1000 product.
+  E1000
+
+  # Represents a Rubrik Edge product.
+  EDGE
+
+  # Represents an unknown product.
+  PRODUCT_UNKNOWN
+
+  # Represents a Rubrik Appliance product.
+  RUBRIK_APPLIANCE
+
+  # Represents a Rubrik Virtual Cluster product.
+  RVC
+
+  # Represents a Scale product.
+  SCALE
+
+  # Represents a third party hardware product.
+  THIRDPARTY_HARDWARE
 }
 # Represents a protected object and its corresponding SLA Domain.
 type ProtectedObjectTypeToSla {
@@ -12943,13 +13843,184 @@ enum RetentionUnitEnum {
   WEEKS
   YEARS
 }
+# RBAC role.
 type Role {
+  # Role ID.
   id: String!
+
+  # Role name.
   name: String!
+
+  # Role description.
   description: String!
+
+  # Boolean value indicating if the role is read-only.
   isReadOnly: Boolean!
+
+  # List of protectable Rubrik clusters.
   protectableClusters: [String!]!
+
+  # Role organization ID.
+  orgId: String!
+
+  # Role permissions.
   permissions: [Permission!]!
+}
+# Information about the Amazon Glacier target created on Rubrik.
+type RubrikManagedGlacierTarget implements Target {
+  # Cloud account details of the Amazon Glacier target.
+  cloudAccount: CloudAccount!
+
+  # Vault name of the Amazon Glacier target.
+  vaultName: String!
+
+  # Region of the Amazon Glacier target.
+  region: AwsRegion!
+
+  # Sync status of Amazon Glacier target.
+  syncStatus: TargetSyncStatusEnum!
+
+  # Retrieval tier of the Amazon Glacier target.
+  retrievalTier: AwsRetrievalTier!
+
+  # Reason of sync failure of this target with Rubrik CDM. This is empty if syncStatus is not failed.
+  syncFailureReason: String!
+
+  # Connection status of the AWS target.
+  connectionStatus: ConnectionStatusType!
+
+  # The cluster to which this target belongs.
+  cluster: Cluster!
+
+  # The type of this target.
+  targetType: TargetTypeEnum!
+
+  # The ID of this target.
+  id: String!
+
+  # The name of this target.
+  name: String!
+
+  # The scope of location of this target. Possible values are Global or Local.
+  locationScope: LocationScope!
+
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
+  isActive: Boolean!
+
+  # Specifies whether this target is archived.
+  isArchived: Boolean!
+
+  # Archival location to which the mapping target belongs.
+  targetMapping: TargetMappingBasic
+
+  # Name of the Rubrik cluster that archives to this archival location.
+  clusterName: String
+
+  # Status of the target.
+  status: ArchivalLocationStatus!
+
+  # Number of bytes stored on the target.
+  consumedBytes: Long
+
+  # Number of archiving tasks running on this target.
+  runningTasks: Int
+
+  # Number of archiving tasks failed on this target.
+  failedTasks: Int
+
+  # The retrieval method of the reader target.
+  readerRetrievalMethod: ReaderRetrievalMethod
+
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  targetMappingBasic: [TargetMappingBasic!]
+
+  # Connected or Disconnected status of the target.
+  locationConnectionStatus: ConnectionStatusType!
+}
+# Specific information for Q-star target created on Rubrik.
+type RubrikManagedTapeTargetType implements Target {
+  # Connection status of the tape target.
+  connectionStatus: ConnectionStatusType!
+
+  # Sync status of tape target.
+  syncStatus: TargetSyncStatusEnum!
+
+  # Name of the target host.
+  hostName: String!
+
+  # Port number of the target host.
+  hostPort: Int!
+
+  # Integral volume name of target.
+  integralVolumeName: String!
+
+  # Destination folder name of target.
+  destinationFolderName: String!
+
+  # Username of the target.
+  username: String!
+
+  # Reason why sync of this target with CDM failed.
+  syncFailureReason: String!
+
+  # The cluster to which this target belongs.
+  cluster: Cluster!
+
+  # The type of this target.
+  targetType: TargetTypeEnum!
+
+  # The ID of this target.
+  id: String!
+
+  # The name of this target.
+  name: String!
+
+  # The scope of location of this target. Possible values are Global or Local.
+  locationScope: LocationScope!
+
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
+  isActive: Boolean!
+
+  # Specifies whether this target is archived.
+  isArchived: Boolean!
+
+  # Archival location to which the mapping target belongs.
+  targetMapping: TargetMappingBasic
+
+  # Name of the Rubrik cluster that archives to this archival location.
+  clusterName: String
+
+  # Status of the target.
+  status: ArchivalLocationStatus!
+
+  # Number of bytes stored on the target.
+  consumedBytes: Long
+
+  # Number of archiving tasks running on this target.
+  runningTasks: Int
+
+  # Number of archiving tasks failed on this target.
+  failedTasks: Int
+
+  # The retrieval method of the reader target.
+  readerRetrievalMethod: ReaderRetrievalMethod
+
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  targetMappingBasic: [TargetMappingBasic!]
+
+  # Connected or Disconnected status of the target.
+  locationConnectionStatus: ConnectionStatusType!
+}
+# The different subtypes of an S3-compatible archival location.
+enum S3CompatibleSubType {
+  # Default subtype.
+  DEFAULT
+
+  # Scality subtype.
+  SCALITY
+
+  # Unknown subtype.
+  TYPE_UNSPECIFIED
 }
 enum SLAComplianceTimeRangeEnum {
   Last24Hours
@@ -13003,6 +14074,17 @@ type SapHanaConfig {
   incrementalFrequency: Duration
   logRetention: Duration
   differentialFrequency: Duration
+}
+# When an org member adds an object to Rubrik that matches the provided (`inventoryRoot`, `inventoryWorkloadType`) category, the org is granted all permission operations specified within the `operations` field on that new object.
+type SelfServicePermission {
+  # The inventory hierarchy root to which this set of permissions will apply.
+  inventoryRoot: InventorySubHierarchyRootEnum!
+
+  # The inventory workload type to which this set of permissions will apply.
+  inventoryWorkloadType: SnappableLevelHierarchyTypeEnum!
+
+  # The operations granted to the org on newly added objects matching the provided `inventoryRoot` and `inventoryWorkloadType`.
+  operations: [Operation!]!
 }
 # Input for setting the app credentials in the Azure Cloud Accounts.
 input SetAzureCloudAccountCustomerAppCredentialsInput {
@@ -13096,11 +14178,14 @@ enum SlaMigrationStatus {
 }
 # Replication cluster specific information.
 type SlaReplicationCluster {
-  # Id of replication cluster.
+  # ID of the replication cluster.
   id: UUID!
 
-  # Name of replication cluster.
+  # Name of the replication cluster.
   name: String!
+
+  # Version of the replication cluster.
+  version: String
 }
 # Status of the latest attempt to sync the SLA Domain to the clusters.
 enum SlaSyncStatus {
@@ -13275,15 +14360,31 @@ type SnappableEdge {
   # The actual Snappable object wrapped by this edge.
   node: Snappable!
 }
-# Filter snappable data.
+# Filter workload data.
 input SnappableFilterInput {
+  # The protection status of the workload.
   protectionStatus: [ProtectionStatusEnum!]
+
+  # The SLA Domain of the workload.
   slaDomain: SnappableSlaDomainFilterInput
+
+  # The compliance status of the workload.
   complianceStatus: [ComplianceStatusEnum!]
+
+  # The object type of the workload.
   objectType: [ObjectTypeEnum!]
+
+  # The cluster UUID of the workload.
   cluster: CommonClusterFilterInput
+
+  # The search term applied to the workload.
   searchTerm: String
+
+  # The SLA Domain time range applied to the workload.
   slaTimeRange: SLAComplianceTimeRangeEnum
+
+  # The organization ID of the workload.
+  orgId: [UUID!]
 }
 enum SnappableLevelHierarchyTypeEnum {
   AllSubHierarchyType
@@ -13303,7 +14404,7 @@ enum SnappableLevelHierarchyTypeEnum {
   O365Site
   O365Teams
 }
-# Filter snappable data based on properties of its Sla domain.
+# Filter workload data based on the properties of its SLA Domain.
 input SnappableSlaDomainFilterInput {
   id: [String!]
 }
@@ -13518,9 +14619,13 @@ enum SnapshotTypeToUseIfSourceExpired {
   # Replicated snapshot.
   REPLICATED
 }
-enum SortOrderEnum {
-  Asc
-  Desc
+# Specifies how the results are sorted.
+enum SortOrder {
+  # The items are sorted in ascending order.
+  ASC
+
+  # The items are sorted in descending order.
+  DESC
 }
 type SpecificReplicationSpec {
   unidirectionalSpec: UnidirectionalReplicationSpec
@@ -13530,11 +14635,11 @@ type SpecificReplicationSpec {
 }
 # Details of an SSO Group.
 type SsoGroup {
-  # Name of the SSO Group.
-  name: String!
-
   # Specifies whether the users in the group are org admins.
   isOrgAdmin: Boolean!
+
+  # ID of the SSO Group.
+  id: String!
 }
 # Input required to start the job to disable AWS Exocompute.
 input StartAwsExocomputeDisableJobInput {
@@ -13969,22 +15074,22 @@ interface Target {
   # The cluster to which this target belongs.
   cluster: Cluster!
 
-  # The type of this Target.
+  # The type of this target.
   targetType: TargetTypeEnum!
 
-  # The ID of this Target.
+  # The ID of this target.
   id: String!
 
-  # The name of this Target.
+  # The name of this target.
   name: String!
 
-  # The scope of location, whether Global or Local.
+  # The scope of location of this target. Possible values are Global or Local.
   locationScope: LocationScope!
 
-  # The pause/resume status of this Target.
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
   isActive: Boolean!
 
-  # Specifies whether this Target is archived.
+  # Specifies whether this target is archived.
   isArchived: Boolean!
 
   # Archival location to which the mapping target belongs.
@@ -13996,19 +15101,19 @@ interface Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
-  # Number of bytes stored on target.
+  # Number of bytes stored on the target.
   consumedBytes: Long
 
-  # Number of running tasks acting on this target.
+  # Number of archiving tasks running on this target.
   runningTasks: Int
 
-  # Number of failed tasks acting on this target.
+  # Number of archiving tasks failed on this target.
   failedTasks: Int
 
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups to which the archival target belongs.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -14081,23 +15186,29 @@ interface TargetTemplate {
 }
 # Type of storage location.
 enum TargetTypeEnum {
-  # AWS S3 type of storage location.
+  # Amazon S3 type of archival location.
   AWS
 
-  # Azure container type of storage location.
+  # Azure container type of archival location.
   AZURE
 
-  # Google Cloud Platform type of storage location.
+  # Legacy glacier type of archival location.
+  GLACIER
+
+  # Google Cloud Platform type of archival location.
   GOOGLE
 
-  # Network File System type of storage location.
+  # Network File System type of archival location.
   NFS
 
-  # Rubrik Cloud Vault type of storage location.
+  # Rubrik Cloud Vault type of archival location.
   RCS_AZURE
 
-  # AWS S3 compatible type of storage location.
+  # Amazon S3 compatible type of archival location.
   S3_COMPATIBLE
+
+  # Tape type of archival location.
+  TAPE
 }
 # Specifies whether to use the SSO/LDAP configuration of the global organization or to use configuration specific to this organization.
 enum TenantAuthDomainConfig {
@@ -14354,6 +15465,11 @@ type UpgradeRecommendationInfo {
   # Latest upgradable version from the next release.
   nextReleaseRecommendation: String!
 }
+# Represents configuration protection upload location types.
+enum UploadLocationType {
+  # A replication target of the existing cluster.
+  REPLICATION_TARGET
+}
 # User account details.
 type User {
   # The user ID.
@@ -14388,7 +15504,13 @@ type User {
 
   # The number of unread notifications for the current user.
   unreadCount: Long!
+
+  # The user's EULA acceptance state.
+  eulaState: EulaState!
   roles: [Role!]!
+
+  # The organizations to which the user belongs.
+  allOrgs: [Org!]!
   emailConfig: [EventDigest!]!
 }
 enum UserDomainEnum {

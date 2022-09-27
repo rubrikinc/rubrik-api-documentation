@@ -166,13 +166,16 @@
     </li>
     
     <li class="third-level">
-      <a href="#add-a-service-account">Add a service account</a>
+      <a href="#adding-a-service-account">Adding a service account</a>
     </li>
     <li class="third-level">
-      <a href="#obtain-an-access-token">Obtain an access token</a>
+      <a href="#obtaining-an-access-token">Obtaining an access token</a>
     </li>
     <li class="third-level">
       <a href="#using-the-access-token">Using the access token</a>
+    </li>
+    <li class="third-level">
+      <a href="#deleting-a-session">Deleting a session</a>
     </li>
   </ul>
 </div></div>
@@ -209,11 +212,11 @@ to authenticate to the Rubrik API server and access the protected resources.</p>
     in a secure location.</li>
 </ul>
 <h2 id="usage">Usage</h2>
-<h3 id="add-a-service-account">Add a service account</h3>
+<h3 id="adding-a-service-account">Adding a service account</h3>
 <ol>
-<li>Log in to the Rubrik web UI.</li>
-<li>Click the gear icon and select <em>User Management</em>.
-    The User Management page appears, with the Users tab selected.</li>
+<li>Log in to Rubrik.</li>
+<li>Click the gear icon and select <em>Users and Roles</em>.
+    The Users and Roles page appears.</li>
 <li>Click <em>Service Accounts</em>.
     The Service Accounts page appears.</li>
 <li>Click <em>Add Service Account</em>.
@@ -230,8 +233,8 @@ to authenticate to the Rubrik API server and access the protected resources.</p>
     Alternatively, click <em>Download As JSON</em> to download a file containing
     the client credentials and the access token URI in the JSON format.</li>
 </ol>
-<h3 id="obtain-an-access-token">Obtain an access token</h3>
-<p>In terminal, run the following command:</p>
+<h3 id="obtaining-an-access-token">Obtaining an access token</h3>
+<p>In a terminal window, run the following command:</p>
 <pre><code class="language-bash">curl --request POST --header &quot;Content-Type: application/json&quot; \
 --data '{&quot;client_id&quot;: &quot;$client_id&quot;, &quot;client_secret&quot;: &quot;$client_secret&quot;}' \
 $access_token_uri
@@ -260,6 +263,16 @@ curl -X POST https://$account.my.rubrik-lab.com/api/graphql \
 --header &quot;Authorization: Bearer $access_token&quot; \
 --header &quot;Content-type: application/json&quot; \
 --data &quot;$(echo $QUERY)&quot;
+</code></pre>
+<h3 id="deleting-a-session">Deleting a session</h3>
+<p>While there is no restriction on the number of active sessions a service
+account can have, Rubrik provides an API endpoint to delete an existing
+session.</p>
+<p>Run the following command to revoke the session established for the
+service account:</p>
+<pre><code class="language-bash">curl -X DELETE https://$account.my.rubrik-lab.com/api/session \
+--header &quot;Authorization: Bearer $access_token&quot; \
+--header &quot;Content-type: application/json&quot;
 </code></pre></div>
         
         
@@ -272,7 +285,7 @@ curl -X POST https://$account.my.rubrik-lab.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2022-08-06</small>
+            <small>Revised on: 2022-09-27</small>
             </p>
           
 
