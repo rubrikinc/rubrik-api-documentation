@@ -1,0 +1,8 @@
+query BatchGetQuarantinedDetailsForSnapshots($snapshotIds: [String!]!) {
+  allQuarantinedDetailsForSnapshots(snapshotIds: $snapshotIds) {
+    snapshotId
+    filesDetails {
+      fileName
+    }
+  }
+}

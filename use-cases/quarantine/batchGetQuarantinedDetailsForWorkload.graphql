@@ -1,0 +1,8 @@
+query BatchGetQuarantinedDetailsForWorkload($workloadId: String!) {
+  allQuarantinedDetailsForWorkload(workloadId: $workloadId) {
+    snapshotId
+    filesDetails {
+      fileName
+    }
+  }
+}

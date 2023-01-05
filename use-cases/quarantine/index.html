@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Quarantine APIs - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud-native Protection</a>
+</li>
+
+             
+<li class="active" >
+  <a href="./">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#quarantine-apis-for-preventing-reinfection-by-ransomware">Quarantine APIs for preventing reinfection by ransomware</a>
+    </li>
+    <li class="second-level">
+      <a href="#quarantine-release-from-quarantine-apis">Quarantine &amp; Release From Quarantine APIs</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#quarantining-multiple-snapshots">Quarantining multiple snapshots</a>
+    </li>
+    <li class="third-level">
+      <a href="#releasing-snapshots-from-quarantine">Releasing snapshots from quarantine</a>
+    </li>
+    <li class="second-level">
+      <a href="#get-quarantine-detail-apis">Get quarantine detail APIs</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#get-quarantine-details-for-snapshots">Get quarantine details for snapshots</a>
+    </li>
+    <li class="third-level">
+      <a href="#get-quarantine-details-for-workload">Get quarantine details for workload</a>
+    </li>
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <h1 id="quarantine-apis-for-preventing-reinfection-by-ransomware">Quarantine APIs for preventing reinfection by ransomware</h1>
+<p>Overview of GraphQL object types available to quarantine objects,
+release objects from quarantine, get quarantine objects for a workload
+or snapshots.</p>
+<h2 id="quarantine-release-from-quarantine-apis">Quarantine &amp; Release From Quarantine APIs</h2>
+<p>These APIs are used to change the quarantine status of snapshots and files by either
+quarantining them or releasing them from quarantine.</p>
+<p>Multiple snapshots and files can be quarantined or released from quarantined with
+a single request.</p>
+<h3 id="quarantining-multiple-snapshots">Quarantining multiple snapshots</h3>
+<p>This API is used to quarantine single or multiple snapshots in an account.  </p>
+<pre><code class="language-bash">MUTATION='{
+  &quot;mutation&quot;: &quot;mutation BatchQuarantineSnapshotMutation(
+  $input: BatchQuarantineSnapshotInput!
+) {
+  batchQuarantineSnapshot(input: $input) {
+    isBatchQuarantineSuccessful
+  }
+}
+&quot;
+}'  
+
+curl -X POST https://$account.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo MUTATION)&quot;
+</code></pre>
+<h4 id="input-for-batch-quarantining-snapshots">Input for batch quarantining snapshots</h4>
+<p>The input includes a list of quarantine objects.</p>
+<pre><code class="language-bash">type BatchQuarantineSnapshotInput{
+  quarantineSpecs: [QuarantineSpec]!,
+}
+</code></pre>
+<h4 id="quarantine-spec-object">Quarantine spec object</h4>
+<p>This object identifies the snapshot and files to be quarantined.</p>
+<pre><code class="language-bash">type QuarantineSpec{
+  filesDetails: [FileDetails]!,
+  snapshotId: String, 
+}
+</code></pre>
+<h4 id="filedetails">FileDetails</h4>
+<p>This includes details of the file to be quarantined.</p>
+<pre><code class="language-bash">type FileDetails{
+  fileName: String, 
+}
+</code></pre>
+<h4 id="response">Response</h4>
+<p>The response for this operation is a boolean which indicates whether the operation is successful.</p>
+<h4 id="sample-response">Sample response</h4>
+<pre><code class="language-bash">{
+  &quot;data&quot;: {
+    &quot;isSuccessful&quot;: true,
+  },
+  &quot;loading&quot;: false,
+  &quot;networkStatus&quot;: 7
+}
+</code></pre>
+<h3 id="releasing-snapshots-from-quarantine">Releasing snapshots from quarantine</h3>
+<p>This API is used to release multiple snapshots from quarantine.</p>
+<pre><code class="language-bash">MUTATION='{
+  &quot;mutation&quot;: &quot;mutation BatchReleaseFromQuarantineSnapshotMutation(
+  $input: BatchReleaseFromQuarantineSnapshotInput!
+) {
+  batchReleaseFromQuarantineSnapshot(input: $input) {
+    isBatchReleaseFromQuarantineSuccessful
+  }
+}
+&quot;
+}'  
+
+curl -X POST https://$account.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo MUTATION)&quot;
+</code></pre>
+<h4 id="release-quarantine-input">Release Quarantine - Input</h4>
+<p>This includes a list of quarantine objects to be released from quarantine.</p>
+<pre><code class="language-bash">type BatchQuarantineSnapshotInput{
+  quarantineSpecs: [QuarantineSpec]!,
+}
+</code></pre>
+<p>The quarantine specifications mentioned here were defined in the Quarantine spec object.</p>
+<h4 id="release-quarantine-response">Release Quarantine - Response</h4>
+<p>The response for this operation is a boolean which indicates whether the operation is successful.</p>
+<h4 id="release-quarantine-sample-response">Release Quarantine - Sample response</h4>
+<pre><code class="language-bash">{
+  &quot;data&quot;: {
+    &quot;isSuccessful&quot;: true,
+  },
+  &quot;loading&quot;: false,
+  &quot;networkStatus&quot;: 7
+}
+</code></pre>
+<h2 id="get-quarantine-detail-apis">Get quarantine detail APIs</h2>
+<p>These are read APIs used to get quarantine status of a particular object or list of objects.</p>
+<h3 id="get-quarantine-details-for-snapshots">Get quarantine details for snapshots</h3>
+<p>This API is used to get quarantine details for a list of snapshots.</p>
+<pre><code class="language-bash">QUERY='{
+  &quot;query&quot;: &quot;query BatchGetQuarantinedDetailsForSnapshots($snapshotIds: [String!]!) {
+  allQuarantinedDetailsForSnapshots(snapshotIds: $snapshotIds) {
+    snapshotId
+    filesDetails {
+      fileName
+    }
+  }
+}
+&quot;
+}'
+
+curl -X POST https://$account.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $QUERY)&quot;
+</code></pre>
+<h4 id="input-for-getting-quarantine-details-for-a-batch-of-snapshots">Input for getting quarantine details for a batch of snapshots</h4>
+<p>The input includes a list of FIDs for which quarantine details need to be retrieved.</p>
+<pre><code class="language-bash">snapshotFids: [String]!
+</code></pre>
+<h4 id="get-quarantine-details-for-snapshots-response">Get quarantine details for snapshots - Response</h4>
+<p>The response includes a list of snapshotIds and the corresponding fileDetails about
+quarantined snapshots. Snapshots that are not quarantined will be excluded from
+the response.</p>
+<pre><code class="language-bash">{
+  snapshotId
+  filesDetails {
+    fileName
+  }
+}
+</code></pre>
+<h4 id="get-batch-quarantine-snapshot-sample-response">Get batch quarantine snapshot - Sample Response</h4>
+<pre><code class="language-bash">{
+  &quot;data&quot;: {
+    &quot;quarantineSpecs&quot; : [ 
+        {
+          &quot;snapshotId&quot; : &quot;abcd-fgeb-vefb-veef&quot;,
+          &quot;filesDetails&quot; : [
+            {
+              &quot;fileName&quot; : &quot;/C:/Engineering/&quot;
+            }, 
+            {
+              &quot;fileName&quot;: &quot;/C:/Medical/&quot;
+            }
+          ]
+        }, 
+        {
+          &quot;snapshotId&quot; : &quot;veef-fege-vfdf-fgeb&quot;,
+          &quot;filesDetails&quot; : [
+            {
+              &quot;fileName&quot; : &quot;/C:/HumanResources/abc.txt&quot;
+            }, 
+            {
+              &quot;fileName&quot;: &quot;/C:/Unknown/def.txt&quot;
+            }
+          ]
+        }  
+    ]
+  },
+  &quot;loading&quot;: false,
+  &quot;networkStatus&quot;: 7
+}
+</code></pre>
+<h3 id="get-quarantine-details-for-workload">Get quarantine details for workload</h3>
+<p>This API is used to get all quarantine details for a workload.</p>
+<pre><code class="language-bash">QUERY='{
+  &quot;query&quot;: &quot;query BatchGetQuarantinedDetailsForWorkload($workloadId: String!) {
+  allQuarantinedDetailsForWorkload(workloadId: $workloadId) {
+    snapshotId
+    filesDetails {
+      fileName
+    }
+  }
+}
+&quot;
+}'
+
+curl -X POST https://$account.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $QUERY)&quot;
+</code></pre>
+<h4 id="input-for-getting-quarantine-details-for-a-workload">Input for getting quarantine details for a workload</h4>
+<p>The input is a workloadID that indicates the quarantine details to be retrieved.</p>
+<pre><code class="language-bash">workloadId: String!
+</code></pre>
+<h4 id="get-quarantine-details-for-workload-response">Get quarantine details for workload - Response</h4>
+<p>The response includes a list of snapshotIds and the corresponding fileDetails.
+If no files or snapshots are quarantined, an empty list will be returned.</p>
+<pre><code class="language-bash">{
+  snapshotId
+  filesDetails {
+    fileName
+  }
+}
+</code></pre>
+<h4 id="get-batch-quarantine-workload-sample-response">Get batch quarantine workload - Sample Response</h4>
+<pre><code class="language-bash">{
+  &quot;data&quot;: {
+    &quot;quarantineSpecs&quot; : [ 
+        {
+          &quot;snapshotId&quot; : &quot;fwgf-vfdf-vefb-veef&quot;,
+          &quot;filesDetails&quot; : [
+            {
+              &quot;fileName&quot; : &quot;/D:/Engineering/&quot;
+            }, 
+            {
+              &quot;fileName&quot;: &quot;/D:/Medical/&quot;
+            }
+          ]
+        }, 
+        {
+          &quot;snapshotId&quot; : &quot;vsfg-fgeb-abcd-vefb&quot;,
+          &quot;filesDetails&quot; : [
+            {
+              &quot;fileName&quot; : &quot;/E:/HumanResources/abc.txt&quot;
+            }, 
+            {
+              &quot;fileName&quot;: &quot;/E:/Unknown/def.txt&quot;
+            }
+          ]
+        }  
+    ]
+  },
+  &quot;loading&quot;: false,
+  &quot;networkStatus&quot;: 7
+}
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2023-01-05</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>
