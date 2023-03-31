@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Full Changelog - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../deprecations/">Deprecations</a>
+</li>
+
+             
+<li class="active" >
+  <a href="./">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud-native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#changelog">Changelog</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230401">2023/04/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#breaking-field-and-enums">Breaking: field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#breaking-types">Breaking: types</a>
+    </li>
+    <li class="third-level">
+      <a href="#deprecations">Deprecations</a>
+    </li>
+    <li class="third-level">
+      <a href="#additions">Additions</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230301">2023/03/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#breaking-field-and-enums_1">Breaking: field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#breaking-types_1">Breaking: types</a>
+    </li>
+    <li class="third-level">
+      <a href="#deprecations_1">Deprecations</a>
+    </li>
+    <li class="third-level">
+      <a href="#additions_1">Additions</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230201">2023/02/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#breaking-field-and-enums_2">Breaking: field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#breaking-types_2">Breaking: types</a>
+    </li>
+    <li class="third-level">
+      <a href="#deprecations_2">Deprecations</a>
+    </li>
+    <li class="third-level">
+      <a href="#additions_2">Additions</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230101">2023/01/01</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <h1 id="changelog">Changelog</h1>
+<h2 id="20230401">2023/04/01</h2>
+<h3 id="breaking-field-and-enums">Breaking: field and enums</h3>
+<ul>
+<li>Field <code>topRiskPrincipals</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>sidsPolicyHitsSummary</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>o365TeamChildSnapshotIDs</code> was removed from <code>Query</code> type.</li>
+<li>Input field <code>versionTime</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>prefix</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>collectionIds</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>restoreDbPassword</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>targetDbName</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>databaseIds</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>sourceMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>restoreDbUsername</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>targetMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li><code>MongoSource.sourceNodes</code> field type changed from <code>String!</code> to <code>[CdmMongoNode!]!</code>.</li>
+</ul>
+<h3 id="breaking-types">Breaking: types</h3>
+<ul>
+<li><code>TopRiskPrincipalsReply</code> type was removed.</li>
+<li><code>O365TeamChildSnapshotIds</code> type was removed.</li>
+<li><code>PolicyHitsSummary</code> type was removed.</li>
+<li><code>SidsPolicyHitsSummaries</code> type was removed.</li>
+<li><code>TopRiskPrincipalSummary</code> type was removed.</li>
+<li><code>SidPolicyHitsSummary</code> type was removed.</li>
+<li>Input field <code>input</code> was added to <code>RecoverMongoSourceInput</code> type.</li>
+</ul>
+<h3 id="deprecations">Deprecations</h3>
+<ul>
+<li>
+<p>Field <code>id</code> was deprecated in <code>ClusterDisk</code> type.</p>
+<p>Reason: Please use diskId instead.
+Scheduled for removalafter 2024/03/17.</p>
+</li>
+<li>
+<p>Field <code>backupO365SharepointDrive</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use backupM365SharepointDrive instead.
+Scheduled for removalafter 2024/03/13.</p>
+</li>
+<li>
+<p>Field <code>backupO365Onedrive</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use backupM365Onedrive instead.
+Scheduled for removalafter 2024/03/13.</p>
+</li>
+<li>
+<p>Field <code>backupO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use backupM365Mailbox instead.
+Scheduled for removalafter 2024/03/13.</p>
+</li>
+<li>
+<p>Field <code>backupO365Team</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use backupM365Team instead.
+Scheduled for removalafter 2024/03/13.</p>
+</li>
+<li>
+<p>Enum value <code>DURABLE_REDUCED_AVAILABILITY_GCP</code> was deprecated in enum <code>GcpStorageClass</code>.</p>
+<p>Reason: Deprecated. Use STANDARD instead.
+Scheduled for removalafter 2024/02/28.</p>
+</li>
+</ul>
+<h3 id="additions">Additions</h3>
+<ul>
+<li><code>MongoSnapshotGroupByTime</code> type was added.</li>
+<li><code>CreateCrossAccountReplicationPairInput</code> type was added.</li>
+<li><code>AttributeInput</code> type was added.</li>
+<li><code>MongoSnapshotGroupByInfo</code> type was added.</li>
+<li><code>GatewayInfoInput</code> type was added.</li>
+<li><code>BackupM365MailboxInput</code> type was added.</li>
+<li><code>V1QueryUnmanagedObjectSnapshotsV1RequestSnapshotType</code> type was added.</li>
+<li><code>BackupM365TeamInput</code> type was added.</li>
+<li><code>LegalHoldSnappableDetailEdge</code> type was added.</li>
+<li><code>NcdBackEndCapacity</code> type was added.</li>
+<li><code>FlagDataType</code> type was added.</li>
+<li><code>NcdUsageOverTimeData</code> type was added.</li>
+<li><code>SnapshotSummaryConnection</code> type was added.</li>
+<li><code>ProtectedObjects</code> type was added.</li>
+<li><code>MongoSnapshotGroupByEdge</code> type was added.</li>
+<li><code>QueryUnmanagedObjectSnapshotsV1Input</code> type was added.</li>
+<li><code>NcdFilesObjectProtectionStatusData</code> type was added.</li>
+<li><code>BulkOnDemandSnapshotNutanixVmInput</code> type was added.</li>
+<li><code>NcdSlaComplianceData</code> type was added.</li>
+<li><code>CountOfObjectsProtectedBySLAsResult</code> type was added.</li>
+<li><code>LegalHoldSortType</code> type was added.</li>
+<li><code>NcdObjectsOverTimeData</code> type was added.</li>
+<li><code>O365SharePointDrive</code> type was added.</li>
+<li><code>DeleteFailedClusterOperationJobDataInput</code> type was added.</li>
+<li><code>ReplicationTargetDefinitionInput</code> type was added.</li>
+<li><code>SnapshotSummaryEdge</code> type was added.</li>
+<li><code>HiddenStateFilter</code> type was added.</li>
+<li><code>BackupM365SharepointDriveInput</code> type was added.</li>
+<li><code>AzureBlobConfig</code> type was added.</li>
+<li><code>O365SharePointSite</code> type was added.</li>
+<li><code>LegalHoldSnapshotsForSnappableInput</code> type was added.</li>
+<li><code>NcdObjectProtectionStatus</code> type was added.</li>
+<li><code>NutanixOnDemandSnapshotJobConfigForBulkInput</code> type was added.</li>
+<li><code>ProtectedObjectsEdge</code> type was added.</li>
+<li><code>ValidateAwsNativeRdsClusterNameForExportReply</code> type was added.</li>
+<li><code>SlaInfo</code> type was added.</li>
+<li><code>AwsNativeS3SlaConfigInput</code> type was added.</li>
+<li><code>NutanixPrismCentral</code> type was added.</li>
+<li><code>NutanixTopLevelDescendantType</code> type was added.</li>
+<li><code>UnifiedFeatureFlag</code> type was added.</li>
+<li><code>AwsNativeS3SlaConfig</code> type was added.</li>
+<li><code>SnapshotCloudState</code> type was added.</li>
+<li><code>DisableTprOrgInput</code> type was added.</li>
+<li><code>CreateCrossAccountReplicationPairReply</code> type was added.</li>
+<li><code>MongoSnapshotGroupBy</code> type was added.</li>
+<li><code>AzureStorageAccount</code> type was added.</li>
+<li><code>NcdSharesObjectProtectionStatusData</code> type was added.</li>
+<li><code>V1QueryUnmanagedObjectSnapshotsV1RequestSortOrder</code> type was added.</li>
+<li><code>LegalHoldSnapshotDetailEdge</code> type was added.</li>
+<li><code>ProtectedObjectsConnection</code> type was added.</li>
+<li><code>LegalHoldSnapshotDetail</code> type was added.</li>
+<li><code>LegalHoldSnappableDetailConnection</code> type was added.</li>
+<li><code>BackupM365OnedriveInput</code> type was added.</li>
+<li><code>LegalHoldSnapshotDetailConnection</code> type was added.</li>
+<li><code>O365SharepointSnapshotFileDeltaInput</code> type was added.</li>
+<li><code>LegalHoldQueryFilterField</code> type was added.</li>
+<li><code>SLAAuditDetailFilterInput</code> type was added.</li>
+<li><code>NatGatewayInfo</code> type was added.</li>
+<li><code>SLAAuditDetailFilterFieldEnum</code> type was added.</li>
+<li><code>ProtectedObjectSummary</code> type was added.</li>
+<li><code>LockIsolatedRecoveryInput</code> type was added.</li>
+<li><code>DeleteFailedClusterOperationJobDataReply</code> type was added.</li>
+<li><code>SlaAuditDetail</code> type was added.</li>
+<li><code>LegalHoldQueryFilter</code> type was added.</li>
+<li><code>ManagedVolumeLogConfigInput</code> type was added.</li>
+<li><code>NcdTaskData</code> type was added.</li>
+<li><code>UpdateAuthDomainUsersHiddenStatusInput</code> type was added.</li>
+<li><code>AzureBlobConfigInput</code> type was added.</li>
+<li><code>NcdTaskStatus</code> type was added.</li>
+<li><code>SetSsoCertificateInput</code> type was added.</li>
+<li><code>BulkOnDemandSnapshotNutanixVmReply</code> type was added.</li>
+<li><code>NcdFrontEndCapacity</code> type was added.</li>
+<li><code>SnapshotSummary</code> type was added.</li>
+<li><code>O365ReplyFields</code> type was added.</li>
+<li><code>NutanixBulkOnDemandSnapshotJobConfigInput</code> type was added.</li>
+<li><code>UnifiedFeatureFlagInput</code> type was added.</li>
+<li><code>LegalHoldSnappableDetail</code> type was added.</li>
+<li><code>LocationPathPoint</code> type was added.</li>
+<li><code>SLAIdToObjectCount</code> type was added.</li>
+<li><code>SsoCertificateType</code> type was added.</li>
+<li><code>SnappablesWithLegalHoldSnapshotsInput</code> type was added.</li>
+<li><code>LegalHoldSortParam</code> type was added.</li>
+<li><code>V1QueryUnmanagedObjectSnapshotsV1RequestSortBy</code> type was added.</li>
+<li><code>UnmanagedSnapshotType</code> type was added.</li>
+<li><code>CreateAzureSaasAppAadReply</code> type was added.</li>
+<li><code>MongoRecoveryRequestConfigInput</code> type was added.</li>
+<li><code>MongoSnapshotGroupByConnection</code> type was added.</li>
+<li>Field <code>mongoSnapshotConnection</code> was added to <code>MongoCollection</code> type.</li>
+<li>Field <code>isChangelistEnabled</code> was added to <code>PhysicalHost</code> type.</li>
+<li>Field <code>snapshot</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>BULK_RECOVERY</code> was added to enum <code>ActivityTypeEnum</code>.</li>
+<li>Field <code>createAzureSaasAppAad</code> was added to <code>Mutation</code> type.</li>
+<li><code>NutanixCluster</code> object type now implements <code>NutanixTopLevelDescendantType</code> interface.</li>
+<li>Field <code>caCertUuid</code> was added to <code>ConfigProtectionInfo</code> type.</li>
+<li>Enum value <code>ON_PREM_AD</code> was added to enum <code>InventoryCard</code>.</li>
+<li>Enum value <code>AZURE_RESOURCE_GROUP</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>O365_GROUP</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>appAuthVersion</code> was added to <code>O365AppObject</code> type.</li>
+<li>Field <code>backupM365SharepointDrive</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>cdmId</code> was added to <code>NasShare</code> type.</li>
+<li>Field <code>allNcdObjectsOverTimeData</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>NUTANIX_CLUSTER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>legalHoldSnapshotsForSnappable</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>VSPHERE_FOLDER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>appAuthVersion</code> was added to <code>O365App</code> type.</li>
+<li>Field <code>nasMigrationInfo</code> was added to <code>NasFileset</code> type.</li>
+<li>Field <code>azureBlobConfig</code> was added to <code>ObjectSpecificConfigs</code> type.</li>
+<li>Enum value <code>NUTANIX_PRISM_CENTRAL_ID</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>awsNativeS3SlaConfig</code> was added to <code>ObjectSpecificConfigs</code> type.</li>
+<li>Enum value <code>VIEW_CLUSTER_LICENSES</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>TRANSFERRED_BYTES</code> was added to enum <code>SnappableAggregationsEnum</code>.</li>
+<li>Enum value <code>AWS_S3</code> was added to enum <code>InventoryCard</code>.</li>
+<li>Enum value <code>O365_SHAREPOINT_SITE</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>naturalId</code> was added to <code>UpdateHypervVirtualMachineReply</code> type.</li>
+<li>Enum value <code>NETAPPSG</code> was added to enum <code>S3CompatibleSubType</code>.</li>
+<li>Field <code>backupM365Mailbox</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>bulkOnDemandSnapshotNutanixVm</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>MONGO_COLLECTION_SET</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Field <code>protectedObjectsConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>ncdBackEndCapacity</code> was added to <code>Query</code> type.</li>
+<li>Field <code>disableTprOrg</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>BULK_RECOVERY</code> was added to enum <code>EventType</code>.</li>
+<li>Enum value <code>ENCRYPTION_MANAGEMENT</code> was added to enum <code>AuditObjectType</code>.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_QUEUED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>setSsoCertificate</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_LOCKED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Enum value <code>HOST_VENDOR_TYPE</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>shareName</code> was added to <code>CloudDirectNasExport</code> type.</li>
+<li>Field <code>backupM365Team</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>allNcdUsageOverTimeData</code> was added to <code>Query</code> type.</li>
+<li>Field <code>allClusterGlobalSlas</code> was added to <code>Query</code> type.</li>
+<li>Field <code>createCrossAccountReplicationPair</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>O365_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>PHYSICAL_HOST</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>ARCHIVAL_ENTITY_USE_CASE_TYPE</code> was added to enum <code>TargetQueryFilterField</code>.</li>
+<li>Enum value <code>VSPHERE_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Input field <code>azureBlobConfigInput</code> was added to <code>ObjectSpecificConfigsInput</code> type.</li>
+<li>Field <code>kmsEndpoint</code> was added to <code>RubrikManagedAwsTarget</code> type.</li>
+<li>Input field <code>azureCloudType</code> was added to <code>CreateCloudNativeAzureStorageSettingInput</code> type.</li>
+<li>Enum value <code>AZURE_NATIVE_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>allNcdSlaComplianceData</code> was added to <code>Query</code> type.</li>
+<li>Field <code>snapshotOfSnappablesConnection</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>hiddenStateFilter</code> was added to <code>UserFilterInput</code> type.</li>
+<li>Enum value <code>MONGO_DATABASE</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Field <code>cdmId</code> was added to <code>NasNamespace</code> type.</li>
+<li>Field <code>isChangelistEnabled</code> was added to <code>HostShare</code> type.</li>
+<li>Field <code>s3Endpoint</code> was added to <code>RubrikManagedAwsTarget</code> type.</li>
+<li>Field <code>parentSnapshotId</code> was added to <code>CdmSnapshot</code> type.</li>
+<li>Field <code>isArchived</code> was added to <code>VsphereDatastore</code> type.</li>
+<li>Enum value <code>ENCRYPTION_MANAGEMENT</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Field <code>isHidden</code> was added to <code>User</code> type.</li>
+<li>Field <code>cdmId</code> was added to <code>NasSystem</code> type.</li>
+<li>Field <code>o365ReplyFields</code> was added to <code>O365SnapshotItemInfo</code> type.</li>
+<li>Enum value <code>ENCRYPTED_OBJECTS_EXIST</code> was added to enum <code>AzureSqlDbBackupSetupStatus</code>.</li>
+<li>Field <code>diskId</code> was added to <code>ClusterDisk</code> type.</li>
+<li>Enum value <code>TASK_DETAILS</code> was added to enum <code>DataViewTypeEnum</code>.</li>
+<li>Enum value <code>VSPHERE_TAG</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>mongoSnapshotGroupByConnection</code> was added to <code>MongoCollection</code> type.</li>
+<li>Input field <code>o365SharepointDelta</code> was added to <code>WorkloadFieldsInput</code> type.</li>
+<li>Enum value <code>MANAGE_ARCHIVAL_NETWORK_THROTTLE_SETTINGS</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>BULK_RECOVERY</code> was added to enum <code>AuditType</code>.</li>
+<li>Field <code>snapshotOfASnappableConnection</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>ENCRYPTION_MANAGEMENT</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>MONGO_COLLECTION_SET</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>HOST_VFD_STATE_INSTALLED_BUT_TWO_RESTARTS_REQUIRED</code> was added to enum <code>HostVfdState</code>.</li>
+<li>Field <code>lastRefreshTime</code> was added to <code>NutanixCluster</code> type.</li>
+<li>Field <code>datastore</code> was added to <code>VsphereVirtualDisk</code> type.</li>
+<li>Field <code>allNcdTaskData</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>O365_ORGANIZATION</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>lockIsolatedRecovery</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>HYPERV_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>transferredBytes</code> was added to <code>SnappableAggregation</code> type.</li>
+<li>Enum value <code>TENANT_OVERLAP</code> was added to enum <code>ActivityTypeEnum</code>.</li>
+<li>Field <code>singleUnifiedFeatureFlag</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>DELLECS</code> was added to enum <code>S3CompatibleSubType</code>.</li>
+<li>Enum value <code>AZURE_BLOB_OBJECT_TYPE</code> was added to enum <code>SlaObjectType</code>.</li>
+<li>Field <code>deleteFailedClusterOperationJobData</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>ncdObjectProtectionStatus</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>awsNativeS3SlaConfigInput</code> was added to <code>ObjectSpecificConfigsInput</code> type.</li>
+<li>Argument <code>hiddenStateFilter</code> was added to <code>Query.allUsersOnAccountConnection</code> field.</li>
+<li>Enum value <code>MONGO_COLLECTION</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>HYPERV_CLUSTER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>validateAwsNativeRdsClusterNameForExport</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>logConfig</code> was added to <code>SlaManagedVolumeClientConfigInput</code> type.</li>
+<li>Enum value <code>NUTANIX_PRISM_CENTRAL</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>STORAGE_ARRAY_TYPE_HITACHI_STORAGE</code> was added to enum <code>StorageArrayType</code>.</li>
+<li>Enum value <code>LINUX_HOST_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>naturalId</code> was added to <code>HypervVirtualMachineDetail</code> type.</li>
+<li>Enum value <code>ON_PREM_AD_ROOT</code> was added to enum <code>InventorySubHierarchyRootEnum</code>.</li>
+<li>Field <code>countOfObjectsProtectedBySlas</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>ARCHIVAL_DELL_ECS</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Enum value <code>BULK_RECOVERY</code> was added to enum <code>UserAuditTypeEnum</code>.</li>
+<li>Enum value <code>CDM_CLUSTER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>LEDGER_TABLES_EXIST</code> was added to enum <code>AzureSqlDbBackupSetupStatus</code>.</li>
+<li>Enum value <code>WINDOWS_HOST_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>ARCHIVAL_NETAPP_SG</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Field <code>backupM365Onedrive</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>VSPHERE_VCENTER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>ENCRYPTION_MANAGEMENT</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>systemName</code> was added to <code>CloudDirectNasExport</code> type.</li>
+<li>Enum value <code>TENANT_OVERLAP</code> was added to enum <code>EventType</code>.</li>
+<li>Enum value <code>AZURE_SUBSCRIPTION</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>ARCHIVAL_QSTAR</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Enum value <code>MONGO_SOURCE</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Field <code>snappablesWithLegalHoldSnapshotsSummary</code> was added to <code>Query</code> type.</li>
+<li>Field <code>cloudState</code> was added to <code>CdmSnapshot</code> type.</li>
+<li>Field <code>ncdFrontEndCapacity</code> was added to <code>Query</code> type.</li>
+<li>Field <code>folderIdsTillRoot</code> was added to <code>O365SnapshotItemInfo</code> type.</li>
+<li>Field <code>updateAuthDomainUsersHiddenStatus</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>CLOUD_NATIVE_TAG_RULE</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>VSPHERE_COMPUTE_CLUSTER</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>AWS_S3_OBJECT_TYPE</code> was added to enum <code>SlaObjectType</code>.</li>
+<li>Enum value <code>AHV_BULK_TAKE_ON_DEMAND_SNAPSHOT</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Field <code>slaAuditDetail</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>NUTANIX_ROOT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Field <code>snapshotsForUnmanagedObject</code> was added to <code>Query</code> type.</li>
+</ul>
+<h2 id="20230301">2023/03/01</h2>
+<h3 id="breaking-field-and-enums_1">Breaking: field and enums</h3>
+<ul>
+<li>Field <code>failoverJobReports</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>clusterGroupByUpgradeInfo</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>blueprintNew</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>allBlueprints</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>searchVappFiles</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>configProtectionSetupInfo</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>cyberRecoveryObjects</code> was removed from <code>Query</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>PatchMongoSourceInput</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>DiscoverMongoSourceInput</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>RetryAddMongoSourceInput</code> type.</li>
+<li><code>O365SnapshotItemInfo.snapshotId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
+</ul>
+<h3 id="breaking-types_1">Breaking: types</h3>
+<ul>
+<li><code>RecoveryInfo</code> type was removed.</li>
+<li><code>CyberRecoveryObjectsSortParams</code> type was removed.</li>
+<li><code>ClusterJobStatusType</code> type was removed.</li>
+<li><code>AppSearchResponseListResponse</code> type was removed.</li>
+<li><code>BlueprintFailoverStatus</code> type was removed.</li>
+<li><code>BlueprintStatus</code> type was removed.</li>
+<li><code>AwsEc2Instance</code> type was removed.</li>
+<li><code>BlueprintChildConnection</code> type was removed.</li>
+<li><code>AwsVmVolumeSpec</code> type was removed.</li>
+<li><code>AwsInstanceTenancy</code> type was removed.</li>
+<li><code>BlueprintLocation</code> type was removed.</li>
+<li><code>VmwareVirtualMachineNic</code> type was removed.</li>
+<li><code>RecoveryPlanDetails</code> type was removed.</li>
+<li><code>BlueprintNewConnection</code> type was removed.</li>
+<li><code>AllFailoverJobReportsSortParam</code> type was removed.</li>
+<li><code>RecoverySpec</code> type was removed.</li>
+<li><code>RecoveryPlanType</code> type was removed.</li>
+<li><code>FailoverJobReportEdge</code> type was removed.</li>
+<li><code>VSphereVmChild</code> type was removed.</li>
+<li><code>VsphereBlueprintNew</code> type was removed.</li>
+<li><code>RpoLagInfo</code> type was removed.</li>
+<li><code>CyberRecoveryObjectsFilterParams</code> type was removed.</li>
+<li><code>Ec2InstanceResourceSpec</code> type was removed.</li>
+<li><code>Ec2InstanceChild</code> type was removed.</li>
+<li><code>WorkloadDetailsSortType</code> type was removed.</li>
+<li><code>Ec2InstanceVolume</code> type was removed.</li>
+<li><code>BlueprintNew</code> type was removed.</li>
+<li><code>ConfigProtectionSetupInfo</code> type was removed.</li>
+<li><code>CyberRecoveryLocationPathPoint</code> type was removed.</li>
+<li><code>AppSearchResponse</code> type was removed.</li>
+<li><code>NetworkAdapterType</code> type was removed.</li>
+<li><code>BlueprintFailoverInstance</code> type was removed.</li>
+<li><code>Ec2InstanceNic</code> type was removed.</li>
+<li><code>VsphereRecoverySpec</code> type was removed.</li>
+<li><code>BlueprintFailover</code> type was removed.</li>
+<li><code>RecoveryStatuses</code> type was removed.</li>
+<li><code>Ec2InstanceRecoverySpec</code> type was removed.</li>
+<li><code>ResourceSpec</code> type was removed.</li>
+<li><code>Ec2BlueprintChildFailoverInstance</code> type was removed.</li>
+<li><code>SnappableSubnet</code> type was removed.</li>
+<li><code>BlueprintRecoveryCount</code> type was removed.</li>
+<li><code>BlueprintLocationType</code> type was removed.</li>
+<li><code>BlueprintNewEdge</code> type was removed.</li>
+<li><code>BlueprintCdmLocation</code> type was removed.</li>
+<li><code>BlueprintPlatform</code> type was removed.</li>
+<li><code>CyberRecoveryObjectConnection</code> type was removed.</li>
+<li><code>VSphereVMVolumeSpec</code> type was removed.</li>
+<li><code>VmwareRecoveryPoints</code> type was removed.</li>
+<li><code>NetworkType</code> type was removed.</li>
+<li><code>AwsVmNicSpec</code> type was removed.</li>
+<li><code>CyberRecoveryObjectEdge</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByEnum</code> type was removed.</li>
+<li><code>BlueprintChild</code> type was removed.</li>
+<li><code>FailoverSubStep</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByConnection</code> type was removed.</li>
+<li><code>VmwareRecoveryState</code> type was removed.</li>
+<li><code>Vpc</code> type was removed.</li>
+<li><code>SearchVappV1Input</code> type was removed.</li>
+<li><code>WorkloadLastFailoverStatus</code> type was removed.</li>
+<li><code>UpgradeInfoGroupBy</code> type was removed.</li>
+<li><code>VsphereBlueprintChildFailoverInstance</code> type was removed.</li>
+<li><code>SnappableSecurityGroup</code> type was removed.</li>
+<li><code>VsphereRecoveryComputeTarget</code> type was removed.</li>
+<li><code>VSphereVMNicSpec</code> type was removed.</li>
+<li><code>FailoverJobReport</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByEdge</code> type was removed.</li>
+<li><code>BlueprintRecoveryRange</code> type was removed.</li>
+<li><code>AddressBlockV4</code> type was removed.</li>
+<li><code>UpgradeGroupByInfo</code> type was removed.</li>
+<li><code>VmwareResourceSpec</code> type was removed.</li>
+<li><code>BlueprintChildEdge</code> type was removed.</li>
+<li><code>BlueprintRecoveryRanges</code> type was removed.</li>
+<li><code>ChildVmRecoveryInfo</code> type was removed.</li>
+<li><code>FailoverJobReportConnection</code> type was removed.</li>
+<li><code>AllFailoverJobReportsSortType</code> type was removed.</li>
+<li><code>CaCertProviderType</code> type was removed.</li>
+<li><code>FailoverEvent</code> type was removed.</li>
+<li><code>VmwareVirtualMachineVolume</code> type was removed.</li>
+<li><code>CyberRecoveryObject</code> type was removed.</li>
+<li><code>FailoverStep</code> type was removed.</li>
+</ul>
+<h3 id="deprecations_1">Deprecations</h3>
+<ul>
+<li>
+<p>Field <code>updateAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>immutabilitySettings</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</p>
+<p>Reason: Deprecated: please use immutabilitySetting instead.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>updateAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>createAutomaticRcsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated. Please use createRcvLocationsFromTemplate.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>getKorgTaskchainStatus</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: This endpoint is not properly named.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>stopJobInstance</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use stopJobInstanceFromEventSeries instead.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>allVcenterConnectionStatuses</code> was deprecated in <code>Vcd</code> type.</p>
+<p>Reason: Use allVcenterConnectionsInfo instead.
+Scheduled for removalafter 2024/01/31.</p>
+</li>
+<li>
+<p>Field <code>createAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>ibmDetails</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</p>
+<p>Reason: Deprecated: please use ibmDetail instead.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>createAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+<li>
+<p>Field <code>updateRcsAutomaticTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is deprecated. Please use updateRcvLocationsFromTemplate.
+Scheduled for removalafter 2024/02/17.</p>
+</li>
+</ul>
+<h3 id="additions_1">Additions</h3>
+<ul>
+<li><code>UserAuditEdge</code> type was added.</li>
+<li><code>ComplianceStatus</code> type was added.</li>
+<li><code>Metadata</code> type was added.</li>
+<li><code>ReportFilterInput</code> type was added.</li>
+<li><code>TaskDetailFilterInput</code> type was added.</li>
+<li><code>Row</code> type was added.</li>
+<li><code>AuditStatus</code> type was added.</li>
+<li><code>TopRiskPrincipalsReply</code> type was added.</li>
+<li><code>TaskDetailConnection</code> type was added.</li>
+<li><code>AwsCdmVersionRequest</code> type was added.</li>
+<li><code>AzureNativeHierarchyObjectType</code> type was added.</li>
+<li><code>ValueNull</code> type was added.</li>
+<li><code>AwsCloudAccountListSubnetsResponse</code> type was added.</li>
+<li><code>ValueBoolean</code> type was added.</li>
+<li><code>Column</code> type was added.</li>
+<li><code>DisplayableValue</code> type was added.</li>
+<li><code>TaskDetailClusterType</code> type was added.</li>
+<li><code>TaskDetailObjectType</code> type was added.</li>
+<li><code>AuditObjectType</code> type was added.</li>
+<li><code>ValueString</code> type was added.</li>
+<li><code>NetworkThrottleSummaryListResponse</code> type was added.</li>
+<li><code>ProtectionStatus</code> type was added.</li>
+<li><code>RecoverCloudDirectPathInput</code> type was added.</li>
+<li><code>RecoverMongoSourceInput</code> type was added.</li>
+<li><code>AzureStorageAccountsReq</code> type was added.</li>
+<li><code>PastDurationEnum</code> type was added.</li>
+<li><code>AuditType</code> type was added.</li>
+<li><code>DisplayableValueInteger</code> type was added.</li>
+<li><code>AzureSubnetReq</code> type was added.</li>
+<li><code>VappAppMetadata</code> type was added.</li>
+<li><code>ValueInteger</code> type was added.</li>
+<li><code>TaskDetail</code> type was added.</li>
+<li><code>AwsCloudAccountListVpcResponse</code> type was added.</li>
+<li><code>DataTypeEnum</code> type was added.</li>
+<li><code>AwsCdmVersion</code> type was added.</li>
+<li><code>AwsNativeHierarchyObjectConnection</code> type was added.</li>
+<li><code>SnappableGroupByConnection</code> type was added.</li>
+<li><code>CloudDirectHierarchyWorkload</code> type was added.</li>
+<li><code>DisplayableValueLong</code> type was added.</li>
+<li><code>QueryNetworkThrottleInput</code> type was added.</li>
+<li><code>SnappableGroupByFilterInput</code> type was added.</li>
+<li><code>DisplayableValueFloat</code> type was added.</li>
+<li><code>UserAuditSortField</code> type was added.</li>
+<li><code>TaskDetailGroupByConnection</code> type was added.</li>
+<li><code>UserAuditFilter</code> type was added.</li>
+<li><code>AuditSeverity</code> type was added.</li>
+<li><code>TaskDetailEdge</code> type was added.</li>
+<li><code>MongoRecoverableRange</code> type was added.</li>
+<li><code>CloudAccountVpc</code> type was added.</li>
+<li><code>Value</code> type was added.</li>
+<li><code>DisplayableValueBoolean</code> type was added.</li>
+<li><code>AzureCdmVersion</code> type was added.</li>
+<li><code>CloudAccountAddressBlockV4</code> type was added.</li>
+<li><code>RowConnection</code> type was added.</li>
+<li><code>CloudDirectSystemsInput</code> type was added.</li>
+<li><code>OrgsForPrincipalReply</code> type was added.</li>
+<li><code>SaasFeature</code> type was added.</li>
+<li><code>AwsNativeHierarchyObject</code> type was added.</li>
+<li><code>AzureNativeHierarchyObjectTypeConnection</code> type was added.</li>
+<li><code>SnappableGroupByEdge</code> type was added.</li>
+<li><code>SnappableGroupBy</code> type was added.</li>
+<li><code>TaskDetailGroupByEdge</code> type was added.</li>
+<li><code>AzureNativeRoot</code> type was added.</li>
+<li><code>ValueFloat</code> type was added.</li>
+<li><code>AwsNativeRoot</code> type was added.</li>
+<li><code>VmNetworkAddressingMode</code> type was added.</li>
+<li><code>AwsCdmVersionTag</code> type was added.</li>
+<li><code>CloudDirectSystems</code> type was added.</li>
+<li><code>AzureCdmVersionTag</code> type was added.</li>
+<li><code>SnapshotCustomization</code> type was added.</li>
+<li><code>SnappableAggregationsEnum</code> type was added.</li>
+<li><code>UserAudit</code> type was added.</li>
+<li><code>ShareExportIdPair</code> type was added.</li>
+<li><code>SnappableFilterInputWithSearch</code> type was added.</li>
+<li><code>TimelineCountEntry</code> type was added.</li>
+<li><code>PolicyHitsSummary</code> type was added.</li>
+<li><code>AzureCdmVersionReq</code> type was added.</li>
+<li><code>IbmCosDetailsType</code> type was added.</li>
+<li><code>DisplayableValueString</code> type was added.</li>
+<li><code>MongoRecoverableRanges</code> type was added.</li>
+<li><code>AzureNativeHierarchyObjectTypeEdge</code> type was added.</li>
+<li><code>SidsPolicyHitsSummaries</code> type was added.</li>
+<li><code>RecoverableRangeInput</code> type was added.</li>
+<li><code>CloudAccountSub</code> type was added.</li>
+<li><code>StopJobInstanceFromEventSeriesInput</code> type was added.</li>
+<li><code>InternalQueryNetworkThrottleRequestResourceId</code> type was added.</li>
+<li><code>AwsNativeS3Bucket</code> type was added.</li>
+<li><code>AllCloudDirectSharesInput</code> type was added.</li>
+<li><code>TopRiskPrincipalSummary</code> type was added.</li>
+<li><code>AzureNsgRequest</code> type was added.</li>
+<li><code>CloudAccountSubnet</code> type was added.</li>
+<li><code>ValueDateTime</code> type was added.</li>
+<li><code>SnappableGroupByInfo</code> type was added.</li>
+<li><code>TaskDetailGroupByInfo</code> type was added.</li>
+<li><code>AwsCloudAccountListSecurityGroupsResponse</code> type was added.</li>
+<li><code>SidPolicyHitsSummary</code> type was added.</li>
+<li><code>TaskDetailGroupBy</code> type was added.</li>
+<li><code>ObjectType</code> type was added.</li>
+<li><code>CdmMongoNode</code> type was added.</li>
+<li><code>ValueLong</code> type was added.</li>
+<li><code>DisplayableValueNull</code> type was added.</li>
+<li><code>AzureVnetReq</code> type was added.</li>
+<li><code>UserAuditConnection</code> type was added.</li>
+<li><code>VmNetworkConnection</code> type was added.</li>
+<li><code>DataViewTypeEnum</code> type was added.</li>
+<li><code>AwsNativeHierarchyObjectEdge</code> type was added.</li>
+<li><code>DisplayableValueDateTime</code> type was added.</li>
+<li><code>RowEdge</code> type was added.</li>
+<li><code>Status</code> type was added.</li>
+<li><code>DisplayableValueDateRange</code> type was added.</li>
+<li><code>CellData</code> type was added.</li>
+<li>Field <code>logBackupFrequency</code> was added to <code>OracleHost</code> type.</li>
+<li>Field <code>topRiskPrincipals</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>AURORA_POSTGRESQL</code> was added to enum <code>AwsNativeRdsDbEngine</code>.</li>
+<li><code>AzureNativeVirtualMachine</code> object type now implements <code>AzureNativeHierarchyObjectType</code> interface.</li>
+<li>Enum value <code>VIEW_NETWORK_THROTTLE_SETTINGS</code> was added to enum <code>Operation</code>.</li>
+<li>Field <code>rdsType</code> was added to <code>DbParameterGroup</code> type.</li>
+<li>Field <code>nasShareType</code> was added to <code>HostShare</code> type.</li>
+<li>Field <code>recoverCloudDirectPath</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>K8S_RESOURCE_SET</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Enum value <code>MANAGE_RECOVERY_PLAN</code> was added to enum <code>Operation</code>.</li>
+<li>Field <code>allAzureVnets</code> was added to <code>Query</code> type.</li>
+<li>Argument <code>rdsType</code> was added to <code>Query.allDbParameterGroupsByRegionFromAws</code> field.</li>
+<li>Enum value <code>SNAPSHOT_CUSTOMIZATION</code> was added to enum <code>SnapshotQueryFilterField</code>.</li>
+<li>Enum value <code>K8S_CLUSTER</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>taskDetailGroupByConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>protectionDate</code> was added to <code>VcdVapp</code> type.</li>
+<li>Enum value <code>RECOVERY_STATUS</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>snappableGroupByConnection</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>dbClusterName</code> was added to <code>StartExportRdsInstanceJobInput</code> type.</li>
+<li>Field <code>awsCloudAccountListSecurityGroups</code> was added to <code>Query</code> type.</li>
+<li>Field <code>outOfDateStatus</code> was added to <code>GetPoliciesTimelineReply</code> type.</li>
+<li>Field <code>allAwsCdmVersions</code> was added to <code>Query</code> type.</li>
+<li>Argument <code>subscriptionIdsFilter</code> was added to <code>Query.discoveryTimeline</code> field.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Input field <code>dbClusterParameterGroupName</code> was added to <code>StartExportRdsInstanceJobInput</code> type.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Input field <code>searchRecurseFolderId</code> was added to <code>LambdaPathFilters</code> type.</li>
+<li>Field <code>allCloudDirectShares</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>K8S_CLUSTER</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Argument <code>locationsFilter</code> was added to <code>Query.workloadAnomalies</code> field.</li>
+<li>Field <code>cloudNativeId</code> was added to <code>AzureNativeVirtualMachine</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_FAILED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>allAzureSubnets</code> was added to <code>Query</code> type.</li>
+<li>Field <code>hostLogRetentionHours</code> was added to <code>OracleDatabase</code> type.</li>
+<li>Field <code>taskDetailConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>saasFeature</code> was added to <code>AzureO365ExocomputeCluster</code> type.</li>
+<li>Field <code>upToDateStatus</code> was added to <code>GetPoliciesTimelineReply</code> type.</li>
+<li>Field <code>nasMigrationInfo</code> was added to <code>PhysicalHost</code> type.</li>
+<li>Field <code>mongoRecoverableRanges</code> was added to <code>Query</code> type.</li>
+<li>Field <code>azureNativeRoot</code> was added to <code>Query</code> type.</li>
+<li>Field <code>hostLogRetentionHours</code> was added to <code>OracleRac</code> type.</li>
+<li>Field <code>hostLogRetentionHours</code> was added to <code>OracleDataGuardGroup</code> type.</li>
+<li>Field <code>allAzureNsgs</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>CLOUD_NATIVE_BLOB_PROTECTION</code> was added to enum <code>CloudAccountFeature</code>.</li>
+<li>Field <code>nasMigrationInfo</code> was added to <code>HostShare</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_PAUSED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li><code>CloudDirectNasExport</code> object type now implements <code>CloudDirectHierarchyWorkload</code> interface.</li>
+<li>Field <code>recoverMongoSource</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>UPGRADE_CDM_CLUSTERS_SOFTWARE_VERSION</code> was added to enum <code>DhrcRecommendationKey</code>.</li>
+<li><code>AwsNativeEc2Instance</code> object type now implements <code>AwsNativeHierarchyObject</code> interface.</li>
+<li>Field <code>encryptionType</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Field <code>logRetentionHours</code> was added to <code>OracleHost</code> type.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>VIEW_ORCHESTRATED_RECOVERY_APP</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>DOES_PHYSICAL_HOST_HAVE_PROTECTED_FILESETS</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Enum value <code>AZURE_AD_ROOT</code> was added to enum <code>InventorySubHierarchyRootEnum</code>.</li>
+<li>Field <code>activitySeriesConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>allAzureResourceGroups</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>K8S_CLUSTER</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>cloudNativeId</code> was added to <code>AwsNativeEc2Instance</code> type.</li>
+<li>Field <code>logRetentionHours</code> was added to <code>OracleRac</code> type.</li>
+<li>Argument <code>targetOrgId</code> was added to <code>Query.allObjectsAlreadyAssignedToOrgs</code> field.</li>
+<li>Enum value <code>CONNECT_RSC_TO_SUPPORT_PORTAL</code> was added to enum <code>DhrcRecommendationKey</code>.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_SUCCEEDED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>rubrikSaasCloud</code> was added to <code>O365LicenseDetails</code> type.</li>
+<li>Enum value <code>K8S_RESOURCE_SET</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>nativeName</code> was added to <code>AwsNativeEbsVolume</code> type.</li>
+<li>Field <code>awsCloudAccountListVpcs</code> was added to <code>Query</code> type.</li>
+<li>Field <code>cloudDirectSystems</code> was added to <code>Query</code> type.</li>
+<li>Field <code>hostLogRetentionHours</code> was added to <code>OracleHost</code> type.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>allAwsInstanceProfileNames</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Enum value <code>BLOB</code> was added to enum <code>AzureNativeProtectionFeature</code>.</li>
+<li>Enum value <code>UNSUPPORTED_PROTECTED_OBJECTS_MINUTE_FREQUENCY_CONFIGURED</code> was added to enum <code>SlaMigrationIneligibilityReason</code>.</li>
+<li>Field <code>awsNativeS3Bucket</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>IS_DELETED_IN_CDM</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>exportType</code> was added to <code>CloudDirectNasExport</code> type.</li>
+<li>Field <code>networkThrottle</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>ARCHIVAL_AWS_ZURICH</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Field <code>allAwsRegions</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>SLA_WITH_REPLICATION</code> was added to enum <code>DownloadIdentifierEnum</code>.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_SUCCEEDED_AND_CLEANED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>nativeName</code> was added to <code>AzureNativeVirtualMachine</code> type.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Field <code>cloudNativeId</code> was added to <code>AzureNativeManagedDisk</code> type.</li>
+<li>Field <code>totalYaraAnalysisDurationInSeconds</code> was added to <code>MalwareScanStats</code> type.</li>
+<li>Field <code>allAzureStorageAccounts</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>SECURE_OPEN_ACCESS_SENSITIVE_FILES</code> was added to enum <code>DhrcRecommendationKey</code>.</li>
+<li>Field <code>nativeName</code> was added to <code>AzureNativeManagedDisk</code> type.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>WorkloadLevelHierarchy</code>.</li>
+<li>Argument <code>blueprintRecoveryTypes</code> was added to <code>Query.workloadAnomalies</code> field.</li>
+<li>Field <code>nasVendorType</code> was added to <code>PhysicalHost</code> type.</li>
+<li>Field <code>orgsForPrincipal</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_FAILED_AND_CLEANED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>ignoreSecondaryNodes</code> was added to <code>MongoSource</code> type.</li>
+<li>Field <code>guestCredentialId</code> was added to <code>VsphereVm</code> type.</li>
+<li>Field <code>logRetentionHours</code> was added to <code>OracleDataGuardGroup</code> type.</li>
+<li>Enum value <code>AADSAAS</code> was added to enum <code>O365AppType</code>.</li>
+<li>Input field <code>customizationFilters</code> was added to <code>SnapshotQueryFilterInput</code> type.</li>
+<li>Field <code>logRetentionHours</code> was added to <code>OracleDatabase</code> type.</li>
+<li><code>AwsNativeEbsVolume</code> object type now implements <code>AwsNativeHierarchyObject</code> interface.</li>
+<li>Enum value <code>AZURE_AD_OBJECT_TYPE</code> was added to enum <code>SlaObjectType</code>.</li>
+<li>Field <code>sidsPolicyHitsSummary</code> was added to <code>Query</code> type.</li>
+<li>Field <code>cloudNativeId</code> was added to <code>AwsNativeEbsVolume</code> type.</li>
+<li>Enum value <code>AURORA_MYSQL</code> was added to enum <code>AwsNativeRdsDbEngine</code>.</li>
+<li>Enum value <code>TEMPORAL_TABLES_EXIST</code> was added to enum <code>AzureSqlDbBackupSetupStatus</code>.</li>
+<li>Field <code>initialAnalysisStatus</code> was added to <code>GetPoliciesTimelineReply</code> type.</li>
+<li>Field <code>awsNativeRoot</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>AZURE_STORAGE_ACCOUNT</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Field <code>userAuditConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>ibmDetail</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_ONGOING</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>vappAppMetadata</code> was added to <code>CdmSnapshot</code> type.</li>
+<li>Field <code>logBackupFrequency</code> was added to <code>OracleRac</code> type.</li>
+<li>Field <code>allAzureCdmVersions</code> was added to <code>Query</code> type.</li>
+<li>Field <code>searchSnappableConnection</code> was added to <code>Query</code> type.</li>
+<li>Field <code>stopJobInstanceFromEventSeries</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_CLEANUP_STARTED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>allAzureRegions</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>INVESTIGATE_ANOMALY_EVENTS</code> was added to enum <code>DhrcRecommendationKey</code>.</li>
+<li>Enum value <code>AURORA</code> was added to enum <code>AwsNativeRdsDbEngine</code>.</li>
+<li>Field <code>reportData</code> was added to <code>Query</code> type.</li>
+<li><code>AzureNativeManagedDisk</code> object type now implements <code>AzureNativeHierarchyObjectType</code> interface.</li>
+<li>Enum value <code>EU_CENTRAL_2</code> was added to enum <code>AwsRegion</code>.</li>
+<li>Field <code>cloudDirectId</code> was added to <code>CloudDirectNasExport</code> type.</li>
+<li>Enum value <code>MANAGE_ORCHESTRATED_RECOVERY</code> was added to enum <code>Operation</code>.</li>
+<li>Field <code>nasMigrationInfo</code> was added to <code>ShareFileset</code> type.</li>
+<li>Field <code>snappableConnection</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>K8S</code> was added to enum <code>ActivityTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was added to enum <code>WorkloadLevelHierarchy</code>.</li>
+<li>Field <code>immutabilitySetting</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Field <code>awsCloudAccountListSubnets</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>K8S</code> was added to enum <code>EventType</code>.</li>
+<li>Enum value <code>K8S_RESOURCE_SET</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>nativeName</code> was added to <code>AwsNativeEc2Instance</code> type.</li>
+</ul>
+<h2 id="20230201">2023/02/01</h2>
+<h3 id="breaking-field-and-enums_2">Breaking: field and enums</h3>
+<ul>
+<li>Field <code>createConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
+<li>Field <code>updateConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
+<li><code>RcvEntitlementsUsageDetails.entitlement</code> field type changed from <code>RcvEntitlement!</code> to <code>RcvEntitlement</code>.</li>
+<li><code>RcvAccountEntitlement.entitlements</code> field type changed from <code>RcvEntitlementsUsageDetails</code> to <code>[RcvEntitlementsUsageDetails!]!</code>.</li>
+<li><code>SnapshotFile.workloadFields</code> field type changed from <code>WorkloadFields!</code> to <code>WorkloadFields</code>.</li>
+<li><code>O365SnapshotItemInfo.id</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
+<li><code>O365SnapshotItemInfo.parentFolderId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
+</ul>
+<h3 id="breaking-types_2">Breaking: types</h3>
+<ul>
+<li><code>CreateConfigProtectionSetupInput</code> type was removed.</li>
+<li><code>UpdateConfigProtectionSetupInput</code> type was removed.</li>
+<li><code>ConfigProtectionCaCert</code> type was removed.</li>
+<li>Input field <code>shouldRunAsynchronously</code> was added to <code>BulkRefreshHostsInput</code> type.</li>
+</ul>
+<h3 id="deprecations_2">Deprecations</h3>
+<ul>
+<li>
+<p>Field <code>snapshotFilesDelta</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: This endpoint only works for Data Center workloads. Use snapshotFilesDeltaV2 instead.
+Scheduled for removalafter 2024/01/31.</p>
+</li>
+</ul>
+<h3 id="additions_2">Additions</h3>
+<ul>
+<li><code>AwsNativeRdsType</code> type was added.</li>
+<li><code>AppSearchResponseListResponse</code> type was added.</li>
+<li><code>ReplicationBandwidthIncomingInput</code> type was added.</li>
+<li><code>IbmCosDetails</code> type was added.</li>
+<li><code>StorageAccountConfigItem</code> type was added.</li>
+<li><code>SnapshotFileDeltaV2Edge</code> type was added.</li>
+<li><code>EdgeWindowsToolLink</code> type was added.</li>
+<li><code>O365PdlAndWorkloadPair</code> type was added.</li>
+<li><code>CloudDirectHierarchyObject</code> type was added.</li>
+<li><code>O365PdlGroup</code> type was added.</li>
+<li><code>CdmJobStatus</code> type was added.</li>
+<li><code>AnalyzerRiskInstance</code> type was added.</li>
+<li><code>GetUserSessionManagementConfigReply</code> type was added.</li>
+<li><code>RcvTier</code> type was added.</li>
+<li><code>LambdaPathFilters</code> type was added.</li>
+<li><code>InternalReplicationBandwidthIncomingResponse</code> type was added.</li>
+<li><code>AppSearchResponse</code> type was added.</li>
+<li><code>AnalyzerRiskInstanceInput</code> type was added.</li>
+<li><code>DhrcCollectedMetric</code> type was added.</li>
+<li><code>SnapshotFileDeltaV2</code> type was added.</li>
+<li><code>AssignSlaToMongoDbCollectionInput</code> type was added.</li>
+<li><code>LocationImmutabilitySettings</code> type was added.</li>
+<li><code>ReplicationBandwidthOutgoingInput</code> type was added.</li>
+<li><code>UserSessionManagementConfig</code> type was added.</li>
+<li><code>SnapshotServiceBackupStatus</code> type was added.</li>
+<li><code>O365PdlGroupsInput</code> type was added.</li>
+<li><code>MongoConfig</code> type was added.</li>
+<li><code>ColossusStorageContainerImmutabilityStatus</code> type was added.</li>
+<li><code>LocationImmutabilityType</code> type was added.</li>
+<li><code>DhrcScoreMetric</code> type was added.</li>
+<li><code>CloudDirectNasExport</code> type was added.</li>
+<li><code>SnapshotFileDeltaV2Connection</code> type was added.</li>
+<li><code>UserAccessType</code> type was added.</li>
+<li><code>SetUserSessionManagementConfigReply</code> type was added.</li>
+<li><code>IbmDeploymentType</code> type was added.</li>
+<li><code>GetHealthMonitorPolicyStatusReply</code> type was added.</li>
+<li><code>DhrcScoreContext</code> type was added.</li>
+<li><code>GetHealthMonitorPolicyStatusInput</code> type was added.</li>
+<li><code>TimeStat</code> type was added.</li>
+<li><code>SendPdfReportReply</code> type was added.</li>
+<li><code>DuplicatedVapp</code> type was added.</li>
+<li><code>VcdVcenterConnectionInfo</code> type was added.</li>
+<li><code>MongoCollectionAssignSlaConfigInput</code> type was added.</li>
+<li><code>OauthCodesForEdgeRegReply</code> type was added.</li>
+<li><code>MongoConfigInput</code> type was added.</li>
+<li><code>SearchVappV1Input</code> type was added.</li>
+<li><code>O365PdlAndWorkloadPairInput</code> type was added.</li>
+<li><code>SetUserSessionManagementConfigInput</code> type was added.</li>
+<li><code>InternalReplicationBandwidthOutgoingResponse</code> type was added.</li>
+<li><code>SendPdfReportInput</code> type was added.</li>
+<li><code>OauthAccessToken</code> type was added.</li>
+<li><code>ClusterOperationJobProgressInput</code> type was added.</li>
+<li><code>ClusterOperationJobProgress</code> type was added.</li>
+<li><code>CdmOvaDetail</code> type was added.</li>
+<li><code>O365SiteSpecificSnapshot</code> type was added.</li>
+<li><code>DhrcMetric</code> type was added.</li>
+<li><code>ResizeDiskInput</code> type was added.</li>
+<li><code>O365PdlGroupsReply</code> type was added.</li>
+<li>Field <code>allDhrcLatestMetrics</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>ibmDetails</code> was added to <code>CreateS3CompatibleTargetInput</code> type.</li>
+<li>Field <code>logMode</code> was added to <code>SapHanaDatabaseInfoObject</code> type.</li>
+<li>Field <code>latestRecoveryPointV81</code> was added to <code>OracleDbDetail</code> type.</li>
+<li>Field <code>duplicatedVapps</code> was added to <code>VcdVapp</code> type.</li>
+<li>Field <code>o365PdlGroups</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>S3</code> was added to enum <code>AwsNativeProtectionFeature</code>.</li>
+<li>Field <code>getHealthMonitorPolicyStatus</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>sendPdfReport</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>ARCHIVAL_IBM_COS</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>cloudDirectNasExport</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>US_NORTH_CENTRAL</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Field <code>userAccessType</code> was added to <code>FileResult</code> type.</li>
+<li>Input field <code>immutabilitySettings</code> was added to <code>UpdateS3CompatibleTargetInput</code> type.</li>
+<li>Field <code>logicalSize</code> was added to <code>ActivitySeries</code> type.</li>
+<li>Field <code>auroraAvailabilityZones</code> was added to <code>AwsNativeRdsInstance</code> type.</li>
+<li>Field <code>instanceUuid</code> was added to <code>VirtualMachineSummary</code> type.</li>
+<li>Enum value <code>SWEDEN_CENTRAL</code> was added to enum <code>AzureNativeRegionForReplication</code>.</li>
+<li>Enum value <code>HAS_UNEXPIRED_ARCHIVED_OR_SOURCE_SNAPSHOTS</code> was added to enum <code>FieldEnum</code>.</li>
+<li>Enum value <code>QATARCENTRAL</code> was added to enum <code>AzureCloudAccountRegion</code>.</li>
+<li>Field <code>userSessionManagementConfig</code> was added to <code>Query</code> type.</li>
+<li>Field <code>analyzerRiskInstance</code> was added to <code>Analyzer</code> type.</li>
+<li><code>RefreshReaderTargetInput.locationId</code> default value changed from <code>""</code> to none.</li>
+<li>Field <code>tier</code> was added to <code>RcvEntitlement</code> type.</li>
+<li>Field <code>mongoConfig</code> was added to <code>ObjectSpecificConfigs</code> type.</li>
+<li>Enum value <code>SWEDEN_CENTRAL</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Field <code>latestRecoveryPointV81</code> was added to <code>MssqlDbDetail</code> type.</li>
+<li>Enum value <code>MONGO_COLLECTION</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Field <code>protectionDate</code> was added to <code>HyperVVirtualMachine</code> type.</li>
+<li>Enum value <code>CLOUD_DIRECT_NAS_EXPORT</code> was added to enum <code>DataGovObjectType</code>.</li>
+<li>Enum value <code>FRANCE_CENTRAL</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Input field <code>syslogSettingsV81</code> was added to <code>UpdateSyslogExportRuleInput</code> type.</li>
+<li>Field <code>isVersioningEnabled</code> was added to <code>StorageAccount</code> type.</li>
+<li>Input field <code>analyzerRiskInstance</code> was added to <code>CreateCustomAnalyzerInput</code> type.</li>
+<li>Enum value <code>UNSUPPORTED_HOSTED_REGION</code> was added to enum <code>FileRecoveryFeasibility</code>.</li>
+<li>Field <code>lastRefreshTime</code> was added to <code>MongoSource</code> type.</li>
+<li>Enum value <code>PARTIAL_SUCCESS</code> was added to enum <code>ActivityStatusEnum</code>.</li>
+<li>Enum value <code>DSAAS_BUNDLE</code> was added to enum <code>RcvRegionBundle</code>.</li>
+<li>Enum value <code>CLOUD_DIRECT_NAS_EXPORT</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>CERTIFICATE_MANAGEMENT</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Input field <code>encryptionPassword</code> was added to <code>CreateS3CompatibleReaderTargetInput</code> type.</li>
+<li>Enum value <code>CERTIFICATE_MANAGEMENT</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Input field <code>syslogExportRuleV81</code> was added to <code>TestSyslogExportRuleInput</code> type.</li>
+<li>Input field <code>lambdaFilters</code> was added to <code>OnedriveSearchFilter</code> type.</li>
+<li>Field <code>ibmDetails</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Input field <code>immutabilitySettings</code> was added to <code>CreateS3CompatibleReaderTargetInput</code> type.</li>
+<li>Field <code>resizeDisk</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>cloudRehydrationSpeed</code> was added to <code>RestoreFormConfigurationS3ArchivalLocation</code> type.</li>
+<li>Field <code>oauthCodesForEdgeReg</code> was added to <code>Query</code> type.</li>
+<li>Field <code>mandatoryTotpEnforcementDate</code> was added to <code>GetMfaSettingReply</code> type.</li>
+<li>Enum value <code>CERTIFICATE_MANAGEMENT</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>effectivePermissions</code> was added to <code>Role</code> type.</li>
+<li>Enum value <code>IRELAND_DL</code> was added to enum <code>AnalyzerTypeEnum</code>.</li>
+<li>Enum value <code>SWEDEN_CENTRAL</code> was added to enum <code>AzureNativeRegion</code>.</li>
+<li>Enum value <code>QATAR_CENTRAL</code> was added to enum <code>AzureNativeRegionForReplication</code>.</li>
+<li>Field <code>targetClusterName</code> was added to <code>RestoreFormConfigurationReplicationTarget</code> type.</li>
+<li>Enum value <code>IRELAND_PASSPORT_NUMBER</code> was added to enum <code>AnalyzerTypeEnum</code>.</li>
+<li>Field <code>isBlueprintVisible</code> was added to <code>FailoverJobReport</code> type.</li>
+<li>Enum value <code>SWEDEN_CENTRAL</code> was added to enum <code>AzureRegion</code>.</li>
+<li>Enum value <code>QATAR_CENTRAL</code> was added to enum <code>AzureNativeRegion</code>.</li>
+<li>Enum value <code>VENDOR_UNKNOWN</code> was added to enum <code>CcpVendorType</code>.</li>
+<li>Input field <code>immutabilitySettings</code> was added to <code>CreateS3CompatibleTargetInput</code> type.</li>
+<li>Enum value <code>LOG_BACKUP</code> was added to enum <code>EventType</code>.</li>
+<li>Enum value <code>CANADA_SOCIAL_INSURANCE_NUMBER</code> was added to enum <code>AnalyzerTypeEnum</code>.</li>
+<li>Input field <code>mongoConfigInput</code> was added to <code>ObjectSpecificConfigsInput</code> type.</li>
+<li>Input field <code>clusterId</code> was added to <code>RefreshReaderTargetInput</code> type.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>WorkloadLevelHierarchy</code>.</li>
+<li>Field <code>immutabilitySettings</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Field <code>protectionDateV81</code> was added to <code>MssqlDbDetail</code> type.</li>
+<li>Input field <code>encryptionPassword</code> was added to <code>CreateS3CompatibleTargetInput</code> type.</li>
+<li>Enum value <code>INCREASE_RUNWAY_REMAINING_ON_CDM_CLUSTERS</code> was added to enum <code>DhrcRecommendationKey</code>.</li>
+<li>Input field <code>ibmDetails</code> was added to <code>CreateS3CompatibleReaderTargetInput</code> type.</li>
+<li>Field <code>setUserSessionManagementConfig</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>edgeWindowsToolLink</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>SWEDENCENTRAL</code> was added to enum <code>AzureCloudAccountRegion</code>.</li>
+<li>Field <code>oldestRecoveryPointV81</code> was added to <code>OracleDbDetail</code> type.</li>
+<li>Enum value <code>US_SOUTH_CENTRAL</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Field <code>unprotectableReasonsV81</code> was added to <code>MssqlDbSummary</code> type.</li>
+<li>Field <code>dataTransferred</code> was added to <code>ActivitySeries</code> type.</li>
+<li>Field <code>searchVappFiles</code> was added to <code>Query</code> type.</li>
+<li>Field <code>accessibleBySidsRepresentation</code> was added to <code>FileResult</code> type.</li>
+<li>Enum value <code>THREAT_HUNT</code> was added to enum <code>UserAuditTypeEnum</code>.</li>
+<li>Field <code>assignSlaToMongoDbCollection</code> was added to <code>Mutation</code> type.</li>
+<li>Input field <code>syslogExportRuleV81</code> was added to <code>AddSyslogExportRuleInput</code> type.</li>
+<li>Field <code>protectionDateV81</code> was added to <code>MssqlInstanceSummary</code> type.</li>
+<li>Field <code>clusterOperationJobProgress</code> was added to <code>Query</code> type.</li>
+<li>Field <code>replicationOutgoingStats</code> was added to <code>Query</code> type.</li>
+<li>Field <code>replicationIncomingStats</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Field <code>isResizable</code> was added to <code>ClusterDisk</code> type.</li>
+<li>Enum value <code>US_WEST</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Field <code>storageClass</code> was added to <code>RestoreFormConfigurationS3ArchivalLocation</code> type.</li>
+<li>Input field <code>externalLocationId</code> was added to <code>RefreshReaderTargetInput</code> type.</li>
+<li>Enum value <code>CLOUD_NATIVE_S3_PROTECTION</code> was added to enum <code>CloudAccountFeature</code>.</li>
+<li>Enum value <code>PARTIAL_SUCCESS</code> was added to enum <code>EventStatus</code>.</li>
+<li>Field <code>allVcenterConnectionsInfo</code> was added to <code>Vcd</code> type.</li>
+<li>Field <code>rdsType</code> was added to <code>AwsNativeRdsInstance</code> type.</li>
+<li>Field <code>isQuarantined</code> was added to <code>GenericSnapshot</code> type.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Field <code>oldestRecoveryPointV81</code> was added to <code>MssqlDbDetail</code> type.</li>
+<li>Field <code>isTotpMandatory</code> was added to <code>GetMfaSettingReply</code> type.</li>
+<li>Field <code>explicitlyAssignedPermissions</code> was added to <code>RoleTemplate</code> type.</li>
+<li>Field <code>effectiveThroughput</code> was added to <code>ActivitySeries</code> type.</li>
+<li>Field <code>allCdmOvaDetails</code> was added to <code>Query</code> type.</li>
+<li>Input field <code>snmpConfigV81</code> was added to <code>UpdateSnmpConfigInput</code> type.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>snapshotFilesDeltaV2</code> was added to <code>Query</code> type.</li>
+<li>Field <code>hasSharePointLegacySnapshots</code> was added to <code>O365Org</code> type.</li>
+<li>Enum value <code>ARCHIVAL_AZURE_IMMUTABLE</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Enum value <code>LOG_BACKUP</code> was added to enum <code>ActivityTypeEnum</code>.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>QATAR_CENTRAL</code> was added to enum <code>AzureRegion</code>.</li>
+<li>Input field <code>storages</code> was added to <code>NewStorageAccountConfig</code> type.</li>
+<li>Field <code>vcenterUuid</code> was added to <code>VcenterSummary</code> type.</li>
+<li>Enum value <code>US_EAST</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Enum value <code>O365_ORGANIZATION_ID</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Enum value <code>AWS_NATIVE_S3_BUCKET</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Field <code>mountTime</code> was added to <code>HyperVLiveMount</code> type.</li>
+<li>Field <code>isQuarantined</code> was added to <code>PolarisSnapshot</code> type.</li>
+<li>Enum value <code>HAS_UNEXPIRED_SNAPSHOTS</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>context</code> was added to <code>DhrcScore</code> type.</li>
+<li>Field <code>unprotectableReasonsV81</code> was added to <code>MssqlInstanceSummary</code> type.</li>
+<li>Field <code>explicitlyAssignedPermissions</code> was added to <code>Role</code> type.</li>
+</ul>
+<h2 id="20230101">2023/01/01</h2>
+<p>API Launched!</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2023-03-31</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

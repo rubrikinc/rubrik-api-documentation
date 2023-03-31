@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Breaking changes - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../overview/">Overview</a>
+</li>
+
+             
+<li class="active" >
+  <a href="./">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud-native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#breaking-changes">Breaking changes</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230401">2023/04/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#field-and-enums">Field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#types">Types</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230301">2023/03/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#field-and-enums_1">Field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#types_1">Types</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230201">2023/02/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#field-and-enums_2">Field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#types_2">Types</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230101">2023/01/01</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <h1 id="breaking-changes">Breaking changes</h1>
+<h2 id="20230401">2023/04/01</h2>
+<h3 id="field-and-enums">Field and enums</h3>
+<ul>
+<li>Field <code>topRiskPrincipals</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>sidsPolicyHitsSummary</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>o365TeamChildSnapshotIDs</code> was removed from <code>Query</code> type.</li>
+<li>Input field <code>versionTime</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>prefix</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>collectionIds</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>restoreDbPassword</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>targetDbName</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>databaseIds</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>sourceMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>restoreDbUsername</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li>Input field <code>targetMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
+<li><code>MongoSource.sourceNodes</code> field type changed from <code>String!</code> to <code>[CdmMongoNode!]!</code>.</li>
+</ul>
+<h3 id="types">Types</h3>
+<ul>
+<li><code>TopRiskPrincipalsReply</code> type was removed.</li>
+<li><code>O365TeamChildSnapshotIds</code> type was removed.</li>
+<li><code>PolicyHitsSummary</code> type was removed.</li>
+<li><code>SidsPolicyHitsSummaries</code> type was removed.</li>
+<li><code>TopRiskPrincipalSummary</code> type was removed.</li>
+<li><code>SidPolicyHitsSummary</code> type was removed.</li>
+<li>Input field <code>input</code> was added to <code>RecoverMongoSourceInput</code> type.</li>
+</ul>
+<h2 id="20230301">2023/03/01</h2>
+<h3 id="field-and-enums_1">Field and enums</h3>
+<ul>
+<li>Field <code>failoverJobReports</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>clusterGroupByUpgradeInfo</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>blueprintNew</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>allBlueprints</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>searchVappFiles</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>configProtectionSetupInfo</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>cyberRecoveryObjects</code> was removed from <code>Query</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>PatchMongoSourceInput</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>DiscoverMongoSourceInput</code> type.</li>
+<li>Input field <code>clusterUuid</code> was removed from <code>RetryAddMongoSourceInput</code> type.</li>
+<li><code>O365SnapshotItemInfo.snapshotId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
+</ul>
+<h3 id="types_1">Types</h3>
+<ul>
+<li><code>RecoveryInfo</code> type was removed.</li>
+<li><code>CyberRecoveryObjectsSortParams</code> type was removed.</li>
+<li><code>ClusterJobStatusType</code> type was removed.</li>
+<li><code>AppSearchResponseListResponse</code> type was removed.</li>
+<li><code>BlueprintFailoverStatus</code> type was removed.</li>
+<li><code>BlueprintStatus</code> type was removed.</li>
+<li><code>AwsEc2Instance</code> type was removed.</li>
+<li><code>BlueprintChildConnection</code> type was removed.</li>
+<li><code>AwsVmVolumeSpec</code> type was removed.</li>
+<li><code>AwsInstanceTenancy</code> type was removed.</li>
+<li><code>BlueprintLocation</code> type was removed.</li>
+<li><code>VmwareVirtualMachineNic</code> type was removed.</li>
+<li><code>RecoveryPlanDetails</code> type was removed.</li>
+<li><code>BlueprintNewConnection</code> type was removed.</li>
+<li><code>AllFailoverJobReportsSortParam</code> type was removed.</li>
+<li><code>RecoverySpec</code> type was removed.</li>
+<li><code>RecoveryPlanType</code> type was removed.</li>
+<li><code>FailoverJobReportEdge</code> type was removed.</li>
+<li><code>VSphereVmChild</code> type was removed.</li>
+<li><code>VsphereBlueprintNew</code> type was removed.</li>
+<li><code>RpoLagInfo</code> type was removed.</li>
+<li><code>CyberRecoveryObjectsFilterParams</code> type was removed.</li>
+<li><code>Ec2InstanceResourceSpec</code> type was removed.</li>
+<li><code>Ec2InstanceChild</code> type was removed.</li>
+<li><code>WorkloadDetailsSortType</code> type was removed.</li>
+<li><code>Ec2InstanceVolume</code> type was removed.</li>
+<li><code>BlueprintNew</code> type was removed.</li>
+<li><code>ConfigProtectionSetupInfo</code> type was removed.</li>
+<li><code>CyberRecoveryLocationPathPoint</code> type was removed.</li>
+<li><code>AppSearchResponse</code> type was removed.</li>
+<li><code>NetworkAdapterType</code> type was removed.</li>
+<li><code>BlueprintFailoverInstance</code> type was removed.</li>
+<li><code>Ec2InstanceNic</code> type was removed.</li>
+<li><code>VsphereRecoverySpec</code> type was removed.</li>
+<li><code>BlueprintFailover</code> type was removed.</li>
+<li><code>RecoveryStatuses</code> type was removed.</li>
+<li><code>Ec2InstanceRecoverySpec</code> type was removed.</li>
+<li><code>ResourceSpec</code> type was removed.</li>
+<li><code>Ec2BlueprintChildFailoverInstance</code> type was removed.</li>
+<li><code>SnappableSubnet</code> type was removed.</li>
+<li><code>BlueprintRecoveryCount</code> type was removed.</li>
+<li><code>BlueprintLocationType</code> type was removed.</li>
+<li><code>BlueprintNewEdge</code> type was removed.</li>
+<li><code>BlueprintCdmLocation</code> type was removed.</li>
+<li><code>BlueprintPlatform</code> type was removed.</li>
+<li><code>CyberRecoveryObjectConnection</code> type was removed.</li>
+<li><code>VSphereVMVolumeSpec</code> type was removed.</li>
+<li><code>VmwareRecoveryPoints</code> type was removed.</li>
+<li><code>NetworkType</code> type was removed.</li>
+<li><code>AwsVmNicSpec</code> type was removed.</li>
+<li><code>CyberRecoveryObjectEdge</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByEnum</code> type was removed.</li>
+<li><code>BlueprintChild</code> type was removed.</li>
+<li><code>FailoverSubStep</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByConnection</code> type was removed.</li>
+<li><code>VmwareRecoveryState</code> type was removed.</li>
+<li><code>Vpc</code> type was removed.</li>
+<li><code>SearchVappV1Input</code> type was removed.</li>
+<li><code>WorkloadLastFailoverStatus</code> type was removed.</li>
+<li><code>UpgradeInfoGroupBy</code> type was removed.</li>
+<li><code>VsphereBlueprintChildFailoverInstance</code> type was removed.</li>
+<li><code>SnappableSecurityGroup</code> type was removed.</li>
+<li><code>VsphereRecoveryComputeTarget</code> type was removed.</li>
+<li><code>VSphereVMNicSpec</code> type was removed.</li>
+<li><code>FailoverJobReport</code> type was removed.</li>
+<li><code>UpgradeInfoGroupByEdge</code> type was removed.</li>
+<li><code>BlueprintRecoveryRange</code> type was removed.</li>
+<li><code>AddressBlockV4</code> type was removed.</li>
+<li><code>UpgradeGroupByInfo</code> type was removed.</li>
+<li><code>VmwareResourceSpec</code> type was removed.</li>
+<li><code>BlueprintChildEdge</code> type was removed.</li>
+<li><code>BlueprintRecoveryRanges</code> type was removed.</li>
+<li><code>ChildVmRecoveryInfo</code> type was removed.</li>
+<li><code>FailoverJobReportConnection</code> type was removed.</li>
+<li><code>AllFailoverJobReportsSortType</code> type was removed.</li>
+<li><code>CaCertProviderType</code> type was removed.</li>
+<li><code>FailoverEvent</code> type was removed.</li>
+<li><code>VmwareVirtualMachineVolume</code> type was removed.</li>
+<li><code>CyberRecoveryObject</code> type was removed.</li>
+<li><code>FailoverStep</code> type was removed.</li>
+</ul>
+<h2 id="20230201">2023/02/01</h2>
+<h3 id="field-and-enums_2">Field and enums</h3>
+<ul>
+<li>Field <code>createConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
+<li>Field <code>updateConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
+<li><code>RcvEntitlementsUsageDetails.entitlement</code> field type changed from <code>RcvEntitlement!</code> to <code>RcvEntitlement</code>.</li>
+<li><code>RcvAccountEntitlement.entitlements</code> field type changed from <code>RcvEntitlementsUsageDetails</code> to <code>[RcvEntitlementsUsageDetails!]!</code>.</li>
+<li><code>SnapshotFile.workloadFields</code> field type changed from <code>WorkloadFields!</code> to <code>WorkloadFields</code>.</li>
+<li><code>O365SnapshotItemInfo.id</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
+<li><code>O365SnapshotItemInfo.parentFolderId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
+</ul>
+<h3 id="types_2">Types</h3>
+<ul>
+<li><code>CreateConfigProtectionSetupInput</code> type was removed.</li>
+<li><code>UpdateConfigProtectionSetupInput</code> type was removed.</li>
+<li><code>ConfigProtectionCaCert</code> type was removed.</li>
+<li>Input field <code>shouldRunAsynchronously</code> was added to <code>BulkRefreshHostsInput</code> type.</li>
+</ul>
+<h2 id="20230101">2023/01/01</h2>
+<p>API Launched!</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2023-03-31</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>
