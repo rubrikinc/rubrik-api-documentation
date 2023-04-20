@@ -244,14 +244,16 @@ to authenticate to the Rubrik API server and access the protected resources.</p>
     does not provide an option to display them again.</li>
 <li>The client secret must be treated like a password and stored
     in a secure location.</li>
+<li>Service account access tokens should be cached and reused until they
+are valid.</li>
 </ul>
 <h2 id="usage">Usage</h2>
 <h3 id="adding-a-service-account">Adding a service account</h3>
 <ol>
 <li>Log in to Rubrik.</li>
-<li>Click the gear icon and select <em>Users and Roles</em>.
-    The Users and Roles page appears.</li>
-<li>Click <em>Service Accounts</em>.
+<li>Open the app tray and select <em>Settings</em>.
+     The Settings menu appears.</li>
+<li>Click <em>Users and Access</em> and select <em>Service Accounts</em>.
     The Service Accounts page appears.</li>
 <li>Click <em>Add Service Account</em>.
     The Service Account Details page appears.</li>
@@ -281,7 +283,8 @@ https://$account.my.rubrik-lab.com/api/client_token
 <p>The authorization server responds with an encoded access token.
 Client applications use the access token to invoke Rubrik APIs.</p>
 <h3 id="using-the-access-token">Using the access token</h3>
-<p>Run the following command to make sure your token works correctly:</p>
+<p>An access token is valid for 24 hours from the time it is generated.
+Run the following command to make sure your token is valid:</p>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query {
       currentUser {
@@ -319,7 +322,7 @@ service account:</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-03-31</small>
+            <small>Revised on: 2023-04-20</small>
             </p>
           
 
