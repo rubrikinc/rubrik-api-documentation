@@ -47,6 +47,17 @@ type Query {
     # End date of product (yyyy-mm-dd).
     endDateArg: DateTime): [AccountProduct!]!
 
+  # Retrieves the list of all accounts with their Exocompute account mapping, if exists.
+  allAccountsWithExocomputeMappings(
+    # Vendor of the cloud account.
+    cloudVendor: CloudVendor!,
+
+    # Cloud account features. Rubrik offers a cloud account feature as part of Rubrik Security Cloud (RSC).
+    features: [CloudAccountFeature!]! = [],
+
+    # List of mapped Exocompute account IDs.
+    exocomputeAccountIdsFilter: [UUID!]! = []): [CloudAccountWithExocomputeMapping!]!
+
   # Returns privileges that are allowed to be asssigned to org admin roles.
   allAllowedOrgAdminOperations: [Operation!]!
 
@@ -93,7 +104,7 @@ type Query {
     filter: [AwsCloudComputeSettingFilterInput!],
 
     # Specifies the context filter to use.
-    contextFilter: ContextFilterTypeEnum): [AwsComputeSettings!]!
+    contextFilter: ContextFilterTypeEnum): [AwsComputeSettings!]! @deprecated(reason: "This query is no longer supported.")
 
   # List of all AWS exocompute configurations filtered by a cloud account ID or a cloud account name prefix.
   allAwsExocomputeConfigs(
@@ -152,7 +163,7 @@ type Query {
 
   # Retrieves a list of all the Azure tenants and tenant subscriptions for features. The list can be filtered by feature status, subscription native ID, and subscription name.
   allAzureCloudAccountTenants(
-    # Cloud account features. A feature refers to the Polaris feature that Rubrik provides.
+    # Cloud account features. Rubrik offers a cloud account feature as part of Rubrik Security Cloud (RSC).
     features: [CloudAccountFeature!],
 
     # A cloud account feature of Rubrik Security Cloud.
@@ -297,7 +308,7 @@ type Query {
 
   # Retrieves a list of all Azure subscriptions with Exocompute subscription mapping.
   allAzureSubscriptionWithExocomputeMappings(
-    # Cloud account features. A feature refers to the Polaris feature that Rubrik provides.
+    # Cloud account features. Rubrik offers a cloud account feature as part of Rubrik Security Cloud (RSC).
     features: [CloudAccountFeature!],
 
     # List of mapped Exocompute subscription IDs.
@@ -335,6 +346,14 @@ type Query {
 
     # Filter Type for getting all CDP VMs for CDP performance dashboard.
     allCdpVmInfoFilter: [CdpPerfDashboardFilterParam!]): CdpVmInfoConnection!
+
+  # List the mappings from accounts to Exocompute cloud accounts with specified filters.
+  allCloudAccountExocomputeMappings(
+    # Vendor of the cloud account.
+    cloudVendor: CloudVendor!,
+
+    # List of mapped Exocompute account IDs.
+    exocomputeAccountIdsFilter: [UUID!]! = []): [CloudAccountsExocomputeAccountMapping!]!
 
   # List all cloud accounts.
   allCloudAccounts(
@@ -523,6 +542,11 @@ type Query {
 
     # Region in AWS.
     region: AwsNativeRegion!): [String!]!
+
+  # Permissions assigned to the role that are in effect.
+  allEffectiveRbacPermissions(
+    # ID of the role.
+    roleId: String!): [RbacPermission!]!
 
   # Retrieve event digests for specific recipients.
   allEventDigests(
@@ -1108,7 +1132,7 @@ type Query {
   # Retrieve aws compute settings.
   awsComputeSettings(
     # Corresponds to Compute Setting Id in Rubrik tables
-    computeSettingId: UUID!): AwsComputeSettings!
+    computeSettingId: UUID!): AwsComputeSettings! @deprecated(reason: "This query is no longer supported.")
 
   # Refers to the AWS Native account that serves as a container for all your AWS resources. The AWS Native account contains information about the metadata related to the AWS Native resources.
   awsNativeAccount(
@@ -2219,6 +2243,11 @@ type Query {
     # Input for InternalGetIpmi.
     input: GetIpmiInput!): ModifyIpmiReply!
 
+  # Rubrik cluster IPv6 mode.
+  clusterIpv6Mode(
+    # Input for getting the IPv6 mode of a Rubrik cluster.
+    input: ClusterIpv6ModeInput!): ClusterIpv6ModeReply!
+
   # Get network interfaces for a Rubrik Cluster cluster
   # 
   # Supported in v5.0+
@@ -2460,6 +2489,9 @@ type Query {
 
   # Decrypt Export URL.
   decryptExportUrl(
+    # The fid of the workload.
+    workloadFid: UUID,
+
     # Encrypted string of Export URL Specs containing arbitrary characters
     exportUrlSpecsEnc: String!): ExportUrlSpecs!
 
@@ -2903,7 +2935,9 @@ type Query {
   getGroupCountByUpgradeJobStatus: [GroupCount!]!
   getGroupCountByVersionStatus: [GroupCount!]!
   getKorgTaskchainStatus(taskchainId: String!): GetTaskchainStatusReply! @deprecated(reason: "This endpoint is not properly named.")
-  getPermissions(roleId: String!): [Permission!]!
+  getPermissions(
+    # ID of the role.
+    roleId: String!): [Permission!]!
   getRolesByIds(roleIds: [String!]!): [Role!]!
   getUserDownloads(
     # Returns the first n elements from the list.
@@ -2922,6 +2956,9 @@ type Query {
   globalFileSearch(
     # Input for InternalGlobalSearchApiQuery.
     input: GlobalFileSearchInput!): GlobalFileSearchReply!
+
+  # Get the lockout configurations of the global organization.
+  globalLockoutConfig: LockoutConfig!
 
   # Get global multifactor authentication (MFA) for an account.
   globalMfaSetting: GetMfaSettingReply!
@@ -3247,7 +3284,7 @@ type Query {
 
   # Specifies whether an S3 bucket name is available for use in AWS or not. When true, the bucket name is available for use.
   isAwsS3BucketNameAvailable(
-    # Name of the S3 bucket.
+    # Name of the AWS S3 bucket.
     bucketName: String!,
 
     # Rubrik ID for AWS account.
@@ -3509,7 +3546,7 @@ type Query {
     # Returns the elements in the list that come after the specified cursor.
     after: String, o365AppFilters: [AppFilter!]!, o365AppSortByParam: AppSortByParam): O365AppConnection!
 
-  # Specifies lockout configuration for a specific organization, displayed to the admin on the account lockout-related page.
+  # Get the lockout configurations of the current organization.
   lockoutConfig: LockoutConfig!
 
   # Retrieve account information.
@@ -4022,6 +4059,23 @@ type Query {
 
     # Sort by argument for Nutanix virtual machine live mounts.
     sortBy: NutanixLiveMountSortByInput): NutanixLiveMountConnection!
+
+  # Paginated list of Nutanix Prism Central objects.
+  nutanixPrismCentrals(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Sort hierarchy objects by hierarchy field.
+    sortBy: HierarchySortByField,
+
+    # Sorting order for the results.
+    sortOrder: SortOrder,
+
+    # The hierarchy object filter.
+    filter: [Filter!]): NutanixPrismCentralConnection!
 
   # Supported in v5.0+. Get Nutanix virtual machine snapshot details.
   # Retrieve detailed information about a snapshot.
@@ -4647,7 +4701,9 @@ type Query {
     mfaEnforcedFilter: Boolean): OrgConnection!
 
   # Returns the list of organizations to which the principal has access.
-  orgsForPrincipal: OrgsForPrincipalReply!
+  orgsForPrincipal(
+    # Filter organizations by name.
+    orgSearchFilter: String): OrgsForPrincipalReply!
 
   # Overall ransomware investigation summary.
   overallRansomwareInvestigationSummary(
@@ -5095,6 +5151,17 @@ type Query {
 
     # Name to filter the results.
     nameFilter: String): RoleTemplateConnection!
+
+  # Retrieves the versioning and object ACL state of the Amazon S3 bucket, which is required to initiate the recovery process.
+  s3BucketStateForRecovery(
+    # Name of the AWS S3 bucket.
+    bucketName: String!,
+
+    # Rubrik ID for AWS account.
+    awsAccountRubrikId: UUID!,
+
+    # Region in AWS.
+    region: AwsNativeRegion!): GetS3BucketStateForRecoveryReply!
 
   # Details of a SAP HANA database for a given FID.
   sapHanaDatabase(
@@ -6121,69 +6188,6 @@ type Query {
     # Optionally filter hunts based on whether they have quarantined matches.
     quarantinedMatchesFilter: [ThreatHuntQuarantinedMatchType!]): ThreatHuntConnection!
 
-  # Details of the Threat Monitoring matched file.
-  threatMonitoringMatchedFileDetails(
-    # FID of the object.
-    objectFid: UUID!,
-
-    # Name of the file.
-    filename: String!): ThreatMonitoringFileMatchDetailsReply!
-
-  # List of matched files for an object for Continuous Threat Monitoring.
-  threatMonitoringMatchedFiles(
-    # Returns the first n elements from the list.
-    first: Int,
-
-    # Returns the elements in the list that come after the specified cursor.
-    after: String,
-
-    # Returns the last n elements from the list.
-    last: Int,
-
-    # Returns the elements in the list that come before the specified cursor.
-    before: String,
-
-    # FID of the object.
-    objectFid: UUID!,
-
-    # Optional filename search.
-    filenameSearchFilter: String): FileMatchConnection!
-
-  # List of matched objects for Continuous Threat Monitoring.
-  threatMonitoringMatchedObjects(
-    # Returns the first n elements from the list.
-    first: Int,
-
-    # Returns the elements in the list that come after the specified cursor.
-    after: String,
-
-    # Returns the last n elements from the list.
-    last: Int,
-
-    # Returns the elements in the list that come before the specified cursor.
-    before: String,
-
-    # Filters results that started after this time.
-    beginTime: DateTime,
-
-    # Filters results that started before this time.
-    endTime: DateTime,
-
-    # Optional list of Rubrik cluster UUIDs to filter by.
-    clusterUuidFilter: [String!],
-
-    # Optional list of object types to filter by. Should be of type ManagedObjectType.
-    objectTypeFilter: [String!],
-
-    # Optional list of SLA Domain FIDs to filter by.
-    slaFidFilter: [String!],
-
-    # Optional object name search filter to apply.
-    workloadNameSearch: String,
-
-    # Filters by the type of match.
-    matchTypeFilter: [IndicatorOfCompromiseKind!]): ThreatMonitoringMatchedObjectConnection!
-
   # Get TOTP configuration status for a user.
   totpConfigStatus(
     # Specifies the user ID.
@@ -6278,7 +6282,7 @@ type Query {
     before: String, roleIdsFilter: [UUID!]): [Group!]!
 
   # An object containing production notifications information for the current user.
-  userNotifications: UserNotifications!
+  userNotifications: UserNotifications! @deprecated(reason: "This query is deprecated.")
 
   # Get the session management configurations for the user account.
   userSessionManagementConfig: GetUserSessionManagementConfigReply!
@@ -7276,7 +7280,7 @@ type Mutation {
     input: CreateAwsClusterInput!): CcProvisionJobReply!
   createAwsComputeSetting(
     # Request for creating a new Aws Compute Setting.
-    input: CreateAwsComputeSettingInput!): AwsComputeSettings!
+    input: CreateAwsComputeSettingInput!): AwsComputeSettings! @deprecated(reason: "This mutation is no longer supported.")
 
   # Create AWS Exocompute configs.
   createAwsExocomputeConfigs(
@@ -7335,11 +7339,6 @@ type Mutation {
   createCloudNativeTagRule(
     # Input required to create a cloud-native tag rule.
     input: CreateCloudNativeTagRuleInput!): CreateCloudNativeTagRuleReply!
-
-  # Creates replication pairing between two Rubrik clusters where the target Rubrik cluster is not connected to the current account.
-  createCrossAccountReplicationPair(
-    # Input for InternalAddReplicationTarget.
-    input: CreateCrossAccountReplicationPairInput!): CreateCrossAccountReplicationPairReply!
 
   # Create a new custom analyzer.
   createCustomAnalyzer(input: CreateCustomAnalyzerInput!): Analyzer!
@@ -7459,6 +7458,14 @@ type Mutation {
   createNutanixCluster(
     # Input for InternalCreateNutanixCluster.
     input: CreateNutanixClusterInput!): AsyncRequestStatus!
+
+  # Add Nutanix Prism Central and it's corresponding Prism Elements
+  # 
+  # Supported in v9.0
+  # Create a Nutanix Prism Central object and refresh the Prism Elements present in it.
+  createNutanixPrismCentral(
+    # Input for creating the Nutanix Prism Central object.
+    input: CreateNutanixPrismCentralInput!): BatchAsyncRequestStatus!
 
   # Completes the creation flow for an O365 Azure AD App.
   createO365AppComplete(
@@ -7591,6 +7598,16 @@ type Mutation {
   createServiceAccount(
     # Input for creating of service account.
     input: CreateServiceAccountInput!): CreateServiceAccountReply!
+
+  # Creates a reader location for a Tape archival location on a CDM cluster.
+  createTapeReaderTarget(
+    # Input for creating a new Tape reader archival location.
+    input: CreateTapeReaderTargetInput!): Target!
+
+  # Creates Tape archival location on a CDM cluster.
+  createTapeTarget(
+    # Request for creating a new Tape target.
+    input: CreateTapeTargetInput!): Target!
   createUser(email: String!, roleIds: [String!]!): String!
   createUserWithPassword(
     # User credentials required to create a new user.
@@ -7644,7 +7661,7 @@ type Mutation {
     input: DeleteAwsClusterInput!): CcProvisionJobReply!
   deleteAwsComputeSetting(
     # Request arguments for deleting a Aws Compute Setting.
-    input: DeleteAwsComputeSettingInput!): Void
+    input: DeleteAwsComputeSettingInput!): Void @deprecated(reason: "This mutation is no longer supported.")
 
   # Deletes AWS Exocompute configs.
   deleteAwsExocomputeConfigs(
@@ -7897,7 +7914,9 @@ type Mutation {
   deleteReplicationPair(
     # Request for deleting an existing replication pair.
     input: DeleteReplicationPairInput!): Void
-  deleteRole(roleId: String!): Boolean!
+  deleteRole(
+    # ID of the role.
+    roleId: String!): Boolean!
 
   # Delete a particular full snapshot of a SAP HANA database
   # 
@@ -8217,6 +8236,14 @@ type Mutation {
   downloadVolumeGroupSnapshotFromLocation(
     # Input for V1DownloadVolumeGroupSnapshotFromLocation.
     input: DownloadVolumeGroupSnapshotFromLocationInput!): AsyncRequestStatus!
+
+  # Download Virtual Machine files from a snapshot
+  # 
+  # Supported in v9.0
+  # Start an asynchronous job to download multiple Virtual Machine files, such as .vmdk, .vmx, and .nvram files, from the specified Virtual Machine snapshot.
+  downloadVsphereVirtualMachineFiles(
+    # Input for V1CreateDownloadVirtualMachineFileJob.
+    input: DownloadVsphereVirtualMachineFilesInput!): AsyncRequestStatus!
 
   # Enable/disable auto fmd upload on given cluster.
   enableAutomaticFmdUpload(
@@ -8623,6 +8650,11 @@ type Mutation {
     # Input for mapping Azure cloud accounts to a persistent storage location.
     input: MapAzureCloudAccountToPersistentStorageLocationInput!): MapAzureCloudAccountToPersistentStorageLocationReply!
 
+  # Map cloud accounts to an Exocompute account.
+  mapCloudAccountExocomputeAccount(
+    # Input for mapping cloud accounts to an Exocompute account.
+    input: MapCloudAccountExocomputeAccountInput!): MapCloudAccountExocomputeAccountReply!
+
   # Relocate a Nutanix virtual machine to another storage container
   # 
   # Supported in v6.0+
@@ -8654,7 +8686,9 @@ type Mutation {
   mountOracleDatabase(
     # Input for MountOracleDatabase.
     input: MountOracleDatabaseInput!): AsyncRequestStatus!
-  mutateRole(roleId: String, name: String!, description: String!,
+  mutateRole(
+    # ID of the role.
+    roleId: String, name: String!, description: String!,
 
     # Permissions in the role.
     permissions: [PermissionInput!]!, protectableClusters: [String!]!): UUID!
@@ -8753,6 +8787,11 @@ type Mutation {
     # Input for V2MosaicRestoreData.
     input: MosaicRestoreDataInput!): MosaicAsyncResponse!
 
+  # Recover a Rubrik Cloud Cluster.
+  recoverCloudCluster(
+    # Cloud Cluster recovery configuration.
+    input: RecoverCloudClusterInput!): CcProvisionJobReply!
+
   # Cloud Direct Path Recovery.
   recoverCloudDirectPath(
     # Input for Cloud Direct path recovery.
@@ -8815,6 +8854,14 @@ type Mutation {
   refreshNutanixCluster(
     # Input for InternalCreateNutanixClusterRefresh.
     input: RefreshNutanixClusterInput!): AsyncRequestStatus!
+
+  # Refresh Nutanix Prism Central metadata
+  # 
+  # Supported in v9.0
+  # Initiates a job to refresh the metadata for the specified Nutanix Prism Central and all its associated clusters.
+  refreshNutanixPrismCentral(
+    # Input for InternalCreateNutanixPrismCentralRefresh.
+    input: RefreshNutanixPrismCentralInput!): BatchAsyncRequestStatus!
 
   # Refreshes an O365 org.
   refreshO365Org(
@@ -9439,6 +9486,11 @@ type Mutation {
   unmapAzureCloudAccountExocomputeSubscription(
     # Input for unmapping Azure cloud accounts from the mapped Exocompute subscription.
     input: UnmapAzureCloudAccountExocomputeSubscriptionInput!): UnmapAzureCloudAccountExocomputeSubscriptionReply!
+
+  # Unmap cloud accounts from the mapped Exocompute account.
+  unmapCloudAccountExocomputeAccount(
+    # Input for unmapping cloud account from the mapped Exocompute account.
+    input: UnmapCloudAccountExocomputeAccountInput!): UnmapCloudAccountExocomputeAccountReply!
   updateAccountOwner(
     # Specifies the user ID.
     userId: String!): Boolean!
@@ -9473,7 +9525,12 @@ type Mutation {
     input: UpdateAwsCloudAccountFeatureInput!): UpdateAwsCloudAccountFeatureReply!
   updateAwsComputeSetting(
     # Request arguments for updating a Aws Compute Setting.
-    input: UpdateAwsComputeSettingInput!): AwsComputeSettings!
+    input: UpdateAwsComputeSettingInput!): AwsComputeSettings! @deprecated(reason: "This mutation is no longer supported.")
+
+  # Update AWS Exocompute configs.
+  updateAwsExocomputeConfigs(
+    # Input to create AWS exocompute configurations.
+    input: UpdateAwsExocomputeConfigsInput!): UpdateAwsExocomputeConfigsReply!
   updateAwsTarget(
     # Request for updating an existing AWS target.
     input: UpdateAwsTargetInput!): Target!
@@ -9693,7 +9750,7 @@ type Mutation {
     # Group member attribute for your LDAP integration.
     groupMemberAttr: String): String!
 
-  # Used by the org admin to update the configuration settings relatedto the account lockout.
+  # Used by the administrator to update the account lockout settings for an organization.
   updateLockoutConfig(
     # Specifies all fields related to lockout configurations in one object.
     input: UpdateLockoutConfigInput!): UpdateLockoutConfigReply!
@@ -9832,7 +9889,9 @@ type Mutation {
     input: UpdateReplicationTargetInput!): Void
 
   # This endpoint is deprecated.
-  updateRole(roleId: String!, name: String!, description: String!,
+  updateRole(
+    # ID of the role.
+    roleId: String!, name: String!, description: String!,
 
     # Permissions in the role.
     permissions: [PermissionInput!]!): Boolean!
@@ -9879,6 +9938,11 @@ type Mutation {
   updateSyslogExportRule(
     # Input for V1UpdateSyslogExportRule.
     input: UpdateSyslogExportRuleInput!): UpdateSyslogExportRuleReply!
+
+  # Update Tape archival location on a CDM cluster.
+  updateTapeTarget(
+    # Request for updating an existing Tape target.
+    input: UpdateTapeTargetInput!): Target!
 
   # Enable or disable the SSH Tunnel for Support Access
   # 
@@ -10044,6 +10108,11 @@ type Mutation {
   vsphereVmBatchExport(
     # Input for V2BatchExport.
     input: VsphereVmBatchExportInput!): BatchAsyncRequestStatus!
+
+  # Create a batch export for a group of virtual machines with datastore cluster support.
+  vsphereVmBatchExportV3(
+    # Input for V3BatchExportV3.
+    input: VsphereVmBatchExportV3Input!): BatchAsyncRequestStatus!
 
   # Supported in v6.0+. Export a snapshot each from a set of virtual machines.
   vsphereVmBatchInPlaceRecovery(
@@ -10387,11 +10456,17 @@ type ActivityEdge {
   node: Activity!
 }
 enum ActivityObjectTypeEnum {
+  # Specifies that the activity object type is related to Activity Directory domain.
+  ACTIVE_DIRECTORY_DOMAIN
+
+  # Specifies that the activity object type is related to Activity Directory domain controller.
+  ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
+
   # Specifies that the activity object type is AWS S3 Bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Specifies that the activity object type is Azure AD Tenant.
-  AZURE_AD_TENANT
+  # Specifies that the activity object type is Azure AD Directory.
+  AZURE_AD_DIRECTORY
 
   # Specifies that the activity object type is Azure Storage Account.
   AZURE_STORAGE_ACCOUNT
@@ -10484,6 +10559,9 @@ enum ActivityObjectTypeEnum {
   ManagedVolume
   Mssql
   NAS_FILESET
+
+  # Specifies that the activity object type is Nutanix Prism Central.
+  NUTANIX_PRISM_CENTRAL
   NasHost
   NasSystem
   NutanixCluster
@@ -10865,6 +10943,9 @@ enum ActivityTypeEnum {
 
   # Activity representing threat feed event type.
   THREAT_FEED
+
+  # Threat monitoring activity event type.
+  THREAT_MONITORING
   TestFailover
   ThreatHunt
   Tpr
@@ -11604,6 +11685,9 @@ type Analyzer {
 
   # Represents the latest analyzer risk.
   analyzerRiskInstance: AnalyzerRiskInstance
+
+  # Represents risk associated with the given analyzer.
+  risk: RiskLevelType!
 }
 type AnalyzerAccessUsage {
   analyzer: Analyzer
@@ -12424,6 +12508,8 @@ enum ArchivalGroupType {
   CLOUD_NATIVE_ARCHIVAL_GROUP
 
   # This is a union field for both automatic and manual archival locations.
+  # It is used to filter all datacenter archival groups irrespective of
+  # whether they are automatic or manual.
   DATACENTER_ARCHIVAL_GROUP
 
   # Archival location is created in Rubrik Security Cloud.
@@ -12645,6 +12731,9 @@ type AsyncDownloadReply {
 
   # The job reference ID.
   referenceId: String!
+
+  # The ID of the download entity.
+  downloadId: Long!
 }
 type AsyncJobStatus {
   # Job ID for object if pre validation succeeds for object. If pre validation failed Job ID will be empty and detials will be present in error field.
@@ -12789,8 +12878,8 @@ enum AuditObjectType {
   # AWS native S3 Bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD Tenant object.
-  AZURE_AD_TENANT
+  # Azure AD Directory object.
+  AZURE_AD_DIRECTORY
 
   # Azure native disk.
   AZURE_NATIVE_DISK
@@ -13086,6 +13175,9 @@ enum AuditSeverity {
 enum AuditStatus {
   # Unspecified audit status.
   AUDIT_STATUS_UNSPECIFIED
+
+  # Canceled audit.
+  CANCELED
 
   # Failed audit.
   FAILURE
@@ -13410,6 +13502,9 @@ type AwsCdmVersion {
 
   # Indicates whether the Rubrik CDM version is the latest for the product code.
   isLatest: Boolean!
+
+  # Supported AWS instance types for this Rubrik CDM version.
+  supportedInstanceTypes: [AwsInstanceType!]!
 }
 # Rubrik CDM versions for the AWS account.
 input AwsCdmVersionRequest {
@@ -13775,6 +13870,9 @@ type AwsExocomputeConfig {
 
   # AWS exocompute get configurations response.
   configs: [AwsExocomputeGetConfigResponse!]!
+
+  # Cloud Accounts which are mapped to this Exocompute account.
+  mappedCloudAccountIds: [UUID!]!
 }
 # AWS exocompute configuration to add.
 input AwsExocomputeConfigInput {
@@ -13888,6 +13986,23 @@ type AwsImmutabilitySettingsType {
 input AwsInstanceCcOrCnpRbsConnectionStatusFilter {
   # Connection status of the Rubrik Backup Service (RBS) installed on the instance.
   status: CloudInstanceRbsConnectionStatus!
+}
+# AWS instance types.
+enum AwsInstanceType {
+  # None or other instance type selected.
+  AWS_TYPE_UNSPECIFIED
+
+  # M5.4xlarge instance type.
+  M5_4XLARGE
+
+  # M6i.2xlarge instance type.
+  M6I_2XLARGE
+
+  # M6i.4xlarge instance type.
+  M6I_4XLARGE
+
+  # M6i.8xlarge instance type.
+  M6I_8XLARGE
 }
 # AWS native account.
 type AwsNativeAccount implements PolarisHierarchyObject , HierarchyObject {
@@ -15988,6 +16103,33 @@ enum AwsNativeRdsDbInstanceClass {
   # DB class is db.m6g.xlarge.
   DB_M6G_XLARGE
 
+  # DB class is db.m6i.12xlarge.
+  DB_M6I_12XLARGE
+
+  # DB class is db.m6i.16xlarge.
+  DB_M6I_16XLARGE
+
+  # DB class is db.m6i.24xlarge.
+  DB_M6I_24XLARGE
+
+  # DB class is db.m6i.2xlarge.
+  DB_M6I_2XLARGE
+
+  # DB class is db.m6i.32xlarge.
+  DB_M6I_32XLARGE
+
+  # DB class is db.m6i.4xlarge.
+  DB_M6I_4XLARGE
+
+  # DB class is db.m6i.8xlarge.
+  DB_M6I_8XLARGE
+
+  # DB class is db.m6i.large.
+  DB_M6I_LARGE
+
+  # DB class is db.m6i.xlarge.
+  DB_M6I_XLARGE
+
   # DB class is db.r3.2xlarge.
   DB_R3_2XLARGE
 
@@ -16116,6 +16258,33 @@ enum AwsNativeRdsDbInstanceClass {
 
   # DB class is db.r6g.xlarge.
   DB_R6G_XLARGE
+
+  # DB class is db.r6i.12xlarge.
+  DB_R6I_12XLARGE
+
+  # DB class is db.r6i.16xlarge.
+  DB_R6I_16XLARGE
+
+  # DB class is db.r6i.24xlarge.
+  DB_R6I_24XLARGE
+
+  # DB class is db.r6i.2xlarge.
+  DB_R6I_2XLARGE
+
+  # DB class is db.r6i.32xlarge.
+  DB_R6I_32XLARGE
+
+  # DB class is db.r6i.4xlarge.
+  DB_R6I_4XLARGE
+
+  # DB class is db.r6i.8xlarge.
+  DB_R6I_8XLARGE
+
+  # DB class is db.r6i.large.
+  DB_R6I_LARGE
+
+  # DB class is db.r6i.xlarge.
+  DB_R6I_XLARGE
 
   # DB class is db.t2.2xlarge.
   DB_T2_2XLARGE
@@ -17030,7 +17199,7 @@ enum AwsRegion {
   # AWS Asia Pacific (Seoul) region.
   AP_NORTHEAST_2
 
-  # AWS Asia Pacific (Seoul) region.
+  # AWS Asia Pacific (Osaka) region.
   AP_NORTHEAST_3
 
   # AWS Asia Pacific (Singapore) region.
@@ -17121,7 +17290,7 @@ enum AwsRetrievalTier {
   # Expedited AWS retrieval tier.
   EXPEDITED_TIER
 
-  # Standard AWS retrieval tier.
+  # Standard AWS retrieval tier (default option).
   STANDARD_TIER
 }
 # Input to update role ARN for IAM user-based AWS cloud account.
@@ -17258,6 +17427,9 @@ input AwsVmConfig {
 
   # List of security groups to assign to instances.
   securityGroups: [String!]
+
+  # AWS instance type.
+  instanceType: AwsInstanceType
 }
 # A Virtual Private Cloud (VPC) in AWS realm.
 type AwsVpc {
@@ -17957,9 +18129,6 @@ input AzureGetResourceGroupsInfoIfExistInput {
 }
 # Host type for Azure resources.
 enum AzureHostType {
-  # Switched from Customer- to Rubrik- hosted.
-  BOTH_HOSTS
-
   # Customer-hosted.
   CUSTOMER_HOST
 
@@ -19800,7 +19969,8 @@ enum AzureOauthResource {
   # Azure SQL resources.
   AZURE_SQL
 }
-# Redundancy value for the azure resource. For more information, see https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy.
+# Redundancy value for the Azure resource.
+# For more information, see https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy.
 enum AzureRedundancy {
   # Geo-redundant storage.
   GRS
@@ -19814,7 +19984,7 @@ enum AzureRedundancy {
   # Read access Geo-redundant storage.
   RA_GRS
 
-  # Read Access Geo-zone-redundant storage.
+  # Read access Geo-zone-redundant storage.
   RA_GZRS
 
   # Unknown Azure storage redundancy.
@@ -20150,6 +20320,9 @@ type AzureSqlDatabaseDb implements PolarisHierarchyObject , PolarisHierarchySnap
 
   # Specifies the service objective name of the Azure SQL Database.
   serviceObjectiveName: String!
+
+  # Specifies whether the database is eligible for immutable backups or not.
+  isEligibleForPersistentBackups: Boolean!
 
   # The authorized operations on the object.
   authorizedOperations: [PolarisSnappableAuthorizedOperationsEnum!]!
@@ -21209,7 +21382,8 @@ input AzureStorageAccountsReq {
   # Resource group in Azure.
   resourceGroup: String = ""
 }
-# Storage Tier for the storage accounts/containers. For more information, see https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers.
+# Storage Tier for the storage accounts/containers.
+# For more information, see https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers.
 enum AzureStorageTier {
   # Optimized for storing data that is rarely accessed.
   ARCHIVE
@@ -21316,8 +21490,14 @@ type AzureSubscriptionWithExoConfigs {
   # Mapped Exocompute subscription for launching Exocompute.
   mappedExocomputeSubscription: AzureMappedExocomputeSubscription
 
-  # Exocompute configurations available through mapped subscription.
+  # Cloud Account IDs of subscriptions that are mapped to this Exocompute account.
+  mappedCloudAccountIds: [UUID!]!
+
+  # Exocompute configurations of the subscription.
   exocomputeConfigs: [AzureExocomputeConfigDetails!]!
+
+  # Exocompute configurations available through mapped subscription.
+  mappedExocomputeConfigs: [AzureExocomputeConfigDetails!]!
 }
 # Azure subscription with Exocompute mapping, if present.
 type AzureSubscriptionWithExocomputeMapping {
@@ -21697,6 +21877,11 @@ input BatchExportSnapshotJobConfigInput {
   # Required. Supported in v6.0+
   # Array of objects containing information about snapshots to export.
   snapshots: [ExportSnapshotJobConfigForBatchInput!]!
+}
+# Supported in Rubrik CDM version 9.0 and later. Input for batch export snapshots for vSphere.
+input BatchExportSnapshotJobConfigV3Input {
+  # Required. Array of objects containing information about snapshots to export.
+  snapshots: [ExportSnapshotJobConfigForBatchV3Input!]!
 }
 # Supported in v6.0+
 input BatchInPlaceRecoveryJobConfigInput {
@@ -23518,6 +23703,9 @@ enum CdmFeatureFlagType {
   # ARCHIVAL_AWS_JAKARTA.
   ARCHIVAL_AWS_JAKARTA
 
+  # ARCHIVAL_AWS_PRIVATE_ENDPOINT.
+  ARCHIVAL_AWS_PRIVATE_ENDPOINT
+
   # ARCHIVAL_AWS_ZURICH.
   ARCHIVAL_AWS_ZURICH
 
@@ -23688,6 +23876,9 @@ enum CdmFeatureFlagType {
 
   # ORACLEDB_TAKE_TLOG_BACKUP.
   ORACLEDB_TAKE_TLOG_BACKUP
+
+  # Support for SAP HANA static retention.
+  SAP_HANA_STATIC_RETENTION
 }
 # Supported in v5.1+
 # Describes the result of running the find_bad_disk script.
@@ -24168,6 +24359,9 @@ type CdmManagedAwsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -24227,6 +24421,9 @@ type CdmManagedAzureTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -24279,6 +24476,9 @@ type CdmManagedGcpTarget implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -24333,6 +24533,9 @@ type CdmManagedGlacierTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -24386,6 +24589,9 @@ type CdmManagedNfsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -24438,6 +24644,9 @@ type CdmManagedS3CompatibleTarget implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -24649,9 +24858,6 @@ type CdmSnapshot implements GenericSnapshot {
   localLocations: [DataLocation!]
   locations: [DataLocation!]
   consistencyLevel: ConsistencyLevelEnum
-
-  # Flag if the snapshot has image(s) converted.
-  hasImageConverted: Boolean!
 
   # SLA domain of the snapshot.
   slaDomain: SlaDomain
@@ -24912,6 +25118,9 @@ type CdmTarget implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -25641,6 +25850,17 @@ type CloudAccountAddressBlockV4 {
   # CIDR block.
   cidrBlock: String!
 }
+# Cloud Account with mapped Exocompute account.
+type CloudAccountDetails {
+  # Rubrik ID of cloud account.
+  id: UUID!
+
+  # Native ID of cloud account.
+  nativeId: String!
+
+  # Name of cloud account.
+  name: String!
+}
 # Cloud account features.
 enum CloudAccountFeature {
   # All cloud account features.
@@ -25810,6 +26030,22 @@ type CloudAccountVpc {
 
   # Native ID of the virtual private cloud (VPC).
   vpcId: String!
+}
+# Account with Exocompute mapping, if present.
+type CloudAccountWithExocomputeMapping {
+  # Cloud account details.
+  applicationAccount: CloudAccountDetails!
+
+  # Mapped Exocompute account details.
+  exocomputeAccount: CloudAccountDetails
+}
+# Represents a mapping between a cloud account and an Exocompute account.
+type CloudAccountsExocomputeAccountMapping {
+  # Represents the application account of the mapping.
+  applicationCloudAccountId: UUID!
+
+  # Represents the Exocompute account to which the application account is mapped.
+  exocomputeCloudAccountId: UUID!
 }
 # A NAS Cloud Direct managed hierarchy object.
 interface CloudDirectHierarchyObject {
@@ -27028,6 +27264,16 @@ type ClusterIpMapping {
   # IP allow list of Rubrik clusters.
   ips: [String!]!
 }
+# Input for getting cluster IPv6 mode.
+input ClusterIpv6ModeInput {
+  #  Rubrik cluster UUID.
+  clusterUuid: UUID!
+}
+# The IPv6 mode of the Rubrik cluster.
+type ClusterIpv6ModeReply {
+  # Specifies whether the cluster is in IPv6 mode.
+  isIpv6Mode: Boolean!
+}
 # Represents a Rubrik cluster's upgrade job status.
 enum ClusterJobStatusTypeEnum {
   # Represents that download job failed in the Rubrik cluster.
@@ -27592,8 +27838,11 @@ type ClusterSlaDomain implements SlaDomain {
   # ID of the Rubrik cluster.
   cdmId: String!
 
-  # Specifies the name of the owner organization of the SLA Domain.
-  ownerOrgName: String!
+  # This field is deprecated.
+  ownerOrgName: String! @deprecated(reason: "This field has been deprecated in favor of ownerOrg field.")
+
+  # Specifies the owner organization of the SLA Domain.
+  ownerOrg: SlaAssociatedOrganization!
 }
 # Property to order the cluster list results.
 enum ClusterSortByEnum {
@@ -29007,55 +29256,6 @@ type CreateCloudNativeTagRuleReply {
   # ID of the tag rule.
   tagRuleId: String!
 }
-# Input for adding a cross-account replication pair.
-input CreateCrossAccountReplicationPairInput {
-  # Required. UUID used to identify the cluster the request goes to.
-  clusterUuid: String!
-
-  # Required. v5.0-v5.3: Replication target definition
-  # v6.0+: Replication. target definition.
-  definition: ReplicationTargetDefinitionInput!
-}
-# Supported in v5.0+
-type CreateCrossAccountReplicationPairReply {
-  # Required. Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The Managed ID of the target Rubrik cluster. A Managed ID represents the UUID and type of the object.
-  id: String!
-
-  # Required. Supported in v5.0+ Replication network configuration type. Currently 'NAT' and 'Private Network' are available.
-  replicationSetup: String!
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The IP address of a node on the replication target Rubrik cluster.
-  targetClusterAddress: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The cluster name of the target Rubrik cluster.
-  targetClusterName: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The UUID of the target Rubrik cluster.
-  targetClusterUuid: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The network gateway on the target Rubrik cluster for NAT network configurations.
-  targetGateway: NatGatewayInfo
-
-  # Supported in v5.1+
-  # v5.1-v5.2:
-  # v5.3+: Indicates location is WORM SLA Domain enabled. When this value is 'true', a WORM SLA Domain exists that replicates to the target Rubrik cluster. A WORM SLA Domain is a SLA Domain that guarantees snapshots derived from the SLA Domain do not expire before the mandatory retention period.
-  isRetentionLockEnabledLocation: Boolean
-
-  # Supported in v5.2+
-  # v5.2:
-  # v5.3+: Indicates whether the local target Rubrik cluster has paused replication from the source Rubrik cluster using Source Specific Replication Pause.
-  isReplicationTargetPauseEnabled: Boolean
-}
 input CreateCustomAnalyzerInput {
   analyzerType: AnalyzerTypeEnum = UNDEFINED
   id: String = ""
@@ -29066,6 +29266,9 @@ input CreateCustomAnalyzerInput {
 
   # Represents the latest analyzer risk.
   analyzerRiskInstance: AnalyzerRiskInstanceInput
+
+  # Represents risk associated with the given analyzer.
+  risk: RiskLevelType = MEDIUM_RISK
 }
 # Input for creating a custom report.
 input CreateCustomReportInput {
@@ -29515,6 +29718,14 @@ input CreateNutanixClusterInput {
   # Required. IP address, natural ID of added cluster (since Prism central can manage multiple clusters), and credentials for Prism.
   nutanixClusterConfig: NutanixClusterConfigInput!
 }
+# Input for creating the Nutanix Prism Central object.
+input CreateNutanixPrismCentralInput {
+  # Configuration parameters for creating the Nutanix Prism Central object.
+  prismCentralConfig: NutanixPrismCentralConfigInput!
+
+  # A one-to-one mapping between each Prism Element and the corresponding CDM cluster to use while adding the Nutanix Prism Central object.
+  prismElementCdmTuple: [PrismElementCdmTuple!]!
+}
 # Configuration for O365 Azure AD App creation flow completion.
 input CreateO365AppCompleteInput {
   # ID of the created app.
@@ -29935,6 +30146,67 @@ type CreateServiceAccountReply {
 
   # URI to retrieve the access token..
   accessTokenUri: String!
+}
+# Input for creating a Tape reader target.
+input CreateTapeReaderTargetInput {
+  # Field for specifying the cluster UUID for the archival location.
+  clusterUuid: UUID!
+
+  # Name of the reader Tape archival location.
+  name: String!
+
+  # IP address of the QStar server of the reader Tape archival location.
+  hostName: String!
+
+  # Port of the QStar server for the reader Tape archival location.
+  hostPort: Int!
+
+  # Integral volume for the reader Tape archival location.
+  integralVolumeName: String!
+
+  # Destination folder name for the reader Tape archival location.
+  destinationFolderName: String!
+
+  # Username for the reader Tape archival location.
+  username: String!
+
+  # User password for the reader Tape archival location.
+  password: String!
+
+  # Encryption password for the reader Tape archival location.
+  encryptionPassword: String!
+
+  # Field for specifying the metadata to be retrieved from a target.
+  readerRetrievalMethod: ReaderRetrievalMethod!
+}
+# Input for creating a Tape archival location.
+input CreateTapeTargetInput {
+  # Field for specifying cluster UUID of the Tape archival location.
+  clusterUuid: UUID!
+
+  # Name of the Tape archival location.
+  name: String!
+
+  # IP address of the QStar server of the Tape archival location.
+  hostName: String!
+
+  # Port of the QStar server for the Tape archival location.
+  hostPort: Int!
+
+  # Integral volume for the Tape archival location.
+  integralVolumeName: String!
+
+  # Destination folder name for the Tape archival location.
+  destinationFolderName: String!
+
+  # Username for the Tape archival location.
+  username: String!
+
+  # User password for the Tape archival location.
+  password: String!
+
+  # Encryption password for the Tape archival location.
+  encryptionPassword: String!
 }
 input CreateUserWithPasswordInput {
   # Email for new user.
@@ -33250,6 +33522,14 @@ input DownloadUserFileActivityCsvInput {
   # The day (YYYY-MM-DD) from which to collect all activity after.
   startDay: String!
 }
+# Input for downloading Virtual Machine file job config.
+input DownloadVirtualMachineFileJobConfigInput {
+  # Required. List of file names to download.
+  fileNamesToDownload: [String!]!
+
+  # Required. ID of the Virtual Machine the files are downloaded from.
+  vmId: String!
+}
 # Input for downloading volume group snapshot files.
 input DownloadVolumeGroupSnapshotFilesInput {
   # Required. ID of Snapshot.
@@ -33273,6 +33553,14 @@ input DownloadVolumeGroupSnapshotFromLocationInput {
 
   # Required. ID of the snapshot to be downloaded.
   snapshotId: String!
+}
+# Input for downloading Virtual Machine files.
+input DownloadVsphereVirtualMachineFilesInput {
+  # Required. 
+  config: DownloadVirtualMachineFileJobConfigInput!
+
+  # Required. ID of the snapshot.
+  id: String!
 }
 # Represents the OneDrive contents to be restored.
 input DriveRestoreConfig {
@@ -33313,6 +33601,9 @@ type DuplicatedVm {
 
   # The path node of the effective SLA Domain source.
   effectiveSlaSourceObject: PathNode
+
+  # Specifies statistics, such as capacity, for the protected objects.
+  reportWorkload: Snappable
 }
 # Duration.
 type Duration {
@@ -33623,7 +33914,7 @@ input EventDigestConfig {
   # Activity statuses to include in event digest.
   activityStatus: [ActivityStatusEnum!]
 
-  # Activity types to include in event digest. Valid types are Storage, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, K8S, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
+  # Activity types included in event digest. Valid types are: Storage, THREAT_MONITORING, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, K8S, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
   activityType: [String!]
 
   # Activity severities to include in event digest.
@@ -33642,6 +33933,12 @@ input EventInfo {
 }
 # Enum representing all the possible object types which generate events.
 enum EventObjectType {
+  # Active Directory domain.
+  ACTIVE_DIRECTORY_DOMAIN
+
+  # Active Directory domain controller.
+  ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
+
   # App Blueprint object.
   APP_BLUEPRINT
 
@@ -33669,8 +33966,8 @@ enum EventObjectType {
   # AWS native S3 bucket object.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD tenant object.
-  AZURE_AD_TENANT
+  # Azure AD Directory object.
+  AZURE_AD_DIRECTORY
 
   # Azure native disk object.
   AZURE_NATIVE_DISK
@@ -33875,6 +34172,9 @@ enum EventObjectType {
 
   # Nutanix cluster object.
   OBJECT_TYPE_NUTANIX_CLUSTER
+
+  # Nutanix Prism Central object.
+  OBJECT_TYPE_NUTANIX_PRISM_CENTRAL
 
   # Storage array.
   OBJECT_TYPE_STORAGE_ARRAY
@@ -34172,6 +34472,9 @@ enum EventType {
 
   # Threat hunt event.
   THREAT_HUNT
+
+  # Threat monitoring event type.
+  THREAT_MONITORING
 
   # TPR event.
   TPR
@@ -35385,6 +35688,26 @@ input ExportSnapshotJobConfigForBatchInput {
   # ID of the virtual machine whose snapshot needs to be exported.
   vmId: String!
 }
+# Supported in Rubrik CDM version 9.0 and later. Input for batch export snapshots for vSphere.
+input ExportSnapshotJobConfigForBatchV3Input {
+  # Exports the oldest snapshot taken after the specified date. This parameter is only evaluated when no values are set for snapshotId and snapshotBeforeDate.
+  snapshotAfterDate: DateTime
+
+  # Exports the most recent snapshot taken prior to the specified date. This parameter is only evaluated when no value is set for snapshotId.
+  snapshotBeforeDate: DateTime
+
+  # The ID of the snapshot to export. This parameter is optional if either of the snapshotBeforeDate or snapshotAfterDate parameters is configured.
+  snapshotId: String
+
+  # Prefix to be added to the name of the exported virtual machine.
+  vmNamePrefix: String
+
+  # Required. Configuration for snapshot export.
+  config: ExportSnapshotJobConfigV3Input!
+
+  # Required. ID of the virtual machine whose snapshot needs to be exported.
+  vmId: String!
+}
 # Supported in v5.1+
 input ExportSnapshotJobConfigV2Input {
   # Supported in v5.1+
@@ -36221,6 +36544,15 @@ enum FailoverStatusEnum {
   # Isolated recovery paused.
   ISOLATED_RECOVERY_PAUSED
 
+  # Isolated recovery promotion failed.
+  ISOLATED_RECOVERY_PROMOTION_FAILED
+
+  # Isolated recovery promotion started.
+  ISOLATED_RECOVERY_PROMOTION_STARTED
+
+  # Isolated recovery promotion succeeded.
+  ISOLATED_RECOVERY_PROMOTION_SUCCEEDED
+
   # Isolated recovery queued.
   ISOLATED_RECOVERY_QUEUED
 
@@ -36232,6 +36564,9 @@ enum FailoverStatusEnum {
 
   # Local recovery succeeded.
   LOCAL_RECOVERY_SUCCEEDED
+
+  # Status not supported.
+  NOT_SUPPORTED
 
   # Failover job ongoing.
   ONGOING
@@ -36437,45 +36772,6 @@ input FileInfo {
   fileName: String!
   fileSnapshotsToRestore: [FileSnapshotInfo!]!
   channelInfo: TeamsChannelInfo
-}
-# Matched file data.
-type FileMatch {
-  # Filepath that was matched.
-  filepath: String!
-
-  # Type of threat match.
-  matchType: IndicatorOfCompromiseKind!
-
-  # Date of the snapshot when the first match was found.
-  firstMatchedSnapshotDate: DateTime
-
-  # Time the scan detected the match.
-  detectedTime: DateTime
-
-  # Specifies if the file is quarantined.
-  isQuarantined: Boolean!
-}
-# Paginated list of FileMatch objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
-type FileMatchConnection {
-  # List of FileMatch objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
-  edges: [FileMatchEdge!]!
-
-  # List of FileMatch objects.
-  nodes: [FileMatch!]!
-
-  # General information about this page of results.
-  pageInfo: PageInfo!
-
-  # Total number of FileMatch objects matching the request arguments.
-  count: Int!
-}
-# Wrapper around the FileMatch object. This wrapper is used for pagination.
-type FileMatchEdge {
-  # String used to identify this edge.
-  cursor: String!
-
-  # The actual FileMatch object wrapped by this edge.
-  node: FileMatch!
 }
 enum FileModeEnum {
   DIRECTORY
@@ -37736,14 +38032,6 @@ type GatewayInfo {
   address: String!
 
   # Ports of the gateway.
-  ports: [Int!]!
-}
-# Supported in v5.0+
-input GatewayInfoInput {
-  # Required. Supported in v5.0+
-  address: String!
-
-  # Required. Supported in v5.0+
   ports: [Int!]!
 }
 # Input required to add a GCP cloud account manually.
@@ -39139,7 +39427,7 @@ enum GcpRegion {
   # GCP region is Unknown.
   UNKNOWN_GCP_REGION
 
-  # GCP region is US.
+  # GCP region is in US.
   US
 
   # GCP region is US Central 1.
@@ -39840,7 +40128,18 @@ type GetPoliciesTimelineReply {
 
   # Count of workloads that are not up to date.
   outOfDateStatus: [TimelineCountEntry!]!
+
+  # Count of medium-risk objects.
+  mediumRiskObjects: [TimelineEntry!]!
   policySummaries: [ClassificationPolicySummary!]!
+}
+# Specifies the versioning and object ACL state of the AWS S3 bucket.
+type GetS3BucketStateForRecoveryReply {
+  # Specifies whether the versioning is enabled on the AWS S3 bucket.
+  isVersioningEnabled: Boolean!
+
+  # Specifies whether object ACL is enabled on the AWS S3 bucket.
+  isObjectAclEnabled: Boolean!
 }
 # Supported in m3.2.0-m4.2.0
 # Schema Response Object carrying details of schema for the table and request status details.
@@ -40173,8 +40472,11 @@ type GlobalSlaReply implements SlaDomain {
   # Specifies the list of organizations that have view access for the SLA Domain.
   allOrgsWithAccess: [Org!]!
 
-  # Specifies the name of the owner organization of the SLA Domain.
-  ownerOrgName: String!
+  # This field is deprecated.
+  ownerOrgName: String! @deprecated(reason: "This field has been deprecated in favor of ownerOrg field.")
+
+  # Specifies the owner organization of the SLA Domain.
+  ownerOrg: SlaAssociatedOrganization!
 }
 # SLA Domain sync status for a specified Rubrik cluster.
 type GlobalSlaSyncStatus {
@@ -41244,6 +41546,9 @@ enum HierarchyFilterField {
   # and has an unmerged index.
   RUBRIK_NATIVE_HAS_UNINDEXED_OR_EXPIRED_SNAPSHOT
 
+  # Filter according to the natural ID field of the SaaS app resource.
+  SAASAPPS_NATURAL_ID
+
   # Filter by the Rubrik CDM ID of the SAP HANA database.
   SAP_HANA_DATABASE_CDM_ID
 
@@ -41348,11 +41653,14 @@ enum HierarchyObjectTypeEnum {
   # Active Directory domain controller.
   ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
 
+  # Atlassian site.
+  ATLASSIAN_SITE
+
   # AWS native S3 bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD Tenant.
-  AZURE_AD_TENANT
+  # Azure AD Directory.
+  AZURE_AD_DIRECTORY
   AZURE_SQL_DATABASE_DB
   AZURE_SQL_MANAGED_INSTANCE_DB
 
@@ -41414,6 +41722,12 @@ enum HierarchyObjectTypeEnum {
   HypervSCVMM
   HypervServer
   HypervVirtualMachine
+
+  # Jira fixed object.
+  JIRA_FIXED_OBJECT
+
+  # Jira project.
+  JIRA_PROJECT
   KuprCluster
   KuprNamespace
   LinuxFileset
@@ -41454,6 +41768,12 @@ enum HierarchyObjectTypeEnum {
 
   # NAS Fileset.
   NAS_FILESET
+
+  # Nutanix Category.
+  NUTANIX_CATEGORY
+
+  # Nutanix Category Value.
+  NUTANIX_CATEGORY_VALUE
 
   # Nutanix Prism Central.
   NUTANIX_PRISM_CENTRAL
@@ -41695,6 +42015,9 @@ enum HierarchySortByField {
 
   # Sort Azure virtual machines by VNet name.
   AZURE_VNET_NAME
+
+  # Sort based on Rubrik cluster name.
+  CDM_CLUSTER_NAME
 
   # Sort based on the IO filter status of the CDP virtual machines.
   CDP_IO_FILTER_STATUS
@@ -43379,6 +43702,9 @@ type HyperVSCVMM implements HierarchyObject , CdmHierarchyObject , PhysicalHostD
   # Flag to specify if Rubrik can deploy the Rubrik Backup Service to the hosts. If true, Rubrik tries to deploy the Rubrik Backup Service to the Hyper-V hosts. If false, the deployment of the Rubrik Backup Service will be handled by the client.
   shouldDeployAgent: Boolean!
 
+  # The additional information available for the System Center Virtual Machine Manager (SCVMM) currently includes only the version details.
+  scvmmInfo: ScvmmInfo
+
   # Name or IP Address of SCVMM Host.
   hostName: String!
 
@@ -44788,6 +45114,9 @@ type HypervVirtualDiskInfo {
   # Required. Supported in v5.2+
   # The path of the Hyper-V virtual disk.
   path: String!
+
+  # The size of the Hyper-V virtual disk.
+  size: Long
 }
 # Supported in v5.0+
 type HypervVirtualMachineDetail {
@@ -45481,6 +45810,9 @@ enum InventorySubHierarchyRootEnum {
   # Active Directory root.
   ACTIVE_DIRECTORY_ROOT
   APPFLOWS_ROOT
+
+  # Atlassian root.
+  ATLASSIAN_ROOT
   AWSNATIVE_ROOT
   AZURENATIVE_ROOT
 
@@ -47204,10 +47536,10 @@ type LocationPathPoint {
 }
 # Scope of the target location based on how it is managed.
 enum LocationScope {
-  # Target location is managed by Polaris.
+  # Target location is managed by Rubrik.
   GLOBAL
 
-  # Target location is managed by CDM.
+  # Target location is managed by cluster.
   LOCAL
 
   # Scope of target location is unknown.
@@ -47640,6 +47972,9 @@ enum ManagedObjectType {
   # Orchestrated Application Recovery Blueprint.
   APP_BLUEPRINT
 
+  # Atlassian site.
+  ATLASSIAN_SITE
+
   # AWS account.
   AWS_NATIVE_ACCOUNT
 
@@ -47655,8 +47990,8 @@ enum ManagedObjectType {
   # AWS native S3 Bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD tenant.
-  AZURE_AD_TENANT
+  # Azure AD Directory.
+  AZURE_AD_DIRECTORY
 
   # Azure managed disk.
   AZURE_MANAGED_DISK
@@ -47766,6 +48101,12 @@ enum ManagedObjectType {
   # Hyper-V virtual machine.
   HYPERV_VIRTUAL_MACHINE
 
+  # Jira fixed object.
+  JIRA_FIXED_OBJECT
+
+  # Jira project.
+  JIRA_PROJECT
+
   # Kubernetes cluster.
   KUPR_CLUSTER
 
@@ -47835,6 +48176,9 @@ enum ManagedObjectType {
   # Nutanix cluster.
   NUTANIX_CLUSTER
 
+  # Nutanix Prism Central.
+  NUTANIX_PRISM_CENTRAL
+
   # Nutanix virtual machine.
   NUTANIX_VIRTUAL_MACHINE
 
@@ -47895,7 +48239,7 @@ enum ManagedObjectType {
   # Physical host.
   PHYSICAL_HOST
 
-  # Recovery plan.
+  # Recovery plan - deprecated.
   RECOVERY_PLAN
 
   # SAP HANA database.
@@ -49611,6 +49955,22 @@ input MapAzureCloudAccountToPersistentStorageLocationInput {
 }
 # Response of the operation to map Azure cloud accounts to a persistent storage location.
 type MapAzureCloudAccountToPersistentStorageLocationReply {
+  # Specifies whether the mapping was completed successfully.
+  isSuccess: Boolean!
+}
+# Input for mapping cloud accounts to an Exocompute account.
+input MapCloudAccountExocomputeAccountInput {
+  # Rubrik IDs of the cloud accounts to be mapped.
+  cloudAccountIds: [UUID!]!
+
+  # Rubrik ID of the Exocompute cloud account to which the Exocompute launch must be mapped.
+  exocomputeCloudAccountId: UUID!
+
+  # Cloud provider type.
+  cloudVendor: CloudVendor!
+}
+# Response of the operation to map cloud accounts to an Exocompute account.
+type MapCloudAccountExocomputeAccountReply {
   # Specifies whether the mapping was completed successfully.
   isSuccess: Boolean!
 }
@@ -57191,14 +57551,6 @@ type NasVolumeLogicalChildTypeEdge {
   # The actual NasVolumeLogicalChildType object wrapped by this edge.
   node: NasVolumeLogicalChildType!
 }
-# Supported in v5.0+
-type NatGatewayInfo {
-  # Required. Supported in v5.0+
-  address: String!
-
-  # Required. Supported in v5.0+
-  ports: [Int!]!
-}
 # BackEndCapacityReply is returned in response to a BackEndCapacityReq and
 # holds the requested capacity.
 type NcdBackEndCapacity {
@@ -58511,10 +58863,10 @@ type NutanixPrismCentral implements CdmHierarchyObject , HierarchyObject , Nutan
   cdmId: UUID!
 
   # IP address of Nutanix Prism Central.
-  hostname: String!
+  hostName: String!
 
   # Username.
-  username: String!
+  userName: String!
 
   # Natural ID of Nutanix Prism Central.
   naturalId: String!
@@ -58596,6 +58948,42 @@ type NutanixPrismCentral implements CdmHierarchyObject , HierarchyObject , Nutan
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
+}
+# Input for the Nutanix Prism Central configuration parameters.
+input NutanixPrismCentralConfigInput {
+  # Required. Concatenated X.509 certificates in Base64 encoded DER format. Each certificate must start with -----BEGIN CERTIFICATE----- and end with -----END CERTIFICATE-----.
+  caCerts: String!
+
+  # Required. Hostname for the Nutanix Prism Central that we use for all the cluster connections.
+  hostname: String!
+
+  # Required. Password for the Nutanix Prism Central that we use for all the cluster connections.
+  password: String!
+
+  # Required. Username for the Nutanix Prism Central that we use for all the cluster connections.
+  username: String!
+}
+# Paginated list of NutanixPrismCentral objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type NutanixPrismCentralConnection {
+  # List of NutanixPrismCentral objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [NutanixPrismCentralEdge!]!
+
+  # List of NutanixPrismCentral objects.
+  nodes: [NutanixPrismCentral!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of NutanixPrismCentral objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the NutanixPrismCentral object. This wrapper is used for pagination.
+type NutanixPrismCentralEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual NutanixPrismCentral object wrapped by this edge.
+  node: NutanixPrismCentral!
 }
 # Supported in v5.0+
 input NutanixRestoreFileConfigInput {
@@ -62239,8 +62627,8 @@ enum ObjectTypeEnum {
   # AWS native S3 Bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD Tenant.
-  AZURE_AD_TENANT
+  # Azure AD Directory.
+  AZURE_AD_DIRECTORY
   AZURE_SQL_DATABASE_DB
   AZURE_SQL_MANAGED_INSTANCE_DB
 
@@ -62274,6 +62662,12 @@ enum ObjectTypeEnum {
   GcpNativeGCEInstance
   Hdfs
   HypervVirtualMachine
+
+  # Jira fixed object.
+  JIRA_FIXED_OBJECT
+
+  # Jira project.
+  JIRA_PROJECT
   KuprNamespace
   LinuxFileset
 
@@ -62424,6 +62818,9 @@ enum Operation {
   DOWNLOAD
   DOWNLOAD_FROM_ARCHIVAL_LOCATION
   DOWNLOAD_SNAPSHOT_FROM_REPLICATION_TARGET
+
+  # Download VM-level files.
+  DOWNLOAD_VIRTUAL_MACHINE_FILE
   EDIT_AWS_CLOUD_ACCOUNT
   EDIT_AZURE_CLOUD_ACCOUNT
   EDIT_CDM_NETWORK_SETTING
@@ -62514,6 +62911,9 @@ enum Operation {
   UPDATE_ACCOUNT_OWNERSHIP
   UPGRADE_CLUSTER
   VIEW_ACCESS
+
+  # View archival location.
+  VIEW_ARCHIVAL_LOCATION
   VIEW_AUDIT_LOG
   VIEW_AWS_CLOUD_ACCOUNT
   VIEW_AZURE_CLOUD_ACCOUNT
@@ -62534,7 +62934,6 @@ enum Operation {
   VIEW_DATA_SECURITY_DETAILS
   VIEW_GCP_CLOUD_ACCOUNT
   VIEW_INVENTORY
-  VIEW_INVENTORY_WITH_HIERARCHY
 
   # View Network Throttle Settings.
   VIEW_NETWORK_THROTTLE_SETTINGS
@@ -63566,6 +63965,16 @@ type OracleDbSnapshotSummary {
   # Supported in v5.3+
   # A Boolean that specifies whether the snapshot is valid.
   isValid: Boolean
+
+  # Supported in v8.1+
+  # Managed ID of the host or RAC from where the database snapshot is taken.
+  hostOrRacManagedId: String
+
+  # Supported in v8.1+
+  # Hostname or RAC name from where the database snapshot is taken.
+  hostOrRacName: String
+
+  # The base information of a snapshot that is common across other workloads.
   baseSnapshotSummary: BaseSnapshotSummary
 }
 # Supported in v5.0+
@@ -66471,6 +66880,9 @@ type PolicyObj {
 
   # User access risk reasons.
   accessRiskReasons: [RiskReason!]!
+
+  # User count for various risk levels.
+  userCounts: PrincipalCounts
   id: String!
   folderChildConnection(
     # Returns the first n elements from the list.
@@ -66738,6 +67150,17 @@ type PrincipalConnection {
   # Total number of Principal objects matching the request arguments.
   count: Int!
 }
+# User count for different risk categories.
+type PrincipalCounts {
+  # Number of High-risk principals.
+  highRiskCount: SummaryCount
+
+  # Number of Medium-risk principals.
+  mediumRiskCount: SummaryCount
+
+  # Number of Low-risk principals.
+  lowRiskCount: SummaryCount
+}
 # Wrapper around the Principal object. This wrapper is used for pagination.
 type PrincipalEdge {
   # String used to identify this edge.
@@ -66751,6 +67174,14 @@ enum PrincipalTypeEnum {
   GROUP
   UNKNOWN
   USER
+}
+# A tuple of the Prism Element ID and the corresponding CDM cluster ID while adding a Nutanix Prism Central.
+input PrismElementCdmTuple {
+  # The ID of the Nutanix cluster.
+  nutanixClusterId: UUID!
+
+  # The ID of the CDM cluster.
+  cdmClusterId: UUID!
 }
 # RCV private endpoint connection details.
 type PrivateEndpointConnection {
@@ -67593,6 +68024,25 @@ type RbaInstallerUrls {
   # SHA-256 hash of the installer for Linux in RPM format.
   rpmHashSha256: String!
 }
+# The object which permissions assigned to.
+type RbacObject {
+  # The ID of the object.
+  objectId: String!
+
+  # The workload hierarchy of the object.
+  workloadHierarchy: WorkloadLevelHierarchy!
+
+  #  The Rubrik cluster ID of the object.
+  clusterId: String!
+}
+# Specifies permissions assigned to the organization.
+type RbacPermission {
+  # Operations assigned to the organization on newly added object.
+  operations: [Operation!]!
+
+  # The object which permissions assigned to.
+  rbacObject: RbacObject!
+}
 # RCS Azure archival locations consumption stats.
 type RcsArchivalLocationConsumptionStats {
   # Rubrik Security Cloud archival location ID.
@@ -67929,6 +68379,29 @@ enum ReaderRetrievalMethod {
   # Unknown retrieval method.
   UNKNOWN_RETRIEVAL_METHOD
 }
+# Recover a Rubrik Cloud Cluster.
+input RecoverCloudClusterInput {
+  # Customer cloud account ID.
+  cloudAccountId: UUID!
+
+  # Cluster UUID.
+  clusterUuid: UUID!
+
+  # Azure virtual machine configuration.
+  azureVmConfig: AzureVmConfig
+
+  # AWS virtual machine configuration.
+  awsVmConfig: AwsVmConfig
+
+  # AWS region.
+  awsRegion: String
+
+  # Should disable AWS API termination.
+  shouldDisableAwsApiTermination: Boolean!
+
+  # Should keep Cloud Cluster on failure.
+  shouldKeepClusterOnFailure: Boolean!
+}
 # Input for recovering Cloud Direct path.
 input RecoverCloudDirectPathInput {
   # FID of snapshot being restored.
@@ -68036,6 +68509,11 @@ type RefreshNasSystemsReply {
 # Input for refreshing a Nutanix cluster.
 input RefreshNutanixClusterInput {
   # Required. ID of the Nutanix cluster.
+  id: String!
+}
+# Input for refreshing a Nutanix Prism Central.
+input RefreshNutanixPrismCentralInput {
+  # Required. ID of the Nutanix Prism Central.
   id: String!
 }
 input RefreshOracleDatabaseInput {
@@ -68605,46 +69083,6 @@ type ReplicationTarget {
 
   # Total replicated storage on the target cluster from the source cluster.
   totalStorage: Long
-}
-# Supported in v5.0+
-input ReplicationTargetDefinitionInput {
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The certificate used by replication to make remote procedure calls to remote replication Rubrik cluster.
-  caCerts: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: Realm of provided credentials. This is the security policy domain defined for the target Rubrik cluster.
-  realm: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The network gateway on the source Rubrik cluster for NAT network configurations.
-  sourceGateway: GatewayInfoInput
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The IP address of a node on the target Rubrik cluster.
-  targetClusterAddress: String
-
-  # Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The network gateway on the target Rubrik cluster for NAT network configurations.
-  targetGateway: GatewayInfoInput
-
-  # Required. Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The password of a user on the target Rubrik cluster that is used to authorize the replication pairing.
-  password: String!
-
-  # Supported in v5.0+ Replication network configuration type. Currently 'NAT' and 'Private Network' are available.
-  replicationSetup: String!
-
-  # Required. Supported in v5.0+
-  # v5.0-v5.2:
-  # v5.3+: The username of a user on the target Rubrik cluster that is used to authorize the replication pairing.
-  username: String!
 }
 # Replication to cloud location specification.
 type ReplicationToCloudLocationSpec {
@@ -69594,6 +70032,9 @@ type Role {
   # Role permissions that are in effect.
   effectivePermissions: [Permission!]!
 
+  # Permissions assigned to the role that are in effect.
+  effectiveRbacPermissions: [RbacPermission!]!
+
   # Role permissions that are explicitly assigned by user.
   explicitlyAssignedPermissions: [Permission!]!
 }
@@ -69829,6 +70270,9 @@ type RubrikManagedAwsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -69927,6 +70371,9 @@ type RubrikManagedAzureTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -70001,6 +70448,9 @@ type RubrikManagedGcpTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -70071,6 +70521,9 @@ type RubrikManagedGlacierTarget implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -70155,6 +70608,9 @@ type RubrikManagedNfsTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -70231,6 +70687,9 @@ type RubrikManagedRcsTarget implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -70327,6 +70786,9 @@ type RubrikManagedS3CompatibleTarget implements Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -70400,6 +70862,9 @@ type RubrikManagedTapeTargetType implements Target {
 
   # Status of the target.
   status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
 
   # Number of bytes stored on the target.
   consumedBytes: Long
@@ -70535,14 +71000,14 @@ enum SaasFeature {
   # Rubrik-hosted Exocompute cluster for Azure AD.
   TYPE_AAD
 
-  # Rubrik-hosted Exocompute cluster for Atlassian.
-  TYPE_ATLASSIAN
-
   # Rubrik-hosted Exocompute cluster for Cloud Direct.
   TYPE_CLOUD_DIRECT_HOSTED
 
   # Rubrik-hosted or customer-hosted Exocompute cluster for M365.
   TYPE_M365
+
+  # Rubrik-hosted Exocompute cluster for SaaS Protection.
+  TYPE_SAAS_PROTECTION
 }
 # SAP HANA workload related app metadata for a snapshot.
 type SapHanaAppMetadata {
@@ -71994,6 +72459,11 @@ enum ScriptErrorAction {
   SCRIPT_ERROR_ACTION_ABORT
   SCRIPT_ERROR_ACTION_CONTINUE
 }
+# Additional information about the SCVMM.
+type ScvmmInfo {
+  # Version of the SCVMM.
+  version: String!
+}
 # Parameters for mail or folder search.
 input SearchFilter {
   searchKeywordFilter: SearchKeywordFilter
@@ -72860,6 +73330,14 @@ enum SlaAssignmentTypeEnum {
   Derived
   Direct
   Unassigned
+}
+# Details of an organization associated with an SLA Domain.
+type SlaAssociatedOrganization {
+  # Name of the organization.
+  name: String!
+
+  # ID of the organization.
+  id: UUID!
 }
 # Audit log of SLA Domain changes based on user action.
 type SlaAuditDetail {
@@ -74049,14 +74527,6 @@ enum SnapshotCustomization {
   # Snapshot has been downloaded.
   DOWNLOAD
 }
-# List of snapshots that were taken around the detected snapshot date.
-type SnapshotData {
-  # Date of the snapshot.
-  date: DateTime
-
-  # FID of the snapshot.
-  fid: UUID!
-}
 # Delta information for a file or directory between two snapshots.
 type SnapshotDelta {
   # Delta type of the file or directory between two snapshots.
@@ -74382,6 +74852,9 @@ enum SnapshotQueryFilterField {
   # Returns snapshots for which the snapshot_status field is in
   # the specified state. This is a text field.
   SNAPSHOT_STATUS
+
+  # Field to filter based on snapshot types. Snapshot types can only
+  # be on-demand or scheduled.
   SNAPSHOT_TYPE
 }
 # Filter snapshots.
@@ -76674,6 +77147,9 @@ interface Target {
   # Status of the target.
   status: ArchivalLocationStatus!
 
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
   # Number of bytes stored on the target.
   consumedBytes: Long
 
@@ -77746,82 +78222,6 @@ input ThreatMonitoringEnablementStatusInput {
   # Specifies whether to enable Threat Monitoring or not.
   enabled: Boolean!
 }
-# Response to ThreatMonitoringFileMatchDetails.
-type ThreatMonitoringFileMatchDetailsReply {
-  # Type of threat match.
-  matchType: IndicatorOfCompromiseKind!
-
-  # Source of the rule that matched.
-  intelSource: String!
-
-  # Attribute of the rule that matched.
-  iocAttribute: String!
-
-  # Specifies if the file is quarantined.
-  isQuarantined: Boolean!
-
-  # Snapshot date where the match was first detected.
-  detectedSnapshotDate: DateTime
-
-  # List of snapshots that were taken around the detected snapshot date.
-  snapshotList: [SnapshotData!]!
-}
-# Details about the scanned object.
-type ThreatMonitoringMatchedObject {
-  # Name of the object.
-  objectName: String!
-
-  # Number of files matched to threat in object.
-  filesMatched: Long!
-
-  # Date of the last snapshot with a match.
-  lastDetection: DateTime
-
-  # Type of threat match.
-  matchType: IndicatorOfCompromiseKind!
-
-  # The cluster of the scan.
-  cluster: Cluster!
-}
-# Paginated list of ThreatMonitoringMatchedObject objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
-type ThreatMonitoringMatchedObjectConnection {
-  # List of ThreatMonitoringMatchedObject objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
-  edges: [ThreatMonitoringMatchedObjectEdge!]!
-
-  # List of ThreatMonitoringMatchedObject objects.
-  nodes: [ThreatMonitoringMatchedObject!]!
-
-  # General information about this page of results.
-  pageInfo: PageInfo!
-
-  # Total number of ThreatMonitoringMatchedObject objects matching the request arguments.
-  count: Int!
-
-  # Aggregated stats for threat monitoring.
-  stats: ThreatMonitoringStats!
-}
-# Wrapper around the ThreatMonitoringMatchedObject object. This wrapper is used for pagination.
-type ThreatMonitoringMatchedObjectEdge {
-  # String used to identify this edge.
-  cursor: String!
-
-  # The actual ThreatMonitoringMatchedObject object wrapped by this edge.
-  node: ThreatMonitoringMatchedObject!
-}
-# Aggregation stats for threat monitoring in the selected time range.
-type ThreatMonitoringStats {
-  # Total number of objects scanned.
-  totalObjectsScanned: Long!
-
-  # Number of objects scanned with threat matches found.
-  objectsWithMatches: Long!
-
-  # Number of objects scanned with no threat matches found.
-  objectsWithNoMatches: Long!
-
-  # Number of objects where the threat scan failed.
-  objectsFailedScans: Long!
-}
 enum TimeDuration {
   DAY
   HOUR
@@ -78079,6 +78479,19 @@ type UnmapAzureCloudAccountExocomputeSubscriptionReply {
   # Specifies whether the unmapping was completed successfully.
   isSuccess: Boolean!
 }
+# Input for unmapping cloud accounts from the mapped Exocompute account.
+input UnmapCloudAccountExocomputeAccountInput {
+  # Rubrik IDs of the cloud accounts to be unmapped.
+  cloudAccountIds: [UUID!]!
+
+  # Cloud provider type.
+  cloudVendor: CloudVendor!
+}
+# Response of the operation to unmap cloud accounts from the mapped Exocompute account.
+type UnmapCloudAccountExocomputeAccountReply {
+  # Specifies whether the unmapping was completed successfully.
+  isSuccess: Boolean!
+}
 # Specifies the information about the auth domain users to be hidden or unhidden.
 input UpdateAuthDomainUsersHiddenStatusInput {
   # Required. Specifies the user IDs of the auth domain users to update hidden status for.
@@ -78236,6 +78649,25 @@ input UpdateAwsComputeSettingInput {
 
   # Security group ID of the AWS target.
   securityGroupId: String = ""
+}
+# Input to update AWS exocompute configurations.
+input UpdateAwsExocomputeConfigsInput {
+  # Rubrik ID for cloud account.
+  cloudAccountId: UUID!
+
+  # List of exocompute configurations for the cloud account.
+  configs: [AwsExocomputeConfigInput!]!
+
+  # Specifies whether to start Exocompute health check.
+  triggerHealthCheck: Boolean = false
+}
+# AWS Exocompute Configs Update Response.
+type UpdateAwsExocomputeConfigsReply {
+  # List of exocompute configurations added.
+  configs: [AwsExocomputeGetConfigResponse!]!
+
+  # Deletion status for exocompute configurations being removed.
+  deleteStatus: [AwsExocomputeConfigsDeletionStatusType!]!
 }
 # Input to edit AWS target.
 input UpdateAwsTargetInput {
@@ -79627,6 +80059,26 @@ input UpdateSyslogExportRuleInput {
 type UpdateSyslogExportRuleReply {
   output: SyslogExportRuleSummary
 }
+# Input for updating a Tape archival location.
+input UpdateTapeTargetInput {
+  # ID of the Tape archival location to be edited.
+  id: UUID!
+
+  # Name of the Tape archival location.
+  name: String
+
+  # IP address of the QStar server of the Tape archival location.
+  hostName: String
+
+  # Port of the QStar server for the Tape archival location.
+  hostPort: Int
+
+  # Username for the Tape archival location.
+  username: String
+
+  # User password for the Tape archival location.
+  password: String
+}
 # Input for enabling or disabling the SSH Tunnel for Support Access.
 input UpdateTunnelStatusInput {
   # Required. UUID used to identify the cluster the request goes to.
@@ -79886,6 +80338,23 @@ type UpgradeRecommendationInfo {
 
   # Latest upgradable version from the next release.
   nextReleaseRecommendation: String!
+}
+# UpgradeStatus is upgrade status of archival location to RSC-managed location.
+enum UpgradeStatus {
+  # IN_PROGRESS if upgrade process is in progress.
+  IN_PROGRESS
+
+  # READY_TO_UPGRADE if upgrade process not started yet.
+  READY_TO_UPGRADE
+
+  # UPGRADE_FAILED if upgrade process fails in between.
+  UPGRADE_FAILED
+
+  # UPGRADE_SUCCESS if upgrade process completes successfully.
+  UPGRADE_SUCCESS
+
+  # UPGRADE_UNSUPPORTED if archival location can't be upgraded.
+  UPGRADE_UNSUPPORTED
 }
 # Upgrade status response.
 type UpgradeStatusReply {
@@ -80155,8 +80624,8 @@ enum UserAuditObjectTypeEnum {
   # AWS native S3 bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD tenant type.
-  AZURE_AD_TENANT
+  # Azure AD Directory type.
+  AZURE_AD_DIRECTORY
 
   # Azure storage account.
   AZURE_STORAGE_ACCOUNT
@@ -80321,6 +80790,7 @@ enum UserAuditSortField {
 }
 # User audit status.
 enum UserAuditStatusEnum {
+  Canceled
   Failure
   Success
 }
@@ -87709,6 +88179,14 @@ input VsphereVmBatchExportInput {
   # Required. An array of configuration objects. Each object includes an identifier for the virtual machine, an identifier for the snapshot of the virtual machine, and the configuration for the exported virtual machine snapshot.
   config: BatchExportSnapshotJobConfigInput!
 }
+# Supported in Rubrik CDM version 9.0 and later.
+input VsphereVmBatchExportV3Input {
+  # Required. UUID used to identify the cluster the request goes to.
+  clusterUuid: String!
+
+  # Required. An array of configuration objects. Each object includes an identifier for the virtual machine, an identifier for the snapshot of the virtual machine, and the configuration for the export job and exported virtual machine.
+  config: BatchExportSnapshotJobConfigV3Input!
+}
 # Input for batch in place recovery for vSphere virtual machines.
 input VsphereVmBatchInPlaceRecoveryInput {
   # Required. UUID used to identify the cluster the request goes to.
@@ -88750,8 +89228,8 @@ enum WorkloadLevelHierarchy {
   # AWS native S3 Bucket.
   AWS_NATIVE_S3_BUCKET
 
-  # Azure AD Tenant.
-  AZURE_AD_TENANT
+  # Azure AD Directory.
+  AZURE_AD_DIRECTORY
 
   # Azure storage account.
   AZURE_STORAGE_ACCOUNT

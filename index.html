@@ -183,18 +183,36 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
   <ul class="nav bs-sidenav">
     <li class="first-level active">
-      <a href="#rubrik-graphql-api">Rubrik GraphQL API</a>
+      <a href="#rubrik-security-cloud-api">Rubrik Security Cloud API</a>
     </li>
+    <li class="second-level">
+      <a href="#graphql-overview">GraphQL overview</a>
+    </li>
+    
     <li class="second-level">
       <a href="#graphql-query-type">GraphQL query type</a>
     </li>
     
+    <li class="third-level">
+      <a href="#sample-graphql-query">Sample GraphQL query</a>
+    </li>
+    <li class="third-level">
+      <a href="#sample-response">Sample response</a>
+    </li>
+    <li class="second-level">
+      <a href="#resources">Resources</a>
+    </li>
+    
   </ul>
 </div></div>
-        <div class="col-md-9" role="main"> <h1 id="rubrik-graphql-api">Rubrik GraphQL API</h1>
-<p>GraphQL is an <a href="https://graphql.org/">API query language</a> that allows you
-to retrieve just the data you need. GraphQL eliminates the common experience
-of an API call returning either too much or not enough data.</p>
+        <div class="col-md-9" role="main"> <h1 id="rubrik-security-cloud-api">Rubrik Security Cloud API</h1>
+<p>Rubrik Security Cloud API allows you to integrate the Rubrik platform
+across a number of existing enterprise tools and workflows.</p>
+<p>We utilize <a href="https://graphql.org">GraphQL</a> as the API query language.
+GraphQL allows you to retrieve just the data you need, eliminating
+the common scenario of an API call returning either too much
+or not enough data.</p>
+<h2 id="graphql-overview">GraphQL overview</h2>
 <p>GraphQL queries are defined in terms of types and fields. Rather than using
 various endpoints identified by path-based URIs and HTTP verbs, GraphQL uses a
 single endpoint backed by a schema that specifies how to retrieve and modify
@@ -240,17 +258,8 @@ requests:</p>
 be selected from the <code>User</code> object that is returned by the query.</p>
 <p>The following example provides a sample query and response based on the above
 schema definition.</p>
-<table>
-  <tr>
-    <th>Sample GraphQL query</th>
-    <th>Sample response</th>
-  </tr>
-  <tr>
-    <td>
-
-<pre><code class="language-yaml">
-
-query {
+<h3 id="sample-graphql-query">Sample GraphQL query</h3>
+<pre><code class="language-yaml">query {
     currentUser {
         email
         roles {
@@ -258,14 +267,9 @@ query {
         }
     }
 }
-
-
 </code></pre>
-
-</td>
-    <td>
-
-<pre><code class="language-yaml">{
+<h3 id="sample-response">Sample response</h3>
+<pre><code class="language-json">{
   &quot;data&quot;: {
     &quot;currentUser&quot;: {
       &quot;email&quot;: &quot;happy.user@rubrik.com&quot;,
@@ -278,13 +282,13 @@ query {
   },
 }
 </code></pre>
-
-</td>
-  </tr>
-</table>
-
-<p>More information on GraphQL queries and mutations available on
-<a href="https://graphql.org">graphql.org</a>.</p></div>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.rubrik.com/products">Rubrik Security Cloud overview</a></li>
+<li><a href="https://github.com/rubrikinc/api-documentation">Rubrik CDM REST API</a></li>
+<li><a href="https://graphql.org">General information about GraphQL queries and mutations</a></li>
+<li><a href="https://www.rubrik.com/content/dam/rubrik/en/resources/white-paper/an-introduction-to-graphql-and-rubrik.pdf">GraphQL usage in Rubrik CDM and Rubrik Security Cloud</a></li>
+</ul></div>
         
         
     </div>
@@ -296,7 +300,7 @@ query {
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-04-20</small>
+            <small>Revised on: 2023-05-18</small>
             </p>
           
 
@@ -372,5 +376,5 @@ query {
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2023-04-20 20:21:40.326932+00:00
+Build Date UTC : 2023-05-18 17:34:24.048629+00:00
 -->
