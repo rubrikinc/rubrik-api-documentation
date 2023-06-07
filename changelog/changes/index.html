@@ -186,7 +186,7 @@
       <a href="#changelog">Changelog</a>
     </li>
     <li class="second-level">
-      <a href="#20230501">2023/05/01</a>
+      <a href="#20230601">2023/06/01</a>
     </li>
     
     <li class="third-level">
@@ -196,10 +196,13 @@
       <a href="#breaking-types">Breaking: types</a>
     </li>
     <li class="third-level">
+      <a href="#deprecations">Deprecations</a>
+    </li>
+    <li class="third-level">
       <a href="#additions">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230401">2023/04/01</a>
+      <a href="#20230501">2023/05/01</a>
     </li>
     
     <li class="third-level">
@@ -209,13 +212,10 @@
       <a href="#breaking-types_1">Breaking: types</a>
     </li>
     <li class="third-level">
-      <a href="#deprecations">Deprecations</a>
-    </li>
-    <li class="third-level">
       <a href="#additions_1">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230301">2023/03/01</a>
+      <a href="#20230401">2023/04/01</a>
     </li>
     
     <li class="third-level">
@@ -231,7 +231,7 @@
       <a href="#additions_2">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230201">2023/02/01</a>
+      <a href="#20230301">2023/03/01</a>
     </li>
     
     <li class="third-level">
@@ -247,14 +247,300 @@
       <a href="#additions_3">Additions</a>
     </li>
     <li class="second-level">
+      <a href="#20230201">2023/02/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#breaking-field-and-enums_4">Breaking: field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#breaking-types_4">Breaking: types</a>
+    </li>
+    <li class="third-level">
+      <a href="#deprecations_3">Deprecations</a>
+    </li>
+    <li class="third-level">
+      <a href="#additions_4">Additions</a>
+    </li>
+    <li class="second-level">
       <a href="#20230101">2023/01/01</a>
     </li>
     
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="changelog">Changelog</h1>
-<h2 id="20230501">2023/05/01</h2>
+<h2 id="20230601">2023/06/01</h2>
 <h3 id="breaking-field-and-enums">Breaking: field and enums</h3>
+<ul>
+<li>Field <code>threatMonitoringMatchedFiles</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>hostname</code> was removed from <code>NutanixPrismCentral</code> type.</li>
+<li>Field <code>username</code> was removed from <code>NutanixPrismCentral</code> type.</li>
+<li>Field <code>hasImageConverted</code> was removed from <code>CdmSnapshot</code> type.</li>
+<li>Field <code>createCrossAccountReplicationPair</code> was removed from <code>Mutation</code> type.</li>
+<li>Field <code>threatMonitoringMatchedFileDetails</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>threatMonitoringMatchedObjects</code> was removed from <code>Query</code> type.</li>
+<li>Field <code>singleUnifiedFeatureFlag</code> was removed from <code>Query</code> type.</li>
+<li>Enum value <code>VIEW_INVENTORY_WITH_HIERARCHY</code> was removed from enum <code>Operation</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>ManagedObjectType</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>EventObjectType</code>.</li>
+<li>Enum value <code>TYPE_ATLASSIAN</code> was removed from enum <code>SaasFeature</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>AuditObjectType</code>.</li>
+<li>Enum value <code>BOTH_HOSTS</code> was removed from enum <code>AzureHostType</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>WorkloadLevelHierarchy</code>.</li>
+</ul>
+<h3 id="breaking-types">Breaking: types</h3>
+<ul>
+<li><code>CreateCrossAccountReplicationPairInput</code> type was removed.</li>
+<li><code>AttributeInput</code> type was removed.</li>
+<li><code>GatewayInfoInput</code> type was removed.</li>
+<li><code>ThreatMonitoringStats</code> type was removed.</li>
+<li><code>FlagDataType</code> type was removed.</li>
+<li><code>FileMatchConnection</code> type was removed.</li>
+<li><code>FileMatch</code> type was removed.</li>
+<li><code>ThreatMonitoringFileMatchDetailsReply</code> type was removed.</li>
+<li><code>ReplicationTargetDefinitionInput</code> type was removed.</li>
+<li><code>UnifiedFeatureFlag</code> type was removed.</li>
+<li><code>CreateCrossAccountReplicationPairReply</code> type was removed.</li>
+<li><code>ThreatMonitoringMatchedObject</code> type was removed.</li>
+<li><code>NatGatewayInfo</code> type was removed.</li>
+<li><code>ThreatMonitoringMatchedObjectEdge</code> type was removed.</li>
+<li><code>FileMatchEdge</code> type was removed.</li>
+<li><code>ThreatMonitoringMatchedObjectConnection</code> type was removed.</li>
+<li><code>UnifiedFeatureFlagInput</code> type was removed.</li>
+<li><code>SnapshotData</code> type was removed.</li>
+</ul>
+<h3 id="deprecations">Deprecations</h3>
+<ul>
+<li>
+<p>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
+<p>Reason: We do not use archival groups currently.
+Scheduled for removal after 2024/04/21.</p>
+</li>
+<li>
+<p>Field <code>ownerOrgName</code> was deprecated in <code>ClusterSlaDomain</code> type.</p>
+<p>Reason: This field has been deprecated in favor of ownerOrg field.
+Scheduled for removal after 2024/05/11.</p>
+</li>
+<li>
+<p>Field <code>awsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: This query is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+</li>
+<li>
+<p>Enum value <code>IS_MANAGED_BY_AUTO_AG</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
+<p>Reason: We do not use archival groups currently.
+Scheduled for removal after 2024/04/21.</p>
+</li>
+<li>
+<p>Field <code>updateAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+</li>
+<li>
+<p>Field <code>createAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+</li>
+<li>
+<p>Field <code>userNotifications</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: This query is deprecated.
+Scheduled for removal after 2024/04/27.</p>
+</li>
+<li>
+<p>Field <code>deleteAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+</li>
+<li>
+<p>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
+<p>Reason: Archived locations should not be queried for.
+Scheduled for removal after 2024/04/21.</p>
+</li>
+<li>
+<p>Field <code>allAwsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: This query is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+</li>
+<li>
+<p>Field <code>ownerOrgName</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
+<p>Reason: This field has been deprecated in favor of ownerOrg field.
+Scheduled for removal after 2024/05/11.</p>
+</li>
+</ul>
+<h3 id="additions">Additions</h3>
+<ul>
+<li><code>UpdateAwsExocomputeConfigsInput</code> type was added.</li>
+<li><code>CreateNutanixPrismCentralInput</code> type was added.</li>
+<li><code>ThreatMonitoringEnablementEntity</code> type was added.</li>
+<li><code>EnableThreatMonitoringInput</code> type was added.</li>
+<li><code>ClusterIpv6ModeInput</code> type was added.</li>
+<li><code>MapCloudAccountExocomputeAccountInput</code> type was added.</li>
+<li><code>ExportSnapshotJobConfigForBatchV3Input</code> type was added.</li>
+<li><code>UnmapCloudAccountExocomputeAccountReply</code> type was added.</li>
+<li><code>LookupAccountInput</code> type was added.</li>
+<li><code>CloudAccountWithExocomputeMapping</code> type was added.</li>
+<li><code>UpdateAwsExocomputeConfigsReply</code> type was added.</li>
+<li><code>CloudAccountDetails</code> type was added.</li>
+<li><code>GetS3BucketStateForRecoveryReply</code> type was added.</li>
+<li><code>CloudAccountsExocomputeAccountMapping</code> type was added.</li>
+<li><code>UpgradeStatus</code> type was added.</li>
+<li><code>VsphereVmBatchExportV3Input</code> type was added.</li>
+<li><code>PrincipalCounts</code> type was added.</li>
+<li><code>RefreshNutanixPrismCentralInput</code> type was added.</li>
+<li><code>DownloadVirtualMachineFileJobConfigInput</code> type was added.</li>
+<li><code>DownloadVsphereVirtualMachineFilesInput</code> type was added.</li>
+<li><code>CreateTapeReaderTargetInput</code> type was added.</li>
+<li><code>NutanixPrismCentralConnection</code> type was added.</li>
+<li><code>AccountType</code> type was added.</li>
+<li><code>RecoverCloudClusterInput</code> type was added.</li>
+<li><code>NutanixPrismCentralEdge</code> type was added.</li>
+<li><code>MapCloudAccountExocomputeAccountReply</code> type was added.</li>
+<li><code>NutanixPrismCentralConfigInput</code> type was added.</li>
+<li><code>RbacObject</code> type was added.</li>
+<li><code>LookupAccountReply</code> type was added.</li>
+<li><code>UpdateTapeTargetInput</code> type was added.</li>
+<li><code>ScvmmInfo</code> type was added.</li>
+<li><code>ClusterIpv6ModeReply</code> type was added.</li>
+<li><code>AccountState</code> type was added.</li>
+<li><code>RbacPermission</code> type was added.</li>
+<li><code>BatchExportSnapshotJobConfigV3Input</code> type was added.</li>
+<li><code>ThreatMonitoringEnablementStatusInput</code> type was added.</li>
+<li><code>CreateTapeTargetInput</code> type was added.</li>
+<li><code>AwsInstanceType</code> type was added.</li>
+<li><code>UnmapCloudAccountExocomputeAccountInput</code> type was added.</li>
+<li><code>PrismElementCdmTuple</code> type was added.</li>
+<li><code>SlaAssociatedOrganization</code> type was added.</li>
+<li>Enum value <code>ATLASSIAN_ROOT</code> was added to enum <code>InventorySubHierarchyRootEnum</code>.</li>
+<li>Enum value <code>THREAT_MONITORING</code> was added to enum <code>ActivityTypeEnum</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>Target</code> type.</li>
+<li>Field <code>cloudAccountId</code> was added to <code>AzureComputeSettings</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedGlacierTarget</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedAwsTarget</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_PROMOTION_SUCCEEDED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Field <code>allCloudAccountExocomputeMappings</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>QSTAR_LOCATION_PUT</code> was added to enum <code>PendingActionSubGroupTypeEnum</code>.</li>
+<li>Enum value <code>DB_M6I_32XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedRcsTarget</code> type.</li>
+<li>Field <code>allAccountsWithExocomputeMappings</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>THREAT_MONITORING</code> was added to enum <code>EventType</code>.</li>
+<li>Field <code>createNutanixPrismCentral</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedAzureTarget</code> type.</li>
+<li>Field <code>unmapCloudAccountExocomputeAccount</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>downloadVsphereVirtualMachineFiles</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>DOWNLOAD_VIRTUAL_MACHINE_FILE</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_PROMOTION_STARTED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Enum value <code>JIRA_FIXED_OBJECT</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Field <code>mappedCloudAccountIds</code> was added to <code>AzureSubscriptionWithExoConfigs</code> type.</li>
+<li>Field <code>userName</code> was added to <code>NutanixPrismCentral</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedTapeTargetType</code> type.</li>
+<li>Enum value <code>DB_M6I_XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Field <code>supportedInstanceTypes</code> was added to <code>AwsCdmVersion</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedS3CompatibleTarget</code> type.</li>
+<li>Enum value <code>JIRA_FIXED_OBJECT</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Enum value <code>DB_R6I_2XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>JIRA_PROJECT</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Field <code>scvmmInfo</code> was added to <code>HyperVSCVMM</code> type.</li>
+<li>Enum value <code>CANCELED</code> was added to enum <code>AuditStatus</code>.</li>
+<li>Field <code>hostOrRacName</code> was added to <code>OracleDbSnapshotSummary</code> type.</li>
+<li>Input field <code>instanceType</code> was added to <code>AwsVmConfig</code> type.</li>
+<li>Field <code>userCounts</code> was added to <code>PolicyObj</code> type.</li>
+<li>Enum value <code>DB_M6I_8XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>ATLASSIAN_SITE</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Field <code>hostOrRacManagedId</code> was added to <code>OracleDbSnapshotSummary</code> type.</li>
+<li>Field <code>ownerOrg</code> was added to <code>ClusterSlaDomain</code> type.</li>
+<li>Field <code>mediumRiskObjects</code> was added to <code>GetPoliciesTimelineReply</code> type.</li>
+<li>Field <code>recoverCloudCluster</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>updateAwsExocomputeConfigs</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedGlacierTarget</code> type.</li>
+<li>Argument <code>workloadFid</code> was added to <code>Query.decryptExportUrl</code> field.</li>
+<li>Input field <code>cloudAccountId</code> was added to <code>AzureCloudComputeSettingsInput</code> type.</li>
+<li>Enum value <code>DB_R6I_4XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>NUTANIX_PRISM_CENTRAL</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>DB_R6I_32XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>SAASAPPS_NATURAL_ID</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>WorkloadLevelHierarchy</code>.</li>
+<li>Field <code>mapCloudAccountExocomputeAccount</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>downloadId</code> was added to <code>AsyncDownloadReply</code> type.</li>
+<li>Field <code>size</code> was added to <code>HypervVirtualDiskInfo</code> type.</li>
+<li>Field <code>createTapeTarget</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>DB_R6I_24XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>NUTANIX_CATEGORY</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>DB_M6I_LARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>NUTANIX_PRISM_CENTRAL</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Field <code>createTapeReaderTarget</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>TYPE_SAAS_PROTECTION</code> was added to enum <code>SaasFeature</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Argument <code>orgSearchFilter</code> was added to <code>Query.orgsForPrincipal</code> field.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedNfsTarget</code> type.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedS3CompatibleTarget</code> type.</li>
+<li>Enum value <code>JIRA_PROJECT</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Enum value <code>QSTAR_LOCATION_READER_POST</code> was added to enum <code>PendingActionSubGroupTypeEnum</code>.</li>
+<li>Enum value <code>VIEW_ARCHIVAL_LOCATION</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>ManagedObjectType</code>.</li>
+<li>Enum value <code>DB_R6I_16XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>SAP_HANA_STATIC_RETENTION</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedAwsTarget</code> type.</li>
+<li>Enum value <code>OBJECT_TYPE_NUTANIX_PRISM_CENTRAL</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>allEffectiveRbacPermissions</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>DB_R6I_XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>ARCHIVAL_AWS_PRIVATE_ENDPOINT</code> was added to enum <code>CdmFeatureFlagType</code>.</li>
+<li>Enum value <code>DB_R6I_8XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>JIRA_PROJECT</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Field <code>isEligibleForPersistentBackups</code> was added to <code>AzureSqlDatabaseDb</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedAzureTarget</code> type.</li>
+<li>Field <code>reportWorkload</code> was added to <code>DuplicatedVm</code> type.</li>
+<li>Enum value <code>DB_M6I_2XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>RubrikManagedGcpTarget</code> type.</li>
+<li>Field <code>refreshNutanixPrismCentral</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>mappedExocomputeConfigs</code> was added to <code>AzureSubscriptionWithExoConfigs</code> type.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>ObjectTypeEnum</code>.</li>
+<li>Field <code>lookupAccount</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>NAS_SYSTEM_FOR_NAS_MIGRATION</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Field <code>clusterIpv6Mode</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>DB_M6I_16XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>JIRA_FIXED_OBJECT</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Field <code>updateTapeTarget</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>DB_R6I_12XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Field <code>effectiveRbacPermissions</code> was added to <code>Role</code> type.</li>
+<li>Enum value <code>ACTIVE_DIRECTORY_DOMAIN</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedNfsTarget</code> type.</li>
+<li>Enum value <code>Canceled</code> was added to enum <code>UserAuditStatusEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>AuditObjectType</code>.</li>
+<li>Field <code>s3BucketStateForRecovery</code> was added to <code>Query</code> type.</li>
+<li>Field <code>globalLockoutConfig</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>ACTIVE_DIRECTORY_DOMAIN_CONTROLLER</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmTarget</code> type.</li>
+<li>Field <code>nutanixPrismCentrals</code> was added to <code>Query</code> type.</li>
+<li>Field <code>hostName</code> was added to <code>NutanixPrismCentral</code> type.</li>
+<li>Enum value <code>EXTERNAL_CDM_LOCATION_ID</code> was added to enum <code>TargetQueryFilterField</code>.</li>
+<li>Enum value <code>DB_R6I_LARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>ACTIVE_DIRECTORY_DOMAIN</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Enum value <code>NOT_SUPPORTED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Input field <code>risk</code> was added to <code>CreateCustomAnalyzerInput</code> type.</li>
+<li>Field <code>ownerOrg</code> was added to <code>GlobalSlaReply</code> type.</li>
+<li>Enum value <code>CDM_CLUSTER_NAME</code> was added to enum <code>HierarchySortByField</code>.</li>
+<li>Field <code>risk</code> was added to <code>Analyzer</code> type.</li>
+<li>Enum value <code>DB_M6I_4XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>ATLASSIAN_SITE</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>NUTANIX_CATEGORY_VALUE</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Enum value <code>AZURE_AD_DIRECTORY</code> was added to enum <code>HierarchyObjectTypeEnum</code>.</li>
+<li>Field <code>vsphereVmBatchExportV3</code> was added to <code>Mutation</code> type.</li>
+<li>Enum value <code>DB_M6I_24XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Enum value <code>OWNER_ORG_ID</code> was added to enum <code>GlobalSlaQueryFilterInputField</code>.</li>
+<li>Field <code>mappedCloudAccountIds</code> was added to <code>AwsExocomputeConfig</code> type.</li>
+<li>Enum value <code>DB_M6I_12XLARGE</code> was added to enum <code>AwsNativeRdsDbInstanceClass</code>.</li>
+<li>Field <code>enableThreatMonitoring</code> was added to <code>Mutation</code> type.</li>
+<li>Field <code>upgradeStatus</code> was added to <code>CdmManagedGcpTarget</code> type.</li>
+<li>Enum value <code>ISOLATED_RECOVERY_PROMOTION_FAILED</code> was added to enum <code>FailoverStatusEnum</code>.</li>
+<li>Enum value <code>ACTIVE_DIRECTORY_DOMAIN_CONTROLLER</code> was added to enum <code>EventObjectType</code>.</li>
+</ul>
+<h2 id="20230501">2023/05/01</h2>
+<h3 id="breaking-field-and-enums_1">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>disableTprOrg</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>snapshotConnection</code> was removed from <code>MongoCollection</code> type.</li>
@@ -269,7 +555,7 @@
 <li>Field <code>snapshotGroupBySummary</code> was removed from <code>MongoCollection</code> type.</li>
 <li>Field <code>newestReplicatedSnapshot</code> was removed from <code>MongoCollection</code> type.</li>
 </ul>
-<h3 id="breaking-types">Breaking: types</h3>
+<h3 id="breaking-types_1">Breaking: types</h3>
 <ul>
 <li><code>SetUserSessionManagementConfigReply</code> type was removed.</li>
 <li><code>DisableTprOrgInput</code> type was removed.</li>
@@ -278,7 +564,7 @@
 <li><code>MongoCollection</code> object type no longer implements <code>CdmHierarchySnappableNew</code> interface.</li>
 <li><code>MongoCollection</code> object type no longer implements <code>MongoDatabasePhysicalChildType</code> interface.</li>
 </ul>
-<h3 id="additions">Additions</h3>
+<h3 id="additions_1">Additions</h3>
 <ul>
 <li><code>MongoCollectionSet</code> type was added.</li>
 <li><code>RiskReason</code> type was added.</li>
@@ -467,7 +753,7 @@
 <li>Enum value <code>VIEW_SYSLOG</code> was added to enum <code>Operation</code>.</li>
 </ul>
 <h2 id="20230401">2023/04/01</h2>
-<h3 id="breaking-field-and-enums_1">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_2">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>topRiskPrincipals</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>sidsPolicyHitsSummary</code> was removed from <code>Query</code> type.</li>
@@ -483,7 +769,7 @@
 <li>Input field <code>targetMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
 <li><code>MongoSource.sourceNodes</code> field type changed from <code>String!</code> to <code>[CdmMongoNode!]!</code>.</li>
 </ul>
-<h3 id="breaking-types_1">Breaking: types</h3>
+<h3 id="breaking-types_2">Breaking: types</h3>
 <ul>
 <li><code>TopRiskPrincipalsReply</code> type was removed.</li>
 <li><code>O365TeamChildSnapshotIds</code> type was removed.</li>
@@ -493,7 +779,7 @@
 <li><code>SidPolicyHitsSummary</code> type was removed.</li>
 <li>Input field <code>input</code> was added to <code>RecoverMongoSourceInput</code> type.</li>
 </ul>
-<h3 id="deprecations">Deprecations</h3>
+<h3 id="deprecations_1">Deprecations</h3>
 <ul>
 <li>Field <code>id</code> was deprecated in <code>ClusterDisk</code> type.</li>
 </ul>
@@ -524,7 +810,7 @@ Scheduled for removal after 2024/03/13.</p>
 </ul>
 <p>Reason: Deprecated. Use STANDARD instead.
 Scheduled for removal after 2024/02/28.</p>
-<h3 id="additions_1">Additions</h3>
+<h3 id="additions_2">Additions</h3>
 <ul>
 <li><code>MongoSnapshotGroupByTime</code> type was added.</li>
 <li><code>CreateCrossAccountReplicationPairInput</code> type was added.</li>
@@ -744,7 +1030,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li>Field <code>snapshotsForUnmanagedObject</code> was added to <code>Query</code> type.</li>
 </ul>
 <h2 id="20230301">2023/03/01</h2>
-<h3 id="breaking-field-and-enums_2">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_3">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>failoverJobReports</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>clusterGroupByUpgradeInfo</code> was removed from <code>Query</code> type.</li>
@@ -758,7 +1044,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li>Input field <code>clusterUuid</code> was removed from <code>RetryAddMongoSourceInput</code> type.</li>
 <li><code>O365SnapshotItemInfo.snapshotId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="breaking-types_2">Breaking: types</h3>
+<h3 id="breaking-types_3">Breaking: types</h3>
 <ul>
 <li><code>RecoveryInfo</code> type was removed.</li>
 <li><code>CyberRecoveryObjectsSortParams</code> type was removed.</li>
@@ -841,7 +1127,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li><code>CyberRecoveryObject</code> type was removed.</li>
 <li><code>FailoverStep</code> type was removed.</li>
 </ul>
-<h3 id="deprecations_1">Deprecations</h3>
+<h3 id="deprecations_2">Deprecations</h3>
 <ul>
 <li>Field <code>updateAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
 </ul>
@@ -897,7 +1183,7 @@ Scheduled for removal after 2024/02/17.</p>
 </ul>
 <p>Reason: This mutation is deprecated. Please use updateRcvLocationsFromTemplate.
 Scheduled for removal after 2024/02/17.</p>
-<h3 id="additions_2">Additions</h3>
+<h3 id="additions_3">Additions</h3>
 <ul>
 <li><code>UserAuditEdge</code> type was added.</li>
 <li><code>ComplianceStatus</code> type was added.</li>
@@ -1152,7 +1438,7 @@ Scheduled for removal after 2024/02/17.</p>
 <li>Field <code>nativeName</code> was added to <code>AwsNativeEc2Instance</code> type.</li>
 </ul>
 <h2 id="20230201">2023/02/01</h2>
-<h3 id="breaking-field-and-enums_3">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_4">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>createConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>updateConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
@@ -1162,20 +1448,20 @@ Scheduled for removal after 2024/02/17.</p>
 <li><code>O365SnapshotItemInfo.id</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
 <li><code>O365SnapshotItemInfo.parentFolderId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="breaking-types_3">Breaking: types</h3>
+<h3 id="breaking-types_4">Breaking: types</h3>
 <ul>
 <li><code>CreateConfigProtectionSetupInput</code> type was removed.</li>
 <li><code>UpdateConfigProtectionSetupInput</code> type was removed.</li>
 <li><code>ConfigProtectionCaCert</code> type was removed.</li>
 <li>Input field <code>shouldRunAsynchronously</code> was added to <code>BulkRefreshHostsInput</code> type.</li>
 </ul>
-<h3 id="deprecations_2">Deprecations</h3>
+<h3 id="deprecations_3">Deprecations</h3>
 <ul>
 <li>Field <code>snapshotFilesDelta</code> was deprecated in <code>Query</code> type.</li>
 </ul>
 <p>Reason: This endpoint only works for Data Center workloads. Use snapshotFilesDeltaV2 instead.
 Scheduled for removal after 2024/01/31.</p>
-<h3 id="additions_3">Additions</h3>
+<h3 id="additions_4">Additions</h3>
 <ul>
 <li><code>AwsNativeRdsType</code> type was added.</li>
 <li><code>AppSearchResponseListResponse</code> type was added.</li>
@@ -1373,7 +1659,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-05-18</small>
+            <small>Revised on: 2023-06-06</small>
             </p>
           
 
