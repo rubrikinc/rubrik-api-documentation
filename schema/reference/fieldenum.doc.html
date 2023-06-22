@@ -227,6 +227,11 @@
                 AnomalyTableColumnEnum
             </a>
         </li>
+        <li  title="AnomalyType">
+            <a href="anomalytype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AnomalyType
+            </a>
+        </li>
         <li  title="AppAuthStatus">
             <a href="appauthstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AppAuthStatus
@@ -1000,6 +1005,11 @@
         <li  title="DayOfYear">
             <a href="dayofyear.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfYear
+            </a>
+        </li>
+        <li  title="Db2DatabaseStatus">
+            <a href="db2databasestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseStatus
             </a>
         </li>
         <li  title="Db2DatabaseType">
@@ -2110,6 +2120,11 @@
         <li  title="PendingActionSyncType">
             <a href="pendingactionsynctype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PendingActionSyncType
+            </a>
+        </li>
+        <li  title="PermissionsGroup">
+            <a href="permissionsgroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PermissionsGroup
             </a>
         </li>
         <li  title="PolarisObjectAuthorizedOperationsEnum">
@@ -5535,6 +5550,11 @@
         <li  title="CdmManagedS3CompatibleTarget">
             <a href="cdmmanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CdmManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="CdmManagedTapeTarget">
+            <a href="cdmmanagedtapetarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedTapeTarget
             </a>
         </li>
         <li  title="CdmMongoNode">
@@ -10487,6 +10507,11 @@
                 PasswordComplexityPolicyTemplate
             </a>
         </li>
+        <li  title="PatchDb2DatabaseReply">
+            <a href="patchdb2databasereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseReply
+            </a>
+        </li>
         <li  title="PatchDb2InstanceReply">
             <a href="patchdb2instancereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchDb2InstanceReply
@@ -10775,6 +10800,11 @@
         <li  title="Principal">
             <a href="principal.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Principal
+            </a>
+        </li>
+        <li  title="PrincipalAccessInfo">
+            <a href="principalaccessinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrincipalAccessInfo
             </a>
         </li>
         <li  title="PrincipalConnection">
@@ -15612,6 +15642,11 @@
                 Db2ConfigInput
             </a>
         </li>
+        <li  title="Db2DatabaseConfigInput">
+            <a href="db2databaseconfiginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseConfigInput
+            </a>
+        </li>
         <li  title="Db2DownloadRecoverableRangeRequestInput">
             <a href="db2downloadrecoverablerangerequestinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Db2DownloadRecoverableRangeRequestInput
@@ -16235,6 +16270,11 @@
         <li  title="ExcludeSharepointObjectsFromProtectionInput">
             <a href="excludesharepointobjectsfromprotectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ExcludeSharepointObjectsFromProtectionInput
+            </a>
+        </li>
+        <li  title="ExcludeVmDisksInput">
+            <a href="excludevmdisksinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeVmDisksInput
             </a>
         </li>
         <li  title="ExistingComputeConfig">
@@ -18225,6 +18265,11 @@
         <li  title="PatchAwsIamUserBasedCloudAccountInput">
             <a href="patchawsiamuserbasedcloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchAwsIamUserBasedCloudAccountInput
+            </a>
+        </li>
+        <li  title="PatchDb2DatabaseInput">
+            <a href="patchdb2databaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseInput
             </a>
         </li>
         <li  title="PatchDb2InstanceInput">
@@ -20459,7 +20504,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">FieldEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">ALL</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   When true, returns unexpired snapshots or snapshots that</span></span></li><li><span class="tab"><span class="comment line">#   have unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   When false, returns expired snapshots and snapshots that</span></span></li><li><span class="tab"><span class="comment line">#   do not have any unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="meta">HAS_UNEXPIRED_ARCHIVED_OR_SOURCE_SNAPSHOTS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   When true, returns snapshots that have unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   When false, returns snapshots that do not have any unexpired archived</span></span></li><li><span class="tab"><span class="comment line">#   snapshots.</span></span></li><li><span class="tab"><span class="meta">HAS_UNEXPIRED_ARCHIVED_SNAPSHOTS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_COMPLETE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_CORRUPTED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_DELETED_FROM_SOURCE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_EXPIRED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_HINT_SET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_INDEXED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_INDEX_MERGED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_ON_DEMAND</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_REPLICA</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_SKIPPED_FOR_REPLICATION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Returns snapshots with a sequence number greater than the</span></span></li><li><span class="tab"><span class="comment line">#   specified sequence number.</span></span></li><li><span class="tab"><span class="meta">SEQUENCE_NUMBER_GREATER_THAN</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">TIME_RANGE_WITH_OFFSET</span></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">enum</span> <span class="identifier">FieldEnum</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">ALL</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   When true, returns unexpired snapshots or snapshots that</span></span></li><li><span class="tab"><span class="comment line">#   have unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   When false, returns expired snapshots and snapshots that</span></span></li><li><span class="tab"><span class="comment line">#   do not have any unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="meta">HAS_UNEXPIRED_ARCHIVED_OR_SOURCE_SNAPSHOTS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   When true, returns unGCed snapshots (may/may not have expiry hint time</span></span></li><li><span class="tab"><span class="comment line">#   set) or snapshots that have unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   When false, returns GCed snapshots that do not have any unexpired</span></span></li><li><span class="tab"><span class="comment line">#   archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   Note that this filter is only for source snapshots, so it is</span></span></li><li><span class="tab"><span class="comment line">#   incompatible with IS_REPLICA = true. No snapshots would be returned in</span></span></li><li><span class="tab"><span class="comment line">#   that case.</span></span></li><li><span class="tab"><span class="meta">HAS_UNEXPIRED_ARCHIVED_OR_UNGCED_SOURCE_SNAPSHOTS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   When true, returns snapshots that have unexpired archived snapshots.</span></span></li><li><span class="tab"><span class="comment line">#   When false, returns snapshots that do not have any unexpired archived</span></span></li><li><span class="tab"><span class="comment line">#   snapshots.</span></span></li><li><span class="tab"><span class="meta">HAS_UNEXPIRED_ARCHIVED_SNAPSHOTS</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_COMPLETE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_CORRUPTED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_DELETED_FROM_SOURCE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_EXPIRED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_HINT_SET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_INDEXED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_INDEX_MERGED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_ON_DEMAND</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_REPLICA</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">IS_SKIPPED_FOR_REPLICATION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Returns snapshots with a sequence number greater than the</span></span></li><li><span class="tab"><span class="comment line">#   specified sequence number.</span></span></li><li><span class="tab"><span class="meta">SEQUENCE_NUMBER_GREATER_THAN</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="meta">TIME_RANGE_WITH_OFFSET</span></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

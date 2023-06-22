@@ -3281,6 +3281,9 @@ type Query {
     # DB class of the exported RDS DB instance.
     dbClass: AwsNativeRdsDbInstanceClass!,
 
+    # DB class of the exported RDS DB instance. AWS supported instance classes can be found here https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types.
+    databaseInstanceClass: String,
+
     # AZ in which the exported RDS DB instance must be launched.
     primaryAz: String,
 
@@ -4817,7 +4820,10 @@ type Query {
   policyDetails: PolicyDetailConnection!
 
   # Returns details for one policy object.
-  policyObj(snappableFid: String!, snapshotFid: String!): PolicyObj!
+  policyObj(snappableFid: String!, snapshotFid: String!,
+
+    # Specifies whether whitelisted results should be included.
+    includeWhitelistedResults: Boolean): PolicyObj!
 
   # Returns the policies assigned to each object.
   policyObjectUsages(objectIds: [String!]! = []): PolicyObjectUsageConnection!
@@ -4854,7 +4860,7 @@ type Query {
     # List of subscriptions for filtering results.
     subscriptionIdsFilter: [String!],
 
-    # Include whitelisted objects in the results.
+    # Specifies whether whitelisted results should be included.
     includeWhitelistedResults: Boolean,
 
     # Filter for the given list of security identifiers.
@@ -8346,6 +8352,11 @@ type Mutation {
     # The input for the operation to exclude Sharepoint objects from protection.
     input: ExcludeSharepointObjectsFromProtectionInput!): Void
 
+  # Exclude or include virtual disks during snapshot.
+  excludeVmDisks(
+    # Input to include/exclude disk for taking snapshot.
+    input: [ExcludeVmDisksInput!]!): RequestSuccess!
+
   # Expire downloaded snapshots of a Db2 database
   # 
   # Supported in v8.0+
@@ -8772,6 +8783,14 @@ type Mutation {
     # Input to update IAM user-based AWS cloud account.
     input: PatchAwsIamUserBasedCloudAccountInput!): Boolean!
 
+  # Update a Db2 database
+  # 
+  # Supported in v9.0
+  # Updating a Db2 database involves modifying the metadata associated with the Db2 database using the provided input values.
+  patchDb2Database(
+    # Input for V1PatchDb2Database.
+    input: PatchDb2DatabaseInput!): PatchDb2DatabaseReply!
+
   # Mutation to update an existing Db2 instance.
   patchDb2Instance(
     # Input for V1PatchDb2Instance.
@@ -8994,7 +9013,7 @@ type Mutation {
 
   # Remove healthy nodes from a cluster.
   removeClusterNodes(
-    # Input for removing nodes from a cluster.
+    # Input for removing nodes from a Rubrik cluster.
     input: RemoveClusterNodesInput!): CcProvisionJobReply!
 
   # Marks the disk removed and updates cluster metadata
@@ -10678,6 +10697,9 @@ enum ActivityObjectTypeEnum {
   UnknownObjectType
   Upgrade
   User
+
+  # Specifies that the activity object type is a VSphere host.
+  VMWARE_HOST
   Vcd
   VcdVapp
   Vcenter
@@ -11158,6 +11180,9 @@ input AddAzureCloudAccountFeatureInput {
 
   # Feature to be enabled.
   featureType: CloudAccountFeature!
+
+  # Specifies a list of permission groups for onboarding the feature. If the list is empty, all permission groups will be onboarded.
+  permissionsGroups: [PermissionsGroup!]
 }
 # Input for enabling a feature for an Azure cloud account without oauth.
 input AddAzureCloudAccountFeatureInputWithoutOauth {
@@ -11172,6 +11197,9 @@ input AddAzureCloudAccountFeatureInputWithoutOauth {
 
   # Feature to be enabled.
   featureType: CloudAccountFeature!
+
+  # Specifies a list of permission groups for onboarding the feature. If the list is empty, all permission groups will be onboarded.
+  permissionsGroups: [PermissionsGroup!]
 }
 # Input for adding an Azure Cloud Account.
 input AddAzureCloudAccountInput {
@@ -12485,6 +12513,14 @@ enum AnomalyTableColumnEnum {
   WorkloadName
   WorkloadType
 }
+# The type of the anomaly that was detected.
+enum AnomalyType {
+  # Anomalies detected on the filesystem.
+  FILESYSTEM
+
+  # Anomalies detected on the hypervisor.
+  HYPERVISOR
+}
 # Authentication status of apps.
 enum AppAuthStatus {
   # Apps with the complete set of required permissions.
@@ -12960,6 +12996,12 @@ type AttachmentSpecsForVirtualMachine {
 }
 # Represents all the object types for which we expect to see audits.
 enum AuditObjectType {
+  # Active Directory domain.
+  ACTIVE_DIRECTORY_DOMAIN
+
+  # Active Directory domain controller.
+  ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
+
   # App blueprint audit object.
   APP_BLUEPRINT
 
@@ -13142,6 +13184,9 @@ enum AuditObjectType {
 
   # Nutanix cluster audit object.
   NUTANIX_CLUSTER
+
+  # Nutanix prism central audit object.
+  NUTANIX_PRISM_CENTRAL
 
   # Nutanix virtual machine object.
   NUTANIX_VM
@@ -23650,17 +23695,23 @@ enum CcpJobStatus {
 }
 # Type of cluster job.
 enum CcpJobType {
-  # Add a node to cluster.
+  # Add nodes to a Rubrik cluster.
   ADD_NODE
 
-  # Create cluster job.
+  # Create the Rubrik cluster job.
   CLUSTER_CREATE
 
-  # Delete cluster job.
+  # Delete the Rubrik cluster job.
   CLUSTER_DELETE
 
-  # Remove node from cluster.
+  # Recover the Rubrik cluster job.
+  CLUSTER_RECOVER
+
+  # Remove nodes from a Rubrik cluster.
   REMOVE_NODE
+
+  # Replace a node on a Rubrik cluster.
+  REPLACE_NODE
 }
 # Cloud vendor provider.
 enum CcpVendorType {
@@ -24003,6 +24054,9 @@ enum CdmFeatureFlagType {
 
   # ORACLEDB_TAKE_TLOG_BACKUP.
   ORACLEDB_TAKE_TLOG_BACKUP
+
+  # Support for replication setup type update.
+  REPLICATION_TARGET_SETUP_UPDATE
 
   # Support for SAP HANA static retention.
   SAP_HANA_STATIC_RETENTION
@@ -24501,7 +24555,7 @@ type CdmManagedAwsTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -24563,7 +24617,7 @@ type CdmManagedAzureTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -24619,7 +24673,7 @@ type CdmManagedGcpTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -24675,7 +24729,7 @@ type CdmManagedGlacierTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -24731,7 +24785,7 @@ type CdmManagedNfsTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -24787,7 +24841,63 @@ type CdmManagedS3CompatibleTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
+  targetMappingBasic: [TargetMappingBasic!]
+
+  # Connected or Disconnected status of the target.
+  locationConnectionStatus: ConnectionStatusType!
+}
+# Specific information for Tape target created on CDM cluster.
+type CdmManagedTapeTarget implements Target {
+  # ID of the Tape location.
+  id: String!
+
+  # Host name of the Tape location.
+  hostName: String!
+
+  # The cluster to which this target belongs.
+  cluster: Cluster!
+
+  # The type of this target.
+  targetType: TargetType!
+
+  # The name of this target.
+  name: String!
+
+  # The scope of location of this target. Possible values are Global or Local.
+  locationScope: LocationScope!
+
+  # Specifies whether this target is active. When false, the target is either paused or not enabled.
+  isActive: Boolean!
+
+  # Specifies whether this target is archived.
+  isArchived: Boolean!
+
+  # Archival location to which the mapping target belongs.
+  targetMapping: TargetMappingBasic
+
+  # Name of the Rubrik cluster that archives to this archival location.
+  clusterName: String
+
+  # Status of the target.
+  status: ArchivalLocationStatus!
+
+  # Upgrade status of the target.
+  upgradeStatus: UpgradeStatus!
+
+  # Number of bytes stored on the target.
+  consumedBytes: Long
+
+  # Number of archiving tasks running on this target.
+  runningTasks: Int
+
+  # Number of archiving tasks failed on this target.
+  failedTasks: Int
+
+  # The retrieval method of the reader target.
+  readerRetrievalMethod: ReaderRetrievalMethod
+
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -25261,7 +25371,7 @@ type CdmTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -27264,6 +27374,9 @@ input ClusterFilterInput {
 
   # Product type specific filters for the clusters.
   productFilters: [ClusterFilterPerProductInput!]
+
+  # Exclude the Rubrik cluster UUIDs.
+  excludeId: [UUID!]
 }
 # Input to filter clusters by parameters specific to product types.
 input ClusterFilterPerProductInput {
@@ -30822,6 +30935,12 @@ enum DataGovObjectType {
   # Represents Hyper-V root.
   HYPERV_ROOT
 
+  # Represents HyperV SCVMM.
+  HYPERV_SCVMM
+
+  # Represents HyperV Server.
+  HYPERV_SERVER
+
   # Represents Hyper-V Virtual Machine objects.
   HYPERV_VIRTUAL_MACHINE
 
@@ -30869,6 +30988,15 @@ enum DataGovObjectType {
 
   # Represents Share Fileset objects.
   SHARE_FILESET
+
+  # Represents VMware Data Center.
+  VMWARE_DATACENTER
+
+  # Represents VMware Host.
+  VMWARE_HOST
+
+  # Represents VMware Tag Category.
+  VMWARE_TAG_CATEGORY
 
   # Represents Volume Group objects.
   VOLUME_GROUP
@@ -31096,6 +31224,9 @@ enum DataViewTypeEnum {
 
   # Specifies the Protection Task Detail report information.
   TASK_DETAILS
+
+  # Specifies the Threat Monitoring report list information.
+  THREAT_MONITORING_LIST
 }
 # Supported in v5.0+
 type Datastore {
@@ -31275,6 +31406,12 @@ type Db2Database implements CdmHierarchyObject , CdmHierarchySnappableNew , Hier
 
   # Specifies the value of the configuration parameter for sessions in backup operations.
   backupSessions: Int!
+
+  # Status of Db2 database: OK, WARNING, ERROR, UNKNOWN or UNSPECIFIED.
+  status: Db2DatabaseStatus!
+
+  # Additional information about the current status of the Db2 database.
+  statusMessage: [String!]!
 
   # Stats for DB2 database.
   reportWorkload: Snappable
@@ -31518,6 +31655,14 @@ type Db2Database implements CdmHierarchyObject , CdmHierarchySnappableNew , Hier
   # The newest snapshot replicated to a cluster.
   newestReplicatedSnapshot: CdmSnapshot
 }
+# The request object includes parameters such as backupSessions and backupParallelism to update the Db2 database properties on the Rubrik cluster.
+input Db2DatabaseConfigInput {
+  # Specifies the value of the configuration parameter for parallelism in backup operations.
+  backupParallelism: Int
+
+  # Specifies the value of the configuration parameter for sessions in backup operations.
+  backupSessions: Int
+}
 # Paginated list of Db2Database objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type Db2DatabaseConnection {
   # List of Db2Database objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
@@ -31539,6 +31684,23 @@ type Db2DatabaseEdge {
 
   # The actual Db2Database object wrapped by this edge.
   node: Db2Database!
+}
+# Db2 database status.
+enum Db2DatabaseStatus {
+  # Unable to determine the status of the Db2 database.
+  DBSTATUS_UNSPECIFIED
+
+  # Db2 database is in ERROR state.
+  ERROR
+
+  # Db2 database is in OK state.
+  OK
+
+  # Db2 database is in UNKNOWN state.
+  UNKNOWN
+
+  # Db2 database is in WARNING state.
+  WARNING
 }
 # Db2 database type.
 enum Db2DatabaseType {
@@ -32413,6 +32575,9 @@ input DeleteCloudNativeTagRuleInput {
 input DeleteCsrInput {
   # IDs of the CSRs to delete.
   csrIds: [Long!]!
+
+  # FIDs of the CSRs to delete.
+  csrFids: [UUID!]
 }
 # Input for deleting a custom report.
 input DeleteCustomReportInput {
@@ -34024,10 +34189,10 @@ type ErrorInfo {
 # A user's EULA acceptance state.
 type EulaState {
   # Specifies whether a user has accepted the EULA.
-  isAccepted: Boolean!
+  isAccepted: Boolean! @deprecated(reason: "Use pactsafeEulaState instead.")
 
   # Specifies whether PactSafe EULA should be used.
-  isPactsafeEnabled: Boolean!
+  isPactsafeEnabled: Boolean! @deprecated(reason: "Use isPactsafeV2Enabled instead.")
 
   # Specifies whether PactSafe EULA version 2 should be used.
   isPactsafeV2Enabled: Boolean!
@@ -34437,6 +34602,9 @@ enum EventObjectType {
 
   # VMware compute cluster.
   VMWARE_COMPUTE_CLUSTER
+
+  # VMware host.
+  VMWARE_HOST
 
   # VMware virtual machine.
   VMWARE_VM
@@ -35517,6 +35685,14 @@ input ExcludeSharepointObjectsFromProtectionInput {
 
   # Configurations for the exclusions for each SharePoint site collection.
   exclusions: [O365FullSpSiteExclusions!]!
+}
+# Set disks to be included/excluded in snapshot.
+input ExcludeVmDisksInput {
+  # Fid of virtual disk.
+  virtualDiskFid: UUID!
+
+  # Specifies whether the virtual disk is excluded from the snapshot.
+  excludeFromSnapshots: Boolean!
 }
 # Existing compute configuration.
 input ExistingComputeConfig {
@@ -36876,6 +37052,15 @@ enum FieldEnum {
   # do not have any unexpired archived snapshots.
   HAS_UNEXPIRED_ARCHIVED_OR_SOURCE_SNAPSHOTS
 
+  # When true, returns unGCed snapshots (may/may not have expiry hint time
+  # set) or snapshots that have unexpired archived snapshots.
+  # When false, returns GCed snapshots that do not have any unexpired
+  # archived snapshots.
+  # Note that this filter is only for source snapshots, so it is
+  # incompatible with IS_REPLICA = true. No snapshots would be returned in
+  # that case.
+  HAS_UNEXPIRED_ARCHIVED_OR_UNGCED_SOURCE_SNAPSHOTS
+
   # When true, returns snapshots that have unexpired archived snapshots.
   # When false, returns snapshots that do not have any unexpired archived
   # snapshots.
@@ -37036,6 +37221,12 @@ type FileResult {
 
   # File access risk reasons.
   riskReasons: [RiskReason!]!
+
+  # Represents if file has direct ACL.
+  isDirectAcl: Boolean!
+
+  # Represents principal access information for the file.
+  principalAccessInfo: PrincipalAccessInfo
   snappable: HierarchyObject!
 }
 # Paginated list of FileResult objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
@@ -39963,6 +40154,9 @@ input GetContainersInput {
 input GetCsrInput {
   # ID of the CSR to retrieve.
   csrId: Long!
+
+  # FID of the CSR to retrieve.
+  csrFid: UUID
 }
 type GetDashboardSummaryReply {
   analyzerResults: [AnalyzerResult!]!
@@ -41646,7 +41840,13 @@ enum HierarchyFilterField {
   # Filter by ID of parent Mongo Source.
   MONGO_SOURCE_ID
 
-  # Filter by name.
+  # Filter Microsoft SQL Server failover clusters that are protected by an SLA Domain.
+  MSSQL_IS_FAILOVER_CLUSTER_PROTECTED
+
+  # Filter Microsoft SQL Server hosts that are protected by an SLA Domain.
+  MSSQL_IS_HOST_PROTECTED
+
+  # Filter by name. For an exact match, use NAME_EXACT_MATCH.
   NAME
 
   # There is already a filter called NAME which filters for all the rows
@@ -48465,6 +48665,12 @@ enum ManagedObjectType {
   # NAS volume.
   NAS_VOLUME
 
+  # Nutanix Category.
+  NUTANIX_CATEGORY
+
+  # Nutanix Category Value.
+  NUTANIX_CATEGORY_VALUE
+
   # Nutanix cluster.
   NUTANIX_CLUSTER
 
@@ -53806,6 +54012,9 @@ type MssqlAvailabilityGroup implements HierarchyObject , CdmHierarchyObject , Ms
   # Number of hours to retain a log backup. When the value is set to -1, the Rubrik cluster retains the log backup until the database snapshots that precede the log backup have expired. When the value is set to -2, the default log backup retention of the Rubrik cluster is used. When the value is set to -3, the log backup retention is derived from the SLA Domain.
   logBackupRetentionInHours: Int!
 
+  # Interval, in seconds, between the deletion of archived log files whose 'nextTime' field specifies a time longer than this interval. To specify an interval, enter a positive integer. To immediately delete archived log files regardless of age, specify an interval of -1. To preserve all archived log files, specify an interval of -2.
+  hostLogRetention: Long!
+
   # Boolean flag indicating if the availability group derives log backup configurations from SLA.
   hasLogConfigFromSla: Boolean!
 
@@ -54278,6 +54487,9 @@ type MssqlDatabase implements HierarchyObject , CdmHierarchyObject , CdmHierarch
 
   # Number of hours to retain a log backup. When the value is set to -1, the Rubrik cluster retains the log backup until the database snapshots that precede the log backup have expired. When the value is set to -2, the default log backup retention of the Rubrik cluster is used. When the value is set to -3, the log backup retention is derived from the SLA Domain.
   logBackupRetentionInHours: Int!
+
+  # Interval, in seconds, between the deletion of archived log files whose 'nextTime' field specifies a time longer than this interval. To specify an interval, enter a positive integer. To immediately delete archived log files regardless of age, specify an interval of -1. To preserve all archived log files, specify an interval of -2.
+  hostLogRetention: Long!
 
   # Boolean flag indicating if the database derives log backup configurations from SLA.
   hasLogConfigFromSla: Boolean!
@@ -54929,8 +55141,8 @@ type MssqlDbSummary {
   hasLogConfigFromSla: Boolean
 
   # Supported in v9.0
-  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes Mssql log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
-  hostLogRetentionInSeconds: Int
+  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes MSSQL log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
+  hostLogRetention: Int
   snappable: CdmWorkload
 
   # A list of reasons that a SQL Server database cannot be protected by Rubrik.
@@ -55038,6 +55250,9 @@ type MssqlInstance implements HierarchyObject , CdmHierarchyObject , MssqlTopLev
 
   # Number of hours to retain a log backup. When the value is set to -1, the Rubrik cluster retains the log backup until the database snapshots that precede the log backup have expired. When the value is set to -2, the default log backup retention of the Rubrik cluster is used. When the value is set to -3, the log backup retention is derived from the SLA Domain.
   logBackupRetentionInHours: Int!
+
+  # Interval, in seconds, between the deletion of archived log files whose 'nextTime' field specifies a time longer than this interval. To specify an interval, enter a positive integer. To immediately delete archived log files regardless of age, specify an interval of -1. To preserve all archived log files, specify an interval of -2.
+  hostLogRetention: Long!
 
   # Boolean flag indicating if the instance derives log backup configurations from SLA.
   hasLogConfigFromSla: Boolean!
@@ -55969,8 +56184,8 @@ type MssqlSlaRelatedProperties {
   hasLogConfigFromSla: Boolean
 
   # Supported in v9.0
-  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes Mssql log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
-  hostLogRetentionInSeconds: Int
+  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes MSSQL log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
+  hostLogRetention: Int
 }
 # Supported in v5.1+
 input MssqlSlaRelatedPropertiesInput {
@@ -55991,8 +56206,8 @@ input MssqlSlaRelatedPropertiesInput {
   hasLogConfigFromSla: Boolean
 
   # Supported in v9.0
-  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes Mssql log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
-  hostLogRetentionInSeconds: Int
+  # Specifies the interval, in seconds, the Rubrik cluster waits before the next log backup job deletes MSSQL log files whose 'nextTime' field specifies a time longer than this interval. To specify a wait interval, enter a positive integer. To immediately delete log files regardless of age, specify an interval of -1. To preserve all log files, specify an interval of -2.
+  hostLogRetention: Int
 }
 # Mssql top level descendant.
 interface MssqlTopLevelDescendantType {
@@ -63428,6 +63643,9 @@ enum Operation {
 
   # Manage GPS to RSC upgrade.
   MANAGE_GPS_TO_RSC_UPGRADE
+
+  # Manage Guest OS credentials.
+  MANAGE_GUEST_OS_CREDENTIAL
   MANAGE_LEGAL_HOLD
 
   # Manage recoveries within Orchestrated Recovery.
@@ -63460,6 +63678,9 @@ enum Operation {
   MANAGE_TPR_POLICY
   MANAGE_WEBHOOKS
   MODIFY_CLUSTER
+
+  # Modify event cluster settings.
+  MODIFY_EVENT_CLUSTER_SETTING
   MODIFY_INVENTORY
   MODIFY_REPORT
   MODIFY_SLA
@@ -63481,6 +63702,9 @@ enum Operation {
   TRANSFER_ACCOUNT_OWNERSHIP
   UPDATE_ACCOUNT_OWNERSHIP
   UPGRADE_CLUSTER
+
+  # Use the Rubrik cluster as a replication target.
+  USE_AS_REPLICATION_TARGET
   VIEW_ACCESS
 
   # View archival location.
@@ -63503,7 +63727,13 @@ enum Operation {
 
   # View account-wide data security risk metrics, scores, and recommendations.
   VIEW_DATA_SECURITY_DETAILS
+
+  # View event cluster settings.
+  VIEW_EVENT_CLUSTER_SETTING
   VIEW_GCP_CLOUD_ACCOUNT
+
+  # View Guest OS credentials.
+  VIEW_GUEST_OS_CREDENTIAL
   VIEW_INVENTORY
 
   # View Network Throttle Settings.
@@ -66277,6 +66507,22 @@ input PatchAwsIamUserBasedCloudAccountInput {
   # AWS role ARN for native protection.
   awsRoleArn: AwsRoleArnInput
 }
+# Input for patching Db2 database.
+input PatchDb2DatabaseInput {
+  # Required. The request object includes parameters such as backupSessions and backupParallelism to update the Db2 database properties on the Rubrik cluster.
+  db2DatabaseConfig: Db2DatabaseConfigInput!
+
+  # Required. ID of the Db2 database.
+  id: String!
+}
+# The request object includes parameters such as backupSessions and backupParallelism to update the Db2 database properties on the Rubrik cluster.
+type PatchDb2DatabaseReply {
+  # Specifies the value of the configuration parameter for parallelism in backup operations.
+  backupParallelism: Int
+
+  # Specifies the value of the configuration parameter for sessions in backup operations.
+  backupSessions: Int
+}
 # Input for editing a DB2 instance.
 input PatchDb2InstanceInput {
   # Required. The request object containing parameters like username, password, and list of hosts required to update a Db2 instance on the Rubrik cluster.
@@ -66556,6 +66802,44 @@ input PermissionInput {
   operation: Operation!
   objectsForHierarchyTypes: [ObjectIdsForHierarchyTypeInput!]!
 }
+# PermissionsGroup represents the collection of various permission groups that
+# exist across all features. However, not all permission groups are applicable
+# to every feature. PermissionsGroup serves as a superset encompassing all
+# available permission groups. The specific context of permissions within a
+# group depends on the feature to which it is onboarded.
+enum PermissionsGroup {
+  # Represents the set of permissions required for immutable backup V2
+  # operations. These permissions are applicable to the cloud native SQL DB
+  # and SQL MI features.
+  BACKUP_V2
+
+  # Represents the basic set of permissions required to onboard a feature.
+  # These permissions are applicable to all the features.
+  BASIC
+
+  # Represents the set of permissions required for encryption
+  # operation. These permissions are applicable to the cloud native archival
+  # encryption feature.
+  ENCRYPTION
+
+  # Represents the set of permissions required for export and restore
+  # operations. These permissions are applicable to the cloud native
+  # protection feature.
+  EXPORT_AND_RESTORE
+
+  # Represents the set of permissions required for file-level recovery
+  # operation. These permissions are applicable to the cloud native
+  # protection feature.
+  FILE_LEVEL_RECOVERY
+
+  # Unspecified permission group.
+  GROUP_UNSPECIFIED
+
+  # Represents the set of permissions required for all recovery
+  # operations. These permissions are applicable to the cloud native
+  # SQL DB and SQL MI features.
+  RECOVERY
+}
 # Persistent storage configured for storing backups.
 type PersistentStorage {
   # ID of the configured storage setting.
@@ -66601,6 +66885,9 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
 
   # Specifies whether the Changelist option is enabled.
   isChangelistEnabled: Boolean!
+
+  # ID of the Rubrik Backup Service (RBS) installed on the host.
+  agentId: String
 
   # The operating system type of the physical host.
   osType: GuestOsType
@@ -67795,6 +68082,14 @@ type Principal {
   email: String
   description: String
 }
+# PrincipalAccessInfo represents the principal access info.
+type PrincipalAccessInfo {
+  # Represents the user count.
+  userCount: Long!
+
+  # Represents the group count.
+  groupCount: Long!
+}
 # Paginated list of Principal objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type PrincipalConnection {
   # List of Principal objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
@@ -67964,7 +68259,10 @@ enum ProductName {
   # Radar.
   RADAR
 
-  # Radar on CNP.
+  # Ransomware Investigation on NAS.
+  RADAR_NAS
+
+  # Ransomware Investigation on CNP.
   RADAR_UCL
 
   # Rubrik Cloud Vault (RCV).
@@ -67982,7 +68280,10 @@ enum ProductName {
   # Sonar.
   SONAR
 
-  # Sonar on CNP.
+  # Sensitive Data Discovery on NAS.
+  SONAR_NAS
+
+  # Sensitive Data Discovery on CNP.
   SONAR_UCL
 
   # Unknown name.
@@ -69001,6 +69302,9 @@ type RdsInstanceExportDefaults {
 
   # DB class for RDS Instance.
   dbInstanceClass: AwsNativeRdsDbInstanceClass!
+
+  # DB class for RDS Instance. AWS supported instance classes can be found here https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types.
+  databaseInstanceClass: String!
 
   # Virtual Private Cloud (VPC) associated with RDS Instance.
   vpcId: String!
@@ -71022,7 +71326,7 @@ type RubrikManagedAwsTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71123,7 +71427,7 @@ type RubrikManagedAzureTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71200,7 +71504,7 @@ type RubrikManagedGcpTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71274,7 +71578,7 @@ type RubrikManagedGlacierTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71360,7 +71664,7 @@ type RubrikManagedNfsTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71440,7 +71744,7 @@ type RubrikManagedRcsTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71538,7 +71842,7 @@ type RubrikManagedS3CompatibleTarget implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -71615,7 +71919,7 @@ type RubrikManagedTapeTargetType implements Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -75544,6 +75848,13 @@ enum SnapshotQueryFilterField {
   # files are usually stored.
   HAS_CLOUD_NATIVE_INDEX_FILES
 
+  # When true, returns unGCed snapshots (may/may not have expiry hint time
+  # set) or snapshots that have unexpired archived snapshots.
+  # When false, returns GCed snapshots that do not have any unexpired
+  # archived snapshots.
+  # Note that, in either case, it only returns source snapshots.
+  HAS_UNEXPIRED_ARCHIVED_OR_UNGCED_SOURCE_SNAPSHOTS
+
   # When the value is true, returns snapshots with one or more unexpired
   # archived snapshots.
   HAS_UNEXPIRED_ARCHIVED_SNAPSHOTS
@@ -76858,8 +77169,11 @@ input StartExportRdsInstanceJobInput {
   # Region in which the exported RDS DB instance will be launched.
   destinationRegionNativeId: AwsNativeRegion!
 
-  # Instance class of RDS instance.
+  # Deprecated, use databaseClass instead. Instance class of RDS instance.
   dbInstanceClass: AwsNativeRdsDbInstanceClass!
+
+  # Instance class of RDS instance. AWS supported instance classes can be found here https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types.
+  databaseInstanceClass: String = ""
 
   # Availability Zone (AZ) in which the exported RDS DB instance must be launched.
   primaryAz: String = ""
@@ -77931,7 +78245,7 @@ interface Target {
   # The retrieval method of the reader target.
   readerRetrievalMethod: ReaderRetrievalMethod
 
-  # List of archival groups the archival target belongs to. In case target has no valid mappings we return null array.
+  # List of archival groups the archival target belongs to. In case target has no valid mappings, a null array returns.
   targetMappingBasic: [TargetMappingBasic!]
 
   # Connected or Disconnected status of the target.
@@ -81399,6 +81713,9 @@ input UserAuditFilter {
   # Filter by object IDs.
   objectIds: [String!]
 
+  # Filter by object forever IDs.
+  objectFids: [String!]
+
   # Filter audits that have time after the specified value.
   timeGt: DateTime
 
@@ -81429,6 +81746,12 @@ enum UserAuditGroupByEnum {
 }
 # User audit object type.
 enum UserAuditObjectTypeEnum {
+  # Active Directory domain type.
+  ACTIVE_DIRECTORY_DOMAIN
+
+  # Active Directory domain controller type.
+  ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
+
   # AWS native S3 bucket.
   AWS_NATIVE_S3_BUCKET
 
@@ -81524,6 +81847,9 @@ enum UserAuditObjectTypeEnum {
   ManagedVolume
   Mssql
   MssqlDatabase
+
+  # Nutanix Prism Central type.
+  NUTANIX_PRISM_CENTRAL
   NasHost
   NutanixCluster
   NutanixVm
@@ -87582,6 +87908,12 @@ type VsphereTag implements CdmHierarchyObject , HierarchyObject , VsphereVcenter
   vcenterId: String!
   vsphereTagPath: [PathNode!]!
 
+  # The list of moids of child VMs.
+  objectIds: [String!]!
+
+  # The CDM ID of the configured SLA Domain.
+  slaDomainId: String!
+
   # Specifies whether this tag is a multi-tag filter or a vSphere tag.
   isFilter: Boolean!
 
@@ -89981,6 +90313,9 @@ type WorkloadAnomaly {
   # The FID of the snapshot taken before the snapshot that was determined
   # to have anomalous activity.
   previousSnapshotFid: String!
+
+  # Type of the anomaly detected.
+  anomalyType: AnomalyType!
 
   # The object type of the workload.
   objectType: HierarchyObjectTypeEnum!

@@ -227,6 +227,11 @@
                 AnomalyTableColumnEnum
             </a>
         </li>
+        <li  title="AnomalyType">
+            <a href="anomalytype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AnomalyType
+            </a>
+        </li>
         <li  title="AppAuthStatus">
             <a href="appauthstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AppAuthStatus
@@ -1000,6 +1005,11 @@
         <li  title="DayOfYear">
             <a href="dayofyear.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfYear
+            </a>
+        </li>
+        <li  title="Db2DatabaseStatus">
+            <a href="db2databasestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseStatus
             </a>
         </li>
         <li  title="Db2DatabaseType">
@@ -2110,6 +2120,11 @@
         <li  title="PendingActionSyncType">
             <a href="pendingactionsynctype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PendingActionSyncType
+            </a>
+        </li>
+        <li  title="PermissionsGroup">
+            <a href="permissionsgroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PermissionsGroup
             </a>
         </li>
         <li  title="PolarisObjectAuthorizedOperationsEnum">
@@ -5535,6 +5550,11 @@
         <li  title="CdmManagedS3CompatibleTarget">
             <a href="cdmmanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CdmManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="CdmManagedTapeTarget">
+            <a href="cdmmanagedtapetarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedTapeTarget
             </a>
         </li>
         <li  title="CdmMongoNode">
@@ -10487,6 +10507,11 @@
                 PasswordComplexityPolicyTemplate
             </a>
         </li>
+        <li  title="PatchDb2DatabaseReply">
+            <a href="patchdb2databasereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseReply
+            </a>
+        </li>
         <li  title="PatchDb2InstanceReply">
             <a href="patchdb2instancereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchDb2InstanceReply
@@ -10775,6 +10800,11 @@
         <li  title="Principal">
             <a href="principal.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Principal
+            </a>
+        </li>
+        <li  title="PrincipalAccessInfo">
+            <a href="principalaccessinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrincipalAccessInfo
             </a>
         </li>
         <li  title="PrincipalConnection">
@@ -15612,6 +15642,11 @@
                 Db2ConfigInput
             </a>
         </li>
+        <li  title="Db2DatabaseConfigInput">
+            <a href="db2databaseconfiginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseConfigInput
+            </a>
+        </li>
         <li  title="Db2DownloadRecoverableRangeRequestInput">
             <a href="db2downloadrecoverablerangerequestinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Db2DownloadRecoverableRangeRequestInput
@@ -16235,6 +16270,11 @@
         <li  title="ExcludeSharepointObjectsFromProtectionInput">
             <a href="excludesharepointobjectsfromprotectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ExcludeSharepointObjectsFromProtectionInput
+            </a>
+        </li>
+        <li  title="ExcludeVmDisksInput">
+            <a href="excludevmdisksinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeVmDisksInput
             </a>
         </li>
         <li  title="ExistingComputeConfig">
@@ -18225,6 +18265,11 @@
         <li  title="PatchAwsIamUserBasedCloudAccountInput">
             <a href="patchawsiamuserbasedcloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchAwsIamUserBasedCloudAccountInput
+            </a>
+        </li>
+        <li  title="PatchDb2DatabaseInput">
+            <a href="patchdb2databaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseInput
             </a>
         </li>
         <li  title="PatchDb2InstanceInput">
@@ -20466,7 +20511,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">input</span> <span class="identifier">StartExportRdsInstanceJobInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Rubrik ID of the RDS Instance to be exported.</span></span></li><li><span class="tab"><span class="meta">rdsInstanceId</span>: <a class="support type" href="uuid.doc.html">UUID</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the export of the instance is from snapshot or point-in-time.</span></span></li><li><span class="tab"><span class="meta">isPointInTime</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   ID of the snapshot if the export is from snapshot.</span></span></li><li><span class="tab"><span class="meta">snapshotId</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Export timestamp for Point in Time recovery of the instance.</span></span></li><li><span class="tab"><span class="meta">exportTime</span>: <a class="support type" href="datetime.doc.html">DateTime</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">dbInstanceName</span>: <a class="support type" href="string.doc.html">String</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   AWS account in which the exported RDS instance will be launched.</span></span></li><li><span class="tab"><span class="meta">destinationAwsNativeAccountId</span>: <a class="support type" href="string.doc.html">String</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Region in which the exported RDS DB instance will be launched.</span></span></li><li><span class="tab"><span class="meta">destinationRegionNativeId</span>: <a class="support type" href="awsnativeregion.doc.html">AwsNativeRegion</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Instance class of RDS instance.</span></span></li><li><span class="tab"><span class="meta">dbInstanceClass</span>: <a class="support type" href="awsnativerdsdbinstanceclass.doc.html">AwsNativeRdsDbInstanceClass</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Availability Zone (AZ) in which the exported RDS DB instance must be launched.</span></span></li><li><span class="tab"><span class="meta">primaryAz</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Port on which the exported RDS DB instance accepts connections.</span></span></li><li><span class="tab"><span class="meta">port</span>: <a class="support type" href="long.doc.html">Long</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the option group selected by the user for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">optionGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB parameter group selected by the user for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">parameterGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the subnet group for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">subnetGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Storage type of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">storageType</span>: <a class="support type" href="awsnativerdsstoragetype.doc.html">AwsNativeRdsStorageType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   List of security group IDs for the new RDS instance. Default security group is </span></span></li><li><span class="tab"><span class="comment line">#   used if empty list is provided here.</span></span></li><li><span class="tab"><span class="meta">securityGroupIds</span>: [<a class="support type" href="string.doc.html">String</a>!]</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Input Output (I/O) per second of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">iops</span>: <a class="support type" href="int.doc.html">Int</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the new RDS instance is publicly accessible or not.</span></span></li><li><span class="tab"><span class="meta">isPubliclyAccessible</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether tags will be exported to the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">shouldExportTags</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the exported RDS DB instance is multi-AZ or not.</span></span></li><li><span class="tab"><span class="meta">isMultiAz</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   KMS Key ID of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">kmsKeyId</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   List of subnet IDs for the newly created subnet group, which will be associated </span></span></li><li><span class="tab"><span class="comment line">#   with the exported RDS DB instance. Default subnet ids are used if empty list is </span></span></li><li><span class="tab"><span class="comment line">#   provided here.</span></span></li><li><span class="tab"><span class="meta">subnetIds</span>: [<a class="support type" href="string.doc.html">String</a>!]</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Type of snapshot used for export. Required only if export is from a snapshot.</span></span></li><li><span class="tab"><span class="meta">snapshotType</span>: <a class="support type" href="snapshottype.doc.html">SnapshotType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB cluster.</span></span></li><li><span class="tab"><span class="meta">dbClusterName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB cluster parameter group.</span></span></li><li><span class="tab"><span class="meta">dbClusterParameterGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">input</span> <span class="identifier">StartExportRdsInstanceJobInput</span> {</li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Rubrik ID of the RDS Instance to be exported.</span></span></li><li><span class="tab"><span class="meta">rdsInstanceId</span>: <a class="support type" href="uuid.doc.html">UUID</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the export of the instance is from snapshot or point-in-time.</span></span></li><li><span class="tab"><span class="meta">isPointInTime</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   ID of the snapshot if the export is from snapshot.</span></span></li><li><span class="tab"><span class="meta">snapshotId</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Export timestamp for Point in Time recovery of the instance.</span></span></li><li><span class="tab"><span class="meta">exportTime</span>: <a class="support type" href="datetime.doc.html">DateTime</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">dbInstanceName</span>: <a class="support type" href="string.doc.html">String</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   AWS account in which the exported RDS instance will be launched.</span></span></li><li><span class="tab"><span class="meta">destinationAwsNativeAccountId</span>: <a class="support type" href="string.doc.html">String</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Region in which the exported RDS DB instance will be launched.</span></span></li><li><span class="tab"><span class="meta">destinationRegionNativeId</span>: <a class="support type" href="awsnativeregion.doc.html">AwsNativeRegion</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Deprecated, use databaseClass instead. Instance class of RDS instance.</span></span></li><li><span class="tab"><span class="meta">dbInstanceClass</span>: <a class="support type" href="awsnativerdsdbinstanceclass.doc.html">AwsNativeRdsDbInstanceClass</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Instance class of RDS instance. AWS supported instance classes can be found here </span></span></li><li><span class="tab"><span class="comment line">#   https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types.</span></span></li><li><span class="tab"><span class="meta">databaseInstanceClass</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Availability Zone (AZ) in which the exported RDS DB instance must be launched.</span></span></li><li><span class="tab"><span class="meta">primaryAz</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Port on which the exported RDS DB instance accepts connections.</span></span></li><li><span class="tab"><span class="meta">port</span>: <a class="support type" href="long.doc.html">Long</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the option group selected by the user for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">optionGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB parameter group selected by the user for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">parameterGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the subnet group for the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">subnetGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Storage type of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">storageType</span>: <a class="support type" href="awsnativerdsstoragetype.doc.html">AwsNativeRdsStorageType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   List of security group IDs for the new RDS instance. Default security group is </span></span></li><li><span class="tab"><span class="comment line">#   used if empty list is provided here.</span></span></li><li><span class="tab"><span class="meta">securityGroupIds</span>: [<a class="support type" href="string.doc.html">String</a>!]</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Input Output (I/O) per second of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">iops</span>: <a class="support type" href="int.doc.html">Int</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the new RDS instance is publicly accessible or not.</span></span></li><li><span class="tab"><span class="meta">isPubliclyAccessible</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether tags will be exported to the new RDS instance.</span></span></li><li><span class="tab"><span class="meta">shouldExportTags</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Specifies whether the exported RDS DB instance is multi-AZ or not.</span></span></li><li><span class="tab"><span class="meta">isMultiAz</span>: <a class="support type" href="boolean.doc.html">Boolean</a>!</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   KMS Key ID of the exported RDS DB instance.</span></span></li><li><span class="tab"><span class="meta">kmsKeyId</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   List of subnet IDs for the newly created subnet group, which will be associated </span></span></li><li><span class="tab"><span class="comment line">#   with the exported RDS DB instance. Default subnet ids are used if empty list is </span></span></li><li><span class="tab"><span class="comment line">#   provided here.</span></span></li><li><span class="tab"><span class="meta">subnetIds</span>: [<a class="support type" href="string.doc.html">String</a>!]</span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Type of snapshot used for export. Required only if export is from a snapshot.</span></span></li><li><span class="tab"><span class="meta">snapshotType</span>: <a class="support type" href="snapshottype.doc.html">SnapshotType</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB cluster.</span></span></li><li><span class="tab"><span class="meta">dbClusterName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li><span class="tab"><li><span class="tab"><span class="comment line">#   Name of the DB cluster parameter group.</span></span></li><li><span class="tab"><span class="meta">dbClusterParameterGroupName</span>: <a class="support type" href="string.doc.html">String</a></span></li></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

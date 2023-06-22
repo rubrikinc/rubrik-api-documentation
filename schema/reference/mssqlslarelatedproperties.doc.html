@@ -227,6 +227,11 @@
                 AnomalyTableColumnEnum
             </a>
         </li>
+        <li  title="AnomalyType">
+            <a href="anomalytype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AnomalyType
+            </a>
+        </li>
         <li  title="AppAuthStatus">
             <a href="appauthstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AppAuthStatus
@@ -1000,6 +1005,11 @@
         <li  title="DayOfYear">
             <a href="dayofyear.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfYear
+            </a>
+        </li>
+        <li  title="Db2DatabaseStatus">
+            <a href="db2databasestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseStatus
             </a>
         </li>
         <li  title="Db2DatabaseType">
@@ -2110,6 +2120,11 @@
         <li  title="PendingActionSyncType">
             <a href="pendingactionsynctype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PendingActionSyncType
+            </a>
+        </li>
+        <li  title="PermissionsGroup">
+            <a href="permissionsgroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PermissionsGroup
             </a>
         </li>
         <li  title="PolarisObjectAuthorizedOperationsEnum">
@@ -5535,6 +5550,11 @@
         <li  title="CdmManagedS3CompatibleTarget">
             <a href="cdmmanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CdmManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="CdmManagedTapeTarget">
+            <a href="cdmmanagedtapetarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedTapeTarget
             </a>
         </li>
         <li  title="CdmMongoNode">
@@ -10487,6 +10507,11 @@
                 PasswordComplexityPolicyTemplate
             </a>
         </li>
+        <li  title="PatchDb2DatabaseReply">
+            <a href="patchdb2databasereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseReply
+            </a>
+        </li>
         <li  title="PatchDb2InstanceReply">
             <a href="patchdb2instancereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchDb2InstanceReply
@@ -10775,6 +10800,11 @@
         <li  title="Principal">
             <a href="principal.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Principal
+            </a>
+        </li>
+        <li  title="PrincipalAccessInfo">
+            <a href="principalaccessinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrincipalAccessInfo
             </a>
         </li>
         <li  title="PrincipalConnection">
@@ -15612,6 +15642,11 @@
                 Db2ConfigInput
             </a>
         </li>
+        <li  title="Db2DatabaseConfigInput">
+            <a href="db2databaseconfiginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseConfigInput
+            </a>
+        </li>
         <li  title="Db2DownloadRecoverableRangeRequestInput">
             <a href="db2downloadrecoverablerangerequestinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Db2DownloadRecoverableRangeRequestInput
@@ -16235,6 +16270,11 @@
         <li  title="ExcludeSharepointObjectsFromProtectionInput">
             <a href="excludesharepointobjectsfromprotectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ExcludeSharepointObjectsFromProtectionInput
+            </a>
+        </li>
+        <li  title="ExcludeVmDisksInput">
+            <a href="excludevmdisksinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeVmDisksInput
             </a>
         </li>
         <li  title="ExistingComputeConfig">
@@ -18225,6 +18265,11 @@
         <li  title="PatchAwsIamUserBasedCloudAccountInput">
             <a href="patchawsiamuserbasedcloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchAwsIamUserBasedCloudAccountInput
+            </a>
+        </li>
+        <li  title="PatchDb2DatabaseInput">
+            <a href="patchdb2databaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseInput
             </a>
         </li>
         <li  title="PatchDb2InstanceInput">
@@ -20466,7 +20511,7 @@
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">MssqlSlaRelatedProperties</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Boolean value that specifies whether or not to perform copy-only backups of the </span></span></li><li><span class="tab"><span class="comment line">#   database. When true, database backups are copy-only backups. When false, </span></span></li><li><span class="tab"><span class="comment line">#   database backups are full backups.</span></span></li><li><span class="tab"><span class="meta">copyOnly</span>: <a class="support type" href="boolean.doc.html">Boolean</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Seconds between two log backups. A value of 0 disables log backup.</span></span></li><li><span class="tab"><span class="meta">logBackupFrequencyInSeconds</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Number of hours to retain a log backup. When the value is set to -1 the Rubrik </span></span></li><li><span class="tab"><span class="comment line">#   cluster retains the log backup until the database snapshots that precede the log </span></span></li><li><span class="tab"><span class="comment line">#   backup have expired.</span></span></li><li><span class="tab"><span class="meta">logRetentionHours</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v7.0+</span></span></li><li><span class="tab"><span class="comment line">#   A boolean value specifying whether the database obtains the log backup </span></span></li><li><span class="tab"><span class="comment line">#   configurations from the SLA Domain.</span></span></li><li><span class="tab"><span class="meta">hasLogConfigFromSla</span>: <a class="support type" href="boolean.doc.html">Boolean</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v9.0</span></span></li><li><span class="tab"><span class="comment line">#   Specifies the interval, in seconds, the Rubrik cluster waits before the next log </span></span></li><li><span class="tab"><span class="comment line">#   backup job deletes Mssql log files whose 'nextTime' field specifies a time </span></span></li><li><span class="tab"><span class="comment line">#   longer than this interval. To specify a wait interval, enter a positive integer. </span></span></li><li><span class="tab"><span class="comment line">#   To immediately delete log files regardless of age, specify an interval of -1. To </span></span></li><li><span class="tab"><span class="comment line">#   preserve all log files, specify an interval of -2.</span></span></li><li><span class="tab"><span class="meta">hostLogRetentionInSeconds</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:42px"><li><span class="keyword operator ts">type</span> <span class="identifier">MssqlSlaRelatedProperties</span> {</li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Boolean value that specifies whether or not to perform copy-only backups of the </span></span></li><li><span class="tab"><span class="comment line">#   database. When true, database backups are copy-only backups. When false, </span></span></li><li><span class="tab"><span class="comment line">#   database backups are full backups.</span></span></li><li><span class="tab"><span class="meta">copyOnly</span>: <a class="support type" href="boolean.doc.html">Boolean</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Seconds between two log backups. A value of 0 disables log backup.</span></span></li><li><span class="tab"><span class="meta">logBackupFrequencyInSeconds</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v5.1+</span></span></li><li><span class="tab"><span class="comment line">#   Number of hours to retain a log backup. When the value is set to -1 the Rubrik </span></span></li><li><span class="tab"><span class="comment line">#   cluster retains the log backup until the database snapshots that precede the log </span></span></li><li><span class="tab"><span class="comment line">#   backup have expired.</span></span></li><li><span class="tab"><span class="meta">logRetentionHours</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v7.0+</span></span></li><li><span class="tab"><span class="comment line">#   A boolean value specifying whether the database obtains the log backup </span></span></li><li><span class="tab"><span class="comment line">#   configurations from the SLA Domain.</span></span></li><li><span class="tab"><span class="meta">hasLogConfigFromSla</span>: <a class="support type" href="boolean.doc.html">Boolean</a> </span></li><li></li><li><span class="tab"><span class="comment line">#   Supported in v9.0</span></span></li><li><span class="tab"><span class="comment line">#   Specifies the interval, in seconds, the Rubrik cluster waits before the next log </span></span></li><li><span class="tab"><span class="comment line">#   backup job deletes MSSQL log files whose 'nextTime' field specifies a time </span></span></li><li><span class="tab"><span class="comment line">#   longer than this interval. To specify a wait interval, enter a positive integer. </span></span></li><li><span class="tab"><span class="comment line">#   To immediately delete log files regardless of age, specify an interval of -1. To </span></span></li><li><span class="tab"><span class="comment line">#   preserve all log files, specify an interval of -2.</span></span></li><li><span class="tab"><span class="meta">hostLogRetention</span>: <a class="support type" href="int.doc.html">Int</a> </span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>

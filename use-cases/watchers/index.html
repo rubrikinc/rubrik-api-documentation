@@ -217,16 +217,16 @@ failures on a specified Rubrik cluster.</p>
 <h4 id="graphql-query">GraphQL query</h4>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query ActivitySeriesConnection($clusterId: [UUID!]) {
-  activitySeriesConnection(
-    filters: {
-      cluster: {id: $clusterId}
-      lastActivityType: [Backup]
-      lastActivityStatus: [Failure]
-    }
-  ) {
-    count
-  }
-}
+  &quot;query&quot;: &quot;  activitySeriesConnection(
+  &quot;query&quot;: &quot;    filters: {
+  &quot;query&quot;: &quot;      cluster: {id: $clusterId}
+  &quot;query&quot;: &quot;      lastActivityType: [Backup]
+  &quot;query&quot;: &quot;      lastActivityStatus: [Failure]
+  &quot;query&quot;: &quot;    }
+  &quot;query&quot;: &quot;  ) {
+  &quot;query&quot;: &quot;    count
+  &quot;query&quot;: &quot;  }
+  &quot;query&quot;: &quot;}
 &quot;
 }'
 
@@ -300,20 +300,20 @@ machines on the specified Rubrik cluster.</p>
 <h4 id="graphql-query_1">GraphQL query</h4>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query SnappableConnection($clusterId: [UUID!]) {
-  snappableConnection(
-    filter: {
-      cluster: {id: $clusterId}
-      objectType: VmwareVirtualMachine
-      protectionStatus: Protected
-    }
-  ) {
-    count
-    aggregation {
-      totalSnapshots
-      missedSnapshots
-    }
-  }
-}
+  &quot;query&quot;: &quot;  snappableConnection(
+  &quot;query&quot;: &quot;    filter: {
+  &quot;query&quot;: &quot;      cluster: {id: $clusterId}
+  &quot;query&quot;: &quot;      objectType: VmwareVirtualMachine
+  &quot;query&quot;: &quot;      protectionStatus: Protected
+  &quot;query&quot;: &quot;    }
+  &quot;query&quot;: &quot;  ) {
+  &quot;query&quot;: &quot;    count
+  &quot;query&quot;: &quot;    aggregation {
+  &quot;query&quot;: &quot;      totalSnapshots
+  &quot;query&quot;: &quot;      missedSnapshots
+  &quot;query&quot;: &quot;    }
+  &quot;query&quot;: &quot;  }
+  &quot;query&quot;: &quot;}
 &quot;
 }'
 
@@ -387,7 +387,7 @@ fields of <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/r
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-06-06</small>
+            <small>Revised on: 2023-06-22</small>
             </p>
           
 

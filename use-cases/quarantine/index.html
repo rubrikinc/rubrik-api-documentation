@@ -220,12 +220,12 @@ a single request.</p>
 <p>This API is used to quarantine single or multiple snapshots in an account.  </p>
 <pre><code class="language-bash">MUTATION='{
   &quot;mutation&quot;: &quot;mutation BatchQuarantineSnapshotMutation(
-  $input: BatchQuarantineSnapshotInput!
-) {
-  batchQuarantineSnapshot(input: $input) {
-    isBatchQuarantineSuccessful
-  }
-}
+  &quot;mutation&quot;: &quot;  $input: BatchQuarantineSnapshotInput!
+  &quot;mutation&quot;: &quot;) {
+  &quot;mutation&quot;: &quot;  batchQuarantineSnapshot(input: $input) {
+  &quot;mutation&quot;: &quot;    isBatchQuarantineSuccessful
+  &quot;mutation&quot;: &quot;  }
+  &quot;mutation&quot;: &quot;}
 &quot;
 }'  
 
@@ -268,12 +268,12 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 <p>This API is used to release multiple snapshots from quarantine.</p>
 <pre><code class="language-bash">MUTATION='{
   &quot;mutation&quot;: &quot;mutation BatchReleaseFromQuarantineSnapshotMutation(
-  $input: BatchReleaseFromQuarantineSnapshotInput!
-) {
-  batchReleaseFromQuarantineSnapshot(input: $input) {
-    isBatchReleaseFromQuarantineSuccessful
-  }
-}
+  &quot;mutation&quot;: &quot;  $input: BatchReleaseFromQuarantineSnapshotInput!
+  &quot;mutation&quot;: &quot;) {
+  &quot;mutation&quot;: &quot;  batchReleaseFromQuarantineSnapshot(input: $input) {
+  &quot;mutation&quot;: &quot;    isBatchReleaseFromQuarantineSuccessful
+  &quot;mutation&quot;: &quot;  }
+  &quot;mutation&quot;: &quot;}
 &quot;
 }'  
 
@@ -306,13 +306,13 @@ curl -X POST https://$account.rubrik.com/api/graphql \
 <p>This API is used to get quarantine details for a list of snapshots.</p>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query BatchGetQuarantinedDetailsForSnapshots($snapshotIds: [String!]!) {
-  allQuarantinedDetailsForSnapshots(snapshotIds: $snapshotIds) {
-    snapshotId
-    filesDetails {
-      fileName
-    }
-  }
-}
+  &quot;query&quot;: &quot;  allQuarantinedDetailsForSnapshots(snapshotIds: $snapshotIds) {
+  &quot;query&quot;: &quot;    snapshotId
+  &quot;query&quot;: &quot;    filesDetails {
+  &quot;query&quot;: &quot;      fileName
+  &quot;query&quot;: &quot;    }
+  &quot;query&quot;: &quot;  }
+  &quot;query&quot;: &quot;}
 &quot;
 }'
 
@@ -372,13 +372,13 @@ the response.</p>
 <p>This API is used to get all quarantine details for a workload.</p>
 <pre><code class="language-bash">QUERY='{
   &quot;query&quot;: &quot;query BatchGetQuarantinedDetailsForWorkload($workloadId: String!) {
-  allQuarantinedDetailsForWorkload(workloadId: $workloadId) {
-    snapshotId
-    filesDetails {
-      fileName
-    }
-  }
-}
+  &quot;query&quot;: &quot;  allQuarantinedDetailsForWorkload(workloadId: $workloadId) {
+  &quot;query&quot;: &quot;    snapshotId
+  &quot;query&quot;: &quot;    filesDetails {
+  &quot;query&quot;: &quot;      fileName
+  &quot;query&quot;: &quot;    }
+  &quot;query&quot;: &quot;  }
+  &quot;query&quot;: &quot;}
 &quot;
 }'
 
@@ -444,7 +444,7 @@ If no files or snapshots are quarantined, an empty list will be returned.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-06-06</small>
+            <small>Revised on: 2023-06-22</small>
             </p>
           
 

@@ -227,6 +227,11 @@
                 AnomalyTableColumnEnum
             </a>
         </li>
+        <li  title="AnomalyType">
+            <a href="anomalytype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                AnomalyType
+            </a>
+        </li>
         <li  title="AppAuthStatus">
             <a href="appauthstatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 AppAuthStatus
@@ -1000,6 +1005,11 @@
         <li  title="DayOfYear">
             <a href="dayofyear.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 DayOfYear
+            </a>
+        </li>
+        <li  title="Db2DatabaseStatus">
+            <a href="db2databasestatus.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseStatus
             </a>
         </li>
         <li  title="Db2DatabaseType">
@@ -2110,6 +2120,11 @@
         <li  title="PendingActionSyncType">
             <a href="pendingactionsynctype.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PendingActionSyncType
+            </a>
+        </li>
+        <li  title="PermissionsGroup">
+            <a href="permissionsgroup.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PermissionsGroup
             </a>
         </li>
         <li  title="PolarisObjectAuthorizedOperationsEnum">
@@ -5535,6 +5550,11 @@
         <li  title="CdmManagedS3CompatibleTarget">
             <a href="cdmmanageds3compatibletarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 CdmManagedS3CompatibleTarget
+            </a>
+        </li>
+        <li  title="CdmManagedTapeTarget">
+            <a href="cdmmanagedtapetarget.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                CdmManagedTapeTarget
             </a>
         </li>
         <li  title="CdmMongoNode">
@@ -10487,6 +10507,11 @@
                 PasswordComplexityPolicyTemplate
             </a>
         </li>
+        <li  title="PatchDb2DatabaseReply">
+            <a href="patchdb2databasereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseReply
+            </a>
+        </li>
         <li  title="PatchDb2InstanceReply">
             <a href="patchdb2instancereply.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchDb2InstanceReply
@@ -10775,6 +10800,11 @@
         <li  title="Principal">
             <a href="principal.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Principal
+            </a>
+        </li>
+        <li  title="PrincipalAccessInfo">
+            <a href="principalaccessinfo.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PrincipalAccessInfo
             </a>
         </li>
         <li  title="PrincipalConnection">
@@ -15612,6 +15642,11 @@
                 Db2ConfigInput
             </a>
         </li>
+        <li  title="Db2DatabaseConfigInput">
+            <a href="db2databaseconfiginput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                Db2DatabaseConfigInput
+            </a>
+        </li>
         <li  title="Db2DownloadRecoverableRangeRequestInput">
             <a href="db2downloadrecoverablerangerequestinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 Db2DownloadRecoverableRangeRequestInput
@@ -16235,6 +16270,11 @@
         <li  title="ExcludeSharepointObjectsFromProtectionInput">
             <a href="excludesharepointobjectsfromprotectioninput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 ExcludeSharepointObjectsFromProtectionInput
+            </a>
+        </li>
+        <li  title="ExcludeVmDisksInput">
+            <a href="excludevmdisksinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                ExcludeVmDisksInput
             </a>
         </li>
         <li  title="ExistingComputeConfig">
@@ -18225,6 +18265,11 @@
         <li  title="PatchAwsIamUserBasedCloudAccountInput">
             <a href="patchawsiamuserbasedcloudaccountinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
                 PatchAwsIamUserBasedCloudAccountInput
+            </a>
+        </li>
+        <li  title="PatchDb2DatabaseInput">
+            <a href="patchdb2databaseinput.doc.html" class="slds-navigation-list--vertical__action slds-text-link--reset slds-truncate">
+                PatchDb2DatabaseInput
             </a>
         </li>
         <li  title="PatchDb2InstanceInput">
@@ -20468,7 +20513,7 @@ Note: All the object types, except CDM, are granular object types.</p>
             </a>
             GraphQL Schema definition
         </h2>
-        <code class="highlight"><ul class="code" style="padding-left:56px"><li><span class="keyword operator ts">enum</span> <span class="identifier">DataGovObjectType</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents an Azure-native managed disk.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_MANAGED_DISK</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Microsoft Azure native root.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents an Azure-native virtual machine.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure common resource group.</span></span></li><li><span class="tab"><span class="meta">AZURE_RESOURCE_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure subscription.</span></span></li><li><span class="tab"><span class="meta">AZURE_SUBSCRIPTION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents all the object types that belong to CDM. This is the default</span></span></li><li><span class="tab"><span class="comment line">#   value and is added for maintaining backward compatability.</span></span></li><li><span class="tab"><span class="meta">CDM</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Rubrik CDM cluster.</span></span></li><li><span class="tab"><span class="meta">CDM_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents NAS Cloud Direct objects.</span></span></li><li><span class="tab"><span class="meta">CLOUD_DIRECT_NAS_EXPORT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure Cloud tag rule.</span></span></li><li><span class="tab"><span class="meta">CLOUD_NATIVE_TAG_RULE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V cluster.</span></span></li><li><span class="tab"><span class="meta">HYPERV_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V root.</span></span></li><li><span class="tab"><span class="meta">HYPERV_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">HYPERV_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Linux Fileset objects.</span></span></li><li><span class="tab"><span class="meta">LINUX_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Linux host root.</span></span></li><li><span class="tab"><span class="meta">LINUX_HOST_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents RSC NAS Filesets.</span></span></li><li><span class="tab"><span class="meta">NAS_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix cluster.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix root.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 group.</span></span></li><li><span class="tab"><span class="meta">O365_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 OneDrive objects.</span></span></li><li><span class="tab"><span class="meta">O365_ONEDRIVE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 organization.</span></span></li><li><span class="tab"><span class="meta">O365_ORGANIZATION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Microsoft Office 365 root.</span></span></li><li><span class="tab"><span class="meta">O365_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 SharePoint Drive objects.</span></span></li><li><span class="tab"><span class="meta">O365_SHAREPOINT_DRIVE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 SharePoint Site objects.</span></span></li><li><span class="tab"><span class="meta">O365_SHAREPOINT_SITE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Unknown object type.</span></span></li><li><span class="tab"><span class="meta">OBJECT_TYPE_UNSPECIFIED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Physical host.</span></span></li><li><span class="tab"><span class="meta">PHYSICAL_HOST</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Share Fileset objects.</span></span></li><li><span class="tab"><span class="meta">SHARE_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Volume Group objects.</span></span></li><li><span class="tab"><span class="meta">VOLUME_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represent VMWARE compute cluster.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_COMPUTE_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMWARE VSPHERE_FOLDER.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_FOLDER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents vSphere root.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VSPHERE VMWARE_TAG.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_TAG</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMWARE VSPHERE_VCENTER.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_VCENTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents vSphere Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Windows Fileset objects.</span></span></li><li><span class="tab"><span class="meta">WINDOWS_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Windows host root.</span></span></li><li><span class="tab"><span class="meta">WINDOWS_HOST_ROOT</span></span></li><li>}</li></ul></code>
+        <code class="highlight"><ul class="code" style="padding-left:56px"><li><span class="keyword operator ts">enum</span> <span class="identifier">DataGovObjectType</span> {</li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents an Azure-native managed disk.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_MANAGED_DISK</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Microsoft Azure native root.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents an Azure-native virtual machine.</span></span></li><li><span class="tab"><span class="meta">AZURE_NATIVE_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure common resource group.</span></span></li><li><span class="tab"><span class="meta">AZURE_RESOURCE_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure subscription.</span></span></li><li><span class="tab"><span class="meta">AZURE_SUBSCRIPTION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents all the object types that belong to CDM. This is the default</span></span></li><li><span class="tab"><span class="comment line">#   value and is added for maintaining backward compatability.</span></span></li><li><span class="tab"><span class="meta">CDM</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Rubrik CDM cluster.</span></span></li><li><span class="tab"><span class="meta">CDM_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents NAS Cloud Direct objects.</span></span></li><li><span class="tab"><span class="meta">CLOUD_DIRECT_NAS_EXPORT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Azure Cloud tag rule.</span></span></li><li><span class="tab"><span class="meta">CLOUD_NATIVE_TAG_RULE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V cluster.</span></span></li><li><span class="tab"><span class="meta">HYPERV_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V root.</span></span></li><li><span class="tab"><span class="meta">HYPERV_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents HyperV SCVMM.</span></span></li><li><span class="tab"><span class="meta">HYPERV_SCVMM</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents HyperV Server.</span></span></li><li><span class="tab"><span class="meta">HYPERV_SERVER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Hyper-V Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">HYPERV_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Linux Fileset objects.</span></span></li><li><span class="tab"><span class="meta">LINUX_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Linux host root.</span></span></li><li><span class="tab"><span class="meta">LINUX_HOST_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents RSC NAS Filesets.</span></span></li><li><span class="tab"><span class="meta">NAS_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix cluster.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix root.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Nutanix Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">NUTANIX_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 group.</span></span></li><li><span class="tab"><span class="meta">O365_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 OneDrive objects.</span></span></li><li><span class="tab"><span class="meta">O365_ONEDRIVE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 organization.</span></span></li><li><span class="tab"><span class="meta">O365_ORGANIZATION</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Microsoft Office 365 root.</span></span></li><li><span class="tab"><span class="meta">O365_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 SharePoint Drive objects.</span></span></li><li><span class="tab"><span class="meta">O365_SHAREPOINT_DRIVE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents O365 SharePoint Site objects.</span></span></li><li><span class="tab"><span class="meta">O365_SHAREPOINT_SITE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Unknown object type.</span></span></li><li><span class="tab"><span class="meta">OBJECT_TYPE_UNSPECIFIED</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Physical host.</span></span></li><li><span class="tab"><span class="meta">PHYSICAL_HOST</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Share Fileset objects.</span></span></li><li><span class="tab"><span class="meta">SHARE_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMware Data Center.</span></span></li><li><span class="tab"><span class="meta">VMWARE_DATACENTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMware Host.</span></span></li><li><span class="tab"><span class="meta">VMWARE_HOST</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMware Tag Category.</span></span></li><li><span class="tab"><span class="meta">VMWARE_TAG_CATEGORY</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Volume Group objects.</span></span></li><li><span class="tab"><span class="meta">VOLUME_GROUP</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represent VMWARE compute cluster.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_COMPUTE_CLUSTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMWARE VSPHERE_FOLDER.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_FOLDER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents vSphere root.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_ROOT</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VSPHERE VMWARE_TAG.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_TAG</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents VMWARE VSPHERE_VCENTER.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_VCENTER</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents vSphere Virtual Machine objects.</span></span></li><li><span class="tab"><span class="meta">VSPHERE_VIRTUAL_MACHINE</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Windows Fileset objects.</span></span></li><li><span class="tab"><span class="meta">WINDOWS_FILESET</span></span></li><li><span class="tab"></span></li><li><span class="tab"><span class="comment line">#   Represents Windows host root.</span></span></li><li><span class="tab"><span class="meta">WINDOWS_HOST_ROOT</span></span></li><li>}</li></ul></code>
     </div>
 </section>
 <section>
