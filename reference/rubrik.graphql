@@ -880,6 +880,11 @@ type Query {
     # List of site IDs. If none are provided, all the Sharepoint site exclusions are returned.
     siteFids: [String!]!): [FullSpSiteExclusions!]!
 
+  # List of SLA Domain summaries for the given IDs.
+  allSlaSummariesByIds(
+    # A list of SLA Domain IDs.
+    slaIds: [UUID!]!): [SlaDomain!]!
+
   # All PVCs in a snapshot.
   allSnapshotPvcs(
     # The snapshot ID.
@@ -1075,10 +1080,16 @@ type Query {
   # Optional result of the Anomaly Investigation.
   anomalyResultOpt(
     # The Rubrik cluster ID.
-    clusterUuid: UUID!,
+    clusterUuid: UUID,
 
     # Corresponds to snapshot ID in Rubrik CDM tables.
-    snapshotId: String!): GetAnomalyDetailsReply
+    snapshotId: String,
+
+    # The ID of the workload.
+    workloadId: UUID,
+
+    # The ID of the anomaly.
+    anomalyId: String): GetAnomalyDetailsReply
 
   # Results for Anomaly Investigations.
   anomalyResults(
@@ -1133,6 +1144,11 @@ type Query {
   areMultiGeoBackupsEnabled(
     # Org UUID.
     orgId: UUID!): Boolean!
+
+  # Retrieves the AWS artifacts that need to be deleted when an account is being deleted.
+  awsArtifactsToDelete(
+    # Input to retrieve the AWS artifacts to be deleted.
+    input: AwsArtifactsToDeleteInput!): AwsArtifactsToDelete!
 
   # Retrieves a list of security groups in the specified cloud account and virtual private cloud (VPC).
   awsCloudAccountListSecurityGroups(
@@ -2161,6 +2177,14 @@ type Query {
     # Feature for which required permissions have to be checked.
     featurePermissionCheck: CloudNativeFeatureForPermissionsCheck!): Boolean!
 
+  # Retrieves the list of all customer-specified tags and the corresponding value indicating whether resource tags should be overridden by customer-specified tags for a specific cloud type.
+  cloudNativeCustomerTags(
+    # Vendor of the cloud account.
+    cloudVendor: CloudVendor!,
+
+    # The Rubrik ID of the cloud account.
+    cloudAccountId: UUID): CloudNativeCustomerTagsReply!
+
   # Cloud native label rules.
   cloudNativeLabelRules(
     # Type of managed object on which label rule will be applied.
@@ -2393,6 +2417,20 @@ type Query {
 
     # Returns the elements in the list that come before the specified cursor.
     before: String): ReportMigrationStatusConnection!
+
+  # Returns paginated list of SLA domains that were created on Rubrik CDM.
+  clusterSlaDomains(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String): ClusterSlaDomainConnection!
   clusterTypeList: [GroupCount!]!
 
   # Rubrik cluster VLAN information.
@@ -2456,7 +2494,7 @@ type Query {
     # Forever UUID of the object root. The value of  `none` represents the global hierarchy root.
     rootOptionalFid: UUID,
 
-    # A list of global SLA Domain IDs.
+    # A list of SLA Domain IDs.
     slaIds: [UUID!]!,
 
     # The hierarchy object filter.
@@ -2494,7 +2532,10 @@ type Query {
   datagovSecDesc(snappableFid: String!, snapshotFid: String!, stdPath: String!,
 
     # Skip converting SIDs in response to friendly names
-    skipResolveSids: Boolean): QuerySDDLReply!
+    skipResolveSids: Boolean,
+
+    # Filter for resolving security descriptor.
+    filters: SddlRequestFiltersInput): QuerySDDLReply!
 
   # Details of a db2 database for a given fid.
   db2Database(
@@ -3092,6 +3133,26 @@ type Query {
 
     # The hierarchy object filter.
     filter: [Filter!]): HierarchyObjectConnection!
+
+  # Status on the clusters where global SLA is synced.
+  globalSlaStatuses(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filters for SLAStatus.
+    filter: [SlaStatusFilterInput!],
+
+    # SLA ID for global SLAs.
+    SlaId: UUID!): GlobalSlaStatusConnection!
 
   # Retrieve groups from current and descendant organizations based on the specified filters.
   groupsInCurrentAndDescendantOrganization(
@@ -3731,6 +3792,11 @@ type Query {
     # Request for checking minimum cluster version to support given feature set.
     featureListMinimumCdmVersion: FeatureListMinimumCdmVersionInputType!): FeatureListMinimumCdmVersionReply!
 
+  # Provides the bulk recoverable range for MongoDB object recovery, including data and log snapshots.
+  mongoBulkRecoverableRanges(
+    # Arguments for MongoDB recoverable range.
+    input: RecoverableRangeInput!): MongoRecoverableRanges!
+
   # Provides details for a MongoDB collection identified by the fid.
   mongoCollection(
     # The Rubrik UUID for the object.
@@ -3775,7 +3841,7 @@ type Query {
     # The hierarchy object filter.
     filter: [Filter!]): MongoDatabaseConnection!
 
-  # Provides the range for recovery of MongoDB objects.
+  # Provides the point in time range for MongoDB object recovery.
   mongoRecoverableRanges(
     # Arguments for MongoDB recoverable range.
     input: RecoverableRangeInput!): MongoRecoverableRanges!
@@ -4109,6 +4175,11 @@ type Query {
   nodeRemovalCancelPermission(
     # Input for checking if the running node removal job is cancelable.
     input: NodeRemovalCancelPermissionInput!): NodeRemovalCancelPermissionReply!
+
+  # The ID of the Rubrik cluster node to replace.
+  nodeToReplace(
+    # Input for getting the ID of the node to replace on a Rubrik cluster.
+    input: NodeToReplaceInput!): NodeToReplaceReply!
 
   # v5.0-v8.0: Lists all files in VM snapshot
   # v8.1+: Lists all files in virtual machine snapshot
@@ -4986,6 +5057,9 @@ type Query {
     # Filter for the given list of security identifiers.
     sids: [String!],
 
+    # Filter objects with user access enabled.
+    userAccessObjectsFilter: Boolean! = false,
+
     # Returns the first n elements from the list.
     first: Int,
 
@@ -5021,7 +5095,7 @@ type Query {
     # Forever UUID of the object root. The value of  `none` represents the global hierarchy root.
     rootOptionalFid: UUID,
 
-    # A list of global SLA Domain IDs.
+    # A list of SLA Domain IDs.
     slaIds: [UUID!]!,
 
     # The hierarchy object filter.
@@ -6368,6 +6442,23 @@ type Query {
     # The hierarchy object filter.
     filter: [Filter!] = []): Int!
 
+  # List of unmanaged objects.
+  unmanagedObjects(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Query unmanaged objects.
+    input: UnmanagedObjectsInput!): UnmanagedObjectDetailConnection!
+
   # Gets the status for completed/running upgrade process.
   upgradeStatus(
     # Specifies the cluster UUID.
@@ -6812,6 +6903,14 @@ type Query {
     # The hierarchy object filter.
     filter: [Filter!] = []): VsphereVmConnection!
 
+  # Verify for a Rubrik cluster if it is replication target in any SLA Domain.
+  verifySlaWithReplicationToCluster(
+    # UUID of the Rubrik cluster.
+    cdmClusterUUID: UUID!,
+
+    # Include Archived SLA.
+    includeArchived: Boolean!): VerifySlaWithReplicationToClusterResponse!
+
   # Volume Group Live Mount Connection.
   volumeGroupMounts(
     # Returns the first n elements from the list.
@@ -7243,6 +7342,11 @@ type Mutation {
   bulkCreateOnDemandMssqlBackup(
     # Input for V1CreateOnDemandMssqlBatchBackupV1.
     input: BulkCreateOnDemandMssqlBackupInput!): AsyncRequestStatus!
+
+  # Deletes specified AWS cloud accounts without using CloudFormation Template (CFT).
+  bulkDeleteAwsCloudAccountWithoutCft(
+    # Input to delete AWS cloud accounts in bulk.
+    input: BulkDeleteAwsCloudAccountWithoutCftInput!): BulkDeleteAwsCloudAccountWithoutCftReply!
 
   # Bulk Delete cassandra sources.
   bulkDeleteCassandraSources(
@@ -7891,6 +7995,11 @@ type Mutation {
     # Input required to delete a tag rule.
     input: DeleteCloudNativeTagRuleInput!): Void
 
+  # Deletes the Rubrik Security Cloud on-demand snapshot by ID.
+  deleteCloudWorkloadSnapshot(
+    # Input to delete Rubrik Security Cloud snapshot.
+    input: DeleteCloudWorkloadSnapshotInput!): Boolean!
+
   # Delete Certificate Signing Request.
   deleteCsr(
     # Certificate Signing Request IDs.
@@ -8183,6 +8292,11 @@ type Mutation {
   deleteTotpConfigs(
     # Input required for resetting TOTP for users in batch.
     input: DeleteTotpConfigsInput!): Boolean!
+
+  # Deletes the snapshots of an unmanaged object by IDs.
+  deleteUnmanagedSnapshots(
+    # Input to delete unmanaged snapshots.
+    input: DeleteUnmanagedSnapshotsInput!): RequestSuccess!
   deleteUsersFromAccount(
     # List of IDs.
     ids: [String!]!): Boolean!
@@ -8246,6 +8360,11 @@ type Mutation {
   discoverMongoSource(
     # Input for V1DiscoverMongoSource.
     input: DiscoverMongoSourceInput!): AsyncRequestStatus!
+
+  # Download audit log in CSV format asynchronously.
+  downloadAuditLogCsvAsync(
+    # Configuration parameters for the audit log.
+    input: DownloadAuditLogCsvAsyncInput!): AsyncDownloadReply!
 
   # Download Db2 database snapshot from archive
   # 
@@ -8987,6 +9106,11 @@ type Mutation {
   patchSapHanaSystem(
     # Input for V1PatchSapHanaSystem.
     input: PatchSapHanaSystemInput!): PatchSapHanaSystemReply!
+
+  # Pause or resume SLA Domain on the given Rubrik clusters.
+  pauseSla(
+    # Request to pause or resume SLA Domain.
+    input: PauseSlaInput!): PauseSlaReply!
   pauseTarget(
     # Request for pausing an Archival Location.
     input: PauseTargetInput!): PauseTargetReply!
@@ -9395,6 +9519,11 @@ type Mutation {
   setAzureCloudAccountCustomerAppCredentials(
     # Input for setting the app credentials in the Azure Cloud Accounts.
     input: SetAzureCloudAccountCustomerAppCredentialsInput!): Boolean!
+
+  # Sets customer-specified tags and the value whether the resource tags should be overridden by customer-specified tags for a given cloud type.
+  setCustomerTags(
+    # Input to set customer-specified tags for a particular cloud type.
+    input: SetCustomerTagsInput!): Void
 
   # Set datastore freespace thresholds.
   setDatastoreFreespaceThresholds(
@@ -10714,19 +10843,43 @@ enum ActionType {
   # Upgrade start.
   START
 }
+# An activity that occurred on RSC or a Rubrik cluster.
 type Activity {
+  # The time at which this activity occurred.
   time: DateTime!
+
+  # The type of this activity.
   type: ActivityTypeEnum!
+
+  # The status of this activity.
   status: ActivityStatusEnum!
+
+  # The severity of this activity.
   severity: ActivitySeverityEnum!
+
+  # The message attached to this activity.
   message: String!
+
+  # The ID of the object associated with this activity.
   objectId: String!
+
+  # The type of the object associated with this activity.
   objectType: ActivityObjectTypeEnum!
-  clusterId: UUID!
+
+  # The current progress of this activity.
   progress: String
+
+  # Additional information pertaining to this activity.
   activityInfo: String
+
+  # The ID of the activity.
   id: ID!
+
+  # The activity series to which this activity belongs.
   activitySeries: ActivitySeries!
+
+  # The ID of the Rubrik cluster where this activity occurred.
+  clusterId: UUID!
 }
 enum ActivityAccessType {
   CREATE_ACTIVITY
@@ -10761,6 +10914,7 @@ type ActivityEdge {
   # The actual Activity object wrapped by this edge.
   node: Activity!
 }
+# The list of object types for activities.
 enum ActivityObjectTypeEnum {
   # Specifies that the activity object type is related to Activity Directory domain.
   ACTIVE_DIRECTORY_DOMAIN
@@ -10779,21 +10933,53 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Azure Storage Account.
   AZURE_STORAGE_ACCOUNT
+
+  # Specifies that the activity object type is App Blueprint.
   AppBlueprint
+
+  # Specifies that the activity object type is Orchestrated Application Recovery.
   AppFlows
+
+  # Specifies that the activity object type is Auth Domain.
   AuthDomain
+
+  # Specifies that the activity object type is AWS Account.
   AwsAccount
+
+  # Specifies that the activity object type is AWS Event Type.
   AwsEventType
+
+  # Specifies that the activity object type is AWS Native Account.
   AwsNativeAccount
+
+  # Specifies that the activity object type is AWS Native EBS Volume.
   AwsNativeEbsVolume
+
+  # Specifies that the activity object type is AWS Native EC2 Instance.
   AwsNativeEc2Instance
+
+  # Specifies that the activity object type is AWS Native RDS Instance.
   AwsNativeRdsInstance
+
+  # Specifies that the activity object type is Azure Native Disk.
   AzureNativeDisk
+
+  # Specifies that the activity object type is Azure Native Subscription.
   AzureNativeSubscription
+
+  # Specifies that the activity object type is Azure Native Virtual Machine.
   AzureNativeVm
+
+  # Specifies that the activity object type is Azure SQL Database.
   AzureSqlDatabase
+
+  # Specifies that the activity object type is Azure SQL Database Server.
   AzureSqlDatabaseServer
+
+  # Specifies that the activity object type is Azure SQL Managed Instance.
   AzureSqlManagedInstance
+
+  # Specifies that the activity object type is Azure SQL Managed Instance Database.
   AzureSqlManagedInstanceDatabase
 
   # Specifies that the activity object type is Cassandra column family.
@@ -10810,30 +10996,74 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Cloud Direct NAS export.
   CLOUD_DIRECT_NAS_EXPORT
+
+  # Specifies that the activity object type is Capacity Bundle.
   CapacityBundle
+
+  # Specifies that the activity object type is Certificate.
   Certificate
+
+  # Specifies that the activity object type is Cloud Native Virtual Machine.
   CloudNativeVirtualMachine
+
+  # Specifies that the activity object type is Cloud Native Virtual Machine.
   CloudNativeVm
+
+  # Specifies that the activity object type is Rubrik Cluster.
   Cluster
+
+  # Specifies that the activity object type is Compute Instance.
   ComputeInstance
+
+  # Specifies that the activity object type is Data Location.
   DataLocation
+
+  # Specifies that the activity object type is Db2 Database.
   Db2Database
+
+  # Specifies that the activity object type is Db2 Instance.
   Db2Instance
 
   # Specifies that the activity object type is related to Encryption Management.
   ENCRYPTION_MANAGEMENT
+
+  # Specifies that the activity object type is EC2 Instance.
   Ec2Instance
+
+  # Specifies that the activity object type is Envoy.
   Envoy
+
+  # Specifies that the activity object type is Exchange Database.
   ExchangeDatabase
+
+  # Specifies that the activity object type is Exocompute.
   Exocompute
+
+  # Specifies that the activity object type is Failover Cluster App.
   FailoverClusterApp
+
+  # Specifies that the activity object type is GCP Native Disk.
   GcpNativeDisk
+
+  # Specifies that the activity object type is GCP Native GCE Instance.
   GcpNativeGceInstance
+
+  # Specifies that the activity object type is GCP Native Project.
   GcpNativeProject
+
+  # Specifies that the activity object type is HDFS.
   Hdfs
+
+  # Specifies that the activity object type is Host.
   Host
+
+  # Specifies that the activity object type is HyperV SCVMM.
   HypervScvmm
+
+  # Specifies that the activity object type is HyperV Server.
   HypervServer
+
+  # Specifies that the activity object type is Hyperv Virtual Machine.
   HypervVm
 
   # Specifies that the activity object type is Jira project.
@@ -10841,6 +11071,8 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Jira settings.
   JIRA_SETTINGS
+
+  # Specifies that the activity object type is Job Instance.
   JobInstance
 
   # Specifies that the activity object type is Kubernetes Cluster.
@@ -10848,10 +11080,20 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Kubernetes Resource Set.
   K8S_RESOURCE_SET
+
+  # Specifies that the activity object type is Kubernetes Cluster.
   KuprCluster
+
+  # Specifies that the activity object type is Kubernetes Namespace.
   KuprNamespace
+
+  # Specifies that the activity object type is LDAP.
   Ldap
+
+  # Specifies that the activity object type is Linux Fileset.
   LinuxFileset
+
+  # Specifies that the activity object type is Linux Host.
   LinuxHost
 
   # Specifies that the activity object type is MongoDB collection.
@@ -10871,60 +11113,158 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is MongoDB source.
   MONGO_SOURCE
+
+  # Specifies that the activity object type is Managed Volume.
   ManagedVolume
+
+  # Specifies that the activity object type is MSSQL.
   Mssql
+
+  # Specifies that the activity object type is NAS Fileset.
   NAS_FILESET
 
   # Specifies that the activity object type is Nutanix Prism Central.
   NUTANIX_PRISM_CENTRAL
+
+  # Specifies that the activity object type is NAS Host.
   NasHost
+
+  # Specifies that the activity object type is NAS System.
   NasSystem
+
+  # Specifies that the activity object type is Nutanix Cluster.
   NutanixCluster
+
+  # Specifies that the activity object type is Nutanix Virtual Machine.
   NutanixVm
+
+  # Specifies that the activity object type is O365 Calendar.
   O365Calendar
+
+  # Specifies that the activity object type is O365 Group.
   O365Group
+
+  # Specifies that the activity object type is O365 Mailbox.
   O365Mailbox
+
+  # Specifies that the activity object type is O365 OneDrive.
   O365Onedrive
+
+  # Specifies that the activity object type is O365 Organization.
   O365Organization
+
+  # Specifies that the activity object type is O365 SharePoint Drive.
   O365SharePointDrive
+
+  # Specifies that the activity object type is O365 SharePoint List.
   O365SharePointList
+
+  # Specifies that the activity object type is O365 Site.
   O365Site
+
+  # Specifies that the activity object type is O365 Team.
   O365Team
+
+  # Specifies that the activity object type is Object Protection.
   ObjectProtection
+
+  # Specifies that the activity object type is Oracle.
   Oracle
+
+  # Specifies that the activity object type is Oracle Database.
   OracleDb
+
+  # Specifies that the activity object type is Oracle Host.
   OracleHost
+
+  # Specifies that the activity object type is Oracle RAC.
   OracleRac
+
+  # Specifies that the activity object type is RSC Account.
   PolarisAccount
+
+  # Specifies that the activity object type is Public Cloud Machine Instance.
   PublicCloudMachineInstance
+
+  # Specifies that the activity object type is Rubrik EBS Volume.
   RubrikEbsVolume
+
+  # Specifies that the activity object type is Rubrik EC2 Instance.
   RubrikEc2Instance
+
+  # Specifies that the activity object type is Saml SSO.
   SamlSso
+
+  # Specifies that the activity object type is Sap Hana Database.
   SapHanaDb
+
+  # Specifies that the activity object type is Sap Hana System.
   SapHanaSystem
+
+  # Specifies that the activity object type is Share Fileset.
   ShareFileset
+
+  # Specifies that the activity object type is SLA Domain.
   SlaDomain
+
+  # Specifies that the activity object type is SMB Domain.
   SmbDomain
+
+  # Specifies that the activity object type is Snap Mirror Cloud.
   SnapMirrorCloud
+
+  # Specifies that the activity object type is Storage Array.
   StorageArray
+
+  # Specifies that the activity object type is Storage Array Volume Group.
   StorageArrayVolumeGroup
+
+  # Specifies that the activity object type is Storage Location.
   StorageLocation
+
+  # Specifies that the activity object type is Storm.
   Storm
+
+  # Specifies that the activity object type is Support Bundle.
   SupportBundle
+
+  # Specifies that the activity object type is Unknown Object Type.
   UnknownObjectType
+
+  # Specifies that the activity object type is Upgrade.
   Upgrade
+
+  # Specifies that the activity object type is User.
   User
 
   # Specifies that the activity object type is a VSphere host.
   VMWARE_HOST
+
+  # Specifies that the activity object type is VCD.
   Vcd
+
+  # Specifies that the activity object type is VCD VApp.
   VcdVapp
+
+  # Specifies that the activity object type is vCenter.
   Vcenter
+
+  # Specifies that the activity object type is VMware Compute Cluster.
   VmwareComputeCluster
+
+  # Specifies that the activity object type is VMware Virtual Machine.
   VmwareVm
+
+  # Specifies that the activity object type is Volume Group.
   VolumeGroup
+
+  # Specifies that the activity object type is Webhook.
   WEBHOOK
+
+  # Specifies that the activity object type is Windows Fileset.
   WindowsFileset
+
+  # Specifies that the activity object type is Windows Host.
   WindowsHost
 }
 type ActivityResult {
@@ -10932,23 +11272,54 @@ type ActivityResult {
   count: Long!
   countDelta: Long!
 }
+# A series of activities on either the RSC or a Rubrik cluster.
 type ActivitySeries {
+  # The ID of the activity series.
   id: Long!
+
+  # The time that the activity series started.
   startTime: DateTime
+
+  # The most recent time that the activity series was updated.
   lastUpdated: DateTime!
+
+  # The type of the most recent activity in the activity series.
   lastActivityType: ActivityTypeEnum!
+
+  # The status of the most recent activity in the activity series.
   lastActivityStatus: ActivityStatusEnum!
+
+  # The severity of the most recent activity in the activity series.
   severity: ActivitySeverityEnum!
+
+  # The ID of the object associated with the activity series.
   objectId: String!
+
+  # The name of the object associated with the activity series.
   objectName: String
+
+  # The type of the object associated with the activity series.
   objectType: ActivityObjectTypeEnum!
-  activitySeriesId: UUID!
+
+  # The UUID of the cluster which the activity series belongs to.
   clusterUuid: UUID!
+
+  # The name of the cluster which the activity series belongs to.
   clusterName: String!
+
+  # The time at which the most recent activity was added to the activity series.
   lastEventAddedAt: DateTime
+
+  # The most recent time that the activity series was verified.
   lastVerifiedAt: DateTime
+
+  # Whether the activity series can be canceled or not.
   isCancelable: Boolean
+
+  # The location of this activity series.
   location: String!
+
+  # Whether the event series is native to RSC or not.
   isPolarisEventSeries: Boolean!
 
   # The organization ID of this event series.
@@ -10965,14 +11336,38 @@ type ActivitySeries {
 
   # Logical size (if applicable), in bytes.
   logicalSize: Long
+
+  # The forever ID of the object associated with the activity series.
   fid: UUID
+
+  # The ID of the activity series.
+  activitySeriesId: UUID!
+
+  # The total progress of the event series.
   progress: String
+
+  # The organizations associated with this event series.
+  organizations: [Org!]!
+
+  # The reason the activity series failed.
   failureReason: String
+
+  # The cause of the activity series failure.
   causeErrorMessage: String
+
+  # The error code for the cause of the failure of the activity series failed.
   causeErrorCode: String
+
+  # The reason for the activity series failure.
   causeErrorReason: String
+
+  # The remedy for the cause of the activity series failure.
   causeErrorRemedy: String
+
+  # Information about the cluster that the activity series belongs to.
   cluster: Cluster
+
+  # The list of activities.
   activityConnection(
     # Returns the first n elements from the list.
     first: Int,
@@ -10985,9 +11380,6 @@ type ActivitySeries {
 
     # Returns the elements in the list that come before the specified cursor.
     before: String): ActivityConnection!
-
-  # The organizations associated with this event series.
-  organizations: [Org!]!
 }
 # Paginated list of ActivitySeries objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type ActivitySeriesConnection {
@@ -11131,18 +11523,37 @@ type ActivitySeverityLevel {
 }
 # Represents activity statuses.
 enum ActivityStatusEnum {
+  # Represents a canceled activity.
   Canceled
+
+  # Represents an activity which is currently canceling.
   Canceling
+
+  # Represents a failure.
   Failure
+
+  # Represents an informational activity.
   Info
 
   # Represents completion with warnings.
   PARTIAL_SUCCESS
+
+  # Represents a queued activity .
   Queued
+
+  # Represents a running activity.
   Running
+
+  # Represents a successful activity.
   Success
+
+  # Represents task failure.
   TaskFailure
+
+  # Represents task success.
   TaskSuccess
+
+  # Represents a warning.
   Warning
 }
 type ActivityTable {
@@ -11714,6 +12125,9 @@ input AddNodesToCloudClusterInput {
   # Number of nodes to add.
   numberOfNodes: Int = 0
 
+  # Specifies whether node resources like logs and environment should be saved when the add node operation fails.
+  shouldKeepResourcesOnFailure: Boolean = false
+
   # Customer cloud account UUID.
   cloudAccountId: UUID!
 
@@ -11789,6 +12203,7 @@ type AddStorageArraysReply {
   # Add storage arrays responses.
   responses: [AddStorageArrayReply!]!
 }
+# Input for adding a syslog export rule.
 input AddSyslogExportRuleInput {
   # Syslog export rule.
   syslogExportRuleV51: SyslogExportRuleInput
@@ -13017,6 +13432,14 @@ type ArtifactPolicy {
   # Trust policy JSON document to be attached to the role.
   trustPolicyDoc: String!
 }
+# Artifacts to be deleted for a feature.
+type ArtifactsToDelete {
+  # Feature Enum.
+  feature: CloudAccountFeature!
+
+  # Native ID of the AWS account.
+  artifactsToDelete: [ExternalArtifactMapReply!]!
+}
 # Input for assigning SLA Domain to SQL Server objects.
 input AssignMssqlSlaDomainPropertiesAsyncInput {
   # Required. Update information.
@@ -13857,6 +14280,19 @@ type AwsAccountValidationResponse {
 
   # AWS account cloud type.
   cloudType: AwsCloudType!
+}
+# List of AWS artifacts that need to be deleted for a given list for features.
+type AwsArtifactsToDelete {
+  # List of artifacts to be deleted for each feature.
+  artifactsToDelete: [ArtifactsToDelete!]!
+}
+# Input to retrieve the AWS artifacts that need to be deleted when an account is being deleted.
+input AwsArtifactsToDeleteInput {
+  # Native ID of the AWS account.
+  awsNativeId: String!
+
+  # List of cloud account features.
+  features: [CloudAccountFeature!]!
 }
 # AWS authentication server based cloud account region names.
 enum AwsAuthServerBasedCloudAccountRegion {
@@ -15153,6 +15589,15 @@ type AwsNativeEc2Instance implements PolarisHierarchyObject , PolarisHierarchySn
 
   # AWS Native name of the object.
   nativeName: String!
+
+  # Specifies whether the pre-script or post-script framework is enabled on the EC2 instance. When enabled, it facilitates application-consistent backups.
+  isPreOrPostScriptEnabled: Boolean!
+
+  # Specifications for ensuring application consistency on the EC2 instance.
+  vmAppConsistentSpecs: VmAppConsistentSpecsInternal
+
+  # Specifies whether application consistent snapshots are enabled for this EC2 instance. When enabled, Rubrik informs the AWS applications before taking snapshots, allowing them to prepare. During the preparation phrase, Rubrik freezes the IO, takes the snapshot, and then unfreezes IO, enabling the apps to resume regular operation.
+  isAppConsistencyEnabled: Boolean!
 
   # The authorized operations on the object.
   authorizedOperations: [PolarisSnappableAuthorizedOperationsEnum!]!
@@ -17809,6 +18254,9 @@ input AwsRoleCustomization {
 
   # Path of the exocompute's worker node's instance profile.
   instanceProfilePath: String
+
+  # Path that can be attached to a recovered EC2 instance.
+  ec2RecoveryRolePath: String
 }
 # AWS RSC account details.
 type AwsRscAccountDetails {
@@ -18180,6 +18628,9 @@ enum AzureCloudAccountRegion {
 
   # Azure Cloud account region is Norway West.
   NORWAYWEST
+
+  # Azure Cloud account region is Poland Central.
+  POLANDCENTRAL
 
   # Azure Cloud account region is Qatar Central.
   QATARCENTRAL
@@ -19377,6 +19828,9 @@ enum AzureNativeRegion {
   # Azure native region is not specified.
   NOT_SPECIFIED
 
+  # Azure native region is Poland Central.
+  POLAND_CENTRAL
+
   # Azure native region is Qatar Central.
   QATAR_CENTRAL
 
@@ -19536,6 +19990,9 @@ enum AzureNativeRegionForReplication {
 
   # Azure native region for replication is not defined.
   NOT_DEFINED
+
+  # Azure native region for replication is Poland Central.
+  POLAND_CENTRAL
 
   # Azure native region for replication is Qatar Central.
   QATAR_CENTRAL
@@ -20465,6 +20922,9 @@ type AzureO365ExocomputeCluster {
 
   # Database IDs used for Zeus data store.
   databaseIds: ZeusDatabaseIds
+
+  # Specifies the KEK backup start time to determine the last time the backup was run.
+  kekBackupStartTime: DateTime
 }
 # Exocompute configuration.
 input AzureO365ExocomputeConfig {
@@ -20636,6 +21096,9 @@ enum AzureRegion {
 
   # Azure region is Norway West.
   NORWAY_WEST
+
+  # Azure region is Poland Central.
+  POLAND_CENTRAL
 
   # Azure region is Qatar Central.
   QATAR_CENTRAL
@@ -22434,7 +22897,7 @@ input BatchExportSnapshotJobConfigInput {
 }
 # Supported in Rubrik CDM version 9.0 and later. Input for batch export snapshots for vSphere.
 input BatchExportSnapshotJobConfigV3Input {
-  # Required. Supported in v9.0+
+  # Required. Supported in v8.1+
   # Array of objects containing information about snapshots to export.
   snapshots: [ExportSnapshotJobConfigForBatchV3Input!]!
 }
@@ -22890,6 +23353,19 @@ input BulkCreateOnDemandMssqlBackupInput {
 
   # Required. User note to associate with audits.
   userNote: String
+}
+# Input to delete AWS cloud accounts.
+input BulkDeleteAwsCloudAccountWithoutCftInput {
+  # Native ID of the AWS account.
+  awsNativeId: String!
+
+  # List of cloud account features.
+  features: [CloudAccountFeature!]
+}
+# Response of bulk deletion of AWS cloud accounts.
+type BulkDeleteAwsCloudAccountWithoutCftReply {
+  # Deletion result of various cloud account features.
+  deleteAwsCloudAccountWithoutCftResp: [DeleteAwsCloudAccountWithoutCftResp!]!
 }
 # Input for V1BulkDeleteFailoverClusterApp.
 input BulkDeleteFailoverClusterAppInput {
@@ -27019,6 +27495,14 @@ type CloudNativeCheckRbaConnectivityReply {
   # List of VMs for which the job to check Rubrik backup service connectivity could not be launched.
   failures: [Failure!]!
 }
+# All customer-specified tags and their associated value, determining whether resource tags should be overridden by customer-specified tags for a specified cloud type.
+type CloudNativeCustomerTagsReply {
+  # List of customer-specified tags applied to all resources associated with a specific cloud type.
+  customerTags: [TagObject!]!
+
+  # Specifies whether customer-specified tags should override resource tags.
+  shouldOverrideResourceTags: Boolean!
+}
 # Details of the setup for performing backups of a database.
 type CloudNativeDatabaseBackupSetupSpecs {
   # Specifies whether backup setup is successful for the database or not.
@@ -27320,6 +27804,9 @@ type CloudNativeVersionedFileEdge {
 }
 # Cloud-native virtual machine app-consistent object.
 enum CloudNativeVmAppConsistentObjectType {
+  # AWS EC2 instance.
+  AWS_EC2_INSTANCE
+
   # Azure virtual machine.
   AZURE_VIRTUAL_MACHINE
 }
@@ -27845,6 +28332,15 @@ input ClusterFilterInput {
 
   # Exclude the Rubrik cluster UUIDs.
   excludeId: [UUID!]
+
+  # System status of the Rubrik cluster.
+  systemStatus: [ClusterSystemStatus!]
+
+  # Connection status of the Rubrik cluster.
+  connectionState: [ClusterStatus!]
+
+  # Include Rubrik clusters which are disconnected  or in fatal state.
+  isInFatalOrDisconnectedState: Boolean
 }
 # Input to filter clusters by parameters specific to product types.
 input ClusterFilterPerProductInput {
@@ -28599,6 +29095,28 @@ type ClusterSlaDomain implements SlaDomain {
 
   # Specifies the owner organization of the SLA Domain.
   ownerOrg: SlaAssociatedOrganization!
+}
+# Paginated list of ClusterSlaDomain objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type ClusterSlaDomainConnection {
+  # List of ClusterSlaDomain objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [ClusterSlaDomainEdge!]!
+
+  # List of ClusterSlaDomain objects.
+  nodes: [ClusterSlaDomain!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of ClusterSlaDomain objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the ClusterSlaDomain object. This wrapper is used for pagination.
+type ClusterSlaDomainEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual ClusterSlaDomain object wrapped by this edge.
+  node: ClusterSlaDomain!
 }
 # Property to order the cluster list results.
 enum ClusterSortByEnum {
@@ -30777,6 +31295,9 @@ input CreateReplicationPairInput {
   # Gateway information of the target cluster when using the NAT setup type.
   targetGateway: ReplicationGatewayInfo
 
+  # Network interface for communication between the source and target clusters.
+  targetNetworkInterface: NetworkInterfaceDetails
+
   # Source Rubrik cluster UUID.
   sourceClusterUuid: UUID!
 
@@ -31761,7 +32282,13 @@ enum DataViewTypeEnum {
   OBJECT_AUDIT_LIST
   PROTECTION_TASK_DETAILS
   SLA_AUDIT_DETAIL
+
+  # Specifies all audit information for the single SLA Domain.
+  SLA_AUDIT_DETAIL_NG
   SLA_AUDIT_LIST
+
+  # Specifies the latest audit information for each SLA Domain.
+  SLA_AUDIT_LIST_NG
   SLA_COMPLIANCE
 
   # Specifies the Protection Task Detail report information.
@@ -32979,6 +33506,14 @@ input DeleteAllOracleDatabaseSnapshotsInput {
   # Required. ID assigned to an Oracle database object.
   id: String!
 }
+# Result of deletion of an AWS cloud account.
+type DeleteAwsCloudAccountWithoutCftResp {
+  # Feature that was being deleted.
+  feature: CloudAccountFeature!
+
+  # Specifies whether feature deletion was successful.
+  success: Boolean!
+}
 # DeleteAwsClusterInput for Aws account.
 input DeleteAwsClusterInput {
   # Cloud account ID of the AWS account.
@@ -33117,6 +33652,11 @@ input DeleteCloudNativeLabelRuleInput {
 input DeleteCloudNativeTagRuleInput {
   # Tag rule ID.
   ruleId: UUID!
+}
+# The input for deleting Rubrik Security Cloud on-demand snapshot.
+input DeleteCloudWorkloadSnapshotInput {
+  # The forever UUID in Rubrik Security Cloud for the snapshot to be deleted.
+  snapshotId: UUID!
 }
 # Input required for deleting a certificate signing request (CSR).
 input DeleteCsrInput {
@@ -33383,6 +33923,7 @@ type DeleteStorageArraysReply {
   # Delete storage arrays responses.
   responses: [StorageArrayOperationOutputType!]!
 }
+# Input for deleting a syslog export rule.
 input DeleteSyslogExportRuleInput {
   # Required. UUID used to identify the cluster the request goes to.
   clusterUuid: String!
@@ -33404,6 +33945,11 @@ input DeleteTargetMappingInput {
 input DeleteTotpConfigsInput {
   # Users for whom TOTP is reset.
   userIds: [String!] = []
+}
+# The input for deleting unmanaged snapshots.
+input DeleteUnmanagedSnapshotsInput {
+  # List of UUIDs to delete snapshots.
+  snapshotIds: [UUID!]!
 }
 # Enum for delete VMware snapshot location.
 enum DeleteVmwareSnapshotRequestLocation {
@@ -34172,6 +34718,11 @@ type DlsArchivalLocation {
 
   # Type of target.
   targetType: TargetType
+}
+# Input for asynchronously downloading an audit log in CSV format.
+input DownloadAuditLogCsvAsyncInput {
+  # Audit log filters.
+  filters: CustomReportFiltersConfig!
 }
 # Filters for cdm upgrades page for pdf generation.
 input DownloadCdmUpgradesPdfFiltersInput {
@@ -36742,27 +37293,27 @@ input ExportSnapshotJobConfigForBatchInput {
 }
 # Supported in Rubrik CDM version 9.0 and later. Input for batch export snapshots for vSphere.
 input ExportSnapshotJobConfigForBatchV3Input {
-  # Supported in v9.0+
+  # Supported in v8.1+
   # Exports the oldest snapshot taken after the specified date. This parameter is only evaluated when no values are set for snapshotId and snapshotBeforeDate.
   snapshotAfterDate: DateTime
 
-  # Supported in v9.0+
+  # Supported in v8.1+
   # Exports the most recent snapshot taken prior to the specified date. This parameter is only evaluated when no value is set for snapshotId.
   snapshotBeforeDate: DateTime
 
-  # Supported in v9.0+
+  # Supported in v8.1+
   # The ID of the snapshot to export. This parameter is optional if either of the snapshotBeforeDate or snapshotAfterDate parameters is configured.
   snapshotId: String
 
-  # Supported in v9.0+
+  # Supported in v8.1+
   # Prefix to be added to the name of the exported virtual machine.
   vmNamePrefix: String
 
-  # Required. Supported in v9.0+
+  # Required. Supported in v8.1+
   # Configuration for snapshot export.
   config: ExportSnapshotJobConfigV3Input!
 
-  # Required. Supported in v9.0+
+  # Required. Supported in v8.1+
   # ID of the virtual machine whose snapshot needs to be exported.
   vmId: String!
 }
@@ -36780,8 +37331,7 @@ input ExportSnapshotJobConfigV2Input {
   # A Boolean value that determines whether the new virtual machine created from a snapshot is registered with the vCenter Server. When this value is 'true', the registration is removed from the vCenter Server. When this value is 'false', the registration is kept on the vCenter Server. The default is 'false'.
   unregisterVm: Boolean
 
-  # Supported in v5.2+
-  # ID of the cluster to export the new virtual machine to. virtual machine.
+  # ID of the Rubrik cluster to export the new virtual machine to.
   clusterId: String
 
   # Supported in v5.2+
@@ -36797,6 +37347,9 @@ input ExportSnapshotJobConfigV2Input {
   shouldUseHotAddProxy: Boolean
   mountExportSnapshotJobCommonOptionsV2: MountExportSnapshotJobCommonOptionsV2Input
   requiredRecoveryParameters: RequiredRecoveryParametersInput
+
+  # ID of the virtual machine folder to export the new virtual machine to.
+  folderId: String
 
   # Required. Supported in v5.1+
   # ID of the datastore to assign to the exported virtual machine.
@@ -36840,6 +37393,9 @@ input ExportSnapshotJobConfigV3Input {
 
   # Target snapshot ID or a point in time for recovery.
   requiredRecoveryParameters: RequiredRecoveryParametersInput
+
+  # ID of the virtual machine folder to export the new virtual machine to.
+  folderId: String
 }
 # Supported in v5.0+
 input ExportSnapshotToStandaloneHostRequestInput {
@@ -36879,6 +37435,14 @@ input ExternalArtifactMap {
 
   # Keyword for external artifacts.
   externalArtifactKey: AwsCloudExternalArtifact
+}
+# A map of an AWS artifact to its value.
+type ExternalArtifactMapReply {
+  # Keyword for external artifact.
+  externalArtifactKey: AwsCloudExternalArtifact!
+
+  # AWS unique identifier of the external artifact.
+  externalArtifactValue: String!
 }
 type FailoverChart {
   name: String!
@@ -37957,6 +38521,9 @@ type FileResultConnection {
 
   # Specifies whether the response contains the latest indexed data or not.
   hasLatestData: Boolean!
+
+  # Specifies the indexing version. 
+  indexingVersion: Int!
 }
 # Wrapper around the FileResult object. This wrapper is used for pagination.
 type FileResultEdge {
@@ -40815,6 +41382,15 @@ type GetAnomalyDetailsReply {
   # The id of the anomaly.
   id: String!
 
+  # Time when the anomaly was detected.
+  detectionTime: DateTime
+
+  # Activity series id for the events of this anomaly.
+  activitySeriesId: String!
+
+  # Type of the anomaly detected.
+  anomalyType: AnomalyType!
+
   # Severity of the anomaly.
   severity: ActivitySeverityEnum!
 
@@ -41292,6 +41868,7 @@ input GetSmbConfigurationInput {
 type GetSmbConfigurationReply {
   output: SmbConfig
 }
+# Input for retrieving an SNMP configuration.
 input GetSnmpConfigurationInput {
   # Required. UUID used to identify the cluster the request goes to.
   clusterUuid: String!
@@ -41299,6 +41876,7 @@ input GetSnmpConfigurationInput {
   # Required. ID of the Rubrik cluster or *me* for self.
   id: String!
 }
+# Input for retrieving multiple syslog export rules.
 input GetSyslogExportRulesInput {
   # Required. UUID used to identify the cluster the request goes to.
   clusterUuid: String!
@@ -41604,6 +42182,39 @@ type GlobalSlaReply implements SlaDomain {
 
   # Specifies the owner organization of the SLA Domain.
   ownerOrg: SlaAssociatedOrganization!
+}
+# Global SLA status for cluster.
+type GlobalSlaStatus {
+  # Sync status of given cluster.
+  syncStatus: SlaSyncStatus!
+
+  # Pause status of given cluster.
+  pauseStatus: PauseStatus!
+
+  # Cluster where the global SLA is synced.
+  cluster: Cluster
+}
+# Paginated list of GlobalSlaStatus objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type GlobalSlaStatusConnection {
+  # List of GlobalSlaStatus objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [GlobalSlaStatusEdge!]!
+
+  # List of GlobalSlaStatus objects.
+  nodes: [GlobalSlaStatus!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of GlobalSlaStatus objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the GlobalSlaStatus object. This wrapper is used for pagination.
+type GlobalSlaStatusEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual GlobalSlaStatus object wrapped by this edge.
+  node: GlobalSlaStatus!
 }
 # SLA Domain sync status for a specified Rubrik cluster.
 type GlobalSlaSyncStatus {
@@ -43880,7 +44491,9 @@ input HostRegisterInput {
   oracleSysDbaUser: String
 
   # Supported in v5.0+
-  # The ID of the organization to which the host is assigned.
+  # v5.0-v8.0: The ID of the organization to which the host is assigned.
+  # v8.1: The ID of the CDM organization to which the host is assigned. For RSC driven host registration, this field should be set to None, and host will be added to CDM global org. For CDM driven host registration, this field should be set to the Org the host belongs to.
+  # v9.0+: The ID of the organization to which the host is assigned.
   organizationId: String
 
   # Supported in v5.1+
@@ -43893,6 +44506,10 @@ input HostRegisterInput {
   # Supported in v5.2+
   # A Boolean that specifies whether to discover Oracle information at registration. A value of 'true' discovers Oracle information at registration.
   isOracleHost: Boolean
+
+  # Supported in v8.1
+  # The ID of the RSC orgNetwork to which the host is assigned. This field should only be set when the host registration is called by RSC and the host belongs to a RSC orgNetwork. This field should always be set to None in other cases. 1) The call is from CDM; or 2) the call is from RSC but the host does not belong to an orgNetwork.
+  orgNetworkId: String
 
   # Required. Supported in v5.0+
   hostname: String!
@@ -44363,7 +44980,11 @@ input HostUpdateInput {
   # v5.2-v5.3: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
   # v6.0: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
   # 
-  # v7.0+: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
+  # v7.0-v8.0: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
+  # 
+  # v8.1: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
+  # 
+  # v9.0+: A Boolean that specifies whether to discover Oracle information during host refresh. A value of 'true' discovers Oracle information during host refresh.
   isOracleHost: Boolean
 
   # Supported in v7.0+
@@ -54746,8 +55367,14 @@ input MountOracleDbConfigInput {
   # List of PDB names to be live mounted in the target database.
   pdbsToLiveMount: [String!] = []
 
+  # List of RAC host IDs to recover the database during the Live Mount.
+  targetRacHostIds: [String!] = []
+
   # The new value of the db_name parameter for a LM operation. This is used to specify the new target database name of the live mounted database.
   lmDbName: String
+
+  # Specifies the host ID for the primary RAC node, which will be used for recovery. The provided host ID must be among the list of host IDs specified in targetRacHostIds.
+  targetRacPrimaryHostId: String
 
   # Boolean value that determines whether to allow renaming the database back to the source Oracle host or RAC during a Live Mount.
   shouldAllowRenameToSource: Boolean
@@ -54830,6 +55457,9 @@ input MountSnapshotJobConfigV2Input {
   shouldMigrateImmediately: Boolean
   mountExportSnapshotJobCommonOptionsV2: MountExportSnapshotJobCommonOptionsV2Input
   requiredRecoveryParameters: RequiredRecoveryParametersInput
+
+  # ID of the virtual machine folder where the new virtual machine will be mounted.
+  folderId: String
 }
 # Mount state of the Managed Volume.
 enum MountState {
@@ -59157,6 +59787,11 @@ type NetworkInterface {
   nodeName: String
   interfaceType: NetworkInterfaceType!
 }
+# Network interface for the Rubrik cluster.
+input NetworkInterfaceDetails {
+  # The type of network interface: Management or Data.
+  type: ReplicationInterfaceType = DATA
+}
 # Supported in v5.0+
 type NetworkInterfaceListResponse {
   # Supported in v5.0+
@@ -59447,6 +60082,16 @@ type NodeStatusListResponse {
   # Supported in v5.0+
   # Total list responses.
   total: Long
+}
+# Request parameters for getting the ID of the node to replace on a Rubrik cluster.
+input NodeToReplaceInput {
+  # Cluster UUID.
+  clusterUuid: UUID!
+}
+# The ID of the Rubrik cluster node to replace.
+type NodeToReplaceReply {
+  # The ID of a removed node to replace.
+  nodeToReplace: String!
 }
 # Mapping of Node name to IP configurations for the node.
 input NodesMapInput {
@@ -68187,6 +68832,33 @@ type PathSecInfo {
   owner: String!
   permissions: [SDDLPermission!]!
 }
+# Input to pause or resume SLA Domain.
+input PauseSlaInput {
+  # SLA Domain ID.
+  slaId: String!
+
+  # List of Rubrik cluster UUIDs.
+  clusterUuids: [String!]!
+
+  # Whether or not to pause SLA Domain.
+  pauseSla: Boolean!
+}
+# Response for pause or resume SLA Domain.
+type PauseSlaReply {
+  # Returns true if the pause or resume is successful; otherwise, returns false.
+  success: Boolean!
+}
+# Pause Status of the SLA.
+enum PauseStatus {
+  # SLA not paused.
+  NOT_PAUSED
+
+  # SLA paused.
+  PAUSED
+
+  # Unknown Status.
+  UNKNOWN
+}
 # Input for pausing archival location.
 input PauseTargetInput {
   # ID of the archival location.
@@ -68249,6 +68921,9 @@ enum PendingActionSubGroupTypeEnum {
   DISABLE_REPLICATION_LOCATION_PUT
   ENABLE_LOCATION_AS_REPLICATION_TARGET
   ENABLE_POLARIS_AS_REPLICATION_SOURCE
+
+  # The subgroup type of the pending action is for configuring or deleting federated login configuration.
+  FEDERATED_LOGIN
   GLOBAL_SLA_ASSIGN
   GLOBAL_SLA_ASSIGN_RETENTION_SLA_TO_SNAPPABLE
   GLOBAL_SLA_ASSIGN_RETENTION_SLA_TO_SNAPSHOT
@@ -69412,6 +70087,9 @@ type PolicyObj {
 
   # Sensitive hits for various risk levels.
   riskHits: SensitiveHits
+
+  # Specifies whether the object has user access enabled or not.
+  isUserAccessEnabledObject: Boolean!
   id: String!
   folderChildConnection(
     # Returns the first n elements from the list.
@@ -69885,6 +70563,9 @@ enum ProductName {
 
   # Unknown name.
   UNSPECIFIED_NAME
+
+  # User Access.
+  USER_ACCESS
 }
 # State of product.
 enum ProductState {
@@ -69912,11 +70593,16 @@ enum ProductState {
   # Expired product.
   EXPIRED
 
+  # Inactive product state waiting to be activated.
+  INACTIVE
+
   # Unknown state.
   UNSPECIFIED_STATE
 }
 # Type of product.
 enum ProductType {
+  PAG_TRIAL
+
   # POC product.
   POC
 
@@ -71486,6 +72172,17 @@ input ReplicationGatewayInfo {
 
   # Gateway ports.
   ports: [Int!]!
+}
+# The type of network interface: Management or Data.
+enum ReplicationInterfaceType {
+  # Data interface type.
+  DATA
+
+  # Unspecified value.
+  INTERFACE_TYPE_UNSPECIFIED
+
+  # Management interface type.
+  MANAGEMENT
 }
 # Replication pair specific information.
 type ReplicationPair {
@@ -73079,6 +73776,9 @@ type RubrikManagedAzureTarget implements Target {
   # Cloud native information of the Azure target.
   cloudNativeCompanion: AzureCloudNativeTargetCompanion
 
+  # Specifies whether blob immutability is enabled for the Azure archival target.
+  isBlobImmutabilityEnabled: Boolean!
+
   # Cloud account details of the Azure target.
   cloudAccount: CloudAccount!
 
@@ -73410,6 +74110,9 @@ type RubrikManagedNfsTarget implements Target {
 type RubrikManagedRcsTarget implements Target {
   # Specifies whether the proxy settings is bypassed for  the RCV archival target.
   shouldBypassProxy: Boolean!
+
+  # Specifies whether blob immutability is enabled for the RCV archival target.
+  isBlobImmutabilityEnabled: Boolean!
 
   # Sync status of RCV target.
   syncStatus: TargetSyncStatus!
@@ -74644,6 +75347,9 @@ type SapHanaSystem implements CdmHierarchyObject , HierarchyObject {
   # Information required to connect to SAP HANA database over SSL.
   sslInfo: SapHanaSslInformation
 
+  # Additional information about the SAP HANA system.
+  systemInfo: SapHanaSystemInformation
+
   # List of descendants.
   descendantConnection(
     # Returns the first n elements from the list.
@@ -74755,6 +75461,17 @@ type SapHanaSystem implements CdmHierarchyObject , HierarchyObject {
 
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
+}
+# The authentication type for the SAP HANA system.
+enum SapHanaSystemAuthType {
+  # Auth type unknown.
+  AUTH_TYPE_UNSPECIFIED
+
+  # SAP HANA user store.
+  SAP_HANA_SYSTEM_AUTH_TYPE_SPEC_AUTH_TYPE_HDB_USERSTORE
+
+  # User credentials.
+  SAP_HANA_SYSTEM_AUTH_TYPE_SPEC_AUTH_TYPE_USER_CREDENTIALS
 }
 type SapHanaSystemAuthTypeSpec {
   authType: SapHanaSystemAuthTypeSpecAuthType!
@@ -74930,6 +75647,17 @@ type SapHanaSystemInfo {
 
   # Specifies the authentication type for the SAP HANA system.
   authTypeSpec: SapHanaSystemAuthTypeSpec
+}
+# Additional info about the SAP HANA system.
+type SapHanaSystemInformation {
+  # SAP HANA version installed on the system.
+  hanaVersion: String!
+
+  # Specifies whether Dynamic Tiering service is enabled for the SAP HANA system.
+  isDtEnabled: Boolean!
+
+  # The authentication type for the SAP HANA system.
+  authType: SapHanaSystemAuthType!
 }
 # Supported in v5.3+
 input SapHanaSystemPatchInput {
@@ -75267,6 +75995,11 @@ type ScvmmInfo {
   # Version of the SCVMM.
   version: String!
 }
+# Filters for Security Descriptor resolution.
+input SddlRequestFiltersInput {
+  # Filter permissions for the security identifier.
+  resultsForSid: String = ""
+}
 # Parameters for mail or folder search.
 input SearchFilter {
   searchKeywordFilter: SearchKeywordFilter
@@ -75534,6 +76267,18 @@ input SetAzureCloudAccountCustomerAppCredentialsInput {
 
   # Type of Azure Tenant. Possible values: Azure Public Cloud, Azure China Cloud.
   azureCloudType: AzureCloudType! = AZUREPUBLICCLOUD
+}
+# Input to set customer-specified tags for a particular cloud type.
+input SetCustomerTagsInput {
+  # Cloud provider type for which customer-specified tags are to be set.
+  cloudVendor: CloudVendor!
+
+  # List all customer-specified tags that need to be applied to all resources associated with a specified cloud type.
+  # For example, {"Application":"Rubrik", "Environment":"Dev", "CreatedDate":"10/07/2023"}.
+  customerTags: TagsInput!
+
+  # Specifies whether customer-specified tags should override resource tags. By default, this is true.
+  shouldOverrideResourceTags: Boolean!
 }
 # Set datastore freespace threshold.
 input SetDatastoreFreespaceThresholdInput {
@@ -76620,6 +77365,25 @@ type SlaReplicationCluster {
   # Version of the replication cluster.
   version: String
 }
+# Fields to return the status of SLA Domains based on the specified value.
+enum SlaStatusFilterField {
+  # Returns the status of all SLA Domains on the Rubrik cluster identified by the cluster name.
+  CLUSTER_NAME
+
+  # Returns the status of all SLA Domains on the Rubrik cluster identified by the cluster ID.
+  CLUSTER_UUID
+
+  # This filter takes boolean values: true or false. When true, it returns the Rubrik clusters where the SLA Domain is paused. When false, it returns the Rubrik clusters where the SLA Domain is not paused.
+  PAUSE_STATUS
+}
+# Filter for SlaStatus.
+input SlaStatusFilterInput {
+  # Field for SLA Status Filter.
+  field: SlaStatusFilterField = CLUSTER_NAME
+
+  # Text for SLA Status Filter.
+  text: String = ""
+}
 # Status of the latest attempt to sync the SLA Domain to the clusters.
 enum SlaSyncStatus {
   # Sync failed.
@@ -77024,6 +77788,8 @@ type SnappableConnection {
 
   # Total number of Snappable objects matching the request arguments.
   count: Int!
+
+  # Aggregated information about the workloads.
   aggregation: SnappableAggregation!
 }
 enum SnappableCrawlStatus {
@@ -78918,6 +79684,9 @@ input StartExportAzureSqlDatabaseDbJobInput {
 
   # Input for exporting from Rubrik managed persistent backup.
   persistentBackupExportInput: AzureSqlPersistentBackupExportInput
+
+  # Input for service tier selected for the export of the database.
+  serviceTier: String
 }
 # Input for the job to export the specified Azure SQL Managed Instance database.
 input StartExportAzureSqlManagedInstanceDbJobInput {
@@ -78944,6 +79713,9 @@ input StartExportAzureSqlManagedInstanceDbJobInput {
 
   # Input for exporting from Rubrik managed persistent backup.
   persistentBackupExportInput: AzureSqlPersistentBackupExportInput
+
+  # Input for service tier selected for the export of the database.
+  serviceTier: String
 }
 # Input to trigger AWS native RDS Instance export job.
 input StartExportRdsInstanceJobInput {
@@ -79697,8 +80469,9 @@ type SyslogCertificateInfo {
   # User friendly name to identify the server certificate.
   serverCertificateName: String
 }
+# Input for retrieving syslog information.
 input SyslogCertificateInfoInput {
-  # Syslog server's X.509 certificate in Base64 encoded DER format. The certificate should start with -----BEGIN CERTIFICATE-----
+  # Syslog server's X.509 certificate in Base64 encoded DER format.
   serverCertificate: String
 
   # User friendly name to identify the server certificate.
@@ -79754,8 +80527,12 @@ input SyslogExportRuleFullInput {
   # Required. Supported in v5.1+
   port: Int!
 }
+# Input for retrieving a syslog export rule.
 input SyslogExportRuleInput {
+  # The syslog certificate information.
   syslogCertificateInfo: SyslogCertificateInfoInput
+
+  # The syslog rule.
   syslogExportRuleFull: SyslogExportRuleFullInput
 }
 # Supported in v5.1+
@@ -79805,8 +80582,12 @@ type SyslogExportRuleSummaryListResponse {
   # Total list responses.
   total: Long
 }
+# Input for updating a syslog export rule.
 input SyslogExportRuleUpdateInput {
+  # The syslog certificate information.
   syslogCertificateInfo: SyslogCertificateInfoInput
+
+  # The syslog rule.
   syslogExportRulePartial: SyslogExportRulePartialInput
 }
 # Supported in v5.1+
@@ -80788,6 +81569,7 @@ type TestExistingWebhookReply {
   # The information describing the error from the webhook test.
   errorInfo: ErrorInfo
 }
+# Input for testing a syslog export rule.
 input TestSyslogExportRuleInput {
   # Syslog export rule.
   syslogExportRuleV51: SyslogExportRuleInput
@@ -81346,6 +82128,138 @@ enum UnmanagedObjectAvailabilityFilter {
   # Unmanaged object status is Unprotected.
   UNPROTECTED
 }
+# UnmanagedObjectDetails.
+type UnmanagedObjectDetail {
+  # Storage on the archival location.
+  archiveStorage: Long!
+
+  # Any of the snapshots are retained by a SLA.
+  hasSnapshotsWithPolicy: Boolean!
+
+  # Workload ID.
+  id: String!
+
+  # Whether the object is remote or local.
+  isRemote: Boolean
+
+  # Storage on the local location.
+  localStorage: Long!
+
+  # Unmanaged object name.
+  name: String!
+
+  # Type of the unmanaged object.
+  objectType: ManagedObjectType!
+
+  # Physical path to this object.
+  physicalLocation: [LocationPathPoint!]!
+
+  # Recovery information for the reader archival locations.
+  recoveryInfo: WorkloadRecoveryInfo
+
+  # SLA Domain retention policy ID.
+  retentionSlaDomainId: String!
+
+  # SLA Domain retention policy name.
+  retentionSlaDomainName: String!
+
+  # RSC SLA Domain ID.
+  retentionSlaDomainRscManagedId: String
+
+  # Snapshot count.
+  snapshotCount: Long!
+
+  # Unmanaged Status of this object.
+  unmanagedStatus: UnmanagedObjectAvailabilityFilter!
+
+  # The effective SLA Domain of the unmanaged object.
+  effectiveSlaDomain: SlaDomain!
+
+  # Rubrik cluster where this object originated.
+  cluster: Cluster!
+
+  # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
+  pendingSla: SlaDomain
+
+  # Cluster UUID of the object.
+  clusterUuid: UUID!
+}
+# Paginated list of UnmanagedObjectDetail objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type UnmanagedObjectDetailConnection {
+  # List of UnmanagedObjectDetail objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [UnmanagedObjectDetailEdge!]!
+
+  # List of UnmanagedObjectDetail objects.
+  nodes: [UnmanagedObjectDetail!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of UnmanagedObjectDetail objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the UnmanagedObjectDetail object. This wrapper is used for pagination.
+type UnmanagedObjectDetailEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual UnmanagedObjectDetail object wrapped by this edge.
+  node: UnmanagedObjectDetail!
+}
+# Input to query unmanaged objects.
+input UnmanagedObjectsInput {
+  # Workload cluster UUID.
+  clusterUuid: String!
+
+  # Object name.
+  name: String
+
+  # Unmanaged statuses to filter.
+  unmanagedStatuses: [UnmanagedObjectAvailabilityFilter!]!
+
+  # Object types to filter.
+  objectTypes: [ManagedObjectType!]!
+
+  # Retention SLAs to filter.
+  retentionSlaDomainIds: [String!]!
+
+  # Sorting Parameters.
+  sortParam: UnmanagedObjectsSortParam
+
+  # Object Id.
+  objectId: String
+}
+# Unmanaged objects sorting parameters.
+input UnmanagedObjectsSortParam {
+  # Sort type.
+  type: UnmanagedObjectsSortType = NAME
+
+  # Sorts by order.
+  sortOrder: SortOrder = ASC
+}
+# Unmanaged objects sort type Enum.
+enum UnmanagedObjectsSortType {
+  # Archival storage.
+  ARCHIVAL_STORAGE
+
+  # Local storage.
+  LOCAL_STORAGE
+
+  # Location.
+  LOCATION
+
+  # Object name.
+  NAME
+
+  # Retention SLA domain name.
+  RETENTION_SLA_DOMAIN_NAME
+
+  # Snapshot count.
+  SNAPSHOTS_COUNT
+
+  # Unmanaged status.
+  UNMANAGED_STATUS
+}
 # Supported in v5.2+
 # Attributes that are available to use when filtering query results based on snapshot type.
 # 
@@ -81366,9 +82280,6 @@ type UnmapAzureCloudAccountExocomputeSubscriptionReply {
 }
 # Input to check if we can unmap archival location from subscription.
 input UnmapAzurePersistentStorageSubscriptionInput {
-  # Native ID for AWS Account.
-  accountId: String!
-
   # Subscription IDs from which to unmap archival location.
   applicationCloudAccountIds: [String!]!
 
@@ -82842,6 +83753,9 @@ input UpdateReplicationTargetInput {
   # Gateway information of the target cluster when using the NAT setup type.
   targetGateway: ReplicationGatewayInfo
 
+  # Network interface for communication between the source and target clusters.
+  targetNetworkInterface: NetworkInterfaceDetails
+
   # Source Rubrik cluster UUID.
   sourceClusterUuid: UUID!
 
@@ -82915,6 +83829,7 @@ type UpdateServiceAccountReply {
   # Timestamp of the last login done using the service account.
   lastLogin: DateTime
 }
+# Input for updating an SNMP configuration.
 input UpdateSnmpConfigInput {
   # SNMP configuration updates for the specified Rubrik cluster.
   snmpConfigV50: SnmpConfigurationInput
@@ -83015,29 +83930,30 @@ input UpdateSupportUserAccessInput {
   # Duration of access, in hours.
   newDurationInHours: Int = 0
 }
+# Input for updating a syslog export rule.
 input UpdateSyslogExportRuleInput {
-  # Syslog export rule
+  # Syslog export rule for Rubrik CDM version 5.1.
   syslogSettingsV51: SyslogExportRuleUpdateInput
 
-  # Syslog export rule
+  # Syslog export rule for Rubrik CDM version 5.2.
   syslogSettingsV52: SyslogExportRulePartialInput
 
-  # Syslog export rule
+  # Syslog export rule for Rubrik CDM version 5.3.
   syslogSettingsV53: SyslogExportRulePartialInput
 
-  # Syslog export rule.
+  # Syslog export rule for Rubrik CDM version 6.0.
   syslogSettingsV60: SyslogExportRulePartialInput
 
-  # Syslog export rule.
+  # Syslog export rule for Rubrik CDM version 7.0.
   syslogSettingsV70: SyslogExportRulePartialInput
 
-  # Syslog export rule.
+  # Syslog export rule for Rubrik CDM version 8.0.
   syslogSettingsV80: SyslogExportRulePartialInput
 
-  # Syslog export rule.
+  # Syslog export rule for Rubrik CDM version 8.1.
   syslogSettingsV81: SyslogExportRulePartialInput
 
-  # Syslog export rule.
+  # Syslog export rule for Rubrik CDM version 9.0.
   syslogSettingsV90: SyslogExportRulePartialInput
 
   # Syslog export rule.
@@ -83521,15 +84437,33 @@ type UserActivityResultEdge {
   # The actual UserActivityResult object wrapped by this edge.
   node: UserActivityResult!
 }
+# An audit triggered by a user.
 type UserAudit {
+  # The time the user audit occurred.
   time: DateTime!
+
+  # The status of the user audit.
   status: UserAuditStatusEnum!
+
+  # The type of the user audit.
   auditType: UserAuditTypeEnum
+
+  # The username of the user who triggered the user audit.
   userName: String
+
+  # The ID of the object associated with the user audit.
   objectId: String!
+
+  # The name of the object associated with the user audit.
   objectName: String
+
+  # The type of the object associated with the user audit.
   objectType: UserAuditObjectTypeEnum!
+
+  # The associated message with the user audit.
   message: String!
+
+  # The severity of the user audit.
   severity: UserAuditSeverityEnum
 
   # Optional user note.
@@ -83540,8 +84474,12 @@ type UserAudit {
 
   # The organization name of this user audit.
   orgName: String
-  cluster: Cluster
+
+  # The ID of the user audit.
   id: ID!
+
+  # The ID of the Rubrik cluster to which this user audit belongs.
+  cluster: Cluster
 }
 type UserAuditChart {
   name: String!
@@ -83637,20 +84575,50 @@ enum UserAuditObjectTypeEnum {
 
   # Azure storage account.
   AZURE_STORAGE_ACCOUNT
+
+  # App blueprint type.
   AppBlueprint
+
+  # Archival location type.
   ArchivalLocation
+
+  # Auth domain type.
   AuthDomain
+
+  # AWS account type.
   AwsAccount
+
+  # AWS event type.
   AwsEventType
+
+  # AWS native account type.
   AwsNativeAccount
+
+  # AWS native EBS volume type.
   AwsNativeEbsVolume
+
+  # AWS native EC2 instance type.
   AwsNativeEc2Instance
+
+  # AWS native RDS instance type.
   AwsNativeRdsInstance
+
+  # Azure native disk type.
   AzureNativeDisk
+
+  # Azure native subscription type.
   AzureNativeSubscription
+
+  # Azure native virtual machine type.
   AzureNativeVm
+
+  # Azure SQL database type.
   AzureSqlDatabase
+
+  # Azure SQL managed instance type.
   AzureSqlManagedInstance
+
+  # Blueprint type.
   Blueprint
 
   # Cassandra column family type.
@@ -83664,10 +84632,20 @@ enum UserAuditObjectTypeEnum {
 
   # Certificate management type.
   CERTIFICATE_MANAGEMENT
+
+  # Cloud native tag rule type.
   CloudNativeTagRule
+
+  # Rubrik cluster type.
   Cluster
+
+  # Db2 database type.
   DB2_DATABASE
+
+  # Db2 instance type.
   DB2_INSTANCE
+
+  # Data location type.
   DataLocation
 
   # Encryption Management type.
@@ -83681,18 +84659,44 @@ enum UserAuditObjectTypeEnum {
 
   # Exchange Server type.
   EXCHANGE_SERVER
+
+  # EC2 instance type.
   Ec2Instance
+
+  # Failover cluster app type.
   FailoverClusterApp
+
+  # Federated access type.
   FederatedAccess
+
+  # GCP native disk type.
   GcpNativeDisk
+
+  # GCP native GCE instance type.
   GcpNativeGceInstance
+
+  # GCP native project type.
   GcpNativeProject
+
+  # Host type.
   Host
+
+  # Host failover cluster type.
   HostFailoverCluster
+
+  # Hyper-V SCVMM type.
   HypervScvmm
+
+  # Hyper-V server type.
   HypervServer
+
+  # Hyper-V virtual machine type.
   HypervVm
+
+  # IP whitelist type.
   IpWhitelist
+
+  # Job instance type.
   JobInstance
 
   # Kubernetes Cluster type.
@@ -83700,8 +84704,14 @@ enum UserAuditObjectTypeEnum {
 
   # Kubernetes Resource Set type.
   K8S_RESOURCE_SET
+
+  # LDAP type.
   Ldap
+
+  # Linux fileset type.
   LinuxFileset
+
+  # Linux host type.
   LinuxHost
 
   # MongoDB source type.
@@ -83721,27 +84731,53 @@ enum UserAuditObjectTypeEnum {
 
   # MSSQL object type.
   MSSQL_OBJECT
+
+  # Managed Volume type.
   ManagedVolume
+
+  # MSSQL type.
   Mssql
+
+  # MSSQL database type.
   MssqlDatabase
 
   # Nutanix Prism Central type.
   NUTANIX_PRISM_CENTRAL
+
+  # NAS host type.
   NasHost
+
+  # Nutanix cluster type.
   NutanixCluster
+
+  # Nutanix virtual machine type.
   NutanixVm
+
+  # Office 365 calendar type.
   O365Calendar
 
-  # O365 Group type.
+  # Office 365 Group type.
   O365Group
+
+  # Office 365 mailbox type.
   O365Mailbox
+
+  # Office 365 OneDrive type.
   O365Onedrive
+
+  # Office 365 organization type.
   O365Organization
+
+  # Office 365 SharePoint drive type.
   O365SharepointDrive
+
+  # Office 365 SharePoint list type.
   O365SharepointList
+
+  # Office 365 team type.
   O365Team
 
-  # O365 SharePoint Site type.
+  # Office 365 SharePoint Site type.
   O365_SHAREPOINT_SITE
 
   # Oracle Mount type.
@@ -83749,39 +84785,101 @@ enum UserAuditObjectTypeEnum {
 
   # Organization type.
   ORGANIZATION
+
+  # Oracle database type.
   OracleDb
+
+  # Oracle host type.
   OracleHost
+
+  # Oracle RAC type.
   OracleRac
+
+  # Public cloud machine instance type.
   PublicCloudMachineInstance
+
+  # SAP HANA Database type.
   SapHanaDb
+
+  # SAP HANA system type.
   SapHanaSystem
+
+  # Share fileset type.
   ShareFileset
+
+  # SLA Domain type.
   Sla
+
+  # SLA Domain type.
   SlaDomain
+
+  # SMB domain type.
   SmbDomain
+
+  # Snapshot type.
   Snapshot
+
+  # Storage array type.
   StorageArray
+
+  # Storage array volume group type.
   StorageArrayVolumeGroup
+
+  # Storage settings type.
   StorageSettings
+
+  # Storm type.
   Storm
+
+  # Support tunnel type.
   SupportTunnel
+
+  # System preference type.
   SystemPreference
+
+  # Unknown type.
   Unknown
+
+  # Upgrade type.
   Upgrade
+
+  # User type.
   User
+
+  # User action audit type.
   UserActionAudit
+
+  # User group type.
   UserGroup
+
+  # User role type.
   UserRole
 
   # VMware Compute Cluster type.
   VMWARE_COMPUTE_CLUSTER
+
+  # VCD type.
   Vcd
+
+  # VCD vApp type.
   VcdVapp
+
+  # A vCenter type.
   Vcenter
+
+  # VMware mount type.
   VmwareMount
+
+  # VMware virtual machine type.
   VmwareVm
+
+  # Volume group type.
   VolumeGroup
+
+  # Windows fileset type.
   WindowsFileset
+
+  # Windows host type.
   WindowsHost
 }
 # User audit severity.
@@ -86197,6 +87295,9 @@ input VcenterConfigV2Input {
   # A Boolean value that determines whether to enable HotAdd transport mode for On-Premise vCenter. When this value is `true`, VMware virtual machines can use HotAdd proxy to transport virtual disk data in addition to NBD(SSL). When this value is `false`, VMware virtual machines can ONLY usee NBD(SSL) to transport virtual disk data. Default value is `false`.
   shouldEnableHotAddProxyForOnPrem: Boolean
 
+  # The managed ID of the organization network to which the vCenter Server is assigned.
+  orgNetworkId: String
+
   # Supported in v5.3+
   # Set to 'AllowAutoConflictResolution' to link the relic virtual machine objects of a virtual machine to the current object for the virtual machine or to 'NoConflictResolution' to prevent linking. The Rubrik cluster generates a unique ID for each virtual machine when a vCenter Server is added. When a virtual machine changes to another vCenter Server or unregisters and registers with the same vCenter Server, a new unique ID is generated for that virtual machine. When this happens, the virtual machine object associated with the original ID becomes a relic. This option links relic virtual machine objects with the current virtual machine object of a specific virtual machine, and makes the collective snapshot history available through the current object. Default value is 'NoConflictResolution'.
   conflictResolutionAuthz: VcenterConfigV2ConflictResolutionAuthz
@@ -86316,6 +87417,11 @@ type VcenterSummary {
 enum VcenterSummaryConflictResolutionAuthz {
   VCENTER_SUMMARY_CONFLICT_RESOLUTION_AUTHZ_ALLOW_AUTO_CONFLICT_RESOLUTION
   VCENTER_SUMMARY_CONFLICT_RESOLUTION_AUTHZ_NO_CONFLICT_RESOLUTION
+}
+# Response verifying if the cluster is replication target in a SLA Domain.
+type VerifySlaWithReplicationToClusterResponse {
+  # Specifies whether SLA domain is active or not.
+  isActiveSla: Boolean!
 }
 # Supported in m3.2.0-m4.2.0
 # Mosaic management object version.
@@ -89435,6 +90541,9 @@ enum VsphereMountStatus {
   UNMOUNTING
 }
 type VsphereNetwork implements CdmHierarchyObject , HierarchyObject , VsphereHostDescendantType , VsphereComputeClusterDescendantType , VsphereResourcePoolDescendantType , VsphereVcenterDescendantType {
+  # MOID of the vSphere network.
+  moid: String!
+
   # Object ID.
   id: UUID!
 
@@ -92326,6 +93435,23 @@ enum WorkloadLevelHierarchy {
 type WorkloadLocation {
   # Workload location.
   location: String!
+}
+# Workload recovery info.
+type WorkloadRecoveryInfo {
+  # Whether snapshot metadata refresh is in progress.
+  isRefreshInProgressOpt: Boolean
+
+  # Recovery infomation update time.
+  lastUpdatedTimeOpt: DateTime
+
+  # Reader location ID.
+  locationId: String!
+
+  # Newly assigned data source ID.
+  newWorkloadId: String!
+
+  # Original data source ID.
+  oldWorkloadId: String!
 }
 # Specifies the ID and type of the workload and the number of times Ransomware Investigation has scanned the workload.
 type WorkloadScanned {

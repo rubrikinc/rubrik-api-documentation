@@ -190,6 +190,14 @@
       <a href="#deperecations">Deperecations</a>
     </li>
     <li class="second-level">
+      <a href="#20230801">2023/08/01</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#20230701">2023/07/01</a>
+    </li>
+    
+    <li class="second-level">
       <a href="#20230601">2023/06/01</a>
     </li>
     
@@ -216,64 +224,91 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deperecations">Deperecations</h1>
-<h2 id="20230601">2023/06/01</h2>
+<h2 id="20230801">2023/08/01</h2>
+<h2 id="20230701">2023/07/01</h2>
 <ul>
 <li>
-<p>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
-<p>Reason: We do not use archival groups currently.
-Scheduled for removal after 2024/04/21.</p>
+<p>Field <code>isPactsafeEnabled</code> was deprecated in <code>EulaState</code> type.</p>
+<p>Reason: Use isPactsafeV2Enabled instead.
+Scheduled for removal after 2024/06/27.</p>
 </li>
 <li>
-<p>Field <code>ownerOrgName</code> was deprecated in <code>ClusterSlaDomain</code> type.</p>
-<p>Reason: This field has been deprecated in favor of ownerOrg field.
-Scheduled for removal after 2024/05/11.</p>
+<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AwsExocomputeConfig</code> type.</p>
+<p>Reason: Use mappedCloudAccounts instead, cloud account IDs of mapped accounts are contained in mappedCloudAccounts.
+Scheduled for removal after 2024/06/27.</p>
 </li>
 <li>
-<p>Field <code>awsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
-<p>Reason: This query is no longer supported.
-Scheduled for removal after 2024/04/29.</p>
+<p>Field <code>isAccepted</code> was deprecated in <code>EulaState</code> type.</p>
+<p>Reason: Use pactsafeEulaState instead.
+Scheduled for removal after 2024/06/27.</p>
 </li>
 <li>
-<p>Enum value <code>IS_MANAGED_BY_AUTO_AG</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
-<p>Reason: We do not use archival groups currently.
-Scheduled for removal after 2024/04/21.</p>
+<p>Field <code>allOrgsWithAccess</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
+<p>Reason: This field is deprecated and has been replaced by the allOrgsHavingAccess field, which must be used instead.
+Scheduled for removal after 2024/06/27.</p>
 </li>
 <li>
-<p>Field <code>updateAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: This mutation is no longer supported.
-Scheduled for removal after 2024/04/29.</p>
-</li>
-<li>
-<p>Field <code>createAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: This mutation is no longer supported.
-Scheduled for removal after 2024/04/29.</p>
-</li>
-<li>
-<p>Field <code>userNotifications</code> was deprecated in <code>Query</code> type.</p>
-<p>Reason: This query is deprecated.
-Scheduled for removal after 2024/04/27.</p>
-</li>
-<li>
-<p>Field <code>deleteAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: This mutation is no longer supported.
-Scheduled for removal after 2024/04/29.</p>
-</li>
-<li>
-<p>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
-<p>Reason: Archived locations should not be queried for.
-Scheduled for removal after 2024/04/21.</p>
-</li>
-<li>
-<p>Field <code>allAwsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
-<p>Reason: This query is no longer supported.
-Scheduled for removal after 2024/04/29.</p>
-</li>
-<li>
-<p>Field <code>ownerOrgName</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
-<p>Reason: This field has been deprecated in favor of ownerOrg field.
-Scheduled for removal after 2024/05/11.</p>
+<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AzureSubscriptionWithExoConfigs</code> type.</p>
+<p>Reason: Use mappedCloudAccounts instead. The cloud account IDs of the mapped accounts are contained in the field 'mappedCloudAccounts'.
+Scheduled for removal after 2024/06/27.</p>
 </li>
 </ul>
+<h2 id="20230601">2023/06/01</h2>
+<ul>
+<li>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
+</ul>
+<p>Reason: We do not use archival groups currently.
+Scheduled for removal after 2024/04/21.</p>
+<ul>
+<li>Field <code>ownerOrgName</code> was deprecated in <code>ClusterSlaDomain</code> type.</li>
+</ul>
+<p>Reason: This field has been deprecated in favor of ownerOrg field.
+Scheduled for removal after 2024/05/11.</p>
+<ul>
+<li>Field <code>awsComputeSettings</code> was deprecated in <code>Query</code> type.</li>
+</ul>
+<p>Reason: This query is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+<ul>
+<li>Enum value <code>IS_MANAGED_BY_AUTO_AG</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
+</ul>
+<p>Reason: We do not use archival groups currently.
+Scheduled for removal after 2024/04/21.</p>
+<ul>
+<li>Field <code>updateAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+<ul>
+<li>Field <code>createAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+<ul>
+<li>Field <code>userNotifications</code> was deprecated in <code>Query</code> type.</li>
+</ul>
+<p>Reason: This query is deprecated.
+Scheduled for removal after 2024/04/27.</p>
+<ul>
+<li>Field <code>deleteAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: This mutation is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+<ul>
+<li>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
+</ul>
+<p>Reason: Archived locations should not be queried for.
+Scheduled for removal after 2024/04/21.</p>
+<ul>
+<li>Field <code>allAwsComputeSettings</code> was deprecated in <code>Query</code> type.</li>
+</ul>
+<p>Reason: This query is no longer supported.
+Scheduled for removal after 2024/04/29.</p>
+<ul>
+<li>Field <code>ownerOrgName</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
+</ul>
+<p>Reason: This field has been deprecated in favor of ownerOrg field.
+Scheduled for removal after 2024/05/11.</p>
 <h2 id="20230501">2023/05/01</h2>
 <h2 id="20230401">2023/04/01</h2>
 <ul>
@@ -381,7 +416,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-07-14</small>
+            <small>Revised on: 2023-07-27</small>
             </p>
           
 

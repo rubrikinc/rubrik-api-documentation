@@ -706,7 +706,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td>Starts or stops the global blackout window in local Rubrik cluster</td>
 <td>PATCH /blackout_window</td>
 <td>mutation updateClusterPauseStatus</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 </tbody>
 </table>
@@ -1002,7 +1002,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  the link for Rubrik SNMP MIB file</td>
 <td>GET /cluster/{id}/snmp_mib_link</td>
-<td>https://${cluster.ipAddress}/snmp_mib_dir/RUBRIK-MIB.mib</td>
+<td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
@@ -1074,7 +1074,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  the link for SYSLOG-MSG-MIB file</td>
 <td>GET /cluster/{id}/syslog_msg_mib_link</td>
-<td>https://${cluster.ipAddress}/snmp_mib_dir/SYSLOG-MSG-MIB</td>
+<td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
@@ -1104,7 +1104,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  the link for SYSLOG-TC-MIB file</td>
 <td>GET /cluster/{id}/syslog_tc_mib_link</td>
-<td>https://${cluster.ipAddress}/snmp_mib_dir/SYSLOG-TC-MIB</td>
+<td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
@@ -1357,13 +1357,13 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td>Bulk DELETE  specified snapshots for the given object</td>
 <td>POST /data_source/{id}/snapshot/bulk_DELETE</td>
 <td>mutation deleteUnmanagedSnapshots</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>Bulk DELETE  all snapshots for the given objects</td>
 <td>POST /data_source/snapshot/bulk_DELETE</td>
 <td>mutation deleteSnapshotsOfUnmanagedObjects</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>Returns a list of snapshots that have expired according to their snapshot-level SLA Domain assignments</td>
@@ -2130,7 +2130,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  list of Volume Group volumes</td>
 <td>GET /host/{id}/volume</td>
-<td>physicalHosts-&gt;node-&gt;hostVolumes</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -2390,7 +2390,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td>Apply a Legal Hold</td>
 <td>POST /legal_hold/snapshot</td>
 <td>mutation createLegalHold</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>GET  snasphots held under legal hold</td>
@@ -2402,7 +2402,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td>Dissolve a collection of snapshots of specified data source from Legal Hold</td>
 <td>POST /legal_hold/object/{id}/dissolve</td>
 <td>mutation dissolveLegalHold</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>GET  objects part of Legal Hold</td>
@@ -2508,28 +2508,28 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
+<td>Retrieve the managed volume snapshot reference</td>
 <td>GET /managed_volume/{id}/snapshot/{snapshot_id}/reference</td>
 <td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
-<td></td>
 </tr>
 <tr>
+<td>Export a managed volume snapshot</td>
 <td>POST /managed_volume/{id}/snapshot/{snapshot_id}/export</td>
 <td>mutation exportManagedVolumeSnapshot</td>
 <td><span style="color:green"><em>Available</em></span></td>
-<td></td>
 </tr>
 <tr>
+<td>Restore a managed volume snapshot</td>
 <td>POST /managed_volume/{id}/snapshot/{snapshot_id}/restore</td>
 <td>mutation exportSlaManagedVolumeSnapshot</td>
 <td><span style="color:green"><em>Available</em></span></td>
-<td></td>
 </tr>
 <tr>
+<td>Retrieve a list of managed volume Live Mounts</td>
 <td>GET /managed_volume/snapshot/export</td>
 <td>query managedVolumeLiveMounts</td>
 <td><span style="color:green"><em>Available</em></span></td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -3265,7 +3265,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Search for principals</td>
 <td>GET /principal</td>
-<td>N/A (RSC cannot view/manage CDM principals)</td>
+<td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
@@ -3302,13 +3302,13 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  the status of a replication recovery operation</td>
 <td>GET /replication/cluster_recovery</td>
-<td>N/A (The cluster recovery feature is not exposed to user in RSC)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>Triggers a replication recovery job on the specified source cluster</td>
 <td>POST /replication/cluster_recovery</td>
-<td>N/A (The cluster recovery feature is not exposed to user in RSC)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -3375,7 +3375,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Modify the report config</td>
 <td>PATCH /report/config</td>
-<td>mutation updateCustomReport (non-NG) / updateReport (NG)</td>
+<td>mutation updateReport</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -3535,8 +3535,8 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  summary information for added SAP HANA systems</td>
 <td>GET /sap_hana/system</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>query SapHanaSystemListQuery</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Create on demand database snapshot</td>
@@ -3547,8 +3547,8 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  a summary list of snapshots for a SAP HANA database</td>
 <td>GET /sap_hana/db/{id}/snapshot</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>N/A</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Reset the configuration for system copy restore on tarGET  database</td>
@@ -3565,14 +3565,14 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>DELETE  a particular full snapshot of a SAP HANA database</td>
 <td>DELETE /sap_hana/db/snapshot/{id}</td>
-<td>N/A</td>
+<td>mutation deleteSapHanaDbSnapshot</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>GET  SAP HANA database snapshot details</td>
 <td>GET /sap_hana/db/snapshot/{id}</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>N/A</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Refresh SAP HANA system metadata</td>
@@ -3584,25 +3584,25 @@ you find a match in the GraphQL Schema definition panel.</p>
 <td>GET  the status of a SAP HANA system request</td>
 <td>GET /sap_hana/system/request/{id}</td>
 <td>N/A</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>GET  summary information for discovered SAP HANA databases</td>
 <td>GET /sap_hana/db</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>query SapHanaDatabaseListQuery</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>GET  the status of a SAP HANA database request</td>
 <td>GET /sap_hana/db/request/{id}</td>
 <td>N/A</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>GET  detailed information for an SAP HANA database</td>
 <td>GET /sap_hana/db/{id}</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>query SapHanaDatabaseDetailsQuery</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Update the SLA Domain for an SAP HANA database</td>
@@ -3619,19 +3619,19 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Retrieve summary information for missed snapshots of a SAP HANA database</td>
 <td>GET /sap_hana/db/{id}/missed_snapshot</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>N/A</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>GET  recoverable ranges of a SAP HANA database</td>
 <td>GET /sap_hana/db/{id}/recoverable_range</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>query SapHanaRecoverableRangeQuery</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Expire downloaded snapshots of an SAP HANA database</td>
 <td>DELETE /sap_hana/db/{id}/downloaded_snapshots</td>
-<td></td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -3649,8 +3649,8 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  summary information for a SAP HANA system</td>
 <td>GET /sap_hana/system/{id}</td>
-<td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td>query sapHanaSystem</td>
+<td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Update the SLA Domain for a SAP HANA system</td>
@@ -3748,25 +3748,13 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Create SLA Domain</td>
 <td>POST /sla_domain</td>
-<td>N/A (Local SLA cannot be created on RSC)</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
-</tr>
-<tr>
-<td>Retrieve list of SLA Domains</td>
-<td>GET /sla_domain</td>
-<td>query slaDomains</td>
-<td><span style="color:green"><em>Available</em></span></td>
-</tr>
-<tr>
-<td>Assign retention SLA Domain to the downloaded snapshots of a single object</td>
-<td>POST /sla_domain/assign_to_downloaded_snapshots</td>
 <td>N/A</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>Remove SLA Domain</td>
 <td>DELETE /sla_domain/{id}</td>
-<td>N/A (Local SLA delete has to be on cluster)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -3796,7 +3784,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Pause an SLA Domain</td>
 <td>POST /sla_domain/{id}/pause</td>
-<td>N/A (Local SLA cannot be paused on RSC)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -3808,7 +3796,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Update SLA Domain</td>
 <td>PATCH /sla_domain/{id}</td>
-<td>N/A (Local SLA cannot be edited on RSC)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 </tbody>
@@ -3967,7 +3955,7 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>GET  the TOTP status for the given user</td>
 <td>GET /user/{id}/totp/status</td>
-<td>N/A (Cannot manage CDM users from RSC)</td>
+<td>N/A</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
@@ -4754,13 +4742,13 @@ you find a match in the GraphQL Schema definition panel.</p>
 </tr>
 <tr>
 <td>GET  details for the compute cluster</td>
-<td>GET /vmware/comPUT e_cluster/{id}</td>
+<td>GET /vmware/compute_cluster/{id}</td>
 <td>vSphereComputeCluster</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>Modify information for a VMware compute cluster</td>
-<td>PATCH /vmware/comPUT e_cluster/{id}</td>
+<td>PATCH /vmware/compute_cluster/{id}</td>
 <td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
@@ -5098,13 +5086,13 @@ you find a match in the GraphQL Schema definition panel.</p>
 <tr>
 <td>Retrieve the configuration which has been set for forcing a full snapshot for a Hyper-V Virtual Machine</td>
 <td>GET /hyperv/vm/{id}/request/force_full_snapshot</td>
-<td>N/A (Not on crystal)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
 <td>Request a full snapshot during next backup job of a Hyper-V virtual machine</td>
 <td>POST /hyperv/vm/{id}/request/force_full_snapshot</td>
-<td>N/A (Not on crystal)</td>
+<td>N/A</td>
 <td><span style="color:red"><em>Restricted</em></span></td>
 </tr>
 <tr>
@@ -5631,7 +5619,7 @@ you find a match in the GraphQL Schema definition panel.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-07-14</small>
+            <small>Revised on: 2023-07-27</small>
             </p>
           
 
