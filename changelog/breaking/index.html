@@ -190,7 +190,7 @@
       <a href="#breaking-changes">Breaking changes</a>
     </li>
     <li class="second-level">
-      <a href="#20230801">2023/08/01</a>
+      <a href="#20231001">2023/10/01</a>
     </li>
     
     <li class="third-level">
@@ -200,7 +200,7 @@
       <a href="#types">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230701">2023/07/01</a>
+      <a href="#20230901">2023/09/01</a>
     </li>
     
     <li class="third-level">
@@ -210,7 +210,7 @@
       <a href="#types_1">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230601">2023/06/01</a>
+      <a href="#20230801">2023/08/01</a>
     </li>
     
     <li class="third-level">
@@ -220,7 +220,7 @@
       <a href="#types_2">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230501">2023/05/01</a>
+      <a href="#20230701">2023/07/01</a>
     </li>
     
     <li class="third-level">
@@ -230,7 +230,7 @@
       <a href="#types_3">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230401">2023/04/01</a>
+      <a href="#20230601">2023/06/01</a>
     </li>
     
     <li class="third-level">
@@ -240,7 +240,7 @@
       <a href="#types_4">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230301">2023/03/01</a>
+      <a href="#20230501">2023/05/01</a>
     </li>
     
     <li class="third-level">
@@ -250,7 +250,7 @@
       <a href="#types_5">Types</a>
     </li>
     <li class="second-level">
-      <a href="#20230201">2023/02/01</a>
+      <a href="#20230401">2023/04/01</a>
     </li>
     
     <li class="third-level">
@@ -260,45 +260,108 @@
       <a href="#types_6">Types</a>
     </li>
     <li class="second-level">
+      <a href="#20230301">2023/03/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#field-and-enums_7">Field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#types_7">Types</a>
+    </li>
+    <li class="second-level">
+      <a href="#20230201">2023/02/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#field-and-enums_8">Field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#types_8">Types</a>
+    </li>
+    <li class="second-level">
       <a href="#20230101">2023/01/01</a>
     </li>
     
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="breaking-changes">Breaking changes</h1>
-<h2 id="20230801">2023/08/01</h2>
+<h2 id="20231001">2023/10/01</h2>
 <h3 id="field-and-enums">Field and enums</h3>
 <ul>
-<li>Field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlSlaRelatedProperties</code> type.</li>
+<li>Field <code>deleteFailedClusterOperationJobData</code> was removed from <code>Mutation</code> type.</li>
+<li>Input field <code>accountId</code> was removed from <code>UnmountDiskInput</code> type.</li>
+<li>Input field <code>mountDiskIds</code> was removed from <code>UnmountDiskInput</code> type.</li>
+<li>Input field <code>accountId</code> was removed from <code>MountDiskInput</code> type.</li>
+<li>Input field <code>mountId</code> was removed from <code>UnmountDiskInput</code> type.</li>
+<li>Enum value <code>PAST_90_DAYS</code> was removed from enum <code>PastDurationEnum</code>.</li>
+<li>Enum value <code>START_OF_PROTECTION</code> was removed from enum <code>PastDurationEnum</code>.</li>
+<li><code>Mutation.unmountDisk</code> field type changed from <code>AsyncJobStatus!</code> to <code>Void</code>.</li>
+<li><code>Mutation.mountDisk</code> field type changed from <code>AsyncJobStatus!</code> to <code>MountDiskReply!</code>.</li>
+<li><code>MountDiskInput.snapshotType</code> input field type changed from <code>SnapshotType</code> to <code>SnapshotType!</code>.</li>
+<li><code>DeleteCsrInput.csrFids</code> input field type changed from <code>[UUID!]</code> to <code>[UUID!]!</code>.</li>
+<li><code>GetCsrInput.csrFid</code> input field type changed from <code>UUID</code> to <code>UUID!</code>.</li>
+</ul>
+<h3 id="types">Types</h3>
+<ul>
+<li><code>DeleteFailedClusterOperationJobDataInput</code> type was removed.</li>
+<li><code>DeleteFailedClusterOperationJobDataReply</code> type was removed.</li>
+<li><code>VsphereDatacenter</code> object type no longer implements <code>VsphereFolderLogicalChildType</code> interface.</li>
+<li>Input field <code>targetWorkloadId</code> was added to <code>UnmountDiskInput</code> type.</li>
+<li>Input field <code>mountIds</code> was added to <code>UnmountDiskInput</code> type.</li>
+<li>Input field <code>liveMountId</code> was added to <code>UnmountDiskInput</code> type.</li>
+<li><code>VsphereDatacenter</code> object type no longer implements <code>VsphereFolderDescendantType</code> interface.</li>
+<li>Input field <code>workloadType</code> was added to <code>MountDiskInput</code> type.</li>
+<li>Argument <code>featuresWithPermissionsGroups</code> was added to <code>Query.allLatestFeaturePermissionsForCloudAccounts</code> field.</li>
+</ul>
+<h2 id="20230901">2023/09/01</h2>
+<h3 id="field-and-enums_1">Field and enums</h3>
+<ul>
+<li>Input field <code>roleCustomization</code> was removed from <code>ValidateAndCreateAwsCloudAccountInput</code> type.</li>
+<li>Input field <code>name</code> was removed from <code>AwsNativeAccountInput</code> type.</li>
+<li>Enum value <code>SAAS_APPS_OBJECT_TYPE</code> was removed from enum <code>SlaObjectType</code>.</li>
+<li><code>DlpConfig.policies</code> field type changed from <code>[String!]!</code> to <code>[String!]</code>.</li>
+</ul>
+<h3 id="types_1">Types</h3>
+<ul>
+<li>Argument <code>features</code> was removed from <code>Query.allAwsPermissionPolicies</code> field.</li>
+<li>Argument <code>awsCloudType</code> was removed from <code>Query.allAwsPermissionPolicies</code> field.</li>
+<li>Argument <code>userAccessObjectsFilter</code> was added to <code>Query.policyObjs</code> field.</li>
+<li>Argument <code>input</code> was added to <code>Query.allAwsPermissionPolicies</code> field.</li>
+</ul>
+<h2 id="20230801">2023/08/01</h2>
+<h3 id="field-and-enums_2">Field and enums</h3>
+<ul>
 <li>Field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlDbSummary</code> type.</li>
-<li>Input field <code>logConfig</code> was removed from <code>SlaManagedVolumeClientConfigInput</code> type.</li>
+<li>Field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlSlaRelatedProperties</code> type.</li>
 <li>Input field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlSlaRelatedPropertiesInput</code> type.</li>
+<li>Input field <code>logConfig</code> was removed from <code>SlaManagedVolumeClientConfigInput</code> type.</li>
 <li>Enum value <code>ON_PREM_AD_ROOT</code> was removed from enum <code>InventorySubHierarchyRootEnum</code>.</li>
 <li><code>NutanixPrismCentral.lastRefreshTime</code> field type changed from <code>DateTime!</code> to <code>DateTime</code>.</li>
 <li><code>NutanixCluster.lastRefreshTime</code> field type changed from <code>DateTime!</code> to <code>DateTime</code>.</li>
 </ul>
-<h3 id="types">Types</h3>
+<h3 id="types_2">Types</h3>
 <ul>
 <li><code>ManagedVolumeLogConfigInput</code> type was removed.</li>
 </ul>
 <h2 id="20230701">2023/07/01</h2>
-<h3 id="field-and-enums_1">Field and enums</h3>
+<h3 id="field-and-enums_3">Field and enums</h3>
 <ul>
 <li>Field <code>hostLogRetention</code> was removed from <code>MssqlSlaRelatedProperties</code> type.</li>
 <li>Field <code>hostLogRetention</code> was removed from <code>MssqlDbSummary</code> type.</li>
 <li>Input field <code>hostLogRetention</code> was removed from <code>MssqlSlaRelatedPropertiesInput</code> type.</li>
 <li><code>NutanixPrismCentral.cdmId</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
 </ul>
-<h3 id="types_1">Types</h3>
+<h3 id="types_3">Types</h3>
 <ul>
-<li>Argument <code>clusterIds</code> was added to <code>Mutation.removePolicyObjects</code> field.</li>
-<li>Argument <code>clusterIds</code> was added to <code>Mutation.addPolicyObjects</code> field.</li>
 <li>Argument <code>objectRootIds</code> was added to <code>Mutation.removePolicyObjects</code> field.</li>
 <li>Argument <code>objectRootIds</code> was added to <code>Mutation.addPolicyObjects</code> field.</li>
 <li>Argument <code>workloadFid</code> was removed from <code>Query.decryptExportUrl</code> field.</li>
+<li>Argument <code>clusterIds</code> was added to <code>Mutation.addPolicyObjects</code> field.</li>
+<li>Argument <code>clusterIds</code> was added to <code>Mutation.removePolicyObjects</code> field.</li>
 </ul>
 <h2 id="20230601">2023/06/01</h2>
-<h3 id="field-and-enums_2">Field and enums</h3>
+<h3 id="field-and-enums_4">Field and enums</h3>
 <ul>
 <li>Field <code>threatMonitoringMatchedFiles</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>hostname</code> was removed from <code>NutanixPrismCentral</code> type.</li>
@@ -319,7 +382,7 @@
 <li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>ActivityObjectTypeEnum</code>.</li>
 <li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>WorkloadLevelHierarchy</code>.</li>
 </ul>
-<h3 id="types_2">Types</h3>
+<h3 id="types_4">Types</h3>
 <ul>
 <li><code>CreateCrossAccountReplicationPairInput</code> type was removed.</li>
 <li><code>AttributeInput</code> type was removed.</li>
@@ -341,7 +404,7 @@
 <li><code>SnapshotData</code> type was removed.</li>
 </ul>
 <h2 id="20230501">2023/05/01</h2>
-<h3 id="field-and-enums_3">Field and enums</h3>
+<h3 id="field-and-enums_5">Field and enums</h3>
 <ul>
 <li>Field <code>disableTprOrg</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>snapshotConnection</code> was removed from <code>MongoCollection</code> type.</li>
@@ -356,7 +419,7 @@
 <li>Field <code>snapshotGroupBySummary</code> was removed from <code>MongoCollection</code> type.</li>
 <li>Field <code>newestReplicatedSnapshot</code> was removed from <code>MongoCollection</code> type.</li>
 </ul>
-<h3 id="types_3">Types</h3>
+<h3 id="types_5">Types</h3>
 <ul>
 <li><code>SetUserSessionManagementConfigReply</code> type was removed.</li>
 <li><code>DisableTprOrgInput</code> type was removed.</li>
@@ -366,7 +429,7 @@
 <li><code>MongoCollection</code> object type no longer implements <code>MongoDatabasePhysicalChildType</code> interface.</li>
 </ul>
 <h2 id="20230401">2023/04/01</h2>
-<h3 id="field-and-enums_4">Field and enums</h3>
+<h3 id="field-and-enums_6">Field and enums</h3>
 <ul>
 <li>Field <code>topRiskPrincipals</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>sidsPolicyHitsSummary</code> was removed from <code>Query</code> type.</li>
@@ -382,7 +445,7 @@
 <li>Input field <code>targetMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
 <li><code>MongoSource.sourceNodes</code> field type changed from <code>String!</code> to <code>[CdmMongoNode!]!</code>.</li>
 </ul>
-<h3 id="types_4">Types</h3>
+<h3 id="types_6">Types</h3>
 <ul>
 <li><code>TopRiskPrincipalsReply</code> type was removed.</li>
 <li><code>O365TeamChildSnapshotIds</code> type was removed.</li>
@@ -393,7 +456,7 @@
 <li>Input field <code>input</code> was added to <code>RecoverMongoSourceInput</code> type.</li>
 </ul>
 <h2 id="20230301">2023/03/01</h2>
-<h3 id="field-and-enums_5">Field and enums</h3>
+<h3 id="field-and-enums_7">Field and enums</h3>
 <ul>
 <li>Field <code>failoverJobReports</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>clusterGroupByUpgradeInfo</code> was removed from <code>Query</code> type.</li>
@@ -407,7 +470,7 @@
 <li>Input field <code>clusterUuid</code> was removed from <code>RetryAddMongoSourceInput</code> type.</li>
 <li><code>O365SnapshotItemInfo.snapshotId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="types_5">Types</h3>
+<h3 id="types_7">Types</h3>
 <ul>
 <li><code>RecoveryInfo</code> type was removed.</li>
 <li><code>CyberRecoveryObjectsSortParams</code> type was removed.</li>
@@ -491,7 +554,7 @@
 <li><code>FailoverStep</code> type was removed.</li>
 </ul>
 <h2 id="20230201">2023/02/01</h2>
-<h3 id="field-and-enums_6">Field and enums</h3>
+<h3 id="field-and-enums_8">Field and enums</h3>
 <ul>
 <li>Field <code>createConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>updateConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
@@ -501,7 +564,7 @@
 <li><code>O365SnapshotItemInfo.id</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
 <li><code>O365SnapshotItemInfo.parentFolderId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="types_6">Types</h3>
+<h3 id="types_8">Types</h3>
 <ul>
 <li><code>CreateConfigProtectionSetupInput</code> type was removed.</li>
 <li><code>UpdateConfigProtectionSetupInput</code> type was removed.</li>
@@ -521,7 +584,7 @@
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-07-27</small>
+            <small>Revised on: 2023-09-19</small>
             </p>
           
 
