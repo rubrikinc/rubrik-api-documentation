@@ -157,7 +157,12 @@
 
              
 <li >
-  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud-native Protection</a>
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
 </li>
 
              
@@ -190,7 +195,7 @@
       <a href="#changelog">Changelog</a>
     </li>
     <li class="second-level">
-      <a href="#20231001">2023/10/01</a>
+      <a href="#20231101">2023/11/01</a>
     </li>
     
     <li class="third-level">
@@ -200,10 +205,13 @@
       <a href="#breaking-types">Breaking: types</a>
     </li>
     <li class="third-level">
+      <a href="#deprecations">Deprecations</a>
+    </li>
+    <li class="third-level">
       <a href="#additions">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230901">2023/09/01</a>
+      <a href="#20231001">2023/10/01</a>
     </li>
     
     <li class="third-level">
@@ -213,13 +221,10 @@
       <a href="#breaking-types_1">Breaking: types</a>
     </li>
     <li class="third-level">
-      <a href="#deprecations">Deprecations</a>
-    </li>
-    <li class="third-level">
       <a href="#additions_1">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230801">2023/08/01</a>
+      <a href="#20230901">2023/09/01</a>
     </li>
     
     <li class="third-level">
@@ -229,10 +234,13 @@
       <a href="#breaking-types_2">Breaking: types</a>
     </li>
     <li class="third-level">
+      <a href="#deprecations_1">Deprecations</a>
+    </li>
+    <li class="third-level">
       <a href="#additions_2">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230701">2023/07/01</a>
+      <a href="#20230801">2023/08/01</a>
     </li>
     
     <li class="third-level">
@@ -242,13 +250,10 @@
       <a href="#breaking-types_3">Breaking: types</a>
     </li>
     <li class="third-level">
-      <a href="#deprecations_1">Deprecations</a>
-    </li>
-    <li class="third-level">
       <a href="#additions_3">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230601">2023/06/01</a>
+      <a href="#20230701">2023/07/01</a>
     </li>
     
     <li class="third-level">
@@ -264,7 +269,7 @@
       <a href="#additions_4">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230501">2023/05/01</a>
+      <a href="#20230601">2023/06/01</a>
     </li>
     
     <li class="third-level">
@@ -274,10 +279,13 @@
       <a href="#breaking-types_5">Breaking: types</a>
     </li>
     <li class="third-level">
+      <a href="#deprecations_3">Deprecations</a>
+    </li>
+    <li class="third-level">
       <a href="#additions_5">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230401">2023/04/01</a>
+      <a href="#20230501">2023/05/01</a>
     </li>
     
     <li class="third-level">
@@ -287,13 +295,10 @@
       <a href="#breaking-types_6">Breaking: types</a>
     </li>
     <li class="third-level">
-      <a href="#deprecations_3">Deprecations</a>
-    </li>
-    <li class="third-level">
       <a href="#additions_6">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230301">2023/03/01</a>
+      <a href="#20230401">2023/04/01</a>
     </li>
     
     <li class="third-level">
@@ -309,7 +314,7 @@
       <a href="#additions_7">Additions</a>
     </li>
     <li class="second-level">
-      <a href="#20230201">2023/02/01</a>
+      <a href="#20230301">2023/03/01</a>
     </li>
     
     <li class="third-level">
@@ -325,14 +330,676 @@
       <a href="#additions_8">Additions</a>
     </li>
     <li class="second-level">
+      <a href="#20230201">2023/02/01</a>
+    </li>
+    
+    <li class="third-level">
+      <a href="#breaking-field-and-enums_9">Breaking: field and enums</a>
+    </li>
+    <li class="third-level">
+      <a href="#breaking-types_9">Breaking: types</a>
+    </li>
+    <li class="third-level">
+      <a href="#deprecations_6">Deprecations</a>
+    </li>
+    <li class="third-level">
+      <a href="#additions_9">Additions</a>
+    </li>
+    <li class="second-level">
       <a href="#20230101">2023/01/01</a>
     </li>
     
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="changelog">Changelog</h1>
-<h2 id="20231001">2023/10/01</h2>
+<h2 id="20231101">2023/11/01</h2>
 <h3 id="breaking-field-and-enums">Breaking: field and enums</h3>
+<ul>
+<li>Field <code>physicalChildConnection</code> was removed from <code>ManagedVolumeMount</code> type.</li>
+<li>Field <code>active</code> was removed from <code>PasswordComplexityPolicyTemplate</code> type.</li>
+<li>Field <code>descendantConnection</code> was removed from <code>ManagedVolumeMount</code> type.</li>
+<li>Enum value <code>JIRA_PROJECT_KEY</code> was removed from enum <code>HierarchyFilterField</code>.</li>
+<li><code>NutanixVmMountSummary.mountStatus</code> field type changed from <code>String</code> to <code>NutanixVmMountStatus</code>.</li>
+</ul>
+<h3 id="breaking-types">Breaking: types</h3>
+<ul>
+<li><code>ManagedVolumeMountDescendantTypeConnection</code> type was removed.</li>
+<li><code>ManagedVolumeMountPhysicalChildTypeEdge</code> type was removed.</li>
+<li><code>ManagedVolumeMountPhysicalChildType</code> type was removed.</li>
+<li><code>ManagedVolumeMountPhysicalChildTypeConnection</code> type was removed.</li>
+<li><code>ManagedVolumeMountDescendantTypeEdge</code> type was removed.</li>
+<li><code>ManagedVolumeMountDescendantType</code> type was removed.</li>
+<li><code>PhysicalHost</code> object type no longer implements <code>ManagedVolumeMountDescendantType</code> interface.</li>
+<li><code>PhysicalHost</code> object type no longer implements <code>ManagedVolumeDescendantType</code> interface.</li>
+<li><code>PhysicalHost</code> object type no longer implements <code>ManagedVolumeMountPhysicalChildType</code> interface.</li>
+</ul>
+<h3 id="deprecations">Deprecations</h3>
+<ul>
+<li>
+<p>Field <code>orgName</code> was deprecated in <code>TaskDetail</code> type.</p>
+<p>Reason: <code>taskOrg</code> field captures the basic org details.
+Scheduled for removal after 2024/11/02.</p>
+</li>
+<li>
+<p>Field <code>orgName</code> was deprecated in <code>Snappable</code> type.</p>
+<p>Reason: <code>snappableOrg</code> field captures the basic org details.
+Scheduled for removal after 2024/11/02.</p>
+</li>
+<li>
+<p>Field <code>vsphereVmRecoverFiles</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Deprecated. Use vsphereVmRecoverFilesNew instead.
+Scheduled for removal after 2024/09/27.</p>
+</li>
+<li>
+<p>Field <code>vsphereExcludeVmDisks</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Deprecated. Use excludeVmDisks instead.
+Scheduled for removal after 2024/09/27.</p>
+</li>
+</ul>
+<h3 id="additions">Additions</h3>
+<ul>
+<li><code>NcdVmImageUrl</code> type was added.</li>
+<li><code>AzureStorageAccountCcprovision</code> type was added.</li>
+<li><code>NameCollisionRule</code> type was added.</li>
+<li><code>Db2InstanceType</code> type was added.</li>
+<li><code>VmImageUrlInput</code> type was added.</li>
+<li><code>MssqlCompatibleInstancesSortByInput</code> type was added.</li>
+<li><code>WorkloadOrganization</code> type was added.</li>
+<li><code>RcvEntitlementWithExpirationDate</code> type was added.</li>
+<li><code>FailedRestoreItemsInfoReply</code> type was added.</li>
+<li><code>RcvEntitlementWithOrderNumber</code> type was added.</li>
+<li><code>NutanixVmMountStatus</code> type was added.</li>
+<li><code>MongoAuthenticationType</code> type was added.</li>
+<li><code>MssqlCompatibleInstancesSortByField</code> type was added.</li>
+<li><code>NcdHypervisorType</code> type was added.</li>
+<li><code>MssqlCompatibleInstancesFilterInput</code> type was added.</li>
+<li><code>InplaceRestoreConfig</code> type was added.</li>
+<li><code>GetDb2DatabaseAsyncRequestStatusInput</code> type was added.</li>
+<li><code>MssqlCompatibleInstancesFilterField</code> type was added.</li>
+<li><code>AllRcvAccountEntitlements</code> type was added.</li>
+<li><code>AzureStorageAccountsByRegionInput</code> type was added.</li>
+<li>Enum value <code>MAC2_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>VsphereVmListEsxiDatastoresReply</code> type.</li>
+<li>Field <code>recoveryTargetDescendantConnection</code> was added to <code>VsphereComputeCluster</code> type.</li>
+<li>Enum value <code>X2IEZN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NutanixNetworkListResponse</code> type.</li>
+<li>Enum value <code>M6IN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>BulkCreateFilesetsReply</code> type.</li>
+<li>Enum value <code>C7GN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_9TB1_112XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>MissedSnapshotListResponse</code> type.</li>
+<li>Enum value <code>SNAPSHOT_CLOUD_STORAGE_TIER_AZURE_COOL</code> was added to enum <code>SnapshotCloudStorageTier</code>.</li>
+<li>Enum value <code>U_24TB1_112XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>MssqlLogShippingSummaryV2ListResponse</code> type.</li>
+<li>Field <code>hasInsights</code> was added to <code>PolicyObj</code> type.</li>
+<li>Field <code>hierarchyObjectRecoveryTarget</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>AUSTRALIA_SOUTHEAST</code> was added to enum <code>RcsRegionEnumType</code>.</li>
+<li>Enum value <code>JIRA_PROJECT</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Enum value <code>R6IN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_FLEX_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IDN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>ncdVmImageUrl</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>D3_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEZN_6XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>snapshotNetworkUuids</code> was added to <code>NutanixVmSnapshotSummary</code> type.</li>
+<li>Enum value <code>R7A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NutanixContainerListResponse</code> type.</li>
+<li>Enum value <code>MANAGE_CORS_SETTINGS</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>C6GN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>awsImageId</code> was added to <code>AddNodesToCloudClusterInput</code> type.</li>
+<li>Enum value <code>I4I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>RECOVERY_SCHEDULE</code> was added to enum <code>UserAuditTypeEnum</code>.</li>
+<li>Enum value <code>M7G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>MANAGE_MIGRATION_DASHBOARD</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>R7IZ_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>allRcvAccountEntitlements</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>C6I_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>GuestCredentialDetailListResponse</code> type.</li>
+<li>Enum value <code>G4AD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>SNAPSHOT_CLOUD_STORAGE_TIER_STANDARD_IA</code> was added to enum <code>SnapshotCloudStorageTier</code>.</li>
+<li>Enum value <code>R7IZ_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li><code>FilesetExportFilesJobConfigInput.hostId</code> input field type changed from <code>String!</code> to <code>String</code>.</li>
+<li>Enum value <code>C6G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Argument <code>includeInsightsMarker</code> was added to <code>Query.policyObjs</code> field.</li>
+<li>Enum value <code>M6IDN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IS4GEN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEZN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>inplaceRestoreConfig</code> was added to <code>SnappableRestoreConfig</code> type.</li>
+<li>Enum value <code>I4G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>JIRA_PROJECT_KEY_OR_NAME</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Enum value <code>R6ID_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>TRANSFERRED_BYTES_OBJECT_TYPE</code> was added to enum <code>SnappableGroupByEnum</code>.</li>
+<li>Enum value <code>M6G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>hasDatastoresForRecovery</code> was added to <code>VsphereHost</code> type.</li>
+<li>Enum value <code>R6GD_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5DN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_3TB1_56XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5N_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>isPodCidrAndSubnetCidrOverlap</code> was added to <code>AzureExocomputeConfigValidationInfo</code> type.</li>
+<li>Enum value <code>T4G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>VIEW_DB_LOG_REPORT_PROPERTIES</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>M7A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GN_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_6XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>recoveryTargetDescendantConnection</code> was added to <code>VsphereResourcePool</code> type.</li>
+<li>Enum value <code>X2IEZN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_6TB1_56XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>BrowseResponseListResponse</code> type.</li>
+<li>Enum value <code>M7I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>isNasShareManuallyAdded</code> was added to <code>NasShare</code> type.</li>
+<li>Input field <code>shouldUseSepsWallet</code> was added to <code>OracleDataGuardGroupUpdateInput</code> type.</li>
+<li>Enum value <code>C6IN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>snapshotRetentionSlaId</code> was added to <code>BackupAzureAdDirectoryInput</code> type.</li>
+<li>Enum value <code>R6IN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>PURESCALE</code> was added to enum <code>Db2DatabaseType</code>.</li>
+<li>Enum value <code>C5A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEZN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IM4GN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>recoveryTargetChildConnection</code> was added to <code>VsphereComputeCluster</code> type.</li>
+<li>Input field <code>contentLibraryId</code> was added to <code>ExportSnapshotJobConfigV2Input</code> type.</li>
+<li>Field <code>hasDatastoresForRecovery</code> was added to <code>VsphereResourcePool</code> type.</li>
+<li>Field <code>instanceType</code> was added to <code>Db2Instance</code> type.</li>
+<li>Enum value <code>R6ID_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>FilterPreviewResultListResponse</code> type.</li>
+<li>Enum value <code>R7A_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>podOverlayNetworkCidr</code> was added to <code>AzureExocomputeAddConfigInputType</code> type.</li>
+<li>Enum value <code>C7GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>OAUTH_TOKEN</code> was added to enum <code>EventObjectType</code>.</li>
+<li>Enum value <code>M6ID_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_FLEX_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NtpServerConfigurationListResponse</code> type.</li>
+<li>Enum value <code>C5N_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IS4GEN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>EXCLUDED_ROOT_RESOURCE_POOL_TYPE</code> was added to enum <code>HierarchyFilterField</code>.</li>
+<li>Enum value <code>IS4GEN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>hasDatastoresForRecovery</code> was added to <code>VsphereComputeCluster</code> type.</li>
+<li>Enum value <code>M6I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Argument <code>sortBy</code> was added to <code>Query.mssqlCompatibleInstances</code> field.</li>
+<li>Enum value <code>INF2_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_6XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_SMALL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>CertificateSummaryListResponse</code> type.</li>
+<li>Enum value <code>R6A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>SearchResponseListResponse</code> type.</li>
+<li>Enum value <code>R7A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>attachmentTypes</code> was added to <code>SendScheduledReportAsyncInput</code> type.</li>
+<li>Enum value <code>R6A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>TRN1N_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>PRECHECKS_CDM_API_METRICS_CSV_DOWNLOAD</code> was added to enum <code>DownloadIdentifierEnum</code>.</li>
+<li>Enum value <code>C7I_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>workloadOrg</code> was added to <code>Snappable</code> type.</li>
+<li>Enum value <code>C7GN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_FLEX_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>targetRacPrimaryHostId</code> was added to <code>ExportOracleDbConfigInput</code> type.</li>
+<li>Enum value <code>R5B_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>OAUTH_TOKEN</code> was added to enum <code>ActivityObjectTypeEnum</code>.</li>
+<li>Field <code>recoveryTargetDescendantConnection</code> was added to <code>VsphereHost</code> type.</li>
+<li>Enum value <code>R5B_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G4DN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>sourceAuthenticationType</code> was added to <code>MongoSourcePatchRequestConfigInput</code> type.</li>
+<li>Enum value <code>R7G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>podOverlayNetworkCidr</code> was added to <code>AzureExocomputeConfigDetails</code> type.</li>
+<li>Enum value <code>C7GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>VT1_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IM4GN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>SNAPSHOT_CLOUD_STORAGE_TIER_AZURE_COLD</code> was added to enum <code>SnapshotCloudStorageTier</code>.</li>
+<li>Enum value <code>D3_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>sourceAuthenticationType</code> was added to <code>MongoSourceAddRequestConfigInput</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>MssqlMissedRecoverableRangeListResponse</code> type.</li>
+<li>Enum value <code>M7A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>MAC1_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>ATLASSIAN_JIRA</code> was added to enum <code>ProductName</code>.</li>
+<li>Enum value <code>M6G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IS4GEN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IEDN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>SNAPSHOT_CLOUD_STORAGE_TIER_ONE_ZONE_IA</code> was added to enum <code>SnapshotCloudStorageTier</code>.</li>
+<li>Enum value <code>M6ID_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>SNAPSHOT_CLOUD_STORAGE_TIER_GLACIER_IR</code> was added to enum <code>SnapshotCloudStorageTier</code>.</li>
+<li>Enum value <code>C6IN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_12TB1_112XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M5ZN_3XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Argument <code>after</code> was added to <code>Query.mssqlCompatibleInstances</code> field.</li>
+<li>Enum value <code>CONFIGURE_DB_LOG_REPORT_PROPERTIES</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>C6A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>emailAddresses</code> was added to <code>EventDigestConfig</code> type.</li>
+<li>Enum value <code>X2IEDN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>P4D_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_FLEX_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_NANO</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>VT1_3XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>db2DatabaseJobStatus</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>TRN1_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IM4GN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NetworkThrottleSummaryListResponse</code> type.</li>
+<li>Field <code>isActive</code> was added to <code>PasswordComplexityPolicyTemplate</code> type.</li>
+<li>Enum value <code>R6A_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_18TB1_112XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>VT1_6XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IS4GEN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>isPodCidrRangeTooSmall</code> was added to <code>AzureExocomputeConfigValidationInfo</code> type.</li>
+<li>Enum value <code>G4AD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>BootstrappableNodeInfoListResponse</code> type.</li>
+<li>Enum value <code>G5_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>RECOVERY_SCHEDULE</code> was added to enum <code>AuditType</code>.</li>
+<li>Enum value <code>C7GN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Argument <code>insightsMetadataId</code> was added to <code>Query.policyObjs</code> field.</li>
+<li>Enum value <code>M6IN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>taskOrg</code> was added to <code>TaskDetail</code> type.</li>
+<li>Enum value <code>C7GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>ATLASSIAN_SITE</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Enum value <code>C7GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>U_6TB1_112XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_FLEX_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>OracleMissedRecoverableRangeListResponse</code> type.</li>
+<li>Enum value <code>M6ID_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IDN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IS4GEN_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>BulkRegisterHostReply</code> type.</li>
+<li>Enum value <code>R6I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4I_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_MICRO</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>MssqlInstanceSummaryListResponse</code> type.</li>
+<li>Enum value <code>M6I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>JIRA_SETTINGS</code> was added to enum <code>UserAuditObjectTypeEnum</code>.</li>
+<li>Enum value <code>D3_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G4AD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>TRANSFERRED_BYTES_OBJECT_TYPE</code> was added to enum <code>GroupByFieldEnum</code>.</li>
+<li>Enum value <code>R7GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>recoveryTargetChildConnection</code> was added to <code>VsphereHost</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>DbLogReportSummaryListReply</code> type.</li>
+<li>Enum value <code>R6I_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>HADR_PURESCALE</code> was added to enum <code>Db2DatabaseType</code>.</li>
+<li>Enum value <code>C6G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NotificationSettingSummaryListResponse</code> type.</li>
+<li>Enum value <code>C6ID_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>INF2_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5N_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>DL1_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>failedRestoreItemsInfo</code> was added to <code>Query</code> type.</li>
+<li>Enum value <code>C6I_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>T4G_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>contentLibraryId</code> was added to <code>ExportSnapshotJobConfigV3Input</code> type.</li>
+<li>Field <code>allAzureStorageAccountsByRegion</code> was added to <code>Query</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>BulkCreateFilesetTemplatesReply</code> type.</li>
+<li>Enum value <code>M6G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5DN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>recoveryTargetChildConnection</code> was added to <code>VsphereResourcePool</code> type.</li>
+<li>Argument <code>filters</code> was added to <code>Query.mssqlCompatibleInstances</code> field.</li>
+<li>Enum value <code>M7A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>HPC7G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6IN_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>D3EN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6I_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6ID_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5AD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>GlobalFileSearchReply</code> type.</li>
+<li>Enum value <code>INF2_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7I_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IDN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>mountStatus</code> was added to <code>NutanixLiveMount</code> type.</li>
+<li>Enum value <code>P5_48XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>azureImageName</code> was added to <code>AddNodesToCloudClusterInput</code> type.</li>
+<li>Enum value <code>M6ID_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6ID_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>exocomputeInternalStorageAccountId</code> was added to <code>AzureO365ExocomputeCluster</code> type.</li>
+<li>Enum value <code>IM4GN_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7IZ_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G4AD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7A_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Argument <code>first</code> was added to <code>Query.mssqlCompatibleInstances</code> field.</li>
+<li>Enum value <code>R7G_MEDIUM</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6ID_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>podOverlayNetworkCidr</code> was added to <code>AzureExocomputeGetConfigResponse</code> type.</li>
+<li>Enum value <code>R5B_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7I_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>TRN1_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>targetRacHostIds</code> was added to <code>ExportOracleDbConfigInput</code> type.</li>
+<li>Enum value <code>I4I_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6GD_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6I_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G5G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>HPC7G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>INF2_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>I4G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IM4GN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6G_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6IN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6A_24XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>VIEW_CORS_SETTINGS</code> was added to enum <code>Operation</code>.</li>
+<li>Enum value <code>C6IN_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>IM4GN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>G4AD_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>X2IDN_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M7GD_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>HotAddProxyVmInfoListResponse</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>NetworkInterfaceListResponse</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>VlanConfigListResponse</code> type.</li>
+<li>Enum value <code>M6IN_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6A_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>SyslogExportRuleSummaryListResponse</code> type.</li>
+<li>Enum value <code>X2IEZN_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_4XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R6GD_LARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7G_8XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>HypervHostSummaryListResponse</code> type.</li>
+<li>Field <code>name</code> was added to <code>SsoGroup</code> type.</li>
+<li>Enum value <code>M6A_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R7A_32XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C6G_12XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C5A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>HPC7G_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NetworkInfoListResponse</code> type.</li>
+<li>Enum value <code>X2IDN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Input field <code>auditType</code> was added to <code>EventDigestConfig</code> type.</li>
+<li>Field <code>nextCursor</code> was added to <code>VirtualMachineFilesReply</code> type.</li>
+<li>Enum value <code>M6A_2XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>M6IDN_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>C7G_METAL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>OracleRecoverableRangeListResponse</code> type.</li>
+<li>Enum value <code>C6I_XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>MssqlRecoverableRangeListResponse</code> type.</li>
+<li>Enum value <code>M7A_METAL_48XL</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Enum value <code>R5B_16XLARGE</code> was added to enum <code>AwsNativeEc2InstanceType</code>.</li>
+<li>Field <code>nextCursor</code> was added to <code>NodeStatusListResponse</code> type.</li>
+</ul>
+<h2 id="20231001">2023/10/01</h2>
+<h3 id="breaking-field-and-enums_1">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>deleteFailedClusterOperationJobData</code> was removed from <code>Mutation</code> type.</li>
 <li>Input field <code>accountId</code> was removed from <code>UnmountDiskInput</code> type.</li>
@@ -347,7 +1014,7 @@
 <li><code>DeleteCsrInput.csrFids</code> input field type changed from <code>[UUID!]</code> to <code>[UUID!]!</code>.</li>
 <li><code>GetCsrInput.csrFid</code> input field type changed from <code>UUID</code> to <code>UUID!</code>.</li>
 </ul>
-<h3 id="breaking-types">Breaking: types</h3>
+<h3 id="breaking-types_1">Breaking: types</h3>
 <ul>
 <li><code>DeleteFailedClusterOperationJobDataInput</code> type was removed.</li>
 <li><code>DeleteFailedClusterOperationJobDataReply</code> type was removed.</li>
@@ -359,7 +1026,7 @@
 <li>Input field <code>workloadType</code> was added to <code>MountDiskInput</code> type.</li>
 <li>Argument <code>featuresWithPermissionsGroups</code> was added to <code>Query.allLatestFeaturePermissionsForCloudAccounts</code> field.</li>
 </ul>
-<h3 id="additions">Additions</h3>
+<h3 id="additions_1">Additions</h3>
 <ul>
 <li><code>SearchAzureAdSnapshotInput</code> type was added.</li>
 <li><code>AzureRoleArmTemplateFeature</code> type was added.</li>
@@ -510,29 +1177,27 @@
 <li>Field <code>backupAzureAdDirectory</code> was added to <code>Mutation</code> type.</li>
 </ul>
 <h2 id="20230901">2023/09/01</h2>
-<h3 id="breaking-field-and-enums_1">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_2">Breaking: field and enums</h3>
 <ul>
 <li>Input field <code>roleCustomization</code> was removed from <code>ValidateAndCreateAwsCloudAccountInput</code> type.</li>
 <li>Input field <code>name</code> was removed from <code>AwsNativeAccountInput</code> type.</li>
 <li>Enum value <code>SAAS_APPS_OBJECT_TYPE</code> was removed from enum <code>SlaObjectType</code>.</li>
 <li><code>DlpConfig.policies</code> field type changed from <code>[String!]!</code> to <code>[String!]</code>.</li>
 </ul>
-<h3 id="breaking-types_1">Breaking: types</h3>
+<h3 id="breaking-types_2">Breaking: types</h3>
 <ul>
 <li>Argument <code>features</code> was removed from <code>Query.allAwsPermissionPolicies</code> field.</li>
 <li>Argument <code>awsCloudType</code> was removed from <code>Query.allAwsPermissionPolicies</code> field.</li>
 <li>Argument <code>userAccessObjectsFilter</code> was added to <code>Query.policyObjs</code> field.</li>
 <li>Argument <code>input</code> was added to <code>Query.allAwsPermissionPolicies</code> field.</li>
 </ul>
-<h3 id="deprecations">Deprecations</h3>
+<h3 id="deprecations_1">Deprecations</h3>
 <ul>
-<li>
-<p>Field <code>host</code> was deprecated in <code>SapHanaHostObject</code> type.</p>
+<li>Field <code>host</code> was deprecated in <code>SapHanaHostObject</code> type.</li>
+</ul>
 <p>Reason: Use systemHost instead.
 Scheduled for removal after 2024/07/28.</p>
-</li>
-</ul>
-<h3 id="additions_1">Additions</h3>
+<h3 id="additions_2">Additions</h3>
 <ul>
 <li><code>GlobalSlaForFilter</code> type was added.</li>
 <li><code>NfAnomalyResult</code> type was added.</li>
@@ -985,7 +1650,7 @@ Scheduled for removal after 2024/07/28.</p>
 <li>Enum value <code>CLUSTER_TIMEZONE_AMERICA_RIO_BRANCO</code> was added to enum <code>ClusterTimezoneType</code>.</li>
 </ul>
 <h2 id="20230801">2023/08/01</h2>
-<h3 id="breaking-field-and-enums_2">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_3">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlDbSummary</code> type.</li>
 <li>Field <code>hostLogRetentionInSeconds</code> was removed from <code>MssqlSlaRelatedProperties</code> type.</li>
@@ -995,11 +1660,11 @@ Scheduled for removal after 2024/07/28.</p>
 <li><code>NutanixPrismCentral.lastRefreshTime</code> field type changed from <code>DateTime!</code> to <code>DateTime</code>.</li>
 <li><code>NutanixCluster.lastRefreshTime</code> field type changed from <code>DateTime!</code> to <code>DateTime</code>.</li>
 </ul>
-<h3 id="breaking-types_2">Breaking: types</h3>
+<h3 id="breaking-types_3">Breaking: types</h3>
 <ul>
 <li><code>ManagedVolumeLogConfigInput</code> type was removed.</li>
 </ul>
-<h3 id="additions_2">Additions</h3>
+<h3 id="additions_3">Additions</h3>
 <ul>
 <li><code>StartClusterReportMigrationJobReply</code> type was added.</li>
 <li><code>CloudDirectCluster</code> type was added.</li>
@@ -1279,14 +1944,14 @@ Scheduled for removal after 2024/07/28.</p>
 <li>Field <code>isAppRubrikManaged</code> was added to <code>AzureCloudAccountTenantWithExoConfigs</code> type.</li>
 </ul>
 <h2 id="20230701">2023/07/01</h2>
-<h3 id="breaking-field-and-enums_3">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_4">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>hostLogRetention</code> was removed from <code>MssqlSlaRelatedProperties</code> type.</li>
 <li>Field <code>hostLogRetention</code> was removed from <code>MssqlDbSummary</code> type.</li>
 <li>Input field <code>hostLogRetention</code> was removed from <code>MssqlSlaRelatedPropertiesInput</code> type.</li>
 <li><code>NutanixPrismCentral.cdmId</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
 </ul>
-<h3 id="breaking-types_3">Breaking: types</h3>
+<h3 id="breaking-types_4">Breaking: types</h3>
 <ul>
 <li>Argument <code>objectRootIds</code> was added to <code>Mutation.removePolicyObjects</code> field.</li>
 <li>Argument <code>objectRootIds</code> was added to <code>Mutation.addPolicyObjects</code> field.</li>
@@ -1294,35 +1959,33 @@ Scheduled for removal after 2024/07/28.</p>
 <li>Argument <code>clusterIds</code> was added to <code>Mutation.addPolicyObjects</code> field.</li>
 <li>Argument <code>clusterIds</code> was added to <code>Mutation.removePolicyObjects</code> field.</li>
 </ul>
-<h3 id="deprecations_1">Deprecations</h3>
+<h3 id="deprecations_2">Deprecations</h3>
 <ul>
-<li>
-<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AwsExocomputeConfig</code> type.</p>
+<li>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AwsExocomputeConfig</code> type.</li>
+</ul>
 <p>Reason: Use mappedCloudAccounts instead, cloud account IDs of mapped accounts are contained in mappedCloudAccounts.
 Scheduled for removal after 2024/06/27.</p>
-</li>
-<li>
-<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AzureSubscriptionWithExoConfigs</code> type.</p>
+<ul>
+<li>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AzureSubscriptionWithExoConfigs</code> type.</li>
+</ul>
 <p>Reason: Use mappedCloudAccounts instead. The cloud account IDs of the mapped accounts are contained in the field 'mappedCloudAccounts'.
 Scheduled for removal after 2024/06/27.</p>
-</li>
-<li>
-<p>Field <code>allOrgsWithAccess</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
+<ul>
+<li>Field <code>allOrgsWithAccess</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
+</ul>
 <p>Reason: This field is deprecated and has been replaced by the allOrgsHavingAccess field, which must be used instead.
 Scheduled for removal after 2024/06/27.</p>
-</li>
-<li>
-<p>Field <code>isPactsafeEnabled</code> was deprecated in <code>EulaState</code> type.</p>
+<ul>
+<li>Field <code>isPactsafeEnabled</code> was deprecated in <code>EulaState</code> type.</li>
+</ul>
 <p>Reason: Use isPactsafeV2Enabled instead.
 Scheduled for removal after 2024/06/27.</p>
-</li>
-<li>
-<p>Field <code>isAccepted</code> was deprecated in <code>EulaState</code> type.</p>
+<ul>
+<li>Field <code>isAccepted</code> was deprecated in <code>EulaState</code> type.</li>
+</ul>
 <p>Reason: Use pactsafeEulaState instead.
 Scheduled for removal after 2024/06/27.</p>
-</li>
-</ul>
-<h3 id="additions_3">Additions</h3>
+<h3 id="additions_4">Additions</h3>
 <ul>
 <li><code>SetAnalyzerRisksInput</code> type was added.</li>
 <li><code>PasswordComplexityPolicyTemplate</code> type was added.</li>
@@ -1480,7 +2143,7 @@ Scheduled for removal after 2024/06/27.</p>
 <li>Argument <code>region</code> was added to <code>Query.allS3BucketsDetailsFromAws</code> field.</li>
 </ul>
 <h2 id="20230601">2023/06/01</h2>
-<h3 id="breaking-field-and-enums_4">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_5">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>threatMonitoringMatchedFiles</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>hostname</code> was removed from <code>NutanixPrismCentral</code> type.</li>
@@ -1501,7 +2164,7 @@ Scheduled for removal after 2024/06/27.</p>
 <li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>ActivityObjectTypeEnum</code>.</li>
 <li>Enum value <code>AZURE_AD_TENANT</code> was removed from enum <code>WorkloadLevelHierarchy</code>.</li>
 </ul>
-<h3 id="breaking-types_4">Breaking: types</h3>
+<h3 id="breaking-types_5">Breaking: types</h3>
 <ul>
 <li><code>CreateCrossAccountReplicationPairInput</code> type was removed.</li>
 <li><code>AttributeInput</code> type was removed.</li>
@@ -1522,7 +2185,7 @@ Scheduled for removal after 2024/06/27.</p>
 <li><code>UnifiedFeatureFlagInput</code> type was removed.</li>
 <li><code>SnapshotData</code> type was removed.</li>
 </ul>
-<h3 id="deprecations_2">Deprecations</h3>
+<h3 id="deprecations_3">Deprecations</h3>
 <ul>
 <li>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
 </ul>
@@ -1578,7 +2241,7 @@ Scheduled for removal after 2024/04/29.</p>
 </ul>
 <p>Reason: This field has been deprecated in favor of ownerOrg field.
 Scheduled for removal after 2024/05/11.</p>
-<h3 id="additions_4">Additions</h3>
+<h3 id="additions_5">Additions</h3>
 <ul>
 <li><code>UpdateAwsExocomputeConfigsInput</code> type was added.</li>
 <li><code>CreateNutanixPrismCentralInput</code> type was added.</li>
@@ -1748,7 +2411,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li>Enum value <code>ACTIVE_DIRECTORY_DOMAIN_CONTROLLER</code> was added to enum <code>EventObjectType</code>.</li>
 </ul>
 <h2 id="20230501">2023/05/01</h2>
-<h3 id="breaking-field-and-enums_5">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_6">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>disableTprOrg</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>snapshotConnection</code> was removed from <code>MongoCollection</code> type.</li>
@@ -1763,7 +2426,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li>Field <code>snapshotGroupBySummary</code> was removed from <code>MongoCollection</code> type.</li>
 <li>Field <code>newestReplicatedSnapshot</code> was removed from <code>MongoCollection</code> type.</li>
 </ul>
-<h3 id="breaking-types_5">Breaking: types</h3>
+<h3 id="breaking-types_6">Breaking: types</h3>
 <ul>
 <li><code>SetUserSessionManagementConfigReply</code> type was removed.</li>
 <li><code>DisableTprOrgInput</code> type was removed.</li>
@@ -1772,7 +2435,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li><code>MongoCollection</code> object type no longer implements <code>CdmHierarchySnappableNew</code> interface.</li>
 <li><code>MongoCollection</code> object type no longer implements <code>MongoDatabasePhysicalChildType</code> interface.</li>
 </ul>
-<h3 id="additions_5">Additions</h3>
+<h3 id="additions_6">Additions</h3>
 <ul>
 <li><code>MongoCollectionSet</code> type was added.</li>
 <li><code>RiskReason</code> type was added.</li>
@@ -1961,7 +2624,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li>Enum value <code>VIEW_SYSLOG</code> was added to enum <code>Operation</code>.</li>
 </ul>
 <h2 id="20230401">2023/04/01</h2>
-<h3 id="breaking-field-and-enums_6">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_7">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>topRiskPrincipals</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>sidsPolicyHitsSummary</code> was removed from <code>Query</code> type.</li>
@@ -1977,7 +2640,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li>Input field <code>targetMongoDbClusterId</code> was removed from <code>RecoverMongoSourceInput</code> type.</li>
 <li><code>MongoSource.sourceNodes</code> field type changed from <code>String!</code> to <code>[CdmMongoNode!]!</code>.</li>
 </ul>
-<h3 id="breaking-types_6">Breaking: types</h3>
+<h3 id="breaking-types_7">Breaking: types</h3>
 <ul>
 <li><code>TopRiskPrincipalsReply</code> type was removed.</li>
 <li><code>O365TeamChildSnapshotIds</code> type was removed.</li>
@@ -1987,7 +2650,7 @@ Scheduled for removal after 2024/05/11.</p>
 <li><code>SidPolicyHitsSummary</code> type was removed.</li>
 <li>Input field <code>input</code> was added to <code>RecoverMongoSourceInput</code> type.</li>
 </ul>
-<h3 id="deprecations_3">Deprecations</h3>
+<h3 id="deprecations_4">Deprecations</h3>
 <ul>
 <li>Field <code>id</code> was deprecated in <code>ClusterDisk</code> type.</li>
 </ul>
@@ -2018,7 +2681,7 @@ Scheduled for removal after 2024/03/13.</p>
 </ul>
 <p>Reason: Deprecated. Use STANDARD instead.
 Scheduled for removal after 2024/02/28.</p>
-<h3 id="additions_6">Additions</h3>
+<h3 id="additions_7">Additions</h3>
 <ul>
 <li><code>MongoSnapshotGroupByTime</code> type was added.</li>
 <li><code>CreateCrossAccountReplicationPairInput</code> type was added.</li>
@@ -2238,7 +2901,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li>Field <code>snapshotsForUnmanagedObject</code> was added to <code>Query</code> type.</li>
 </ul>
 <h2 id="20230301">2023/03/01</h2>
-<h3 id="breaking-field-and-enums_7">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_8">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>failoverJobReports</code> was removed from <code>Query</code> type.</li>
 <li>Field <code>clusterGroupByUpgradeInfo</code> was removed from <code>Query</code> type.</li>
@@ -2252,7 +2915,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li>Input field <code>clusterUuid</code> was removed from <code>RetryAddMongoSourceInput</code> type.</li>
 <li><code>O365SnapshotItemInfo.snapshotId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="breaking-types_7">Breaking: types</h3>
+<h3 id="breaking-types_8">Breaking: types</h3>
 <ul>
 <li><code>RecoveryInfo</code> type was removed.</li>
 <li><code>CyberRecoveryObjectsSortParams</code> type was removed.</li>
@@ -2335,7 +2998,7 @@ Scheduled for removal after 2024/02/28.</p>
 <li><code>CyberRecoveryObject</code> type was removed.</li>
 <li><code>FailoverStep</code> type was removed.</li>
 </ul>
-<h3 id="deprecations_4">Deprecations</h3>
+<h3 id="deprecations_5">Deprecations</h3>
 <ul>
 <li>Field <code>updateAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
 </ul>
@@ -2391,7 +3054,7 @@ Scheduled for removal after 2024/02/17.</p>
 </ul>
 <p>Reason: This mutation is deprecated. Please use updateRcvLocationsFromTemplate.
 Scheduled for removal after 2024/02/17.</p>
-<h3 id="additions_7">Additions</h3>
+<h3 id="additions_8">Additions</h3>
 <ul>
 <li><code>UserAuditEdge</code> type was added.</li>
 <li><code>ComplianceStatus</code> type was added.</li>
@@ -2646,7 +3309,7 @@ Scheduled for removal after 2024/02/17.</p>
 <li>Field <code>nativeName</code> was added to <code>AwsNativeEc2Instance</code> type.</li>
 </ul>
 <h2 id="20230201">2023/02/01</h2>
-<h3 id="breaking-field-and-enums_8">Breaking: field and enums</h3>
+<h3 id="breaking-field-and-enums_9">Breaking: field and enums</h3>
 <ul>
 <li>Field <code>createConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
 <li>Field <code>updateConfigProtectionSetup</code> was removed from <code>Mutation</code> type.</li>
@@ -2656,20 +3319,20 @@ Scheduled for removal after 2024/02/17.</p>
 <li><code>O365SnapshotItemInfo.id</code> field type changed from <code>UUID!</code> to <code>String!</code>.</li>
 <li><code>O365SnapshotItemInfo.parentFolderId</code> field type changed from <code>UUID</code> to <code>String</code>.</li>
 </ul>
-<h3 id="breaking-types_8">Breaking: types</h3>
+<h3 id="breaking-types_9">Breaking: types</h3>
 <ul>
 <li><code>CreateConfigProtectionSetupInput</code> type was removed.</li>
 <li><code>UpdateConfigProtectionSetupInput</code> type was removed.</li>
 <li><code>ConfigProtectionCaCert</code> type was removed.</li>
 <li>Input field <code>shouldRunAsynchronously</code> was added to <code>BulkRefreshHostsInput</code> type.</li>
 </ul>
-<h3 id="deprecations_5">Deprecations</h3>
+<h3 id="deprecations_6">Deprecations</h3>
 <ul>
 <li>Field <code>snapshotFilesDelta</code> was deprecated in <code>Query</code> type.</li>
 </ul>
 <p>Reason: This endpoint only works for Data Center workloads. Use snapshotFilesDeltaV2 instead.
 Scheduled for removal after 2024/01/31.</p>
-<h3 id="additions_8">Additions</h3>
+<h3 id="additions_9">Additions</h3>
 <ul>
 <li><code>AwsNativeRdsType</code> type was added.</li>
 <li><code>AppSearchResponseListResponse</code> type was added.</li>
@@ -2867,7 +3530,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-09-19</small>
+            <small>Revised on: 2023-11-09</small>
             </p>
           
 
