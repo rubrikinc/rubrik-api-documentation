@@ -267,187 +267,199 @@ Scheduled for removal after 2024/09/27.</p>
 <h2 id="20231001">2023/10/01</h2>
 <h2 id="20230901">2023/09/01</h2>
 <ul>
-<li>Field <code>host</code> was deprecated in <code>SapHanaHostObject</code> type.</li>
-</ul>
+<li>
+<p>Field <code>host</code> was deprecated in <code>SapHanaHostObject</code> type.</p>
 <p>Reason: Use systemHost instead.
 Scheduled for removal after 2024/07/28.</p>
+</li>
+</ul>
 <h2 id="20230801">2023/08/01</h2>
 <h2 id="20230701">2023/07/01</h2>
 <ul>
-<li>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AwsExocomputeConfig</code> type.</li>
-</ul>
+<li>
+<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AwsExocomputeConfig</code> type.</p>
 <p>Reason: Use mappedCloudAccounts instead, cloud account IDs of mapped accounts are contained in mappedCloudAccounts.
 Scheduled for removal after 2024/06/27.</p>
-<ul>
-<li>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AzureSubscriptionWithExoConfigs</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>mappedCloudAccountIds</code> was deprecated in <code>AzureSubscriptionWithExoConfigs</code> type.</p>
 <p>Reason: Use mappedCloudAccounts instead. The cloud account IDs of the mapped accounts are contained in the field 'mappedCloudAccounts'.
 Scheduled for removal after 2024/06/27.</p>
-<ul>
-<li>Field <code>allOrgsWithAccess</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>allOrgsWithAccess</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
 <p>Reason: This field is deprecated and has been replaced by the allOrgsHavingAccess field, which must be used instead.
 Scheduled for removal after 2024/06/27.</p>
-<ul>
-<li>Field <code>isPactsafeEnabled</code> was deprecated in <code>EulaState</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>isPactsafeEnabled</code> was deprecated in <code>EulaState</code> type.</p>
 <p>Reason: Use isPactsafeV2Enabled instead.
 Scheduled for removal after 2024/06/27.</p>
-<ul>
-<li>Field <code>isAccepted</code> was deprecated in <code>EulaState</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>isAccepted</code> was deprecated in <code>EulaState</code> type.</p>
 <p>Reason: Use pactsafeEulaState instead.
 Scheduled for removal after 2024/06/27.</p>
+</li>
+</ul>
 <h2 id="20230601">2023/06/01</h2>
 <ul>
-<li>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
-</ul>
+<li>
+<p>Enum value <code>GROUP_NAME</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
 <p>Reason: We do not use archival groups currently.
 Scheduled for removal after 2024/04/21.</p>
-<ul>
-<li>Field <code>ownerOrgName</code> was deprecated in <code>ClusterSlaDomain</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>ownerOrgName</code> was deprecated in <code>ClusterSlaDomain</code> type.</p>
 <p>Reason: This field has been deprecated in favor of ownerOrg field.
 Scheduled for removal after 2024/05/11.</p>
-<ul>
-<li>Field <code>awsComputeSettings</code> was deprecated in <code>Query</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>awsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
 <p>Reason: This query is no longer supported.
 Scheduled for removal after 2024/04/29.</p>
-<ul>
-<li>Enum value <code>IS_MANAGED_BY_AUTO_AG</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
-</ul>
+</li>
+<li>
+<p>Enum value <code>IS_MANAGED_BY_AUTO_AG</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
 <p>Reason: We do not use archival groups currently.
 Scheduled for removal after 2024/04/21.</p>
-<ul>
-<li>Field <code>updateAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>updateAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is no longer supported.
 Scheduled for removal after 2024/04/29.</p>
-<ul>
-<li>Field <code>createAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>createAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is no longer supported.
 Scheduled for removal after 2024/04/29.</p>
-<ul>
-<li>Field <code>userNotifications</code> was deprecated in <code>Query</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>userNotifications</code> was deprecated in <code>Query</code> type.</p>
 <p>Reason: This query is deprecated.
 Scheduled for removal after 2024/04/27.</p>
-<ul>
-<li>Field <code>deleteAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>deleteAwsComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is no longer supported.
 Scheduled for removal after 2024/04/29.</p>
-<ul>
-<li>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>TargetQueryFilterField</code>.</li>
-</ul>
+</li>
+<li>
+<p>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>TargetQueryFilterField</code>.</p>
 <p>Reason: Archived locations should not be queried for.
 Scheduled for removal after 2024/04/21.</p>
-<ul>
-<li>Field <code>allAwsComputeSettings</code> was deprecated in <code>Query</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>allAwsComputeSettings</code> was deprecated in <code>Query</code> type.</p>
 <p>Reason: This query is no longer supported.
 Scheduled for removal after 2024/04/29.</p>
-<ul>
-<li>Field <code>ownerOrgName</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>ownerOrgName</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
 <p>Reason: This field has been deprecated in favor of ownerOrg field.
 Scheduled for removal after 2024/05/11.</p>
+</li>
+</ul>
 <h2 id="20230501">2023/05/01</h2>
 <h2 id="20230401">2023/04/01</h2>
 <ul>
-<li>Field <code>id</code> was deprecated in <code>ClusterDisk</code> type.</li>
-</ul>
+<li>
+<p>Field <code>id</code> was deprecated in <code>ClusterDisk</code> type.</p>
 <p>Reason: Please use diskId instead.
 Scheduled for removal after 2024/03/17.</p>
-<ul>
-<li>Field <code>backupO365SharepointDrive</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>backupO365SharepointDrive</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: Use backupM365SharepointDrive instead.
 Scheduled for removal after 2024/03/13.</p>
-<ul>
-<li>Field <code>backupO365Onedrive</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>backupO365Onedrive</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: Use backupM365Onedrive instead.
 Scheduled for removal after 2024/03/13.</p>
-<ul>
-<li>Field <code>backupO365Mailbox</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>backupO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: Use backupM365Mailbox instead.
 Scheduled for removal after 2024/03/13.</p>
-<ul>
-<li>Field <code>backupO365Team</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>backupO365Team</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: Use backupM365Team instead.
 Scheduled for removal after 2024/03/13.</p>
-<ul>
-<li>Enum value <code>DURABLE_REDUCED_AVAILABILITY_GCP</code> was deprecated in enum <code>GcpStorageClass</code>.</li>
-</ul>
+</li>
+<li>
+<p>Enum value <code>DURABLE_REDUCED_AVAILABILITY_GCP</code> was deprecated in enum <code>GcpStorageClass</code>.</p>
 <p>Reason: Deprecated. Use STANDARD instead.
 Scheduled for removal after 2024/02/28.</p>
+</li>
+</ul>
 <h2 id="20230301">2023/03/01</h2>
 <ul>
-<li>Field <code>updateAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+<li>
+<p>Field <code>updateAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>immutabilitySettings</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>immutabilitySettings</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</p>
 <p>Reason: Deprecated: please use immutabilitySetting instead.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>updateAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>updateAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>createAutomaticRcsTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>createAutomaticRcsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated. Please use createRcvLocationsFromTemplate.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>getKorgTaskchainStatus</code> was deprecated in <code>Query</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>getKorgTaskchainStatus</code> was deprecated in <code>Query</code> type.</p>
 <p>Reason: This endpoint is not properly named.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>stopJobInstance</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>stopJobInstance</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: Use stopJobInstanceFromEventSeries instead.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>allVcenterConnectionStatuses</code> was deprecated in <code>Vcd</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>allVcenterConnectionStatuses</code> was deprecated in <code>Vcd</code> type.</p>
 <p>Reason: Use allVcenterConnectionsInfo instead.
 Scheduled for removal after 2024/01/31.</p>
-<ul>
-<li>Field <code>createAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>createAutomaticAzureTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>ibmDetails</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>ibmDetails</code> was deprecated in <code>RubrikManagedS3CompatibleTarget</code> type.</p>
 <p>Reason: Deprecated: please use ibmDetail instead.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>createAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>createAutomaticAwsTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated.
 Scheduled for removal after 2024/02/17.</p>
-<ul>
-<li>Field <code>updateRcsAutomaticTargetMapping</code> was deprecated in <code>Mutation</code> type.</li>
-</ul>
+</li>
+<li>
+<p>Field <code>updateRcsAutomaticTargetMapping</code> was deprecated in <code>Mutation</code> type.</p>
 <p>Reason: This mutation is deprecated. Please use updateRcvLocationsFromTemplate.
 Scheduled for removal after 2024/02/17.</p>
+</li>
+</ul>
 <h2 id="20230201">2023/02/01</h2>
 <ul>
-<li>Field <code>snapshotFilesDelta</code> was deprecated in <code>Query</code> type.</li>
-</ul>
+<li>
+<p>Field <code>snapshotFilesDelta</code> was deprecated in <code>Query</code> type.</p>
 <p>Reason: This endpoint only works for Data Center workloads. Use snapshotFilesDeltaV2 instead.
 Scheduled for removal after 2024/01/31.</p>
+</li>
+</ul>
 <h2 id="20230101">2023/01/01</h2>
 <p>API Launched!</p></div>
         
