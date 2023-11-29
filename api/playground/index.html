@@ -192,35 +192,133 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
   <ul class="nav bs-sidenav">
     <li class="first-level active">
-      <a href="#graphql-playground">GraphQL Playground</a>
+      <a href="#rsc-api-playground">RSC API Playground</a>
     </li>
+    <li class="second-level">
+      <a href="#accessing-api-playground">Accessing API Playground</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#non-persistence-of-service-account-sessions-on-api-playground">Non-persistence of service account sessions on API Playground</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#using-a-service-account-to-run-graphql-apis">Using a service account to run GraphQL APIs</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#api-playground-user-interface">API Playground user interface</a>
+    </li>
+    
   </ul>
 </div></div>
-        <div class="col-md-9" role="main"> <h1 id="graphql-playground">GraphQL Playground</h1>
-<p>Running sample queries against Rubrik GraphQL API is an essential part
-of building and debugging integration code. A number of tools are available
-that facilitate query execution and schema exploration. One such tool is
-<a href="https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm?hl=en-US">Apollo Client Devtools</a>
-Chrome extension.</p>
+        <div class="col-md-9" role="main"> <h1 id="rsc-api-playground">RSC API Playground</h1>
+<p>API Playground is an integrated development environment (IDE) that you can use to browse, explore, and run GraphQL APIs offered by Rubrik Security Cloud (RSC). The IDE also provides reference to the latest Rubrik GraphQL API documentation. Running GraphQL queries and mutations in API Playground validates the GraphQL operations so that you can confirm that your queries or mutations will achieve the desired result when included in automation scripts.</p>
+<p>After logging in to API Playground with your RSC user account credentials, you can choose to run GraphQL queries and mutations either as yourself or with a service account. The level of access you have for running the GraphQL queries and mutations depends on the RBAC roles assigned to your user account or to the service account you are using. For enhanced security, API Playground does not persist the service account access credentials.</p>
+<p>Warning: If not used cautiously, the GraphQL mutations that you run in API Playground can result in data loss because they affect the data managed in real time by RSC.</p>
+<h2 id="accessing-api-playground">Accessing API Playground</h2>
+<p>You can access API Playground through the RSC Settings menu or directly through a web browser. You can also use the global search in RSC to search for API Playground.</p>
+<p>Procedure</p>
 <ol>
-<li>Download the extension and add it to Chrome.</li>
-<li>Log in to the Rubrik application.</li>
-<li>Open <em>Developer Tools</em>.</li>
-<li>Find <em>Apollo</em> tab (<em>Elements</em>, <em>Console</em>, <em>Sources</em>, ..., <em>Apollo</em>).</li>
+<li>Log in to RSC.</li>
+<li>Open the app tray and select <strong>Settings</strong>.
+   The Settings menu appears.</li>
+<li>Click <strong>API Playground</strong>.
+   The API Playground page appears.</li>
+<li>Click <strong>Open API Playground</strong>.
+   API Playground opens in a new browser tab.</li>
 </ol>
-<p><img src="../../img/apollo1.png" style="border: 1px solid #aaa"></p>
-<p>On the left, there is a list of all queries executed by the current page.
-Select a query and click <em>Run in GraphiQL</em>.</p>
-<p><img src="../../img/apollo2.png" style="border: 1px solid #aaa"></p>
-<p>GraphiQL allows you to execute arbitrary queries, aiding query authoring
-with code completion. <em>Docs</em> button in the top, right corner opens a
-Documentation Explorer, allowing for easy schema exploration.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Any mutation issued through Apollo client will result in the
-modification of real data in your account. Be careful when
-experimenting with mutations!</p>
-</div></div>
+<p>The URL of the API Playground page is in the following format:
+   <code>https://rsc_domain_url/playground/</code>, 
+   where, <code>rsc_domain_url</code> is the IPv4 address or resolvable hostname of your RSC domain.</p>
+<p>You can also open API Playground directly in a web browser by using the preceding URL 
+   for your RSC domain.</p>
+<h2 id="non-persistence-of-service-account-sessions-on-api-playground">Non-persistence of service account sessions on API Playground</h2>
+<p>When you use a service account to run GraphQL API operations in API Playground, for security reasons, API Playground does not persist the service account credentials and renders them invalid when the service account is not in use.</p>
+<p>To run Rubrik GraphQL queries and mutations using service account credentials, the API Playground obtains an access token, which is valid for 24 hours. To maintain the security of your RSC domain, API Playground does not save the service account credentials or the access token in the browser session.</p>
+<p>The following actions render the service account access token invalid and unusable for further requests:</p>
+<ul>
+<li>Ending the service account session using the End Testing option on the API Playground user interface</li>
+<li>Refreshing the API Playground web page</li>
+<li>Navigating forward or backward in the browser</li>
+<li>Closing the browser tab</li>
+<li>Remaining inactive on the API Playground web page for more than 15 minutes</li>
+</ul>
+<p>When the service account access token is rendered invalid, you can continue to use API Playground with the user account that you previously used to log in to API Playground.</p>
+<h2 id="using-a-service-account-to-run-graphql-apis">Using a service account to run GraphQL APIs</h2>
+<p>In API Playground, to test and validate the use of a service account in automation scripts, use a service account to run GraphQL queries and mutations.</p>
+<p>Before you begin
+Add a service account with the required RBAC roles to run the GraphQL queries and mutations, as described in [#Adding a service account].</p>
+<p>Procedure</p>
+<ol>
+<li>In a web browser, open API Playground.
+   Open <code>https://rsc_domain_url/playground/</code>.
+   Where, <code>rsc_domain_url</code> is the IPv4 address or resolvable hostname of your RSC domain.
+   When a valid user session does not exist in the browser, the RSC login page appears.</li>
+<li>Log in to RSC.
+   The API Playground web page appears.</li>
+<li>Click <strong>Test with Service Account</strong>.</li>
+<li>Enter the <strong>Client ID</strong> and <strong>Client Secret</strong>.
+   The Client ID and Client Secret identify the service account you want to use to run the GraphQL APIs.</li>
+<li>Click <strong>Authenticate</strong>.
+   RSC authenticates the service account credentials, using which you can test the GraphQL APIs on behalf of the service account.</li>
+<li><em>Optional</em>: Click <strong>End Testing</strong>.
+    API Playground ends the service account session and invalidates the service account access     token for further use, but you can continue to run GraphQL API operations with the user acc    ount that you used previously to log in to RSC.</li>
+</ol>
+<h2 id="api-playground-user-interface">API Playground user interface</h2>
+<p>API Playground leverages the powerful user interface of the GraphiQL integrated development environment (IDE). Using the API Playground user interface, you can refer to the latest Rubrik GraphQL API documentation. The interface also provides an editor, which you can use to compose your queries and mutations, and a results area, where you can see the result of the API operation.</p>
+<p>The following table describes the icons available on the user interface and the associated functionality. The Icon column refers to the icons using the text that appears when you hover over each icon.</p>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Show Documentation Explorer</td>
+<td>Displays the Rubrik GraphQL documentation derived from the latest schema reference and Provides a search option to search for specific queries and mutations.</td>
+</tr>
+<tr>
+<td>Show History</td>
+<td>Displays a list of GraphQL operations run using the API Playground user interface in the current browser session.</td>
+</tr>
+<tr>
+<td>Re-fetch GraphQL Schema</td>
+<td>Refreshes the documentation with the latest Rubrik GraphQL schema reference, on demand.</td>
+</tr>
+<tr>
+<td>Open short keys dialog</td>
+<td>Displays a list of keyboard shortcuts for frequently performed actions on the editor.</td>
+</tr>
+<tr>
+<td>Open settings dialog</td>
+<td>Displays additional settings for the web page.</td>
+</tr>
+<tr>
+<td>Execute query</td>
+<td>Runs the GraphQL query or mutation that is entered in the editor.</td>
+</tr>
+<tr>
+<td>Prettify query</td>
+<td>Formats the content of the editor.</td>
+</tr>
+<tr>
+<td>Merge fragments into query</td>
+<td>Merges fragments with the main query for ease of understanding and readability.</td>
+</tr>
+<tr>
+<td>Copy query</td>
+<td>Copies the editor content to the clipboard.</td>
+</tr>
+<tr>
+<td>Add tab</td>
+<td>Adds a tab to the editor.</td>
+</tr>
+</tbody>
+</table>
+<p>For more details about the GraphiQL IDE, refer to the official GraphiQL IDE documentation.</p></div>
         
         
     </div>
@@ -232,7 +330,7 @@ experimenting with mutations!</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-11-09</small>
+            <small>Revised on: 2023-11-29</small>
             </p>
           
 
