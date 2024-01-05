@@ -195,6 +195,10 @@
       <a href="#deperecations">Deperecations</a>
     </li>
     <li class="second-level">
+      <a href="#20240101">2024/01/01</a>
+    </li>
+    
+    <li class="second-level">
       <a href="#20231201">2023/12/01</a>
     </li>
     
@@ -245,29 +249,70 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deperecations">Deperecations</h1>
-<h2 id="20231201">2023/12/01</h2>
+<h2 id="20240101">2024/01/01</h2>
 <ul>
 <li>
-<p>Field <code>deleteCertificate</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: Deprecated. Use deleteGlobalCertificate instead.
-Scheduled for removal after 2024/11/15.</p>
+<p>Field <code>mssqlDefaultProperties</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mssqlDefaultPropertiesOnCluster instead.
+Scheduled for removal after 2024/11/30.</p>
 </li>
 <li>
-<p>Field <code>deleteSapHanaDbSnapshot</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: Please use deleteUnmanagedSnapshots mutation instead or use the RSC UI delete button from snapshots page.
-Scheduled for removal after 2024/11/02.</p>
+<p>Field <code>allAzureSubnets</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use allAzureCloudAccountSubnetsByRegion instead.
+Scheduled for removal after 2024/12/08.</p>
 </li>
 <li>
-<p>Field <code>getKorgTaskchainStatus</code> was deprecated in <code>Query</code> type.</p>
-<p>Reason: Use <code>taskchain</code> field instead.
-Scheduled for removal after 2024/02/17.</p>
+<p>Field <code>exocomputeConfigs</code> was deprecated in <code>AwsFeatureConfig</code> type.</p>
+<p>Reason: Deprecated in favor of BYOK8s, use exocomputeConfigurations instead.
+Scheduled for removal after 2024/11/30.</p>
 </li>
 <li>
-<p>Field <code>updateCertificate</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: Deprecated. Use updateGlobalCertificate instead.
-Scheduled for removal after 2024/11/15.</p>
+<p>Field <code>configs</code> was deprecated in <code>UpdateAwsExocomputeConfigsReply</code> type.</p>
+<p>Reason: Deprecated in favor of BYOK8s, use exocomputeConfigs instead.
+Scheduled for removal after 2024/11/30.</p>
+</li>
+<li>
+<p>Field <code>k8sAppManifest</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Not supported anymore.
+Scheduled for removal after 2024/12/06.</p>
+</li>
+<li>
+<p>Field <code>configs</code> was deprecated in <code>AwsExocomputeConfig</code> type.</p>
+<p>Reason: Deprecated in favor of BYOK8s, use exocomputeConfigs instead.
+Scheduled for removal after 2024/11/30.</p>
+</li>
+<li>
+<p>Field <code>allAzureResourceGroups</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use allResourceGroupsFromAzure instead.
+Scheduled for removal after 2024/12/08.</p>
+</li>
+<li>
+<p>Field <code>configs</code> was deprecated in <code>CreateAwsExocomputeConfigsReply</code> type.</p>
+<p>Reason: Deprecated in favor of BYOK8s, use exocomputeConfigs instead.
+Scheduled for removal after 2024/11/30.</p>
 </li>
 </ul>
+<h2 id="20231201">2023/12/01</h2>
+<ul>
+<li>Field <code>deleteCertificate</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: Deprecated. Use deleteGlobalCertificate instead.
+Scheduled for removal after 2024/11/15.</p>
+<ul>
+<li>Field <code>deleteSapHanaDbSnapshot</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: Please use deleteUnmanagedSnapshots mutation instead or use the RSC UI delete button from snapshots page.
+Scheduled for removal after 2024/11/02.</p>
+<ul>
+<li>Field <code>getKorgTaskchainStatus</code> was deprecated in <code>Query</code> type.</li>
+</ul>
+<p>Reason: Use <code>taskchain</code> field instead.
+Scheduled for removal after 2024/02/17.</p>
+<ul>
+<li>Field <code>updateCertificate</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: Deprecated. Use updateGlobalCertificate instead.
+Scheduled for removal after 2024/11/15.</p>
 <h2 id="20231101">2023/11/01</h2>
 <ul>
 <li>Field <code>orgName</code> was deprecated in <code>TaskDetail</code> type.</li>
@@ -486,7 +531,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2023-11-29</small>
+            <small>Revised on: 2024-01-05</small>
             </p>
           
 
