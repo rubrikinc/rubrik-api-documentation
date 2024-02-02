@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>SLA APIs - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown active">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li class="active" >
+  <a href="./">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../rosettastone/">API Rosettastone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#sla-domain-apis">SLA Domain APIs</a>
+    </li>
+    <li class="second-level">
+      <a href="#create-sla-domain">Create SLA Domain</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#delete-sla-domain">Delete SLA Domain</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#update-sla-domain">Update SLA Domain</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#pause-sla-domain">Pause SLA Domain</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#query-details-of-the-sla-domain">Query Details of the SLA Domain</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#query-sla-domains">Query SLA Domains</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#assign-sla-domain">Assign SLA Domain</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <h1 id="sla-domain-apis">SLA Domain APIs</h1>
+<p>Overview of GraphQL APIs for managing the creating, updating, querying and
+deleting of SLA Domains as well as assigning an SLA Domain to a snapshot.</p>
+<p>The examples provided will need to be updated with the correct variables for
+the SLA Domain which is being managed.
+Examples variables may include SLA ID, SLA Name, or frequency.</p>
+<h2 id="create-sla-domain">Create SLA Domain</h2>
+<p>Used to create an SLA Domain. Note that the values of variables provided here
+are for illustrative purposes only.</p>
+<pre><code class="language-bash">MUTATION='{
+&quot;query&quot;: &quot;mutation CreateSlaMutation($createGlobalSlaInput: CreateGlobalSlaInput!) {
+  createGlobalSla(input: $createGlobalSlaInput) {
+    id
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;createGlobalSlaInput&quot;: {
+    &quot;name&quot;: &quot;Your Name&quot;,
+    &quot;description&quot;: &quot;Your Description&quot;,
+    &quot;snapshotSchedule&quot;: {
+      &quot;daily&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 7,
+          &quot;retentionUnit&quot;: &quot;DAYS&quot;
+        }
+      },
+      &quot;monthly&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 1,
+          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
+        },
+        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
+      }
+    },
+    &quot;archivalSpecs&quot;: null,
+    &quot;localRetentionLimit&quot;: null,
+    &quot;backupWindows&quot;: [],
+    &quot;firstFullBackupWindows&quot;: [],
+    &quot;objectTypes&quot;: [
+      &quot;VSPHERE_OBJECT_TYPE&quot;
+    ],
+    &quot;objectSpecificConfigsInput&quot;: {
+      &quot;awsRdsConfigInput&quot;: null,
+      &quot;awsNativeS3SlaConfigInput&quot;: null,
+      &quot;sapHanaConfigInput&quot;: null,
+      &quot;db2ConfigInput&quot;: null,
+      &quot;oracleConfigInput&quot;: null,
+      &quot;mssqlConfigInput&quot;: null,
+      &quot;mongoConfigInput&quot;: null,
+      &quot;vmwareVmConfigInput&quot;: null,
+      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
+      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
+    },
+    &quot;replicationSpecsV2&quot;: null,
+    &quot;isRetentionLockedSla&quot;: false
+  }
+}
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $MUTATION)&quot;
+</code></pre>
+<h2 id="delete-sla-domain">Delete SLA Domain</h2>
+<pre><code class="language-bash">MUTATION='{
+&quot;query&quot;: &quot;mutation DeleteSlaMutation($id: UUID!, $userNote: String) {
+  deleteGlobalSla(id: $id, userNote: $userNote) {
+    success
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;id&quot;: &quot;SLA_ID&quot;,
+  &quot;userNote&quot;: &quot;&quot;
+}
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $MUTATION)&quot;
+</code></pre>
+<h2 id="update-sla-domain">Update SLA Domain</h2>
+<pre><code class="language-bash">MUTATION='{
+&quot;query&quot;: &quot;mutation UpdateSlaMutation($updateGlobalSlaInput: UpdateGlobalSlaInput!) {
+  updateGlobalSla(input: $updateGlobalSlaInput) {
+    id
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;updateGlobalSlaInput&quot;: {
+    &quot;name&quot;: &quot;Your SLA&quot;,
+    &quot;description&quot;: &quot;Your Description&quot;,
+    &quot;snapshotSchedule&quot;: {
+      &quot;daily&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 2,
+          &quot;retention&quot;: 7,
+          &quot;retentionUnit&quot;: &quot;DAYS&quot;
+        }
+      },
+      &quot;monthly&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 1,
+          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
+        },
+        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
+      }
+    },
+    &quot;archivalSpecs&quot;: null,
+    &quot;localRetentionLimit&quot;: null,
+    &quot;backupWindows&quot;: [],
+    &quot;firstFullBackupWindows&quot;: [],
+    &quot;objectTypes&quot;: [
+      &quot;VSPHERE_OBJECT_TYPE&quot;
+    ],
+    &quot;objectSpecificConfigsInput&quot;: {
+      &quot;awsRdsConfigInput&quot;: null,
+      &quot;awsNativeS3SlaConfigInput&quot;: null,
+      &quot;sapHanaConfigInput&quot;: null,
+      &quot;db2ConfigInput&quot;: null,
+      &quot;oracleConfigInput&quot;: null,
+      &quot;mssqlConfigInput&quot;: null,
+      &quot;mongoConfigInput&quot;: null,
+      &quot;vmwareVmConfigInput&quot;: null,
+      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
+      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
+    },
+    &quot;replicationSpecsV2&quot;: null,
+    &quot;isRetentionLockedSla&quot;: false,
+    &quot;retentionLockMode&quot;: &quot;NO_MODE&quot;,
+    &quot;id&quot;: &quot;f4251401-d359-4d63-bac0-28bcdf40d9f0&quot;,
+    &quot;userNote&quot;: &quot;&quot;,
+    &quot;shouldApplyToExistingSnapshots&quot;: {
+      &quot;value&quot;: false
+    },
+    &quot;shouldApplyToNonPolicySnapshots&quot;: {
+      &quot;value&quot;: false
+    }
+  }
+}
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $MUTATION)&quot;
+</code></pre>
+<h2 id="pause-sla-domain">Pause SLA Domain</h2>
+<pre><code class="language-bash">MUTATION='{
+&quot;query&quot;: &quot;mutation PauseSLA($clusterId: [String!]!, $slaId: String!) {
+  pauseSla(input: {clusterUuids: $clusterId, pauseSla: true, slaId: $slaId}) {
+    success
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;clusterId&quot;: &quot;CLUSTER_ID&quot;,
+  &quot;slaId&quot;: &quot;SLA_ID&quot;
+}
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $MUTATION)&quot;
+</code></pre>
+<h2 id="query-details-of-the-sla-domain">Query Details of the SLA Domain</h2>
+<pre><code class="language-bash">QUERY='{
+&quot;query&quot;: &quot;query SLADomain{
+  slaDomain (id: &quot;SLA_ID&quot;) {
+    id
+    name
+    version
+    ...GlobalSlaReplyFragment
+    ... on ClusterSlaDomain {
+      cdmId
+      ...ClusterSlaDomainFragment
+      __typename
+    }
+    __typename
+  }
+  }
+  fragment GlobalSlaReplyFragment on GlobalSlaReply {
+    id
+    description
+    isRetentionLockedSla
+    retentionLockMode
+    baseFrequency {
+      duration
+      unit
+      __typename
+    }
+    ownerOrg {
+      id
+      name
+      __typename
+    }
+    backupWindows {
+      durationInHours
+      startTimeAttributes {
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    firstFullBackupWindows {
+      durationInHours
+      startTimeAttributes {
+        dayOfWeek {
+          day
+          __typename
+        }
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    snapshotSchedule {
+      ...SnapshotSchedulesForSlaDomainFragment
+      __typename
+    }
+    localRetentionLimit {
+      duration
+      unit
+      __typename
+    }
+    archivalSpecs {
+      threshold
+      thresholdUnit
+      frequencies
+      archivalLocationToClusterMapping {
+        cluster {
+          id
+          name
+          __typename
+        }
+        location {
+          id
+          name
+          targetType
+          __typename
+        }
+        __typename
+      }
+      storageSetting {
+        id
+        name
+        groupType
+        targetType
+        targets {
+          id
+          name
+          cluster {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      archivalTieringSpec {
+        coldStorageClass
+        shouldTierExistingSnapshots
+        minAccessibleDurationInSeconds
+        __typename
+      }
+      __typename
+    }
+    replicationSpecsV2 {
+      ...DetailedReplicationSpecsV2ForSlaDomainFragment
+      __typename
+    }
+    objectTypes
+    isDefault
+    __typename
+  }
+
+  fragment SnapshotSchedulesForSlaDomainFragment on SnapshotSchedule {
+    minute {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    hourly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    daily {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    weekly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfWeek
+      __typename
+    }
+    monthly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfMonth
+      __typename
+    }
+    quarterly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfQuarter
+      quarterStartMonth
+      __typename
+    }
+    yearly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfYear
+      yearStartMonth
+      __typename
+    }
+    __typename
+  }
+
+fragment DetailedReplicationSpecsV2ForSlaDomainFragment on ReplicationSpecV2 {
+  replicationLocalRetentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cascadingArchivalSpecs {
+    archivalTieringSpec {
+      coldStorageClass
+      shouldTierExistingSnapshots
+      minAccessibleDurationInSeconds
+      isInstantTieringEnabled
+      __typename
+    }
+    archivalLocation {
+      id
+      name
+      targetType
+      ... on RubrikManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedRcsTarget {
+        immutabilityPeriodDays
+        syncStatus
+        tier
+        __typename
+      }
+      ... on RubrikManagedS3CompatibleTarget {
+        immutabilitySetting {
+          bucketLockDurationDays
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    frequency
+    archivalThreshold {
+      duration
+      unit
+      __typename
+    }
+    __typename
+  }
+  retentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  targetMapping {
+    id
+    name
+    targets {
+      id
+      name
+      cluster {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  awsTarget {
+    accountId
+    accountName
+    region
+    __typename
+  }
+  azureTarget {
+    region
+    __typename
+  }
+  __typename
+}
+
+fragment ClusterSlaDomainFragment on ClusterSlaDomain {
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  ownerOrg {
+    id
+    name
+    __typename
+  }
+  baseFrequency {
+    duration
+    unit
+    __typename
+  }
+  backupWindows {
+    durationInHours
+    startTimeAttributes {
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  firstFullBackupWindows {
+    durationInHours
+    startTimeAttributes {
+      dayOfWeek {
+        day
+        __typename
+      }
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  snapshotSchedule {
+    ...SnapshotSchedulesForSlaDomainFragment
+    __typename
+  }
+  archivalSpec {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    thresholdUnit
+    __typename
+  }
+  archivalSpecs {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    archivalTieringSpec {
+      isInstantTieringEnabled
+      minAccessibleDurationInSeconds
+      coldStorageClass
+      shouldTierExistingSnapshots
+      __typename
+    }
+    thresholdUnit
+    frequencies
+    __typename
+  }
+  replicationSpecsV2 {
+    ...DetailedReplicationSpecsV2ForSlaDomainFragment
+    __typename
+  }
+  localRetentionLimit {
+    duration
+    unit
+    __typename
+  }
+  isRetentionLockedSla
+  retentionLockMode
+  __typename
+}&quot;
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $QUERY)&quot;
+</code></pre>
+<h2 id="query-sla-domains">Query SLA Domains</h2>
+<pre><code class="language-bash">QUERY='{
+&quot;query&quot;: &quot;query SLADomains {
+  slaDomains {
+    nodes {
+      name
+      id
+      version
+    }
+  }
+  __typename
+}&quot;
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $QUERY)&quot;
+</code></pre>
+<h2 id="assign-sla-domain">Assign SLA Domain</h2>
+<pre><code class="language-bash">MUTATION='{
+&quot;query&quot;: &quot;mutation assignSla($objectIds: [UUID!]! $slaId: UUID) {
+  assignSla(input: {
+    objectIds: $objectIds
+    #slaDomainAssignType can be set to protectWithSlaId, noAssignment, doNotProtect
+    slaDomainAssignType: protectWithSlaId
+    slaOptionalId: $slaId
+    #shouldApplyToExistingSnapshots: false
+    #shouldApplyToNonPolicySnapshots: false
+    # Snapshot retention can be set to RETAIN_SNAPSHOTS, EXPIRE_IMMEDIATELY, KEEP_FOREVER, NOT_APPLICABLE
+    #existingSnapshotRetention: RETAIN_SNAPSHOTS
+  }) {
+    success
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;objectIds&quot;: [&quot;00000000-0000-0000-0000-000000000000&quot;, &quot;00000000-0000-0000-0000-000000000000&quot;],
+  &quot;slaId&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;
+}
+}'
+
+curl -X POST https://$account.my.rubrik.com/api/graphql \
+--header &quot;authorization: Bearer $access_token&quot; \
+--header &quot;content-type: application/json&quot; \
+--data &quot;$(echo $MUTATION)&quot;
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-02</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

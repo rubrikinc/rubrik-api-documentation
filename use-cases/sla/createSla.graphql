@@ -1,0 +1,50 @@
+mutation CreateSlaMutation($createGlobalSlaInput: CreateGlobalSlaInput!) {
+  createGlobalSla(input: $createGlobalSlaInput) {
+    id
+    __typename
+  }
+}",
+"variables": {
+  "createGlobalSlaInput": {
+    "name": "Your Name",
+    "description": "Your Description",
+    "snapshotSchedule": {
+      "daily": {
+        "basicSchedule": {
+          "frequency": 1,
+          "retention": 7,
+          "retentionUnit": "DAYS"
+        }
+      },
+      "monthly": {
+        "basicSchedule": {
+          "frequency": 1,
+          "retention": 1,
+          "retentionUnit": "MONTHS"
+        },
+        "dayOfMonth": "LAST_DAY"
+      }
+    },
+    "archivalSpecs": null,
+    "localRetentionLimit": null,
+    "backupWindows": [],
+    "firstFullBackupWindows": [],
+    "objectTypes": [
+      "VSPHERE_OBJECT_TYPE"
+    ],
+    "objectSpecificConfigsInput": {
+      "awsRdsConfigInput": null,
+      "awsNativeS3SlaConfigInput": null,
+      "sapHanaConfigInput": null,
+      "db2ConfigInput": null,
+      "oracleConfigInput": null,
+      "mssqlConfigInput": null,
+      "mongoConfigInput": null,
+      "vmwareVmConfigInput": null,
+      "azureSqlDatabaseDbConfigInput": null,
+      "azureSqlManagedInstanceDbConfigInput": null
+    },
+    "replicationSpecsV2": null,
+    "isRetentionLockedSla": false
+  }
+}

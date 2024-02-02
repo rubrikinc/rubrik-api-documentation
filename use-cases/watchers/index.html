@@ -167,6 +167,11 @@
 
              
 <li >
+  <a href="../slas/">SLA APIs</a>
+</li>
+
+             
+<li >
   <a href="../quarantine/">Quarantine APIs</a>
 </li>
 
@@ -239,7 +244,7 @@ failures on a specified Rubrik cluster.</p>
 &quot;
 }'
 
-curl -X POST https://$account.rubrik.com/api/graphql \
+curl -X POST https://$account.my.rubrik.com/api/graphql \
 --header &quot;authorization: Bearer $access_token&quot; \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo $QUERY)&quot;
@@ -326,7 +331,7 @@ machines on the specified Rubrik cluster.</p>
 &quot;
 }'
 
-curl -X POST https://$account.rubrik.com/api/graphql \
+curl -X POST https://$account.my.rubrik.com/api/graphql \
 --header &quot;authorization: Bearer $access_token&quot; \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo $QUERY)&quot;
@@ -396,7 +401,7 @@ fields of <a href="https://rubrikinc.github.io/rubrik-api-documentation/schema/r
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-01-30</small>
+            <small>Revised on: 2024-02-02</small>
             </p>
           
 

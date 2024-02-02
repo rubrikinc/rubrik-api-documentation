@@ -1,0 +1,371 @@
+query SLADomain{
+  slaDomain (id: "SLA_ID") {
+    id
+    name
+    version
+    ...GlobalSlaReplyFragment
+    ... on ClusterSlaDomain {
+      cdmId
+      ...ClusterSlaDomainFragment
+      __typename
+    }
+    __typename
+  }
+  }
+  fragment GlobalSlaReplyFragment on GlobalSlaReply {
+    id
+    description
+    isRetentionLockedSla
+    retentionLockMode
+    baseFrequency {
+      duration
+      unit
+      __typename
+    }
+    ownerOrg {
+      id
+      name
+      __typename
+    }
+    backupWindows {
+      durationInHours
+      startTimeAttributes {
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    firstFullBackupWindows {
+      durationInHours
+      startTimeAttributes {
+        dayOfWeek {
+          day
+          __typename
+        }
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    snapshotSchedule {
+      ...SnapshotSchedulesForSlaDomainFragment
+      __typename
+    }
+    localRetentionLimit {
+      duration
+      unit
+      __typename
+    }
+    archivalSpecs {
+      threshold
+      thresholdUnit
+      frequencies
+      archivalLocationToClusterMapping {
+        cluster {
+          id
+          name
+          __typename
+        }
+        location {
+          id
+          name
+          targetType
+          __typename
+        }
+        __typename
+      }
+      storageSetting {
+        id
+        name
+        groupType
+        targetType
+        targets {
+          id
+          name
+          cluster {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      archivalTieringSpec {
+        coldStorageClass
+        shouldTierExistingSnapshots
+        minAccessibleDurationInSeconds
+        __typename
+      }
+      __typename
+    }
+    replicationSpecsV2 {
+      ...DetailedReplicationSpecsV2ForSlaDomainFragment
+      __typename
+    }
+    objectTypes
+    isDefault
+    __typename
+  }
+
+  fragment SnapshotSchedulesForSlaDomainFragment on SnapshotSchedule {
+    minute {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    hourly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    daily {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    weekly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfWeek
+      __typename
+    }
+    monthly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfMonth
+      __typename
+    }
+    quarterly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfQuarter
+      quarterStartMonth
+      __typename
+    }
+    yearly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfYear
+      yearStartMonth
+      __typename
+    }
+    __typename
+  }
+
+fragment DetailedReplicationSpecsV2ForSlaDomainFragment on ReplicationSpecV2 {
+  replicationLocalRetentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cascadingArchivalSpecs {
+    archivalTieringSpec {
+      coldStorageClass
+      shouldTierExistingSnapshots
+      minAccessibleDurationInSeconds
+      isInstantTieringEnabled
+      __typename
+    }
+    archivalLocation {
+      id
+      name
+      targetType
+      ... on RubrikManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedRcsTarget {
+        immutabilityPeriodDays
+        syncStatus
+        tier
+        __typename
+      }
+      ... on RubrikManagedS3CompatibleTarget {
+        immutabilitySetting {
+          bucketLockDurationDays
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    frequency
+    archivalThreshold {
+      duration
+      unit
+      __typename
+    }
+    __typename
+  }
+  retentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  targetMapping {
+    id
+    name
+    targets {
+      id
+      name
+      cluster {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  awsTarget {
+    accountId
+    accountName
+    region
+    __typename
+  }
+  azureTarget {
+    region
+    __typename
+  }
+  __typename
+}
+
+fragment ClusterSlaDomainFragment on ClusterSlaDomain {
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  ownerOrg {
+    id
+    name
+    __typename
+  }
+  baseFrequency {
+    duration
+    unit
+    __typename
+  }
+  backupWindows {
+    durationInHours
+    startTimeAttributes {
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  firstFullBackupWindows {
+    durationInHours
+    startTimeAttributes {
+      dayOfWeek {
+        day
+        __typename
+      }
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  snapshotSchedule {
+    ...SnapshotSchedulesForSlaDomainFragment
+    __typename
+  }
+  archivalSpec {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    thresholdUnit
+    __typename
+  }
+  archivalSpecs {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    archivalTieringSpec {
+      isInstantTieringEnabled
+      minAccessibleDurationInSeconds
+      coldStorageClass
+      shouldTierExistingSnapshots
+      __typename
+    }
+    thresholdUnit
+    frequencies
+    __typename
+  }
+  replicationSpecsV2 {
+    ...DetailedReplicationSpecsV2ForSlaDomainFragment
+    __typename
+  }
+  localRetentionLimit {
+    duration
+    unit
+    __typename
+  }
+  isRetentionLockedSla
+  retentionLockMode
+  __typename
+}

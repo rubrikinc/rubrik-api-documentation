@@ -167,6 +167,11 @@
 
              
 <li >
+  <a href="../slas/">SLA APIs</a>
+</li>
+
+             
+<li >
   <a href="../quarantine/">Quarantine APIs</a>
 </li>
 
@@ -248,7 +253,7 @@
   }&quot;
 }'
 
-curl -X POST https://$account.rubrik.com/api/graphql \
+curl -X POST https://$account.my.rubrik.com/api/graphql \
 --header &quot;authorization: Bearer ...&quot; \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo $QUERY)&quot;
@@ -264,7 +269,7 @@ curl -X POST https://$account.rubrik.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-01-30</small>
+            <small>Revised on: 2024-02-02</small>
             </p>
           
 

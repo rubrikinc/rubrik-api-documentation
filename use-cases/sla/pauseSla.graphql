@@ -1,0 +1,10 @@
+mutation PauseSLA($clusterId: [String!]!, $slaId: String!) {
+  pauseSla(input: {clusterUuids: $clusterId, pauseSla: true, slaId: $slaId}) {
+    success
+    __typename
+  }
+}",
+"variables": {
+  "clusterId": "CLUSTER_ID",
+  "slaId": "SLA_ID"
+}

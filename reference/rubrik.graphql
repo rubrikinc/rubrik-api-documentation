@@ -1086,7 +1086,9 @@ type Query {
     workloadTypes: [DataGovObjectType!]! = []): [PolicySummary!]!
 
   # List of supported object types.
-  allUnmanagedObjectsSupportedTypes: [ManagedObjectType!]!
+  allUnmanagedObjectsSupportedTypes(
+    # Type of the product.
+    productType: ProductTargetType): [ManagedObjectType!]!
 
   # All the users on the current account.
   allUsersOnAccount(
@@ -7043,6 +7045,11 @@ type Query {
     # Specifies the user ID.
     userId: String!): GetTotpStatusReply!
 
+  # Check and update TPR request for node removal.
+  tprStatusForNodeRemoval(
+    # Input for checking and updating the TPR request for node removal.
+    input: TprStatusForNodeRemovalInput!): TprStatusForNodeRemoval!
+
   # Check support tunnel status for a particular node
   # 
   # Supported in v5.0+
@@ -7911,6 +7918,11 @@ type Mutation {
 
     # Optional user note.
     userNote: String): [SlaAssignResult!]!
+
+  # Connects a customer-managed cluster to RSC and obtains the connection command.
+  awsExocomputeClusterConnect(
+    # Input to connect customer-managed cluster to RSC.
+    input: AwsExocomputeClusterConnectInput!): AwsExocomputeClusterConnectReply!
 
   # Completes an OAuth consent flow for Azure resource access.
   azureOauthConsentComplete(
@@ -15288,6 +15300,14 @@ enum AppSortByParamField {
   # Sort by subscription name.
   SUBSCRIPTION
 }
+# Details about an Exocompute configuration.
+type ApplicationCloudAccountToExocomputeConfig {
+  # Application cloud account id for which configs are applicable.
+  applicationCloudAccountId: String!
+
+  # Details about the Exocompute configuration.
+  exocomputeConfigs: AwsExocomputeGetConfigurationResponse
+}
 # Connection status for archival group.
 type ArchivalGroupConnectionStatus {
   status: ConnectionStatusType!
@@ -16645,6 +16665,9 @@ enum AwsCloudAccountRegion {
   # AWS cloud Asia Pacific (Sydney) region.
   AP_SOUTHEAST_2
 
+  # AWS cloud Asia Pacific (Jakarta) region.
+  AP_SOUTHEAST_3
+
   # AWS cloud Asia Pacific (Mumbai) region.
   AP_SOUTH_1
 
@@ -16916,6 +16939,22 @@ input AwsEsConfigInput {
   # Enable immutability on rubrik filesystem.
   enableImmutability: Boolean = false
 }
+# Input to connect a customer-managed cluster to RSC and obtain a connection command to be run by the customer.
+input AwsExocomputeClusterConnectInput {
+  # Name of the customer managed cluster.
+  clusterName: String = ""
+
+  # Exocompute Configuration Id obtained after configuring the Exocompute for regions.
+  exocomputeConfigId: UUID!
+}
+# Response to Exocompute Cluster Connect request.
+type AwsExocomputeClusterConnectReply {
+  # The command is to be run at the remote k8s cluster to establish a secure connection with RSC.
+  connectionCommand: String!
+
+  # The unique id generated for the k8s cluster that was connected to RSC.
+  clusterUuid: UUID!
+}
 # AWS Exocompute configurations in an AWS account.
 type AwsExocomputeConfig {
   # Account details.
@@ -17149,6 +17188,9 @@ type AwsNativeAccount implements PolarisHierarchyObject , HierarchyObject {
 
   # The authorized operations on the object.
   authorizedOperations: [PolarisObjectAuthorizedOperationsEnum!]!
+
+  # List of Exocompute configurations for the AWS account.
+  applicationCloudAccountExoConfigs: ApplicationCloudAccountToExocomputeConfig!
 
   # List of all EC2 instances under this AWS Native account.
   awsNativeEc2Instances(
@@ -21332,6 +21374,9 @@ enum AwsNativeRegion {
   # AWS native Asia Pacific (Sydney) region.
   AP_SOUTHEAST_2
 
+  # AWS native Asia Pacific (Jakarta) region.
+  AP_SOUTHEAST_3
+
   # AWS native Asia Pacific (Mumbai) region.
   AP_SOUTH_1
 
@@ -21431,6 +21476,9 @@ enum AwsNativeRegionForReplication {
 
   # AWS native for replication Asia Pacific (Sydney) region.
   AP_SOUTHEAST_2
+
+  # AWS native for replication Asia Pacific (Jakarta) region.
+  AP_SOUTHEAST_3
 
   # AWS native for replication Asia Pacific (Mumbai) region.
   AP_SOUTH_1
@@ -22421,6 +22469,9 @@ type AzureAdGroup {
 
   # Email address of the M365 group.
   email: String!
+
+  # On-prem sync status of the Azure AD group.
+  onPremSyncStatus: AzureAdOnPremSyncStatus!
 }
 # Response to the azureAdObjectsByType API.
 type AzureAdObject {
@@ -22510,6 +22561,20 @@ type AzureAdObjects {
 
   # Azure AD group type.
   azureAdGroup: AzureAdGroup
+}
+# Azure AD on-prem sync status.
+enum AzureAdOnPremSyncStatus {
+  # Azure AD on-prem sync is not enabled.
+  DISABLED
+
+  # Azure AD on-prem sync is enabled.
+  ENABLED
+
+  # Azure AD on-prem sync is never enabled.
+  NEVER_ENABLED
+
+  # Azure AD on-prem sync status is unknown.
+  STATUS_UNKNOWN
 }
 # Represents regions for Azure AD.
 enum AzureAdRegion {
@@ -22626,6 +22691,9 @@ type AzureAdUser {
 
   # Creation type of the Azure AD user.
   creationType: String!
+
+  # On-prem sync status of the Azure AD group.
+  onPremSyncStatus: AzureAdOnPremSyncStatus!
 }
 # AzureAppPermission represents the enumeration of various Azure app permissions
 # for authenticating and connecting to the required Azure resource APIs in
@@ -78172,6 +78240,14 @@ enum ProductState {
   # Unknown state.
   UNSPECIFIED_STATE
 }
+# The product type.
+enum ProductTargetType {
+  # CDM platform.
+  CDM
+
+  # RSC platform.
+  POLARIS
+}
 # Type of product.
 enum ProductType {
   PAG_TRIAL
@@ -79008,6 +79084,9 @@ enum RcsRegionEnumType {
   # Australia Southeast or Victoria.
   AUSTRALIA_SOUTHEAST
 
+  # Canada Central or Toronto.
+  CANADA_CENTRAL
+
   # Canada East or Quebec City.
   CANADA_EAST
 
@@ -79035,8 +79114,14 @@ enum RcsRegionEnumType {
   # Japan East or Tokyo.
   JAPAN_EAST
 
+  # Japan West or Osaka.
+  JAPAN_WEST
+
   # Norway East or Oslo.
   NORWAY_EAST
+
+  # Poland Central or Warsaw.
+  POLAND_CENTRAL
 
   # South Africa North or Johannesburg.
   SOUTH_AFRICA_NORTH
@@ -79052,6 +79137,9 @@ enum RcsRegionEnumType {
 
   # UK South or London.
   UK_SOUTH
+
+  # UK West or Cardiff.
+  UK_WEST
 
   # Rubrik Cloud Vault Azure region is unknown.
   UNKNOWN_AZURE_REGION
@@ -84621,6 +84709,9 @@ input SharePointItems {
   # ID of the object in SharePoint Online.
   sharepointId: String!
 
+  # Rubrik cluster ID for the parent object of the SharePoint item.
+  objectId: String
+
   # Type of the parent object.
   snappableType: SnappableType
 
@@ -84676,6 +84767,9 @@ input SharePointListRestoreConfig {
 input SharePointObject {
   # ID of the object in SharePoint Online.
   objectSharepointId: String!
+
+  # Rubrik cluster ID of the SharePoint object.
+  objectId: String
 
   # Name or title of the object.
   objectName: String!
@@ -90119,6 +90213,51 @@ type TotpStatus {
   # The timestamp of the last TOTP configuration update.
   totpConfigUpdateAt: DateTime
 }
+# Status of a TPR request.
+enum TprReqStatus {
+  # The request was approved and is pending execution.
+  APPROVED
+
+  # The request was approved and scheduled to be executed.
+  APPROVED_AND_SCHEDULED
+
+  # The request was canceled.
+  CANCELED
+
+  # The request was completed.
+  COMPLETED
+
+  # The request was denied.
+  DENIED
+
+  # The request expired.
+  EXPIRED
+
+  # The request failed to complete.
+  FAILED
+
+  # The request is pending approval.
+  PENDING
+
+  # The request is staged for submission.
+  STAGED
+}
+# The status of a TPR request for node removal.
+type TprStatusForNodeRemoval {
+  # TPR request ID.
+  tprRequestId: String!
+
+  # The status of a TPR request.
+  status: TprReqStatus!
+}
+# Request parameters for checking and updating the TPR request for node removal.
+input TprStatusForNodeRemovalInput {
+  # Rubrik Cluster UUID.
+  clusterUuid: UUID!
+
+  # TPR request ID.
+  tprRequestId: String!
+}
 # Supported in v5.1+
 # The network protocol to use, either UDP or TCP.
 enum TransportLayerProtocol {
@@ -90307,6 +90446,15 @@ type UnmanagedObjectDetail {
   # Unmanaged Status of this object.
   unmanagedStatus: UnmanagedObjectAvailabilityFilter!
 
+  # Region where the object is present.
+  region: WorkloadRegion!
+
+  # Cloud account ID of the AWS account associated with the object.
+  cloudAccountId: String!
+
+  # Cloud account name of the AWS account associated with the object.
+  cloudAccountName: String!
+
   # The effective SLA Domain of the unmanaged object.
   effectiveSlaDomain: SlaDomain!
 
@@ -90363,6 +90511,15 @@ input UnmanagedObjectsInput {
 
   # Object Id.
   objectId: String
+
+  # Regions to filter.
+  regions: [WorkloadRegionInput!]
+
+  # Cloud account IDs to filter.
+  cloudAccountIds: [String!]
+
+  # Managed by to filter.
+  managedBy: CloudVendor
 }
 # Unmanaged objects sorting parameters.
 input UnmanagedObjectsSortParam {
@@ -102616,6 +102773,28 @@ type WorkloadRecoveryInfo {
 
   # Original data source ID.
   oldWorkloadId: String!
+}
+# Region of the workload.
+type WorkloadRegion {
+  # Region of the GCP location.
+  gcpNativeRegion: String!
+
+  # Region of the AWS location.
+  awsNativeRegion: AwsNativeRegion!
+
+  # Region of the Azure location.
+  azureNativeRegion: AzureNativeRegion!
+}
+# Regions for which the workloads are to be shown.
+input WorkloadRegionInput {
+  # Region of the GCP location.
+  gcpNativeRegion: String!
+
+  # Region of the AWS location.
+  awsNativeRegion: AwsNativeRegion!
+
+  # Region of the Azure location.
+  azureNativeRegion: AzureNativeRegion!
 }
 # Details of the setup for performing backups for various object types.
 type WorkloadTypeToBackupSetupSpecs {

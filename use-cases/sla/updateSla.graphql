@@ -1,0 +1,59 @@
+mutation UpdateSlaMutation($updateGlobalSlaInput: UpdateGlobalSlaInput!) {
+  updateGlobalSla(input: $updateGlobalSlaInput) {
+    id
+    __typename
+  }
+}",
+"variables": {
+  "updateGlobalSlaInput": {
+    "name": "Your SLA",
+    "description": "Your Description",
+    "snapshotSchedule": {
+      "daily": {
+        "basicSchedule": {
+          "frequency": 2,
+          "retention": 7,
+          "retentionUnit": "DAYS"
+        }
+      },
+      "monthly": {
+        "basicSchedule": {
+          "frequency": 1,
+          "retention": 1,
+          "retentionUnit": "MONTHS"
+        },
+        "dayOfMonth": "LAST_DAY"
+      }
+    },
+    "archivalSpecs": null,
+    "localRetentionLimit": null,
+    "backupWindows": [],
+    "firstFullBackupWindows": [],
+    "objectTypes": [
+      "VSPHERE_OBJECT_TYPE"
+    ],
+    "objectSpecificConfigsInput": {
+      "awsRdsConfigInput": null,
+      "awsNativeS3SlaConfigInput": null,
+      "sapHanaConfigInput": null,
+      "db2ConfigInput": null,
+      "oracleConfigInput": null,
+      "mssqlConfigInput": null,
+      "mongoConfigInput": null,
+      "vmwareVmConfigInput": null,
+      "azureSqlDatabaseDbConfigInput": null,
+      "azureSqlManagedInstanceDbConfigInput": null
+    },
+    "replicationSpecsV2": null,
+    "isRetentionLockedSla": false,
+    "retentionLockMode": "NO_MODE",
+    "id": "f4251401-d359-4d63-bac0-28bcdf40d9f0",
+    "userNote": "",
+    "shouldApplyToExistingSnapshots": {
+      "value": false
+    },
+    "shouldApplyToNonPolicySnapshots": {
+      "value": false
+    }
+  }
+}

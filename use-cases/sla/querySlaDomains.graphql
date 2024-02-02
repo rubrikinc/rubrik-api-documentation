@@ -1,0 +1,10 @@
+query SLADomains {
+  slaDomains {
+    nodes {
+      name
+      id
+      version
+    }
+  }
+  __typename
+}

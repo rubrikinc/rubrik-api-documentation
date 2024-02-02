@@ -1,0 +1,10 @@
+mutation DeleteSlaMutation($id: UUID!, $userNote: String) {
+  deleteGlobalSla(id: $id, userNote: $userNote) {
+    success
+    __typename
+  }
+}",
+"variables": {
+  "id": "SLA_ID",
+  "userNote": ""
+}

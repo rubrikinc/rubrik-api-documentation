@@ -1,0 +1,18 @@
+mutation assignSla($objectIds: [UUID!]! $slaId: UUID) {
+  assignSla(input: {
+    objectIds: $objectIds
+    #slaDomainAssignType can be set to protectWithSlaId, noAssignment, doNotProtect
+    slaDomainAssignType: protectWithSlaId
+    slaOptionalId: $slaId
+    #shouldApplyToExistingSnapshots: false
+    #shouldApplyToNonPolicySnapshots: false
+    # Snapshot retention can be set to RETAIN_SNAPSHOTS, EXPIRE_IMMEDIATELY, KEEP_FOREVER, NOT_APPLICABLE
+    #existingSnapshotRetention: RETAIN_SNAPSHOTS
+  }) {
+    success
+  }
+}",
+"variables": {
+  "objectIds": ["00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000"],
+  "slaId": "00000000-0000-0000-0000-000000000000"
+}
