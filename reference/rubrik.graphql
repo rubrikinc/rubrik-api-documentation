@@ -255,7 +255,10 @@ type Query {
     feature: CloudAccountFeature!,
 
     # List of subscription status filters to apply.
-    subscriptionStatusFilters: [CloudAccountStatus!]!): [AzureSubscriptionWithFeaturesType!]!
+    subscriptionStatusFilters: [CloudAccountStatus!]!,
+
+    # List of feature to permission group filters to apply.
+    permissionsGroupFilters: [FeatureWithPermissionsGroups!]): [AzureSubscriptionWithFeaturesType!]!
 
   # Retrieves a list of all the Azure tenants and tenant subscriptions for features. The list can be filtered by feature status, subscription native ID, and subscription name.
   allAzureCloudAccountTenants(
@@ -1088,7 +1091,10 @@ type Query {
   # List of supported object types.
   allUnmanagedObjectsSupportedTypes(
     # Type of the product.
-    productType: ProductTargetType): [ManagedObjectType!]!
+    productType: ProductTargetType,
+
+    # The cloud vendor type.
+    cloudVendor: CloudVendor): [ManagedObjectType!]!
 
   # All the users on the current account.
   allUsersOnAccount(
@@ -2738,6 +2744,29 @@ type Query {
 
   # Returns crawls for an account.
   crawls: CrawlConnection!
+
+  # Lists all cross-account pairs.
+  crossAccountPairs(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Specifies the field by which the list of cross-account pairs will be sorted.
+    sortBy: GetCrossAccountPairsSortByField,
+
+    # Specification on how to filter a list of cross-account pairs.
+    filter: [GetCrossAccountPairsFilter!],
+
+    # Sorting order for the results.
+    sortOrder: SortOrder): CrossAccountPairInfoConnection!
   currentIpAddress: String!
 
   # Details of the user's current organization.
@@ -8223,6 +8252,11 @@ type Mutation {
     # Input for V1BulkUpdateOracleRac.
     input: BulkUpdateOracleRacsInput!): BulkUpdateOracleRacsReply!
 
+  # Set whether Ransomware Investigation is enabled or not in bulk.
+  bulkUpdateRansomwareInvestigationStatus(
+    # Request to bulk enable or disable Ransomware Investigation.
+    input: BulkUpdateRansomwareInvestigationEnabledInput!): Void
+
   # Cancel an activity series.
   cancelActivitySeries(
     # Input for canceling an activity series.
@@ -8860,6 +8894,12 @@ type Mutation {
   deleteGlobalCertificate(
     # Input to delete a global certificate.
     input: DeleteGlobalCertificateInput!): DeleteGlobalCertificateReply!
+  deleteGlobalSla(
+    # SLA Domain ID.
+    id: UUID!,
+
+    # Optional user note.
+    userNote: String): SlaResult!
 
   # Delete guest OS credentials.
   deleteGuestCredentialById(
@@ -9465,6 +9505,11 @@ type Mutation {
     # Input for V1ExpireDownloadedSapHanaSnapshots.
     input: ExpireDownloadedSapHanaSnapshotsInput!): AsyncRequestStatus!
 
+  # Expire snoozed directories.
+  expireSnoozedDirectories(
+    # Expire snoozed directories.
+    input: ExpireSnoozedDirectoriesInput!): ExpireSnoozedDirectoriesReply!
+
   # Export VM snapshot
   # 
   # Supported in v5.0+
@@ -10003,7 +10048,7 @@ type Mutation {
   # Cloud Direct Path Recovery.
   recoverCloudDirectPath(
     # Input for Cloud Direct path recovery.
-    input: RecoverCloudDirectPathInput!): AsyncRequestStatus!
+    input: RecoverCloudDirectPathInput!): AsyncRequestStatus! @deprecated(reason: "Not in use. Use recoverCloudDirectMultiPaths instead.")
 
   # Recover a MongoDB source from Rubrik CDM cluster.
   recoverMongoSource(
@@ -10201,11 +10246,6 @@ type Mutation {
   removeVlans(
     # Input for RemoveVlans.
     input: RemoveVlansInput!): RemoveVlansReply!
-
-  # Update the throttle bypass configuration of a replication target location on a particular source.
-  replicationNetworkThrottleBypass(
-    # Input for V1UpdateReplicationTargetInfo.
-    input: ReplicationNetworkThrottleBypassInput!): ReplicationNetworkThrottleBypassReply!
 
   # Reseed a secondary database.
   reseedLogShippingSecondary(
@@ -11256,6 +11296,11 @@ type Mutation {
   updateRcvTarget(
     # Request for updating a new Rubrik Cloud Vault location.
     input: UpdateRcvTargetInput!): Target!
+
+  # Update the throttle bypass configuration of a replication target location on a particular source.
+  updateReplicationNetworkThrottleBypass(
+    # Input for V1UpdateReplicationTargetInfo.
+    input: UpdateReplicationNetworkThrottleBypassInput!): ResponseSuccess!
 
   # Update the setup information, address, username, and password for the replication target.
   updateReplicationTarget(
@@ -14000,6 +14045,9 @@ input AddCrossAccountServiceConsumerInput {
 
   # Service account details of the service consumer.
   serviceConsumerSa: CrossAccountSaInput!
+
+  # Refresh cross-account pair.
+  isRefresh: Boolean!
 }
 # Add cross-account service consumer reply.
 type AddCrossAccountServiceConsumerReply {
@@ -14458,6 +14506,9 @@ type Analyzer {
 
   # Represents risk associated with the given analyzer.
   risk: RiskLevelType!
+
+  # Represents the tag ID for the given analyzer.
+  tagId: Int!
 }
 type AnalyzerAccessUsage {
   analyzer: Analyzer
@@ -16324,6 +16375,9 @@ type AuthorizedPrincipal {
 
   # TOTP status for a LDAP principal.
   totpStatus: LdapTotpStatus
+
+  # Lockout status for an LDAP principal.
+  lockoutStatus: LdapLockoutStatus
   roles: [Role!]!
 }
 # Paginated list of AuthorizedPrincipal objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
@@ -16904,8 +16958,7 @@ type AwsComputeSettings {
 }
 # AWS Customer Managed Exocompute Configuration in a region.
 type AwsCustomerManagedExocomputeConfig implements AwsExocomputeGetConfigurationResponse {
-  # Exocompute cluster name.
-  clusterName: String!
+  clusterName: String! @deprecated(reason: "Use  clusterName from AwsExocomputeClusterConnect API instead.")
 
   # Exocompute configuration UUID.
   configUuid: UUID!
@@ -22071,6 +22124,12 @@ type AwsSecurityGroup {
 }
 # Storage class for AWS type location.
 enum AwsStorageClass {
+  # Amazon S3 Glacier Deep Archive storage class.
+  GLACIER_DEEP_ARCHIVE
+
+  # Amazon S3 Glacier Flexible Retrieval storage class.
+  GLACIER_FLEXIBLE_RETRIEVAL
+
   # Amazon S3 Glacier Instant Retrieval storage class.
   GLACIER_INSTANT_RETRIEVAL
 
@@ -22751,6 +22810,9 @@ type AzureBlobConfig {
 
   # Specifies the location ID where the primary backups will be stored.
   backupLocationId: String!
+
+  # Backup location Name.
+  backupLocationName: String
 }
 # Azure Blob configuration.
 input AzureBlobConfigInput {
@@ -28132,6 +28194,14 @@ type BulkUpdateOracleRacsReply {
   # An array that contains all Oracle RAC update details.
   responses: [OracleRacDetail!]!
 }
+# Request to set Ransomware Investigation enabled or not in bulk.
+input BulkUpdateRansomwareInvestigationEnabledInput {
+  # List of entities for which the Ransomware Investigation status is being updated.
+  entities: [DataThreatAnalyticsEnablementEntityInfo!]!
+
+  # The new Ransomware Investigation status.
+  isRansomwareMonitoringEnabled: Boolean!
+}
 # Email address input for organizer and/or attendee.
 input CalendarEmailAddressFilter {
   emailAddress: String = ""
@@ -31056,8 +31126,14 @@ type CdmUpgradeReleaseDetail {
   # Is cluster upgradeable to version.
   isUpgradable: Boolean!
 
+  # End of support date for version.
+  eosDate: String!
+
   # The customer adoption status of the Rubrik CDM release.
   adoptionStatus: AdoptionStatus!
+
+  # The end of support status of the Rubrik CDM release.
+  eosStatus: EosStatus!
 }
 # CDM release details.
 type CdmUpgradeReleaseDetailsFromSupportPortalReply {
@@ -31344,6 +31420,9 @@ type CdpVmInfoEdge {
 type CellData {
   displayableValue: DisplayableValue
   metadata: [Metadata!]!
+
+  # The new version of metadata object.
+  metadataV2: [MetadataV2!]!
 }
 # Fields by which certificates can be sorted.
 enum CertMgmtSortBy {
@@ -32627,6 +32706,9 @@ enum CloudProviderType {
 }
 # Cloud provider type.
 enum CloudVendor {
+  # All cloud providers.
+  ALL_VENDORS
+
   # Cloud provider is AWS.
   AWS
 
@@ -32853,6 +32935,9 @@ type Cluster {
 
   # The Rubrik cluster's registered mode.
   registeredMode: ClusterRegistrationMode
+
+  # CDM to RSC RBAC migration status for the current cluster.
+  cdmRbacMigrationStatus: String
 }
 # CDM archiving specification.
 type ClusterArchivalSpec {
@@ -33910,6 +33995,9 @@ type ClusterSlaDomain implements SlaDomain {
 
   # The object-specific configurations of the SLA Domain.
   objectSpecificConfigs: ObjectSpecificConfigs
+
+  # Specifies whether the SLA Domain is read-only.
+  isReadOnly: Boolean
 
   # Rubrik cluster ID of SLA Domain.
   cluster: Cluster
@@ -35445,8 +35533,11 @@ type ConnectionStatusDetails {
   # Connection between target cluster and Rubrik (connected, disconnected, or not added).
   targetAndRubrik: ClusterConnectionStatus!
 
-  # Connection between source and target Rubrik clusters (connected or disconnected).
+  # Connection between source and target Rubrik clusters (connected, disconnected, or unavailable).
   sourceAndTarget: ConnectionStatusType!
+
+  # Connection between target and source Rubrik clusters (connected, disconnected, or unavailable).
+  targetAndSource: ConnectionStatusType!
 }
 # The connection status type enum.
 enum ConnectionStatusType {
@@ -35455,6 +35546,9 @@ enum ConnectionStatusType {
 
   # The connection has been disconnected.
   DISCONNECTED
+
+  # Cluster is not connected to Rubrik, cannot determine the state of the cluster.
+  UNAVAILABLE
 }
 # Tells whether snapshot has app or crash consistency.
 enum ConsistencyLevelEnum {
@@ -36253,6 +36347,9 @@ input CreateCrossAccountPairInput {
 
   # Fully qualified domain name of service provider RSC account.
   fqdn: String!
+
+  # Refresh cross-account pair.
+  isRefresh: Boolean!
 }
 # Input for cross-account OAuth registration.
 input CreateCrossAccountRegOauthPayloadInput {
@@ -36274,6 +36371,9 @@ input CreateCustomAnalyzerInput {
 
   # Represents the latest analyzer risk.
   analyzerRiskInstance: AnalyzerRiskInstanceInput
+
+  # Represents the tag ID for the given analyzer.
+  tagId: Int = 0
 
   # Represents risk associated with the given analyzer.
   risk: RiskLevelType = MEDIUM_RISK
@@ -37061,7 +37161,7 @@ input CreateReplicationPairInput {
   # Network interface for communication between the source and target clusters.
   targetNetworkInterface: NetworkInterfaceDetails
 
-  # Specifies whether the replication pair is cross-account.
+  # Deprecated: The field is set automatically according to the Rubrik CDM cluster involved in replication pairing.
   isCrossAccount: Boolean = false
 
   # Source Rubrik cluster UUID.
@@ -37396,6 +37496,59 @@ enum CrossAccountCapability {
   # Replication as a service capability.
   REPLICATION_AS_A_SERVICE
 }
+# The cross-account pair information.
+type CrossAccountPairInfo {
+  # Name of the cross-account involved in pair.
+  name: String!
+
+  # URL of the cross-account involved in pair.
+  url: String!
+
+  # UUID of the cross-account pair.
+  uuid: UUID!
+
+  # Role of the cross-account involved in pair.
+  role: CrossAccountRole!
+
+  # Status of the cross-account pair.
+  status: CrossAccountStatus!
+
+  # Time the metadata was last synced for the cross-account pair.
+  lastSyncedAt: DateTime
+}
+# Paginated list of CrossAccountPairInfo objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type CrossAccountPairInfoConnection {
+  # List of CrossAccountPairInfo objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [CrossAccountPairInfoEdge!]!
+
+  # List of CrossAccountPairInfo objects.
+  nodes: [CrossAccountPairInfo!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of CrossAccountPairInfo objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the CrossAccountPairInfo object. This wrapper is used for pagination.
+type CrossAccountPairInfoEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual CrossAccountPairInfo object wrapped by this edge.
+  node: CrossAccountPairInfo!
+}
+# Role of the cross-account pair.
+enum CrossAccountRole {
+  # Unspecified sort by field.
+  ROLE_UNSPECIFIED
+
+  # Service consumer role.
+  SERVICE_CONSUMER
+
+  # Service provider role.
+  SERVICE_PROVIDER
+}
 # Service account details of the cross-account.
 input CrossAccountSaInput {
   # Client ID of the service account.
@@ -37417,6 +37570,20 @@ type CrossAccountSaType {
 
   # URL path to to retrieve access token for service account.
   accessTokenUrl: String!
+}
+# Status of the cross-account pair.
+enum CrossAccountStatus {
+  # Connected status.
+  CONNECTED
+
+  # Disconnected status.
+  DISCONNECTED
+
+  # Unspecified status.
+  STATUS_UNSPECIFIED
+
+  # Temporarily disconnected status.
+  TEMPORARILY_DISCONNECTED
 }
 # Certificate Signing Request (CSR) information.
 type Csr {
@@ -38066,6 +38233,34 @@ type DataStoreSummary {
 
   # Supported in v5.0+
   name: String
+}
+# Entities on which Ransomware Investigation can be enabled.
+enum DataThreatAnalyticsEnablementEntity {
+  # Rubrik Cluster.
+  CDM_CLUSTER
+
+  # NAS Cloud Direct.
+  CLOUD_DIRECT_CLUSTER
+
+  # The root of a cloud-native hierarchy, which can be an AWS account,
+  # an Azure subscription, or a GCP project.
+  CLOUD_NATIVE_ROOT
+
+  # Microsoft 365 subscription.
+  MICROSOFT_365
+
+  # Rubrik Cloud Vault.
+  RCV
+
+  # Unknown entity type.
+  UNKNOWN
+}
+input DataThreatAnalyticsEnablementEntityInfo {
+  # The type of entity for which Ransomware Investigation status is being updated.
+  entityType: DataThreatAnalyticsEnablementEntity!
+
+  # The ID of entity being affected.
+  entityId: String!
 }
 # All data types in the reporting table.
 enum DataTypeEnum {
@@ -39853,7 +40048,7 @@ input DeleteServiceAccountsFromAccountInput {
   ids: [String!]!
 }
 input DeleteSmbDomainInput {
-  # Required. SMB domain name.
+  # Required. ID of the SMB Domain to delete.
   domainName: String!
 }
 # Delete Storage arrays.
@@ -40875,6 +41070,9 @@ input DownloadHypervVirtualMachineSnapshotInput {
 }
 # Identifier for download files.
 enum DownloadIdentifierEnum {
+  # Rubrik cluster RBAC migration summary.
+  CDM_RBAC_MIGRATION_SUMMARY
+
   # Threat hunt result CSV.
   ORION_THREAT_HUNT_DOWNLOAD
 
@@ -41452,6 +41650,20 @@ input EndSnapshotManagedVolumeRequestInput {
   # Supported in v7.0+
   # Overridden SLA Domain Id for Managed Volume snapshot.
   retentionConfig: BaseOnDemandSnapshotConfigInput
+}
+# The end of support status of the Rubrik CDM version.
+enum EosStatus {
+  # Plan upgrade soon.
+  EOS_STATUS_PLAN_UPGRADE
+
+  # Rubrik CDM version supported.
+  EOS_STATUS_SUPPORTED
+
+  # Unknown status.
+  EOS_STATUS_UNKNOWN
+
+  # Rubrik CDM version not supported.
+  EOS_STATUS_UNSUPPORTED
 }
 # The status code and message describing an error.
 type ErrorInfo {
@@ -43108,6 +43320,19 @@ input ExpireDownloadedSapHanaSnapshotsInput {
 
   # Required. ID of the SAP HANA database.
   id: String!
+}
+# Request to expire snoozed directories.
+input ExpireSnoozedDirectoriesInput {
+  # The list of snoozed directories to expire.
+  directories: [String!] = []
+}
+# Reply for expired snoozed directories.
+type ExpireSnoozedDirectoriesReply {
+  # The list of expired snoozed directories.
+  directoriesExpired: [String!]!
+
+  # The count of expired snoozed directories.
+  total: Long!
 }
 # Required. Input for exporting a Hyper-V virtual machine.
 input ExportHypervVirtualMachineInput {
@@ -45145,6 +45370,9 @@ type FilesetSummary {
 }
 # Fileset template.
 type FilesetTemplate implements CdmHierarchyObject , HierarchyObject {
+  # ID associated with fileset template in CDM.
+  cdmId: String!
+
   # Exceptions for backup of fileset.
   exceptions: [String!]!
 
@@ -47706,6 +47934,33 @@ input GetContainersInput {
   # Required. ID of the Nutanix cluster.
   id: String!
 }
+# Filter for cross-account pairs request.
+input GetCrossAccountPairsFilter {
+  # Field from which query should be filtered.
+  field: GetCrossAccountPairsFilterField = NAME
+
+  # Value of the field.
+  text: String = ""
+}
+# Filter for querying cross-account pairs.
+enum GetCrossAccountPairsFilterField {
+  # Filter by role of the cross-account pair.
+  ACCOUNT_ROLE
+
+  # Filter by cross-account pair name.
+  NAME
+
+  # Filter by status of the cross-account pair.
+  STATUS
+}
+# Field to sort by for cross-account pairs.
+enum GetCrossAccountPairsSortByField {
+  # Cross-account pair name.
+  NAME
+
+  # Unspecified sort by field.
+  SORT_BY_FIELD_UNSPECIFIED
+}
 # Input required for retrieving a specific Certificate Signing Request (CSR).
 input GetCsrInput {
   # FID of the CSR to retrieve.
@@ -48618,6 +48873,9 @@ type GlobalSlaReply implements SlaDomain {
   # Specifies if this SLA Domain is retention-locked or not.
   isRetentionLockedSla: Boolean!
 
+  # Specifies whether the SLA Domain is read-only.
+  isReadOnly: Boolean
+
   # Specifies the retention lock mode when enabled for the SLA Domain.
   retentionLockMode: RetentionLockMode!
 
@@ -49281,6 +49539,18 @@ enum HierarchyFilterField {
 
   # Filter by VPC ID.
   AWS_VPC_ID
+
+  # Filter Azure storage accounts by access tier.
+  AZURE_BLOB_STORAGE_ACCOUNT_ACCESS_TIER
+
+  # Filter Azure storage accounts by hierarchical namespace status.
+  AZURE_BLOB_STORAGE_ACCOUNT_HNS_STATUS
+
+  # Filter Azure storage accounts by resource group name.
+  AZURE_BLOB_STORAGE_ACCOUNT_RG_NAME
+
+  # Filter Azure storage accounts by subscription ID.
+  AZURE_BLOB_STORAGE_ACCOUNT_SUBSCRIPTION_ID
 
   # Filter Azure disks by ID of the attached virtual machine.
   AZURE_DISK_ATTACHED_VM
@@ -50182,6 +50452,15 @@ enum HierarchyObjectTypeEnum {
   RubrikEbsVolume
   RubrikEc2Instance
 
+  # Salesforce metadata.
+  SALESFORCE_FIXED_OBJECT
+
+  # Salesforce object.
+  SALESFORCE_OBJECT
+
+  # Salesforce organization.
+  SALESFORCE_ORGANIZATION
+
   # SAP HANA System.
   SAP_HANA_SYSTEM
 
@@ -50323,6 +50602,12 @@ enum HierarchySortByField {
 
   # Sort by AWS VPC ID.
   AWS_VPC_ID
+
+  # Sort Azure storage accounts by capacity used.
+  AZURE_BLOB_STORAGE_ACCOUNT_CAPACITY_USED
+
+  # Sort Azure storage accounts by number of containers.
+  AZURE_BLOB_STORAGE_ACCOUNT_CONTAINER_COUNT
   AZURE_DISK_ATTACHED_VM
 
   # Sort Azure disks by common resource group name.
@@ -51092,15 +51377,34 @@ input HostMakePrimaryRequestInput {
 # Supported in v9.1+
 # The connection status of the Rubrik Backup Service (RBS) on the host.
 enum HostRbsConnectionStatus {
+  # The host is connected to the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_CONNECTED
+
+  # The host is connecting to the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_CONNECTING
+
+  # The Rubrik Backup Service is not deployed on the host.
   HOST_RBS_CONNECTION_STATUS_CONNECTOR_NOT_DEPLOYED
+
+  # The host is deleted from the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_DELETED
+
+  # The host is being deleted from the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_DELETING
+
+  # The host is disconnected from the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_DISCONNECTED
+
+  # The host is partially connected to the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_PARTIALLY_CONNECTED
+
+  # The Rubrik Cluster is refreshing the connection to the host.
   HOST_RBS_CONNECTION_STATUS_REFRESHING
+
+  # The host is a replication target for the Rubrik Cluster.
   HOST_RBS_CONNECTION_STATUS_REPLICATION_TARGET
+
+  # The Rubrik Cluster is connected as a secondary to the host.
   HOST_RBS_CONNECTION_STATUS_SECONDARY_CLUSTER
 }
 # Supported in v5.0+
@@ -54537,6 +54841,9 @@ enum InventorySubHierarchyRootEnum {
   O365_ROOT
   ORACLE_ROOT
   PHYSICAL_HOST_ROOT
+
+  # Salesforce root.
+  SALESFORCE_ROOT
   SAP_HANA_ROOT
   VCD_ROOT
   VSPHERE_ROOT
@@ -54725,7 +55032,7 @@ input JoinSmbDomainInput {
   # Required. Configuration for joining Active Directory.
   config: SmbDomainJoinRequestInput!
 
-  # Required. SMB domain name.
+  # Required. ID of the SMB Domain to join.
   domainName: String!
 }
 # Basic information about Rubrik Kubernetes Agent manifest.
@@ -55574,6 +55881,31 @@ type LdapIntegrationEdge {
 enum LdapIntegrationFieldEnum {
   Name
 }
+# Reason for LDAP principal lockout.
+enum LdapLockReason {
+  # Administrative lock.
+  ADMINISTRATIVE_LOCK
+
+  # Lock reason unspecified.
+  LOCK_REASON_UNSPECIFIED
+}
+# LDAP lockout status.
+type LdapLockoutStatus {
+  # Whether the principal is locked out.
+  isLocked: Boolean!
+
+  # Lockout reason.
+  lockReason: LdapLockReason!
+
+  # Unlock reason.
+  unlockReason: LdapUnlockReason!
+
+  # Lockout timestamp.
+  lockedAt: DateTime
+
+  # Unlock timestamp.
+  unlockedAt: DateTime
+}
 enum LdapPrincipalFieldEnum {
   Name
 }
@@ -55609,6 +55941,14 @@ type LdapTotpStatus {
 
   # Whether TOTP is supported for the LDAP principal.
   isSupported: Boolean!
+}
+# Unlock reason for LDAP principal.
+enum LdapUnlockReason {
+  # Administrative unlock.
+  ADMINISTRATIVE_UNLOCK
+
+  # Unlock reason unspecified.
+  UNLOCK_REASON_UNSPECIFIED
 }
 # Supported in v5.2+
 input LegalHoldDownloadConfigInput {
@@ -57066,6 +57406,15 @@ enum ManagedObjectType {
 
   # Recovery plan - deprecated.
   RECOVERY_PLAN
+
+  # Salesforce metadata.
+  SALESFORCE_FIXED_OBJECT
+
+  # Salesforce object.
+  SALESFORCE_OBJECT
+
+  # Salesforce organization.
+  SALESFORCE_ORGANIZATION
 
   # SAP HANA database.
   SAP_HANA_DATABASE
@@ -58628,6 +58977,37 @@ type MarkAgentSecondaryCertificateReply {
 type Metadata {
   key: String!
   value: Value
+}
+# The types of metadata key.
+enum MetadataKey {
+  # Cluster ID used to generate cluster hyperlink.
+  CLUSTER_LINK_ID
+
+  # Metadata key is unspecified.
+  METADATA_KEY_UNSPECIFIED
+
+  # Object icon ID used to generate object icon.
+  OBJECT_ICON_ID
+
+  # Object ID used to generate object hyperlink.
+  OBJECT_LINK_ID
+
+  # Object type used to generate object hyperlink.
+  OBJECT_LINK_TYPE
+
+  # SLA Domain ID used to generate SLA Domain hyperlink.
+  SLA_DOMAIN_LINK_ID
+
+  # Table cell dot color.
+  TABLE_CELL_DOT_COLOR
+}
+# The generic Metadata with a list of key-values pairs.
+type MetadataV2 {
+  # The key of the metadata.
+  key: MetadataKey!
+
+  # The list of the metadata values.
+  values: [Value!]!
 }
 # Microsoft 365 subscription on which Ransomware Monitoring can be enabled.
 type Microsoft365RansomwareInvestigationEnablement {
@@ -68412,6 +68792,18 @@ type NutanixClusterSummary {
   # Required. Supported in v5.0+
   username: String!
   slaAssignable: SlaAssignable
+
+  # The name of the Nutanix Prism Central to which this Nutanix cluster belongs.
+  prismCentralName: String
+
+  # Nutanix Operating System version of the Nutanix cluster.
+  version: String
+
+  # The ID of the Nutanix Prism Central to which this Nutanix cluster belongs.
+  prismCentralId: String
+
+  # Last refresh time of the Nutanix cluster.
+  lastRefreshTime: DateTime
   snapshotConsistencyMandate: CdmNutanixSnapshotConsistencyMandate
 
   # Supported in v5.3+
@@ -72787,6 +73179,14 @@ type OauthRequestPayload {
   # Scope of OAuth request.
   scope: String!
 }
+# Basic information about the Rubrik cluster corresponding to the object.
+type ObjectClusterSummary {
+  # ID of the Rubrik cluster.
+  id: UUID!
+
+  # Name of the cluster.
+  name: String!
+}
 # Supported in v6.0+
 type ObjectIdToSnapshotIds {
   # Required. Supported in v6.0+
@@ -73073,6 +73473,12 @@ enum ObjectTypeEnum {
   RubrikEbsVolume
   RubrikEc2Instance
 
+  # Salesforce metadata.
+  SALESFORCE_FIXED_OBJECT
+
+  # Salesforce object.
+  SALESFORCE_OBJECT
+
   # SAP HANA System.
   SAP_HANA_SYSTEM
 
@@ -73301,6 +73707,9 @@ enum Operation {
 
   # Manage Recovery Plans within Orchestrated Recovery.
   MANAGE_RECOVERY_PLAN
+
+  # Manage ServiceNow Integration.
+  MANAGE_SERVICENOW_INTEGRATION
   MANAGE_SLA
 
   # The operation to manage the SMB domain.
@@ -73411,6 +73820,9 @@ enum Operation {
   VIEW_REPLICATION_SETTINGS
   VIEW_REPORT
   VIEW_SECURITY_SETTINGS
+
+  # View ServiceNow Integration.
+  VIEW_SERVICENOW_INTEGRATION
   VIEW_SLA
 
   # The operation to view the SMB domain.
@@ -76475,6 +76887,7 @@ enum PendingActionSubGroupTypeEnum {
   AWS_COMPUTE_SETTING_UPSERT
   AWS_IAM_CUSTOMER_ACCOUNT_UPSERT
   AWS_ROLE_BASED_ARCHIVAL_LOCATION
+  AZURE_CUSTOMER_FEATURE_UPSERT
   BLUEPRINT_CREATE
   BLUEPRINT_DELETE
   BLUEPRINT_DEPRECATE
@@ -77902,6 +78315,9 @@ input PrepareAwsCloudAccountDeletionInput {
 
   # Protection feature to be deleted for the cloud account.
   feature: CloudAccountFeature!
+
+  # Role customization options.
+  awsRoleCustomization: AwsRoleCustomization
 }
 # Prepares AWS cloud account for deletion and initiates deletion of the account.
 type PrepareAwsCloudAccountDeletionReply {
@@ -77924,6 +78340,9 @@ input PrepareFeatureUpdateForAwsCloudAccountInput {
 
   # List of features to be updated for the AWS account with specific permissions groups. This list is a valid input only for customer-managed cluster users.
   featuresWithPermissionsGroups: [FeatureWithPermissionsGroups!] = []
+
+  # Role customization options.
+  awsRoleCustomization: AwsRoleCustomization
 }
 # Response to prepare updation of AWS cloud account.
 type PrepareFeatureUpdateForAwsCloudAccountReply {
@@ -78324,6 +78743,9 @@ type ProtectedObjects implements ProtectedObjectSummary {
 
   # Object type.
   objectType: ManagedObjectType
+
+  # The cluster corresponding to the object.
+  cluster: ObjectClusterSummary
 
   # The pause status of the protected object.
   slaPauseStatus: Boolean
@@ -79164,6 +79586,9 @@ enum RcsRegionEnumType {
 
   # US west 2 or Washington.
   US_WEST_2
+
+  # West US 3 or Arizona.
+  WEST_US3
 }
 # Tiers for Rubrik Cloud Vault Archival Location.
 enum RcsTierEnumType {
@@ -79913,17 +80338,6 @@ enum ReplicationInterfaceType {
 
   # Management interface type.
   MANAGEMENT
-}
-# Input for network throttle bypass update request.
-input ReplicationNetworkThrottleBypassInput {
-  # Cluster UUID of the source Rubrik cluster.
-  clusterUuid: String!
-
-  # Required. Updated throttle configuration.
-  config: ReplicationTargetThrottleUpdateInput!
-
-  # Cluster UUID of the replication target. The replication target should be configured using Private Net.
-  id: String!
 }
 # Supported in v6.0+
 type ReplicationNetworkThrottleBypassReply {
@@ -83569,8 +83983,14 @@ type SapHanaSystemInformation {
   # Specifies whether Dynamic Tiering service is enabled for the SAP HANA system.
   isDtEnabled: Boolean!
 
+  # Azure customer subscription name for the SAP HANA system.
+  azureCustomerSubscriptionName: String!
+
   # The authentication type for the SAP HANA system.
   authType: SapHanaSystemAuthType!
+
+  # UUID of Azure feature linked to the SAP HANA system.
+  azureFeatureUuid: UUID
 }
 # Supported in v5.3+
 input SapHanaSystemPatchInput {
@@ -85358,6 +85778,9 @@ enum SlaObjectType {
   # PostgreSQL DB Cluster object.
   POSTGRES_DB_CLUSTER_OBJECT_TYPE
 
+  # Salesforce object.
+  SALESFORCE_OBJECT_TYPE
+
   # SAP HANA object.
   SAP_HANA_OBJECT_TYPE
 
@@ -85400,6 +85823,9 @@ type SlaReplicationCluster {
 
   # Version of the replication cluster.
   version: String
+}
+type SlaResult {
+  success: Boolean!
 }
 # Fields to return the status of SLA Domains based on the specified value.
 enum SlaStatusFilterField {
@@ -92149,6 +92575,17 @@ input UpdateRcvTargetInput {
   # Specifies whether the proxy settings must be bypassed for the RCV archival target.
   shouldBypassProxy: Boolean
 }
+# Input for network throttle bypass update request.
+input UpdateReplicationNetworkThrottleBypassInput {
+  # Required. UUID used to identify the cluster the request goes to.
+  clusterUuid: String!
+
+  # Required. Updated throttle configuration.
+  config: ReplicationTargetThrottleUpdateInput!
+
+  # Required. Cluster UUID assigned to the replication target. The replication target should be configured using Private Net.
+  id: String!
+}
 # Request to update replication target information.
 input UpdateReplicationTargetInput {
   # Gateway information of the source cluster when using the NAT setup type.
@@ -97707,7 +98144,7 @@ interface VsphereContentLibraryLibraryChildType {
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
 }
-type VsphereDatacenter implements CdmHierarchyObject , HierarchyObject , VsphereVcenterLogicalChildType , VsphereVcenterPhysicalChildType , VsphereVcenterDescendantType , VsphereDatacenterFolderLogicalChildType , VsphereDatacenterFolderDescendantType {
+type VsphereDatacenter implements CdmHierarchyObject , HierarchyObject , VsphereVcenterLogicalChildType , VsphereVcenterPhysicalChildType , VsphereVcenterDescendantType , VsphereDatacenterFolderLogicalChildType , VsphereDatacenterFolderPhysicalChildType , VsphereDatacenterFolderDescendantType {
   # Vsphere Datacenter CDM ID.
   cdmId: String!
 
@@ -98028,6 +98465,74 @@ interface VsphereDatacenterFolderDescendantType {
 }
 # Vsphere datacenter folder logical child type information.
 interface VsphereDatacenterFolderLogicalChildType {
+  # Rubrik cluster where this object originated.
+  cluster: Cluster!
+
+  # The source cluster of this object. Returned as a data location because there is no guarantee that Rubrik has knowledge about the source cluster.
+  primaryClusterLocation: DataLocation!
+
+  # SLA Domain assignment of the object during the process of being communicated over to Rubrik CDM.
+  pendingSla: SlaDomain
+
+  # Mapping from object ID to pending object deletion status.
+  pendingObjectDeletionStatus: PendingSnapshotsOfObjectDeletion
+
+  # Objects either replicated by this object or related to this object by replication.
+  replicatedObjects: [CdmHierarchyObject!]!
+
+  # Latest user note information.
+  latestUserNote: LatestUserNote
+
+  # The number of objects either replicated by this object or related to this object by replication.
+  replicatedObjectCount: Int!
+
+  # The authorized operations on the object.
+  authorizedOperations: [Operation!]!
+
+  # The FID of the hierarchy object.
+  id: UUID!
+
+  # The name of the hierarchy object.
+  name: String!
+
+  # The type of this object.
+  objectType: HierarchyObjectTypeEnum!
+
+  # The SLA Domain assignment type for this object.
+  slaAssignment: SlaAssignmentTypeEnum!
+
+  # The effective SLA Domain of the hierarchy object.
+  effectiveSlaDomain: SlaDomain!
+
+  # The pause status of the effective SLA Domain of the hierarchy object.
+  slaPauseStatus: Boolean!
+
+  # The distribution of the snapshots of the hierarchy object.
+  snapshotDistribution: SnapshotDistribution!
+
+  # The effective retention of the SLA Domain of the hierarchy object.
+  effectiveRetentionSlaDomain: SlaDomain
+
+  # The SLA Domain configured for the hierarchy object.
+  configuredSlaDomain: SlaDomain!
+
+  # The path node of the effective SLA Domain source.
+  effectiveSlaSourceObject: PathNode
+
+  # A sequential list of this object's logical ancestors.
+  logicalPath: [PathNode!]!
+
+  # A sequential list of this object's physical ancestors.
+  physicalPath: [PathNode!]!
+
+  # The number of descendant workloads of this object.
+  numWorkloadDescendants: Int!
+
+  # The organizations to which this hierarchy object belongs.
+  allOrgs: [Org!]!
+}
+# Vsphere datacenter folder physical child type information.
+interface VsphereDatacenterFolderPhysicalChildType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
 

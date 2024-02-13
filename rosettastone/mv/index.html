@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Mv - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#managed_volume">/managed_volume</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a>
+<a href="../">Back</a></p>
+<h1 id="managed_volume">/managed_volume</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /managed_volume</td>
+<td>Retrieve summary information for all managed volumes that are created within a Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume</td>
+<td>Create a managed volume.</td>
+<td>mutation addManagedVolume</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/snapshot/export</td>
+<td>Returns a list of summary information for all exports of all managed volume snapshots, sorted and filtered.</td>
+<td>query managedVolumeLiveMounts</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/snapshot/export/{id}</td>
+<td>Retrieve detailed information about a managed volume snapshot export by specifying the snapshot export ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/snapshot/{id}</td>
+<td>Retrieve detailed information about a snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /managed_volume/snapshot/{id}</td>
+<td>Delete a managed volume snapshot.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/snapshot/{id}/browse</td>
+<td>Lists all files and directories in a given path.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{id}/download</td>
+<td>Create a download managed volume snapshot from archival request.</td>
+<td>mutation exportManagedVolumeSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{id}/download_file</td>
+<td>Create a download file request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{id}/download_files</td>
+<td>Start an asynchronous job to download multiple files and folders from a specified managed volume backup. The response returns an asynchronous request ID. Get the URL for downloading the ZIP file including the specific files/folders by sending a GET request to 'managed-volume/request/{id}'.</td>
+<td>mutation downloadManagedVolumeFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}</td>
+<td>Details of a managed volume.</td>
+<td>query managedVolumes</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /managed_volume/{id}</td>
+<td>Update managed volume with specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /managed_volume/{id}</td>
+<td>Delete a managed volume.</td>
+<td>mutation deleteManagedVolume</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}/inflight_snapshot</td>
+<td>Returns summary information about the in-flight snapshot if the managed volume is open for write operations. When the managed volume is in any other state, returns a 404 error.</td>
+<td>query managedVolumes</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/resize</td>
+<td>Resize the managed volume to a larger size. Once a volume size has been increased, it can not be decreased.</td>
+<td>mutation resizeManagedVolume</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}/search</td>
+<td>Search a managed volume for files.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}/snapshot</td>
+<td>Returns a list of summary information for snapshots of a managed volume.</td>
+<td>query managedVolumes</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/snapshot</td>
+<td>Create a job for an on-demand snapshot of an SLA Managed Volume. The response returns a request ID. To see the status of the request, poll 'managed-volume/request/{id}' with the request ID obtained in the response.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}/snapshot/{snapshot_id}/reference</td>
+<td>Get information about references to an in-flight snapshot of a managed volume. This is for internal use only.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/{id}/snapshot/{snapshot_id}/reference/{reference_id}</td>
+<td>Get information about a reference to an in-flight snapshot of a managed volume.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PUT /managed_volume/{id}/snapshot/{snapshot_id}/reference/{reference_id}</td>
+<td>Add a reference to an in-flight snapshot of a managed volume.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PATCH /managed_volume/{id}/snapshot/{snapshot_id}/reference/{reference_id}</td>
+<td>Update a reference to an in-flight snapshot of a managed volume.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /managed_volume/{id}/snapshot/{snapshot_id}/reference/{reference_id}</td>
+<td>Remove a reference to an in-flight snapshot of a managed volume.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /managed_volume</td>
+<td>Start an asynchronous job to create a Managed Volume stack.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /managed_volume/request/{id}</td>
+<td>Retrieve the status of a Managed Volume async request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /managed_volume/snapshot/export/{id}</td>
+<td>Deletes an exported Managed Volume snapshot, identified by the snapshot ID.</td>
+<td>mutation deleteManagedVolumeSnapshotExport</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/export/{id}/script</td>
+<td>Start an asynchronous job to generate and download a script to unify export paths across channels in Managed Volume export.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{id}/export</td>
+<td>Exports a Managed Volume snapshot as a share.</td>
+<td>mutation exportManagedVolumeSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{id}/restore</td>
+<td>Exports an SLA Managed Volume snapshot as a share and mounts it on a given host.</td>
+<td>mutation exportSlaManagedVolumeSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{snapshot_id}/{location_id}/download</td>
+<td>Initiates a job to download a snapshot from the specified location when the snapshot does not exist locally. The specified location has to be a remote target connected to this Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/snapshot/{snapshot_id}/{location_id}/download_files</td>
+<td>Initiates a job to download one or more files or folders from an archived Managed Volume snapshot. Returns the job instance ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /managed_volume/{id}</td>
+<td>Delete a Managed Volume.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/begin_snapshot</td>
+<td>Opens the Managed Volume for writes. All data written to the Managed Volume until the next end-snapshot call will be part of this snapshot.</td>
+<td>mutation beginManagedVolumeSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/configure_log_export</td>
+<td>For a specific SLA Managed Volume, this endpoint creates a log export if it does not already exist, otherwise it updates the existing log export.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/end_snapshot</td>
+<td>Close a Managed Volume for writes. A snapshot will be created containing all writes since the last begin-snapshot call.</td>
+<td>mutation endManagedVolumeSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /managed_volume/{id}/restore_logs</td>
+<td>This endpoint restores logs for the given time window for a SLA Managed Volume. This API returns an error if no logs are available in the specified time range.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

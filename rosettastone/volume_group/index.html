@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Volume group - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#volume_group">/volume_group</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="volume_group">/volume_group</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /volume_group/host_layout/{snapshot_id}</td>
+<td>Use a snapshot ID to retrieve the host layout for the source host, including the layout of all disks and all volumes on the host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/request/{id}</td>
+<td>Get details about a Volume Group-related async request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /volume_group/snapshot/mount/{id}</td>
+<td>Create a request to delete a mount. If there are volumes mounted on a target host, this will use best-effort to unmount those volumes from the host, and proceed to unmount storage on Rubrik.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /volume_group/snapshot/{id}</td>
+<td>Delete a snapshot by expiring it. A snapshot can only be expired if it is an on-demand snapshot or a snapshot of an unprotected Volume Group.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/snapshot/{id}/browse</td>
+<td>Lists all files and directories in a given path.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{id}/download</td>
+<td>Download a snapshot from archival.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{id}/download_files</td>
+<td>Create a download files request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{id}/mount</td>
+<td>Create a live mount request for a Volume Group snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{id}/restore_files</td>
+<td>Restore filess to the original Host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{host_id}/host_layout</td>
+<td>Retrieve the host layout for a specified host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}/missed_snapshot</td>
+<td>Retrieve the time of the day when the snapshots were missed specific to a Volume Group.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}/search</td>
+<td>Search for a file within the Volume Group. Search via full path prefix or filename prefix.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /volume_group/{id}/snapshot</td>
+<td>Delete all snapshots of a Volume Group.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /volume_group</td>
+<td>Get summary of all Volume Groups.</td>
+<td>volumeGroupConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/snapshot/mount</td>
+<td>Retrieves information for each Volume Group mount. The information returned includes the following items, when available. ID (the unique ID of the mount), name (the name of the Volume Group), snapshotDate (the snapshot date), sourceVolumeGroupId (the ID of the Volume Group from which this snapshot was created), sourceHostId (the ID of the source host), sourceHostName (the name of the source host), mountedDate (the date when the mount was created), mountedVolumes (information on the mounted volumes), targetHostId (the ID of the mounted volumes host), targetHostName (the name of the mounted volumes host), mountRequestId (the ID of the job instance that initiated the mount), unmountRequestId (the ID of the job instance that initiated the request to remove the mount), isReady (whether the Volume Group mount is ready to use), and restoreScriptSmbPath (the link to the script that can perform bare-metal recovery).</td>
+<td>volumeGroupMounts</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/snapshot/mount/{id}</td>
+<td>Retrieve information on a specific Volume Group mount. The information returned includes the following items, when available. ID (the unique ID of the mount), name (the name of the Volume Group), snapshotDate (the snapshot date), sourceVolumeGroupId (The ID of the Volume Group from which this snapshot was created), sourceHostId (the ID of the source host), sourceHostName (the name of the source host), mountedDate (the date when the mount was created), mountedVolumes (the mounted volumes information), targetHostId (the ID of the mounted volumes host), targetHostName (the name of the mounted volumes host), mountRequestId (the ID of the job instance that initiated the mount), unmountRequestId (the ID of the job instance that intiated the request to remove the mount), isReady (whether the Volume Group mount is ready to use), and restoreScriptSmbPath (the link to the script that can perform bare-metal recovery).</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/snapshot/{id}</td>
+<td>Retrieve detailed information about a snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{id}/restore_volumes</td>
+<td>Restore volumes to a host running the Rubrik backup agent.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{snapshot_id}/{location_id}/download</td>
+<td>Initiates a job to download a snapshot from the specified location when the snapshot does not exist locally. The specified location has to be a replication target connected to this Rubrik cluster. If an SLA Domain is not provided, the snapshot will be retained forever.</td>
+<td>downloadVolumeGroupSnapshotFromLocation</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{snapshot_id}/{location_id}/download_files</td>
+<td>Initiates a job to download one or more files or folders from an archived Volume Group snapshot. Returns the job instance ID.</td>
+<td>downloadManagedVolumeFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/snapshot/{snapshot_id}/{location_id}/restore_files</td>
+<td>Initiates a job to restore one or more files or folders from an archived Volume Group snapshot. Returns the job instance ID.</td>
+<td>restoreVolumeGroupSnapshotFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}</td>
+<td>Detailed view of a Volume Group.</td>
+<td>volumeGroup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /volume_group/{id}</td>
+<td>Patch Volume Group with specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}/latest_snapshot</td>
+<td>Retrieve the latest snapshot summary of a Volume Group.</td>
+<td>createOnDemandVolumeGroupBackup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}/request/force_full_snapshot</td>
+<td>Retrieve the configuration for forcing a full snapshot for a Volume Group.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/{id}/request/force_full_snapshot</td>
+<td>Request a full snapshot to be taken during the next backup job of a Volume Group.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /volume_group/{id}/snapshot</td>
+<td>Retrieve snapshot details for a Volume Group.</td>
+<td>physicalHost</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /volume_group/{id}/snapshot</td>
+<td>Create an on-demand snapshot for the given Volume Group ID.</td>
+<td>createOnDemandVolumeGroupBackup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Vmware - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#vmware">/vmware</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v2-endpoints">v2 Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v3-endpoints">v3 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="vmware">/vmware</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /vmware/agent</td>
+<td>Retrieve the global setting for automatic deployment of the Rubrik Backup Service to virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /vmware/agent</td>
+<td>Modify the global setting for automatic deployment of the Rubrik Backup Service to virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/config/datastore_freespace_threshold</td>
+<td>Determine the value for the datastore freespace threshold for VMware virtual machine backups.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/config/esx_subnets</td>
+<td>Retrieve the preferred subnets to reach ESXi hosts.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/config/set_datastore_freespace_threshold</td>
+<td>Set the configuration value for the datastore freespace threshold for VMware virtual machine backups.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/config/set_esx_subnets</td>
+<td>Set the subnets that should be used to reach ESXi hosts.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/data_center</td>
+<td>Returns the summary of all the data centers.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/data_center/{id}</td>
+<td>Returns details about the specific DataCenter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/datastore</td>
+<td>Get summaries of all the DataStores.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/datastore/{id}</td>
+<td>Get details about the specific DataStore.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/guest_credential</td>
+<td>Retrieve the ID, domain, username and password for all guest OS credentials.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/guest_credential</td>
+<td>Create a new guest OS credential.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/guest_credential/{id}</td>
+<td>Get information about a specific guest OS credential.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /vmware/guest_credential/{id}</td>
+<td>Update the domain, username and password of given guest OS credential.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/guest_credential/{id}</td>
+<td>Remove a specific guest OS credential.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/org_network_migration</td>
+<td>Migrates multiple vCenters to a specific organization network.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/standalone_host/datastore</td>
+<td>Retrieve a list of the datastores for a specified ESXi host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/tag/{tag_id}</td>
+<td>Returns a tag or filter in a vCenter, specified by the tag ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/tag_category/{tag_category_id}</td>
+<td>Returns a tag category or filter category in a vCenter, specified by the category ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/tag</td>
+<td>Get a list of tags on this vCenter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/tag_category</td>
+<td>Get a list of tag categories on this vCenter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/count</td>
+<td>Count of all the local non-archived VMs.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/credential_failure</td>
+<td>Fetch VMs with authentication failures.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/credential_failure/count</td>
+<td>Fetch count of VMs with authentication failures.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/live_snapshot/count/{id}</td>
+<td>Count of all the live snapshots of a VM.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/count</td>
+<td>Retrieve total number of snapshots.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/mount</td>
+<td>Retrieve the following information for all live mounts: ID, snapshot date, ID of source VM, name of source VM, ID of source host, status of the mount, mount event ID, and unmount event ID.</td>
+<td>vSphereLiveMounts</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/mount/count</td>
+<td>Retrieve total number of live mounts.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/mount/{id}/rollback</td>
+<td>After an Instant Recovery that used the preserve MOID setting, rollback the datastore used by the recovered virtual machine from the Rubrik cluster to the original datastore.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/download_files</td>
+<td>Start an asynchronous job to download multiple files and folders from a specified VMware backup. The response returns an asynchronous request ID. Get the URL for downloading the ZIP file including the specific files/folders by sending a GET request to 'vmware/vm/request/{id}'.</td>
+<td>mutation vsphereVmDownloadSnapshotFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/internalMountForTest</td>
+<td>Create a request to Live Mount a virtual machine from a snapshot using a specified configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/mount_disks</td>
+<td>Requests a snapshot mount to attach disks to an existing virtual machine.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/restore_files</td>
+<td>Create a request to restore multiple file or folder to the source virtual machine.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/standalone_esx_host_export</td>
+<td>Export snapshot of a vm to stanadlone esx server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/vm/update/bulk</td>
+<td>Update VMs with specified properties.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/virtual_disk</td>
+<td>Get a list of all the Virtual Disks.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /vmware/batch_compute_cluster</td>
+<td>Retrieve details for a set of VMware compute clusters.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/batch_host</td>
+<td>Retrieve details for a set of VMware ESXi hypervisors.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/compute_cluster</td>
+<td>Get all the clusters belonging to this datacenter.</td>
+<td>vSphereComputeClusters</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/compute_cluster/request/{id}</td>
+<td>Get the details of an asynchronous request that involves a VMware compute cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/compute_cluster/{id}</td>
+<td>Get details for the compute cluster.</td>
+<td>vSphereComputeCluster</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/compute_cluster/{id}</td>
+<td>Update the configuredSlaDomainId for a VMware compute cluster with a specific ID.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/compute_cluster/{id}/install_io_filter</td>
+<td>Install the latest version of Rubrik ioFilter to the VMware cluster with a specific ID. The cluster must be in maintenance mode to install the ioFilter successfully. The vCenter of the VMware compute cluster must be of version 6.7 and above.</td>
+<td>installIoFilter</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/compute_cluster/{id}/io_filter</td>
+<td>Get the summary of the ioFilters on the VMware compute cluster with a specific ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/compute_cluster/{id}/uninstall_io_filter</td>
+<td>Uninstall the Rubrik ioFilter from the VMware cluster with a specific ID. The cluster must be in maintenance mode to uninstall the ioFilter successfully. The vCenter of the VMware compute cluster must be of version 6.7 and above.</td>
+<td>uninstallIoFilter</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/compute_cluster/{id}/upgrade_io_filter</td>
+<td>Upgrade the Rubrik ioFilter for a VMware cluster with a specific ID. The cluster must be in maintenance mode to upgrade the ioFilter successfully. The vCenter of the VMware compute cluster must be of version 6.7 and above.</td>
+<td>upgradeIoFilter</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/config/cdp/get_preferred_cdp_network_protocol</td>
+<td>Returns the current preference of CDM between IPv4 and IPv6 for CDP data transfer.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/config/cdp/set_preferred_cdp_network_protocol</td>
+<td>Set the current preference of CDM between IPv4 and IPv6 for CDP data transfer.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/config/recovery/networks</td>
+<td>Get all the networks for snapshot recovery for the specified compute resource.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/hierarchy/export</td>
+<td>Retrieve VMware compute resource hierarchy objects such as compute clusters, hosts, and resource pools that are available as the target for  virtual machine export operations.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/hierarchy/export_folder_location</td>
+<td>Retrieve VMware folder hierarchy objects such as vCenters, datacenter folders, datacenters, and virtual machine folders that are available as the target folder location for  virtual machine export operations.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/hierarchy/{id}/export</td>
+<td>Retrieve detailed information for VMware compute resource hierarchy object  such as compute clusters, hosts, and resource pools by object ID.</td>
+<td>vSphereRootRecoveryHierarchy</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/host</td>
+<td>Get summary of all the ESXi hypervisor.</td>
+<td>vSphereHostConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/host/{id}</td>
+<td>Get details of a ESXi hypervisor.</td>
+<td>vSphereHost</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/host/{id}</td>
+<td>Update the SLA Domain that is configured for an ESXi hypervisor.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/host/{id}/datastore</td>
+<td>Get details of datastores in a ESXi hypervisor.</td>
+<td>vsphereVMListESXiDatastores</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/network/portgroups</td>
+<td>Get details of port groups inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/network/portgroups</td>
+<td>Creates port groups inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/network/portgroups</td>
+<td>Deletes the port groups inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/network/vswitch</td>
+<td>Get details of vSwitches inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/network/vswitch</td>
+<td>Create a vSwitch inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/network/vswitch</td>
+<td>Delete a vSwitch inside an ESX host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter</td>
+<td>Retrieve information for each managed vCenter, including: ID, managed ID, address, username, SLA ID, and primary cluster ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter</td>
+<td>(DEPRECATED) Create a vCenter Server object by providing the address and account credentials of the vCenter Server. Initiates an asynchronous job to establish a connection with the vCenter Server and retrieve all metadata. Use GET /vcenter/{id}/status to check status. The recommended endpoint is /v2/vmware/vcenter. This endpoint will remain available in future releases despite deprecation.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/hotadd/vm</td>
+<td>Retrieve summary information for all HotAdd proxy virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/preadd</td>
+<td>Get information required to specify additional settings when adding/updating a vCenter server in Rubrik cluster. Fetches the names of the compute clusters and host groups.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/request/{id}</td>
+<td>Get details about a vcenter related async request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}</td>
+<td>Retrieve detailed information for a vCenter Server object.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /vmware/vcenter/{id}</td>
+<td>Update the address, username and password of the specified vCenter Server object.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/vcenter/{id}</td>
+<td>Update the SLA Domain that is configured for a vCenter Server.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vcenter/{id}</td>
+<td>Initiates an asynchronous job to remove a vCenter Server object. The vCenter Server cannot have VMs mounted through the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/connectivity</td>
+<td>Retrieve the connectivity status and possible errors for the vCenter and the ESXi hosts running on it.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/hotadd/bandwidth</td>
+<td>Get the ingest and export bandwidth limits in Mbps when using HotAdd with the vCenter. These limits are shared across all HotAdd proxies for the Center.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/{id}/hotadd/bandwidth</td>
+<td>Set the ingest and export bandwidth limits in Mbps when using HotAdd with the vCenter. These limits are shared across all HotAdd proxies for the Center.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/hotadd/needed</td>
+<td>Get the number of HotAdd proxies that need to be deployed to the vCenter to support the maximum number of ingest jobs.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/hotadd/network</td>
+<td>Retrieve the user-configured network for HotAdd backup and recovery operations on VMware on AWS.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/{id}/hotadd/network</td>
+<td>Set the user-configured network for HotAdd backup and recovery operations on VMware on AWS.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/missing_privileges/{entity_type}</td>
+<td>Get a list of required privileges that are not currently granted to Rubrik for all objects with a given type in a given vCenter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/networks</td>
+<td>Get the names and IDs of the user configured networks in the vCenter. This information enables users to choose a desired network for backups to go through for VMware Cloud on AWS setups.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/{id}/refresh</td>
+<td>Create a job to refresh the metadata for the specified vCenter Server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/{id}/refresh_vm</td>
+<td>Refresh the metadata for a single virtual machine controlled by vCenter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/required_privileges</td>
+<td>Request all vCenter privileges required by the Rubrik cluster for a specific vCenter server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vcenter/{id}/tag_filter</td>
+<td>Create a filter consisting of vSphere tags joined with logical operators.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vcenter/{id}/tag_filter/preview</td>
+<td>Preview list of virtual machines of a proposed filter condition. The result might not be accurate if new virtual machines were added after last vCenter refresh.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /vmware/vcenter/{id}/tag_filter/{filter_id}</td>
+<td>Updates the name, condition, and description of the specified multi-tag filter.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vcenter/{id}/tag_filter/{filter_id}</td>
+<td>Remove the multi-tag filter.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vcenter/{vcenter_id}/hotadd/{proxy_id}</td>
+<td>Delete the specified HotAdd proxy virtual machine from the vSphere environment and the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm</td>
+<td>Get summary of all the VMs.</td>
+<td>vSphereVmNewConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_mount</td>
+<td></td>
+<td>vsphereVmInitiateLiveMountV2</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/cdp</td>
+<td></td>
+<td>vsphereVmwareCdpLiveInfo</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/cdp_state</td>
+<td></td>
+<td>allCdpVmsInfos</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/make_primary</td>
+<td>Migrate the primary cluster with which the agent is able to communicate. For disaster recovery when migrating everything over from another cluster, the /host/make_primary endpoint can be used with the oldPrimaryClusterUuid parameter.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/missed_recoverable_range</td>
+<td></td>
+<td>vsphereVMMissedRecoverableRange</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/recoverable_range</td>
+<td></td>
+<td>vsphereVMRecoverableRange</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/request/{id}</td>
+<td>Get the details of an asynchronous request that involves a VMware virtual machine.</td>
+<td>vSphereDetailData</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/bulk</td>
+<td>Bulk operation of taking on-demand snapshot for given virtual machines.</td>
+<td>vsphereBulkOnDemandSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/mount</td>
+<td>Retrieve summary information about Live Mount activity.</td>
+<td>vSphereLiveMounts</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/mount/{id}</td>
+<td>Retrieve detailed information for a specified Live Mount.</td>
+<td>vSphereMount</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/vm/snapshot/mount/{id}</td>
+<td>Power a specified Live Mount virtual machine on or off. Pass <strong><em>true</em></strong> to power the virtual machine on and pass <strong><em>false</em></strong> to power the virtual machine off.</td>
+<td>vsphereVmPowerOnOffLiveMount</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vm/snapshot/mount/{id}</td>
+<td>Create a request to delete a Live Mount virtual machine.</td>
+<td>vsphereVMDeleteLiveMount</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/mount/{id}/relocate</td>
+<td>Run storage VMotion to relocate a specified Live Mount into another data store.</td>
+<td>vsphereExportSnapshotToStandaloneHost</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/{id}</td>
+<td>Retrieve detailed information about a virtual machine snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vm/snapshot/{id}</td>
+<td>Designate a snapshot as expired and available for garbage collection. The snapshot must be an on-demand snapshot or a snapshot from a virtual machine that is not assigned to an SLA Domain.</td>
+<td>vsphereVmDELETE</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/{id}/browse</td>
+<td>For a virtual machine snapshot, list the directories and files that are beneath a specified file system path.</td>
+<td>browseSnapshotFileConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/download</td>
+<td>Provides a method for retrieving a snapshot, that is not available locally, from an archival location.</td>
+<td>vmwareDownloadSnapshotFromLocation</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/download_file</td>
+<td>Create a request to download a file from a virtual machine snapshot.</td>
+<td>vsphereVmDownloadSnapshotFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/download_virtual_machine_files</td>
+<td>Start an asynchronous job to download multiple Virtual Machine files, such as .vmdk, .vmx, and .nvram files, from the specified Virtual Machine snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/export</td>
+<td>Export a virtual machine from a snapshot, using a specified hypervisor host as the datastore.</td>
+<td>vsphereVmExportSnapshotV3</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/export_with_download</td>
+<td>Download a snapshot from an archival location and then export a virtual machine using the downloaded snapshot.</td>
+<td>vsphereVmExportSnapshotWithDownloadFromCloud</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/instant_recover</td>
+<td>Instantly recovery a virtual machine from a snapshot. The Instant Recovery request starts the virtual machine with networking enabled and renames and powers off the source virtual machine, if it still exists.</td>
+<td>vsphereVmInitiateInstantRecoveryV2</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/mount</td>
+<td>Create a request to Live Mount a virtual machine from a snapshot using a specified configuration.</td>
+<td>vsphereVmInitiateLiveMountV2</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/restore_file</td>
+<td>Create a request to restore a file or folder to the source virtual machine.</td>
+<td>vsphereVmRecoverFilesNew</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/snapshot/{id}/virtual_machine_files</td>
+<td>Returns all virtual machine files, such as .vmdk, .vmx, and .nvram files, for the specified virtual machine snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/{location_id}/download_files</td>
+<td>Initiates a job to download one or more files or folders from an archived virtual machine snapshot. Returns the job instance ID.</td>
+<td>vsphereVmDownloadSnapshotFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{id}/{location_id}/restore_files</td>
+<td>Initiates a job to restore one or more files or folders from an archived virtual machine snapshot. Returns the job instance ID.</td>
+<td>vsphereVmRecoverFilesNew</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshots</td>
+<td>Retrieve snapshot summaries for a list of virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/virtual_disk/{id}</td>
+<td>Detailed about the specific Virtual Disk.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/vm/virtual_disk/{id}</td>
+<td>Update a specific Virtual Disk.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}</td>
+<td>Retrieve details for a virtual machine.</td>
+<td>vSphereDetailData</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /vmware/vm/{id}</td>
+<td>Update a virtual machine with specified properties. Use the guestCredential field to update the guest credential for a specified virtual machine.</td>
+<td>updateVcdVapp</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/guest_script/run</td>
+<td>Run the specified preBackup, postSnap, or postBackup script in the guest OS of a virtual machine. The script must exist and meet requirements.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/linking_info</td>
+<td>Retrieve information of linked VMware virtual machines, including the current active VMware virtual machine in the protect object group.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/missed_recoverable_range</td>
+<td>Gets a list of time ranges to which a CDP-enabled virtual machine cannot perform a point-in-time recovery. The time ranges are indicated by start and end timestamps listed as date-time strings.</td>
+<td>vsphereVMMissedRecoverableRange</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/missed_snapshot</td>
+<td>Retrieve details about the missed snapshots for a virtual machine.</td>
+<td>missedSnapshotGroupByConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/recoverable_range</td>
+<td>Gets time ranges available for point-in-time recovery. The time ranges are indicated by start and end date-time strings.</td>
+<td>vsphereVMRecoverableRange</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/register_agent</td>
+<td>Register the Rubrik Backup Service that is running on a specified host with the specified Rubrik cluster.</td>
+<td>vsphereVmRegisterAgent</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/request/force_full_snapshot</td>
+<td>Retrieve the configuration that has been set for forcing a full snapshot for a VMware virtual machine.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/request/force_full_snapshot</td>
+<td>Request a full snapshot to be taken for the next backup job of a VMware virtual machine.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/search</td>
+<td>Search for a file in the snapshots of a a virtual machine. Specify the file by full path prefix or filename prefix.</td>
+<td>searchSnappableVersionedFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/{id}/snapshot</td>
+<td>Retrieve summary information for the snapshots of a virtual machine.</td>
+<td>snapshotsListConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/snapshot</td>
+<td>Use the ID of a virtual machine to create an on-demand snapshot.</td>
+<td>vsphereOnDemandSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /vmware/vm/{id}/snapshot</td>
+<td>Delete all of the snapshots from a virtual machine.</td>
+<td>vsphereVmDeleteSnapshot</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v2-endpoints">v2 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /vmware/vcenter</td>
+<td>Create a vCenter Server object by providing the address and account credentials of the vCenter Server. Establishes a connection to the vCenter and retrieves all associated metadata objects such as Virtual Machines, ESXi Hosts, Compute Clusters, Folders, Tags, etc.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_export</td>
+<td>Export a snapshot each from a set of virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_in_place_recover</td>
+<td>Trigger in-place recovery jobs for a set of virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_instant_recover</td>
+<td>Instantly recover a snapshot each from a set of virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_mount</td>
+<td>Live mount a snapshot from each virtual machine in a batch.</td>
+<td>vsphereVmInitiateLiveMountV2</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_relocate_mount</td>
+<td>Runs storage and compute VMotion to relocate specified Live Mounts to other datastores/datastore clusters and compute resources in batches.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/batch_unmount</td>
+<td>Delete Live Mount virtual machines in a batch.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/mount/{id}/relocate</td>
+<td>Run storage VMotion to relocate a specified Live Mount into other datastores and datastore clusters.</td>
+<td>vsphereExportSnapshotToStandaloneHost</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /vmware/vm/request/{id}</td>
+<td>Retrieve the details of an asynchronous request that includes a VMware virtual machine.</td>
+<td>vSphereDetailData</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/snapshot/{snapshot_id}/{location_id}/download</td>
+<td>Initiates a job to download a snapshot from the specified location when the snapshot does not exist locally. The specified location can be an archival location connected to this Rubrik cluster or can be a replication target.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/export</td>
+<td>Export a virtual machine from a snapshot, using a specified hypervisor host as the datastore.</td>
+<td>vsphereVmExportSnapshotV3</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/export_with_download</td>
+<td>Download a snapshot from an archival location and then export a virtual machine using the downloaded snapshot.</td>
+<td>vsphereVmExportSnapshotWithDownloadFromCloud</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/in_place_recovery</td>
+<td>Initiate an in-place recovery of a virtual machine from a snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/instant_recover</td>
+<td>Instantly recover a virtual machine from either a snapshot ID or a timestamp using a specified configuration. The Instant Recovery request starts the virtual machine with networking enabled and renames and powers off the source virtual machine, if it still exists.</td>
+<td>vsphereVmInitiateInstantRecoveryV2</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/mount</td>
+<td>Create a request to Live Mount a virtual machine from either a snapshot ID or a timestamp using a specified configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v3-endpoints">v3 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /vmware/vm/batch_export</td>
+<td>Export a snapshot each from a set of virtual machines.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /vmware/vm/{id}/export</td>
+<td>Exports a virtual machine from a snapshot, using a datastore or datastore cluster as the target storage location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

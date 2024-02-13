@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Mssql - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#mssql">/mssql</a>
+    </li>
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v2-endpoints">v2 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="mssql">/mssql</h1>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /mssql/availability_group</td>
+<td>Returns a list of summary information for Microsoft SQL availability groups.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/availability_group/bulk</td>
+<td>Update Microsoft SQL availability groups with the specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/availability_group/{id}</td>
+<td>Returns a detailed view of a Microsoft SQL availability group.</td>
+<td>query mssqlAvailabilityGroup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/availability_group/{id}</td>
+<td>Update a Microsoft SQL availability group with the specified properties.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db</td>
+<td>Returns a list of summary information for Microsoft SQL databases.</td>
+<td>query mssqlDatabases</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/db/bulk</td>
+<td>Update multiple Microsoft SQL databases with the specified properties.</td>
+<td>mutation bulkUpdateMssqlDbs</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/bulk/snapshot</td>
+<td>Take an on-demand backup of one or more Microsoft SQL databases. Set the forceFullSnapshot property to true to force a full snapshot for every database that is specified. Only one snapshot will be taken for each database, even if a database is included multiple times in the fields of the request body. To check the result of the request, poll /mssql/request/{id}.</td>
+<td>mutation bulkCreateOnDemandMssqlBackup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/bulk/snapshot/{id}</td>
+<td>Returns the details for an on-demand backup of multiple Microsoft SQL databases. This only returns details for requests that have finished successfully. To check the status of the request, poll /mssql/request/{id}.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/count</td>
+<td>Returns a count of Microsoft SQL databases.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/defaults</td>
+<td>The default properties are Log Backup Frequency (in seconds), Log Retention Time (in hours) and CBT status. New databases added to the Rubrik cluster are provided the log backup frequency value and log backup retention value by default. New hosts added to the Rubrik cluster are provided the CBT status by default.</td>
+<td>query mssqlDefaultProperties</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/db/defaults</td>
+<td>The default properties are Log Backup Frequency (in seconds), Log Retention Time (in hours) and CBT status. New databases added to the Rubrik cluster are provided the log backup frequency value and log backup retention value by default. New hosts added to the Rubrik cluster are provided the CBT status by default.</td>
+<td>mutation updateMssqlDefaultProperties</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/log_shipping</td>
+<td>Retrieves all log shipping configuration objects. Results can be filtered and sorted.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/log_shipping/{id}</td>
+<td>Retrieves a particular log shipping configuration with all the details of the configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/db/log_shipping/{id}</td>
+<td>Updates a specified log shipping configuration.</td>
+<td>mutation updateMssqlLogShippingConfiguration</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /mssql/db/log_shipping/{id}</td>
+<td>Deletes the specified log shipping configuration.</td>
+<td>mutation deleteLogShipping</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/log_shipping/{id}/reseed</td>
+<td>Starts an asynchronous job to reseed a secondary database. Reseeding restores the data in the secondary database based on a log shipping configuration.</td>
+<td>mutation reseedLogShippingSecondary</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/mount</td>
+<td>Returns a list with summary information for all Live Mount SQL Server databases.</td>
+<td>query mssqlDatabaseLiveMounts</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/mount/{id}</td>
+<td>Returns detailed information for the specified Live Mount of a SQL Server database.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /mssql/db/mount/{id}</td>
+<td>Create an async request to delete a Live Mount of a SQL Server database. Poll the task status by using /mssql/request/{id}.</td>
+<td>mutation deleteMssqlLiveMount</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/recoverable_range/download/{id}</td>
+<td>Get the details of the progress made in deleting recoverable ranges. The recoverable ranges to delete are those specified by the DELETE request to /mssql/db/{id}/recoverable_range/download which yielded the response with the job id.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/snapshot/{id}</td>
+<td>Returns detailed information about a Microsoft SQL database snapshot.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}</td>
+<td>Returns a detailed view of a Microsoft SQL database.</td>
+<td>query mssqlDatabase</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/db/{id}</td>
+<td>Update a Microsoft SQL database with the specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/browse</td>
+<td>When a recovery point is set, this API endpoint returns the snapshot and list of logs needed to restore the database to the recovery point. When a time range or LSN range is specified, this API endpoint returns the snapshots and logs that overlap the specified range. Specify only a recovery point or a range. Specify only LSNs or times. This endpoint is only used to fetch data, but uses POST instead of GET due to limitations on parameters used in the body of a GET request. The parameter set for this endpoint is shared with the download_file endpoint.</td>
+<td>mutation browseMssqlDatabaseSnapshot</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/compatible_instance</td>
+<td>Returns all compatible instances for export for the specified recovery time.</td>
+<td>query mssqlCompatibleInstances</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/download</td>
+<td>Starts an asynchronous request to download snapshots and logs from archival for a given database and recovery point. If the specified point in time is already available locally, this endpoint throws an error.</td>
+<td>mutation downloadMssqlDatabaseFilesFromArchivalLocation</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/download_files</td>
+<td>Starts an asynchronous request to download a set of backup files as a single compressed zipfile. When a recovery point is set, this API endpoint returns the snapshot and list of logs that Rubrik CDM would use to restore the database to the recovery point. When a time range or LSN range is specified, this API endpoint returns the snapshots and logs that overlap the specified range. Specify only a point in time or a range. Specify only LSNs or times.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/download_files_by_id</td>
+<td>Downloads a list of snapshot and log backups from a Microsoft SQL database.</td>
+<td>mutation downloadMssqlDatabaseBackupFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/export</td>
+<td>Create a request to export a Microsoft SQL database. To check the result of the request, poll /mssql/request/{id}.</td>
+<td>mutation exportMssqlDatabase</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/log_backup</td>
+<td>Take an on-demand log backup for a Microsoft SQL database.</td>
+<td>mutation takeMssqlLogBackup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/log_shipping</td>
+<td>Create a log shipping configuration between a specified primary database and a specified secondary database. The transaction logs from the primary database are regularly restored to the secondary database in order to maintain the secondary database as a point-in-time copy of the primary database. The primary database must have log backups configured, and it must be in the full or bulk-logged recovery model.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/missed_recoverable_range</td>
+<td>Retrieve a list of missed recoverable ranges for a Microsoft SQL database. For each run of one type of error, the first and last occurrence of the error are given.</td>
+<td>query mssqlDatabaseMissedRecoverableRanges</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/missed_snapshot</td>
+<td>Returns a list of summary information for the missed snapshots of a Microsoft SQL database, including the time of day and the locations where the snapshot was missed.</td>
+<td>query mssqlDatabaseMissedSnapshots</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/mount</td>
+<td>Create an asynchronous request to create a Live Mount SQL Server database. Poll the task status by using /mssql/request/{id}.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/recoverable_range</td>
+<td>Retrieve the recoverable ranges for a specified Microsoft SQL database. A begin and/or end timestamp can be provided to retrieve only the ranges that fall within the window.</td>
+<td>query mssqlRecoverableRanges</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /mssql/db/{id}/recoverable_range/download</td>
+<td>Deletes all local snapshots and logs that have previously been downloaded. Provide a begin or end time to delete only the downloaded snapshots and logs that fall within this time frame. The time is relative to when the snapshot or log backup was originally taken, not downloaded. Parts of the window may not be deleted if certain log files must be kept to preserve times outside the window. Data is deleted in the background. To check the status of the deletion, poll /mssql/db/recoverable_range/download/{id}.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/request/force_full_snapshot</td>
+<td>Retrieves the configuration that has been set for forcing a full snapshot for a Microsoft SQL database.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/request/force_full_snapshot</td>
+<td>Request a full snapshot to be taken for the next backup job of a Microsoft SQL database.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/restore</td>
+<td>Create a request to restore a SQL Server database. To check the result of the request, poll /mssql/request/{id}.</td>
+<td>mutation restoreMssqlDatabase</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/restore_estimate</td>
+<td>Provides an estimate of resources needed for the specified restore or export operation.</td>
+<td>query mssqlDatabaseRestoreEstimate</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/restore_files</td>
+<td>Provides a list of database files to be restored for the specified restore or export operation.</td>
+<td>query allMssqlDatabaseRestoreFiles</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/snappable_id</td>
+<td>Returns the snappableId for a Microsoft SQL database.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/{id}/snapshot</td>
+<td>Returns a list of summary information for snapshots of a Microsoft SQL database.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/snapshot</td>
+<td>Take an on-demand backup of a Microsoft SQL database. The forceFullSnapshot property can be set to true to force a full snapshot. To check the result of the request, poll /mssql/request/{id}.</td>
+<td>mutation createOnDemandMssqlBackup</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /mssql/db/{id}/snapshot</td>
+<td>Deletes all snapshots of a Microsoft SQL database. The database must be unprotected for the operation to succeed.</td>
+<td>mutation deleteMssqlDbSnapshots</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/hierarchy/{id}</td>
+<td></td>
+<td>NA</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/hierarchy/{id}/children</td>
+<td>Retrieve the list of immediate descendant objects for the specified parent.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/hierarchy/{id}/descendants</td>
+<td>Retrieve the list of descendant objects for the specified parent.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/host/bulk</td>
+<td>Updates multiple Microsoft SQL Server instances in Microsoft SQL hosts with the specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/host/configuration</td>
+<td>Returns a list of customized SQL Server host configurations.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/host/configuration</td>
+<td>Creates a SQL Server host configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/host/configuration/{host_id}</td>
+<td>Returns the configuration for the specified SQL Server host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/host/configuration/{host_id}</td>
+<td>Updates the configuration for a specified host.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /mssql/host/configuration/{host_id}</td>
+<td>Deletes the SQL Server host configuration. The host falls back to use values from the global configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/instance</td>
+<td>Returns a list of summary information for Microsoft SQL instances.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/instance/bulk</td>
+<td>Update multiple Microsoft SQL instance with the specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/instance/count</td>
+<td>Returns a count of all Microsoft SQL instances.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/instance/{id}</td>
+<td>Returns a detailed view of a Microsoft SQL instance.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/instance/{id}</td>
+<td>Update a Microsoft SQL instance with specified properties.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/request/{id}</td>
+<td>Returns the task object for an async request related to SQL Server databases.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/sla_domain/assign</td>
+<td>Assigns SLA Domain properties to SQL Server objects. Hosts and Windows clusters cannot be assigned SLA Domains directly. The SLA Domains are instead applied to the SQL Server child objects within the Host or Windows Cluster object. Newly discovered SQL Server objects within a given Host or Windows Cluster object do not inherit SLA Domain properties from other child SQL Server objects with the same parent object.</td>
+<td>mutation assignMssqlSlaDomainProperties</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/windows_cluster/bulk</td>
+<td>Updates multiple Microsoft SQL Server instances in Windows Clusters with the specified properties.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v2-endpoints">v2 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /mssql/db/log_shipping</td>
+<td>Retrieves all log shipping configuration objects. Results can be filtered and sorted.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /mssql/db/log_shipping/{id}</td>
+<td>Retrieves a particular log shipping configuration with all the details of the configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /mssql/db/log_shipping/{id}</td>
+<td>Updates the specified log shipping configuration.</td>
+<td>mutation updateMssqlLogShippingConfiguration</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/db/{id}/log_shipping</td>
+<td>Create a log shipping configuration between a specified primary database and a specified secondary database. The transaction logs from the primary database are regularly restored to the secondary database in order to maintain the secondary database as a point-in-time copy of the primary database. The primary database must have log backups configured, and it must be in the full or bulk-logged recovery model.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /mssql/sla_domain/assign</td>
+<td>Assigns SLA Domain properties to SQL Server objects. Hosts and Windows clusters cannot be assigned SLA Domains directly. The SLA Domains are instead applied to the SQL Server child objects within the Host or Windows Cluster object. Newly discovered SQL Server objects within a given Host or Windows Cluster object do not inherit SLA Domain properties from other child SQL Server objects with the same parent object. The assignment event runs in the background after this call returns. SLA Domain assignment is not reflected in subsequent calls until the background job is complete. It is not recommended to mix calls to synchronous and asynchronous SLA assignment endpoints.</td>
+<td>mutation assignMssqlSlaDomainProperties</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

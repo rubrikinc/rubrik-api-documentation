@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Config - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#config">/config</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="config">/config</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /config/activeDirectory</td>
+<td>Fetch the global Active Directory configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/af2</td>
+<td>Fetch the global Af2 configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/akka</td>
+<td>Fetch the global Akka configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/appBlueprint</td>
+<td>Fetch the global Appblueprint configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/appFramework</td>
+<td>Fetch the global Appframework configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/appflows</td>
+<td>Fetch the global Appflows configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/atlas</td>
+<td>Fetch the global Atlas configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/aws</td>
+<td>Fetch the global AWS configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/azure</td>
+<td>Fetch the global Azure configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/blobstore</td>
+<td>Fetch the global Blobstore configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/callisto</td>
+<td>Fetch the global Callisto configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/cdp</td>
+<td>Fetch the global CDP configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/cerebro</td>
+<td>Fetch the global Cerebro configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/cloud</td>
+<td>Fetch the global Cloud configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/cloudUtilization</td>
+<td>Fetch the global cloud utilization configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/configProtection</td>
+<td>Fetch the global config protection configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/crystal</td>
+<td>Fetch the global Crystal configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/db2</td>
+<td>Fetch the global Db2 configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/dcs</td>
+<td>Fetch the global DCS configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/dlc</td>
+<td>Fetch the global DLC configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/envision</td>
+<td>Fetch the global Envision configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/envoy</td>
+<td>Fetch the global Envoy configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/exchange</td>
+<td>Fetch the global Exchange configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/featureToggle</td>
+<td>Fetch the global feature toggle configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/fileset</td>
+<td>Fetch the global Fileset configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/forge</td>
+<td>Fetch the global Forge configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/galactus</td>
+<td>Fetch the global Galactus configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/gcp</td>
+<td>Fetch the global GCP configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/hawkeye</td>
+<td>Fetch the global Hawkeye configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/hyperv</td>
+<td>Fetch the global Hyper-V configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/infinity</td>
+<td>Fetch the global Infinity configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/infra</td>
+<td>Fetch the global Infra configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/jarvis</td>
+<td>Fetch the global Jarvis configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/jobIoPriority</td>
+<td>Fetch the global Jobiopriority configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/k8s</td>
+<td>Fetch the global Kubernetes configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/kvsnapshot</td>
+<td>Fetch the global Kvsnapshot configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/lambda</td>
+<td>Fetch the global Lambda configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_activeDirectory</td>
+<td>Fetch the local Active Directory configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_akka</td>
+<td>Fetch the local Akka configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_appFlows</td>
+<td>Fetch the local Appflows configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_atlas</td>
+<td>Fetch the local Atlas configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_blobstore</td>
+<td>Fetch the local Blobstore configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_callisto</td>
+<td>Fetch the local Callisto configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_cdp</td>
+<td>Fetch the local CDP configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_cerebro</td>
+<td>Fetch the local Cerebro configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_cloud</td>
+<td>Fetch the local Cloud configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_db2</td>
+<td>Fetch the local Db2 configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_dlc</td>
+<td>Fetch the local DLC configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_envision</td>
+<td>Fetch the local Envision configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_envoyNg</td>
+<td>Fetch the local EnvoynNG configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_exchange</td>
+<td>Fetch the local Exchange configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_failureTesting</td>
+<td>Fetch the local failure testing configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_fileset</td>
+<td>Fetch the local Fileset configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_forge</td>
+<td>Fetch the local Forge configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_galactus</td>
+<td>Fetch the local Galactus configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_hawkeye</td>
+<td>Fetch the local Hawkeye configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_healthMonitor</td>
+<td>Fetch the local Health monitor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_infinity</td>
+<td>Fetch the local Infinity configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_ireCr</td>
+<td>Fetch the local Irecr configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_jarvis</td>
+<td>Fetch the local Jarvis configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_k8s</td>
+<td>Fetch the local Kubernetes configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_lambda</td>
+<td>Fetch the local Lambda configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_managedVolume</td>
+<td>Fetch the local Managed Volume configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_mongo</td>
+<td>Fetch the local Mongo configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_mssql</td>
+<td>Fetch the local MSSQL configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_network</td>
+<td>Fetch the local Network configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_nodeMonitor</td>
+<td>Fetch the local Node monitor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_oracle</td>
+<td>Fetch the local Oracle configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_potassium</td>
+<td>Fetch the local Potassium configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_quicksilver</td>
+<td>Fetch the local Quicksilver configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_remoteCluster</td>
+<td>Fetch the local remote cluster configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_replication</td>
+<td>Fetch the local Replication configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_sapHana</td>
+<td>Fetch the local SAP HANA configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_shield</td>
+<td>Fetch the local Shield configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_snapshot</td>
+<td>Fetch the local Snapshot configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_storm</td>
+<td>Fetch the local Storm configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_support</td>
+<td>Fetch the local Support configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_thor</td>
+<td>Fetch the local Thor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_uff</td>
+<td>Fetch the local UFF configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_userActivity</td>
+<td>Fetch the local user activity configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_virtualPlatform</td>
+<td>Fetch the local virtual platform configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_vmware</td>
+<td>Fetch the local VMware configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/local_vulcan</td>
+<td>Fetch the local Vulcan configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/managedVolume</td>
+<td>Fetch the global Managed Volume configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/mongo</td>
+<td>Fetch the global Mongo configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/mssql</td>
+<td>Fetch the global MSSQL configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/nfs</td>
+<td>Fetch the global NFS configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/nutanix</td>
+<td>Fetch the global Nutanix configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/oracle</td>
+<td>Fetch the global Oracle configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/oracleV2</td>
+<td>Fetch the global Oracle v2 configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/polaris</td>
+<td>Fetch the global Polaris configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/potassium</td>
+<td>Fetch the global Potassium configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/qstar</td>
+<td>Fetch the global Qstar configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/quicksilver</td>
+<td>Fetch the global Quicksilver configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/replication</td>
+<td>Fetch the global Replication configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/sapHana</td>
+<td>Fetch the global SAP HANA configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/shield</td>
+<td>Fetch the global Shield configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/snapshot</td>
+<td>Fetch the global Snapshot configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/storageArray</td>
+<td>Fetch the global Storage Array configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/storm</td>
+<td>Fetch the global Storm configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/thor</td>
+<td>Fetch the global Thor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/thorDownload</td>
+<td>Fetch the global Thor download configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/thorUpload</td>
+<td>Fetch the global Thor upload configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/userActivity</td>
+<td>Fetch the global user activity configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_cerebro</td>
+<td>Fetch the global Cerebro configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_cerebro</td>
+<td>Update the global Cerebro configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_cerebro/reset</td>
+<td>Reset the global Cerebro configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_crystal</td>
+<td>Fetch the global Crystal configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_crystal</td>
+<td>Update the global Crystal configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_crystal/reset</td>
+<td>Reset the global Crystal configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_fileset</td>
+<td>Fetch the global Fileset configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_fileset</td>
+<td>Update the global Fileset configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_fileset/reset</td>
+<td>Reset the global Fileset configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_forge</td>
+<td>Fetch the global Forge configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_forge</td>
+<td>Update the global Forge configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_forge/reset</td>
+<td>Reset the global Forge configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_hyperv</td>
+<td>Fetch the global Hyper-V configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_hyperv</td>
+<td>Update the global Hyper-V configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_hyperv/reset</td>
+<td>Reset the global Hyperv configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_shield</td>
+<td>Fetch the global Shield configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_shield</td>
+<td>Update the global Shield configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_shield/reset</td>
+<td>Reset the global Shield configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_thor</td>
+<td>Fetch the global Thor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_thor</td>
+<td>Update the global Thor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_thor/reset</td>
+<td>Reset the global Thor configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_volumeGroup</td>
+<td>Fetch the global Volumegroup configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_volumeGroup</td>
+<td>Update the global Volumegroup configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_volumeGroup/reset</td>
+<td>Reset the global Volumegroup configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/usersettable_vulcan</td>
+<td>Fetch the global Vulcan configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_vulcan</td>
+<td>Update the global Vulcan configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /config/usersettable_vulcan/reset</td>
+<td>Reset the global Vulcan configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/vcd</td>
+<td>Fetch the global VCD configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/volumeGroup</td>
+<td>Fetch the global Volumegroup configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/vsphere</td>
+<td>Fetch the global vSphere configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/vulcan</td>
+<td>Fetch the global Vulcan configuration.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /config/history/list_updates</td>
+<td>View a list of cluster configuration options that have updated within a specified time window.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/history/ondate</td>
+<td>View a list of configurations and their values on a given date.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /config/overrides</td>
+<td>Retrieves a list of local and global configurations that have been overridden. By default, the response does not include the configurations that were modified programmatically. Set the <code>has_code_overrides</code> parameter to true, to retrieve the configurations that have been modified programmatically. To retrieve the configurations that have been overridden for a specific namespace, configure the <code>namespace</code> parameter. Specifying a namespace that begins with the string <code>local_</code> returns the configuration changes for the specified namespace from the local node. If the namespace does not begin with the string <code>local_</code>, the response includes the global configuration changes for the specified namespace.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

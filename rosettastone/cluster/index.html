@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Cluster - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#cluster">/cluster</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="cluster">/cluster</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /cluster/{id}/auto_removed_node</td>
+<td>Retrieve the list of nodes that were automatically removed from the Rubrik cluster for which the node removal has not been acknowledged.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/auto_removed_node/{node_id}/acknowledge</td>
+<td>Acknowledge automatic removal of a node from the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/bad_disk</td>
+<td>Runs find_bad_disk script and indicates whether there is a bad or missing disk. Can also be used to turn off the LEDs that are turned on as a part of this script.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/bootstrap</td>
+<td>Retrieves status of in progress bootstrap requests.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/bootstrap</td>
+<td>Issues a bootstrap request to a specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/bootstrap_config</td>
+<td>Retrieves configuration information for the nodes of the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/brik_count</td>
+<td>Retrieve the number of briks in this Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/brik_id</td>
+<td>Assigns a Brik ID to a collection of Rubrik cluster nodes, grouping the nodes into a virtual chassis.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/decommission_nodes</td>
+<td>Start an asynchronous task to decommission the specified node or nodes.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/discover</td>
+<td>Searches for nodes that can bootstrap into the specified Rubrik cluster. This endpoint will be moved to v1 in the next major version.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/disk</td>
+<td>Retrieves information about the disks in the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/disk/{disk_id}</td>
+<td>Formats, initializes and mounts an unformatted disk.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/disk/{disk_id}</td>
+<td>Marks the disk removed and updates cluster metadata.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/disk_capacity</td>
+<td>Retrieves total installed disk space on the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/disk_resize/{disk_id}</td>
+<td>Resize an existing data disk.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/dns_nameserver</td>
+<td>Retrieve a list the DNS servers assigned to the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/dns_nameserver</td>
+<td>Assign DNS servers to the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/dns_search_domain</td>
+<td>Retrieve a list the DNS search domains assigned to the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/dns_search_domain</td>
+<td>Assign DNS search domains to the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/flash_capacity</td>
+<td>Retrieves total installed flash on the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/floating_ip</td>
+<td>Get a list of a cluster's floating IP to node mapping.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/global_manager</td>
+<td>global.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/hardware_health</td>
+<td>Runs the hw_health command on all nodes in the Rubrik cluster and returns its output.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/has_tpm</td>
+<td>Check whether this Rubrik cluster has TPM.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/install</td>
+<td>Retrieves the status of a Rubrik CDM install request for a cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/install</td>
+<td>Issues an install request to a specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/io_stats</td>
+<td>Retrieves IO statistics of the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/ipmi</td>
+<td>get IPMI details of availability and enabled access in the cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/ipmi</td>
+<td>modify IPMI settings.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/ipv6</td>
+<td>Returns the IPv6 of all nodes on one or all interfaces.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/ipv6</td>
+<td>Update IPv6 configuration on an interface.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_azure_cloud_only</td>
+<td>Checks if the Rubrik cluster has <span style="color:red"><em>Restricted</em></span> cloud functionality to Azure cloud only.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_encrypted</td>
+<td>Check whether this Rubrik cluster is encrypted (the encryption could be either be software-based encryption or hardware-based encryption).</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_hardware_encrypted</td>
+<td>Check whether this Rubrik cluster is hardware encrypted.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_host_reachable</td>
+<td>Checks if a host, identified by its FQDN or IP address, is reachable from the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_on_cloud</td>
+<td>Check whether this Rubrik cluster is running on cloud.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_rsc_enabled</td>
+<td>True when Rubrik Security Cloud is enabled on the given CDM cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_single_node</td>
+<td>Check whether this Rubrik cluster is configured to be single node.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/k8s_cluster/bootstrap</td>
+<td>Retrieves status of in progress kubernetes cluster bootstrap request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/k8s_cluster/bootstrap</td>
+<td>Create kubernetes cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/k8s_cluster/config</td>
+<td>Save the kubernetes application config on Rubrik Cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/login_banner</td>
+<td>Returns the banner that displays after a successful login.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/login_banner</td>
+<td>Sets the banner that displays after a successful login.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/memory_capacity</td>
+<td>Retrieve total installed memory on the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/name</td>
+<td>Retrieves the name of the Rubrik cluster identified by the id.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/network_interface</td>
+<td>Retrieves network interfaces(including VLANs) on bond0/bond1.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/node</td>
+<td>Retrieve the list of nodes in this Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/node</td>
+<td>Add nodes to the specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/ntp_server</td>
+<td>Retrieve a list of the NTP servers assigned to the Rubrik cluster. Encryption keys are not reported.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/ntp_server</td>
+<td>Assign NTP servers to Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/online_registration</td>
+<td>Validates a user's one time passcode for the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/online_registration_request</td>
+<td>Generate a one-time passcode for cluster registration.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/packages</td>
+<td>List of Rubrik CDM packages <span style="color:green"><em>Available</em></span> for installation.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/parse_registration_token</td>
+<td>Parse the global manager token for mode of registration.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/pending_node</td>
+<td>Retrieves status of a pending add node request on the specified cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/platforminfo</td>
+<td>Retrieve information about the computing platform that is running Rubrik CDM software.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/prompt_rsc_migration_ui</td>
+<td>https://<ip-of-node-in-cluster>/docs/v1/playground</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/recommission_node</td>
+<td>Retrieve the status of a specified asynchronous node recommission request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/recommission_node</td>
+<td>Schedule a node for recommission.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/registered_mode</td>
+<td>Mode of registration for the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/registered_mode</td>
+<td>Register the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/remove_node</td>
+<td>Retrieves the status of the remove node request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/remove_node</td>
+<td>Schedules a node for removal.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/remove_nodes</td>
+<td>Schedules nodes for removal.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/rubrik_url</td>
+<td>Global manager (Polaris / Trident) URL used in hybrid clusters for redirection at login.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/key_rotation</td>
+<td>Return detailed information for a key rotation identified by <strong>rotation_id</strong>, or for all key rotations if <strong>rotation_id</strong> is not specified.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/security/key_rotation</td>
+<td>Trigger a key rotation for all nodes in the cluster. A reboot may be required depending on the rotation specification.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/password/zxcvbn</td>
+<td>Determine whether the ZXCVBN password check is currently in use on the specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/security/password/zxcvbn</td>
+<td>Toggle usage of ZXCVBN for local users.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/request/{request_id}</td>
+<td>Get details about a security-related async request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/ssh</td>
+<td>Returns whether SSH is enabled on TCP port 22 for all nodes in the cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/ssh</td>
+<td>Disables or enables SSH on TCP port 22 for all nodes in the cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security_classification</td>
+<td>Returns the cluster security classification parameters.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security_classification</td>
+<td>Sets the cluster security classification parameters.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/setupnetwork</td>
+<td>Retrieves the status of a network setup request for a cluster or node.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/setupnetwork</td>
+<td>Issues a network setup request to a specified Rubrik cluster or node.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/should_show_rsc_banner</td>
+<td>True when CDM UI should show the RSC banner.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/skip_registration</td>
+<td>Set cluster's registeredMode to LifeOfDevice.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/snmp_configuration</td>
+<td>Get SNMP configuration of the queried cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/snmp_configuration</td>
+<td>Update the SNMP configuration for a specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/system_status</td>
+<td>Retrieves information about the status of the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/trial_edge</td>
+<td>Query Rubrik Edge to confirm whether it is the Trial version and to obtain Trial-related information.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/trial_edge</td>
+<td>Extend the trial period.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/upgrade/schedule</td>
+<td>A call to this endpoint schedules an upgrade of the specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/upgrade/schedule</td>
+<td>Cancels if there is a scheduled upgrade of the specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/upgrade/schedule_status</td>
+<td>For a scheduled upgrade, a call to this endpoint returns if the upgrade is in progress or not. If not in progress, it returns the summary of the scheduled upgrade for the specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/upgrade/status</td>
+<td>Retrieves upgrade status message.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/vlan</td>
+<td>Retrieves the VLANs configured on a Rubrik Cluster and their ip configurations.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/vlan</td>
+<td>Edits tagged interfaces on the cluster by VLAN.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/vlan</td>
+<td>Update the configuration of an existing VLAN on the Rubrik cluster. VLAN netmask and IP addresses can be changed.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/vlan</td>
+<td>Drops interfaces assigend to the specified VLAN on the cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/vlan_gateway</td>
+<td>Retrieves the VLAN gateway information configured on a Rubrik Cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/vlan_gateway</td>
+<td>Set a gateway for a VLAN, store it in metadata.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/vlan_gateway</td>
+<td>Delete gateway from a specified VLAN.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /cluster/me/upgrade/monitor_events</td>
+<td>Gets notifications about events from a specified set of possible events.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}</td>
+<td>Retrieve public information about the Rubrik cluster.</td>
+<td>query allClusterConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}</td>
+<td>Change the properties of a specified Rubrik cluster. Changes to cluster name could take upto 10 minutes to be propagated to all nodes.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/api_version</td>
+<td>Retrieves software version of the Rubrik cluster.</td>
+<td>query clusterConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/azure/managed_identities</td>
+<td>Migrates an Azure Cloud Cluster Elastic Storage to use managed identities.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/cert_update_status</td>
+<td>Retrieve the status of the certificate update operation for the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/certificate</td>
+<td>Returns the cluster certificate.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/certificate</td>
+<td>Update the cluster certificate on all nodes.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/csr</td>
+<td>Returns the certificate signing request generated from the private key of the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/is_entitled</td>
+<td>Retrieves entitlement status of the nodes.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/manual_discover</td>
+<td>Manually specifies mDNS discovery data. Output for this endpoint is identical to the output of the 'discover' endpoint.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/manual_discover_ipv4</td>
+<td>Manually specifies discovery data. This endpoint output is identical to the output of the 'discover' endpoint.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/node_hostname</td>
+<td>Retrieve the ID to hostname mapping for all the nodes that belong to a specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/node_hostname</td>
+<td>Change hostnames for multiple nodes at a time, for a specified Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/node_id</td>
+<td>Retrieve the list of node IDs for the nodes in this Rubrik CDM cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/offline_entitle</td>
+<td>Retrieves node detials required for offline entitlement.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/offline_entitle</td>
+<td>Verifies the token generated by Support portal and entitles the specified nodes.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/online_entitle</td>
+<td>Retrieves the status of an online entitlement request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/online_entitle</td>
+<td>Sends an online entitlement request to the specified nodes.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/re_ip</td>
+<td>Returns the status of a Re-IP operation. This API must be called on the driving node of the Re-IP.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/re_ip</td>
+<td>Change the node IP addresses in a Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/rubrik_support_portal_credentials</td>
+<td>Check whether the specified Rubrik cluster has an existing set of credentials for the Rubrik Support portal.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/rubrik_support_portal_credentials</td>
+<td>Update credentials for the specified Rubrik cluster to connect to the Rubrik Support portal.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/admin_ssh_auth/setting</td>
+<td>Retrieves the SSH authentication setting that indicates whether SSH password authentication is enabled for the system admin user.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/security/admin_ssh_auth/setting</td>
+<td>Updates the SSH authentication setting for the system admin user.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/api_token_whitelist</td>
+<td>If the API Token includes a whitelist, fetch it.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/api_token_whitelist</td>
+<td>Set the API Token whitelist for cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/cors</td>
+<td>Get the current CORS support configuration for a web server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/security/cors</td>
+<td>Update the CORS support configuration for a web server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/encryption</td>
+<td>Get the current encryption at rest status of the cluster.</td>
+<td>query clusterEncryptionInfo</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/fips</td>
+<td>Returns the current status of FIPS on the specified cluster. When the status is true, FIPS is enabled.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/security/fips</td>
+<td>Update the current FIPS enablement status for a cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/kmip/client</td>
+<td>Return the currently configured KMIP client information. The response object contains empty fields when KMIP is not configured.</td>
+<td>query clusterEncryptionInfo</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/kmip/client</td>
+<td>Specify KMIP client credentials for each of the Rubrik cluster nodes.</td>
+<td>mutation setKmipClient)</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/kmip/server</td>
+<td>Returns the KMIP server information for the specified server address. When no server address is specified, this call returns information on all active KMIP servers. The response array is empty when KMIP is not configured or when the server address cannot be found.</td>
+<td>query kmipServerConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/kmip/server</td>
+<td>Add the specified KMIP server to the set of active KMIP servers.</td>
+<td>mutation bulkAddKmipServer</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/security/kmip/server</td>
+<td>Remove the server with the specified server address from the set of active KMIP servers.</td>
+<td>mutation deleteKmipServer</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/mfa/setting</td>
+<td>Retrieves the global MFA setting that indicates the number of days after which the Rubrik cluster will enforce multi-factor authentication.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/mfa/setting</td>
+<td>Update the global MFA setting.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/password_requirements</td>
+<td>Query user password requirements for a cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/security/password_requirements</td>
+<td>Update user password requirements for a cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/totp/setting</td>
+<td>Returns TOTP global setting, including whether TOTP is enforced or not.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/totp/setting</td>
+<td>Update TOTP global setting, including whether TOTP is enforced or not.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/truststore</td>
+<td>Get summary of all truststores.</td>
+<td>query globalCertificateConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/security/truststore</td>
+<td>Setting the given certificate for each node's truststores.</td>
+<td>mutation addGlobalCertificate / updateGlobalCertificate</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/security/truststore</td>
+<td>Remove certificate associated with specified truststore.</td>
+<td>mutation updateGlobalCertificate</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/security/web_signed_cert</td>
+<td>If the web server uses a signed certificate, fetch it.</td>
+<td>query clusterWebSignedCertificate</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PUT /cluster/{id}/security/web_signed_cert</td>
+<td>Setting the given certificate for each node's web server to use.</td>
+<td>mutation setWebSignedCertificate</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /cluster/{id}/security/web_signed_cert</td>
+<td>Resetting the customer-given certificate for each node's web server.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/snmp_mib_link</td>
+<td>Retrieve the download link for the Rubrik SNMP MIB file. The retrieval is a synchronous operation.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/support_data</td>
+<td>Determines the status of the data the Rubrik cluster uploads to Rubrik Support.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /cluster/{id}/support_data</td>
+<td>Enable or disable the data that will be uploaded from the Rubrik cluster to Rubrik Support.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/syslog_msg_mib_link</td>
+<td>Retrieve the download link for the SYSLOG-MSG-MIB file. The retrieval is a synchronous operation.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/syslog_tc_mib_link</td>
+<td>Retrieve the download link for the SYSLOG-TC-MIB file. The retrieval is a synchronous operation.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/test_snmp_trap_receivers</td>
+<td>Send test SNMP traps to all configured receivers.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/upgrade/available_version</td>
+<td>Retrieve a list of Rubrik CDM versions <span style="color:green"><em>Available</em></span> to upgrade the Rubrik cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/upgrade/precheck_status</td>
+<td>Get the result of the latest run of the upgrade prechecks.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/upgrade/precheck_status</td>
+<td>Start an on demand run of the prechecks.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/upgrade/request/{request_id}</td>
+<td>Get asynchronous request details for an upgrade request.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /cluster/{id}/upgrade/stage_cdm_software</td>
+<td>Stage software corresponding to a given CDM version on the cluster, in preparation for an upgrade.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /cluster/{id}/version</td>
+<td>Retrieves software version of the Rubrik cluster.</td>
+<td>query activitySeriesConnection</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>

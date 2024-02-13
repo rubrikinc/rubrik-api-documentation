@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Archive - Rubrik API</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Collapsed navigation -->
+    <div class="navbar-header">
+      <!-- Expander button -->
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+
+      <!-- Main title -->
+
+      
+      <a class="navbar-brand" href="../.."
+        >Rubrik API</a
+      >
+      
+    </div>
+
+    <!-- Expanded navigation -->
+    <div class="navbar-collapse collapse">
+      <!-- Main navigation -->
+      <ul class="nav navbar-nav">
+         
+        <li >
+          <a href="../..">Home</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Usage <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../api/auth/">Authentication</a>
+</li>
+
+             
+<li >
+  <a href="../../api/errors/">Errors</a>
+</li>
+
+             
+<li >
+  <a href="../../api/rate_limiting/">Rate-limiting</a>
+</li>
+
+             
+<li >
+  <a href="../../api/playground/">Playground</a>
+</li>
+
+             
+<li >
+  <a href="../../rest-apis/">REST APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../../reference/">Reference</a>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Changelog <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../changelog/overview/">Overview</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/breaking/">Breaking changes</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/deprecations/">Deprecations</a>
+</li>
+
+             
+<li >
+  <a href="../../changelog/changes/">Full Changelog</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            >Use cases <b class="caret"></b
+          ></a>
+          <ul class="dropdown-menu">
+             
+<li >
+  <a href="../../use-cases/watchers/">Events and Reporting APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/azure-native-protection-cloud-account/">Cloud Account APIs for Azure Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/aws-native-protection-cloud-account/">Cloud Account APIs for AWS Cloud Native Protection</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/slas/">SLA APIs</a>
+</li>
+
+             
+<li >
+  <a href="../../use-cases/quarantine/">Quarantine APIs</a>
+</li>
+
+            
+          </ul>
+        </li>
+          
+        <li >
+          <a href="../">API Rosetta Stone</a>
+        </li>
+         
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+  <ul class="nav bs-sidenav">
+    <li class="first-level active">
+      <a href="#archive">/archive</a>
+    </li>
+    <li class="second-level">
+      <a href="#internal-endpoints">Internal Endpoints</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#v1-endpoints">v1 Endpoints</a>
+    </li>
+    
+  </ul>
+</div></div>
+        <div class="col-md-9" role="main"> <!-- markdownlint-disable -->
+<p><a href="../">Back</a></p>
+<h1 id="archive">/archive</h1>
+<h2 id="internal-endpoints">Internal Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /archive/dca</td>
+<td>Returns an array containing DCA archival locations, and information specific to them. DCA is a subset of the normal object storage locations, so these DCA locations will also be returned by the /archive/object_store GET API.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca</td>
+<td>Add a new DCA archival location. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca/csr</td>
+<td>Generates a new private key and return base64 encoded PKCS#10 certificate signing request. If there is a pending DCA CSR, this will invalidate it and create a new one.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca/reader/connect</td>
+<td>Connect to an existing DCA archival location as a reader. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca/reconnect</td>
+<td>Reconnect to a specific DCA archival location. Initiates an asynchronous job to connect to the archival location. This operation is deprecated. Use /archive/dca/reader/connect instead.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/dca/{id}</td>
+<td>Get information about a specific DCA archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /archive/dca/{id}</td>
+<td>Update the properties of a DCA archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location</td>
+<td>Retrieve information for all archival locations, including ID, type, status, address, and bucket count.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location/connect_job</td>
+<td>Retrieve a list of all running connection and reconnection jobs for archival locations. Returns summary information about the archival location and the job.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location/job/connect/{id}</td>
+<td>Retrieve the following information about job: ID of job, job status, error details, start time of job, end time of job, job type, ID of the node, job progress and location id.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location/job/reconnect/{id}</td>
+<td>Retrieve the following information about job: ID of job, job status, error details, start time of job, end time of job, job type, ID of the node, job progress and location ID.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location/request/{id}</td>
+<td>Returns the details of an asynchronous archival location request issued at an earlier time.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>DELETE /archive/location/{id}</td>
+<td>Delete the specified archival location. Remove the archival location from the SLA Domains that reference it and expire all snapshots at the archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/force_delete</td>
+<td>REQUIRES SUPPORT TOKEN - Delete a Polaris managed archival location from a CDM cluster outside of the Polaris workflow. A support token is required for this operation. If the archival location is not in the disabled state, it will be disabled first internally as needed.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/owner/pause</td>
+<td>Pause archiving to a specified active archival location of the current Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/owner/resume</td>
+<td>Resume archiving to a specified archival location of the current Rubrik cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/reader/promote</td>
+<td>Start an asynchronous job to make the current Rubrik cluster the owner of a reader archival location. After successful completion, the Rubrik cluster that was the previous owner will not have access to the archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/reader/refresh</td>
+<td>Update the current Rubrik cluster with information about the changes made to an archival location by the Rubrik cluster that owns the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/migrate/data_source/{id}</td>
+<td>Migrate all unexpired snapshots of a data source from the specified source archival location to a target archival location. At the end of a successful migration, the snapshots are marked as expired on the source location and are <span style="color:green"><em>Available</em></span> on the target location. The migrated snapshots on the target location preserve the retention and other attributes as on the source location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/migrate/request/{id}</td>
+<td>Get the details of an asynchronous archival migration request issued previously. This endpoint is deprecated. Use /archive/location/request/{id} instead.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/nfs</td>
+<td>Retrieve an array of NFS archival location objects for the cluster.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/nfs</td>
+<td>Add a new NFS archival location. Initiate an asynchronous job to connect to the archival location target.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/nfs/reader/connect</td>
+<td>Connect the current cluster to an existing NFS archival location as a reader. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/nfs/reconnect</td>
+<td>Reconnect to a specific NFS archival location. Initiates an asynchronous job to connect to the archival location. This operation is deprecated. Use /archive/nfs/reader/connect instead.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>PATCH /archive/nfs/{id}</td>
+<td>Update the properties of an NFS archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/object_store</td>
+<td>Retrieve an array of archival locations from the Rubrik cluster. The array contains all object storage locations, but does not include NFS and QStar locations.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/object_store</td>
+<td>Start an asynchronous job to add a new object storage location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/object_store/reader/connect</td>
+<td>Connect the current cluster as a reader to an existing object storage location. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/object_store/reconnect</td>
+<td>Reconnect to a specific object storage location. Initiates an asynchronous job to connect to the archival location. This operation is deprecated. Use /archive/object_store/reader/connect instead.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/object_store/{id}</td>
+<td>Get the archival location object for a specific object storage location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /archive/object_store/{id}</td>
+<td>Update the properties of an object storage location. To update the bucket count, specify a value equal to or greater than the existing bucket count.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/object_store/{id}/glacier_vault_lock</td>
+<td>Update an existing in-progress vault lock operation on a specific Amazon Glacier archival location, by either completing or aborting the current vault lock.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/qstar</td>
+<td>Retrieve an array containing summary information for all QStar archival location objects.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/qstar</td>
+<td>Add a new QStar archival location object. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>DELETE /archive/qstar</td>
+<td>REQUIRES SUPPORT TOKEN - To be used by internal tests to clean the buckets. A support token is required for this operation.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/qstar/reader/connect</td>
+<td>Connect to an existing QStar archival location as a reader. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/qstar/reconnect</td>
+<td>Reconnect to a specified QStar archival location. Initiates an asynchronous job to connect to the archival location. This operation is deprecated. Use /archive/qstar/reader/connect instead.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/qstar/remove_bucket</td>
+<td>REQUIRES SUPPORT TOKEN - To be used by internal tests to remove all QStar buckets matching given prefix. Returns a list of buckets successfully removed. A support token is required for this operation.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/qstar/{id}</td>
+<td>Retrieve summary information for a specified QStar archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /archive/qstar/{id}</td>
+<td>Update the properties of a QStar archival location object.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="v1-endpoints">v1 Endpoints</h2>
+<table>
+<thead>
+<tr>
+<th><div style="width:200px">REST Endpoint</div></th>
+<th><div style="width:290px">Description</div></th>
+<th>GraphQL Query</th>
+<th>CDM Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET /archive/aws/s3/{id}/account_id</td>
+<td>Get the AWS account ID of an AWS S3 archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/azure/region</td>
+<td>Retrieves all the regions in Azure.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/azure/resource_group</td>
+<td>Retrieves a list of all resource groups associated with Azure storage account credentials.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/azure/storage_account</td>
+<td>Retrieves all the storage accounts for an Azure resource group.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/azure/subscription</td>
+<td>Retrieves all the subscriptions accessible to a specific client app within an Azure tenant.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/cold_storage_tier</td>
+<td>Gets the cold storage tier configuration to be used by the job that tiers existing snapshots for unprotected objects. Currently, this API endpoint can be used only for archival to S3.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/cold_storage_tier</td>
+<td>Sets the cold storage tier configuration to be used by the job that tiers existing snapshots for unprotected objects. Currently, this API endpoint can be used only for archival to S3.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/csr</td>
+<td>Generates a new private key and return base64 encoded PKCS#10 certificate signing request. If there is a pending DCA or LCK CSR, this will invalidate it and create a new one.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca/disable</td>
+<td>Disable the DCA feature so users cannot create or manage DCA locations.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/dca/enable</td>
+<td>Enable the DCA feature to allow users to create and manage DCA locations. A user cannot enable the DCA feature if the LCK feature is already enabled or an LCK location exists on the cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/dca/status</td>
+<td>Get the DCA location feature status to check if the DCA location feature is enabled or not.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/lck</td>
+<td>Returns an array containing LCK archival locations, and information specific to them. LCK is a subset of the normal object storage locations, so these LCK locations will also be returned by the /archive/object_store GET API.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/lck</td>
+<td>Add a new LCK archival location. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/lck/disable</td>
+<td>Disable the LCK feature so users cannot create or manage LCK locations.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/lck/enable</td>
+<td>Enable the LCK feature to allow users to create and manage LCK locations. A user cannot enable the LCK feature if the DCA feature is already enabled or a DCA location exists on the cluster.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/lck/reader/connect</td>
+<td>Connect to an existing LCK archival location as a reader. Initiates an asynchronous job to connect to the archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/lck/status</td>
+<td>Get the LCK location feature status to check if the LCK location feature is enabled or not.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/lck/{id}</td>
+<td>Get information about a specific LCK archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>PATCH /archive/lck/{id}</td>
+<td>Update the properties of an LCK archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>GET /archive/location/check_cloud_compute_connectivity/request/{id}</td>
+<td>Gets the details of the request that was triggered to check the cloud compute connectivity of an archival location.</td>
+<td></td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/check_cloud_compute_connectivity</td>
+<td>Triggers a background job to perform the cloud compute connectivity check for the specified archival location.</td>
+<td></td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/owner/disable</td>
+<td>Disables archiving and any changes to the data for the specified archival location. This operation disables snapshot upload, snapshot expiration, consolidation, and garbage collection operations on the archival location.</td>
+<td>mutation enableTarget</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{id}/owner/enable</td>
+<td>Enable archiving and other operations that were previously disabled on the specified archival location.</td>
+<td>mutation disableTarget</td>
+<td><span style="color:red"><em>Restricted</em></span></td>
+</tr>
+<tr>
+<td>POST /archive/location/{location_id}/reader/refresh/data_sources</td>
+<td>Update the current Rubrik CDM cluster with information about the changes made to a list of data sources in an archival location by the Rubrik CDM cluster that owns the archival location.</td>
+<td>mutation refreshTarget</td>
+<td><span style="color:green"><em>Available</em></span></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
+            <small>Revised on: 2024-02-13</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+
+    <div
+  class="modal"
+  id="mkdocs_keyboard_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="keyboardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span
+          ><span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">Keys</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="help shortcut"><kbd>?</kbd></td>
+              <td>Open this help</td>
+            </tr>
+            <tr>
+              <td class="next shortcut"><kbd>n</kbd></td>
+              <td>Next page</td>
+            </tr>
+            <tr>
+              <td class="prev shortcut"><kbd>p</kbd></td>
+              <td>Previous page</td>
+            </tr>
+            <tr>
+              <td class="search shortcut"><kbd>s</kbd></td>
+              <td>Search</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+    </body>
+
+</html>
