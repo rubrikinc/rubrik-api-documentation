@@ -233,13 +233,13 @@
 <td>PATCH /fileset_template/bulk</td>
 <td>Modify the values of specified fileset templates.</td>
 <td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>DELETE /fileset_template/bulk</td>
 <td>Deletes specfied fileset templates. Detaches and retains all associated filesets as independent filesets with the existing values.</td>
 <td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later, but not recommended for use. Use <code>POST /fileset/bulk/nas</code> instead.</span></td>
 </tr>
 </tbody>
 </table>
@@ -258,31 +258,31 @@
 <td>GET /fileset_template</td>
 <td>Retrieve summary information for all fileset templates, including: ID and name of the fileset template, fileset template creation timestamp, array of the included filepaths, array of the excluded filepaths.</td>
 <td>query filesetTemplates</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset_template</td>
 <td>Create a fileset template. The template is applied to the host.  Each template is a set of paths on the host.</td>
 <td>mutation bulkCreateFilesetTemplates</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later, but not recommended for use. Use <code>POST /fileset/bulk/nas</code> instead.</span></td>
 </tr>
 <tr>
 <td>GET /fileset_template/{id}</td>
 <td>Retrieve summary information for a specified fileset template.</td>
 <td>query filesetTemplate</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>PATCH /fileset_template/{id}</td>
 <td>Modify the values of specified fileset template.</td>
 <td>mutation bulkUpdateFilesetTemplate</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>DELETE /fileset_template/{id}</td>
 <td>Deletes the specfied fileset template. All associated filesets are deleted.</td>
 <td>mutation bulkDeleteFilesetTemplate</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -297,7 +297,7 @@
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-03-26</small>
+            <small>Revised on: 2024-04-22</small>
             </p>
           
 

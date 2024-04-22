@@ -231,7 +231,7 @@
 <td>POST /fileset/bulk</td>
 <td>Create filesets for a network host. Each fileset is a fileset template applied to a host.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later, but not recommended for use. Use <code>POST /fileset/bulk/nas</code> instead.</span></td>
 </tr>
 <tr>
 <td>DELETE /fileset/bulk</td>
@@ -241,21 +241,21 @@
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{id}/download_files</td>
-<td>Start an asynchronous job to download multiple files and folders from a specified fileset backup. The response returns an asynchronous request ID. Get the URL for downloading the ZIP file including the specific files/folders by sending a GET request to 'fileset/request/{id}'.</td>
+<td>Start an asynchronous job to download multiple files and folders from a specified fileset backup. The response returns an asynchronous request ID. Get the URL for downloading the ZIP file containing the specific files and folders by sending a GET request to 'fileset/request/{id}'.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{id}/export_files</td>
-<td>Starts a job that exports one or more files or folders from a fileset backup to the destination host. Returns the job status as of the job creation time. This job status includes the job ID.</td>
+<td>Starts a job that exports one or more files or folders from a fileset backup to the destination host. Returns the initial job status including the job ID.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{id}/restore_files</td>
-<td>Initiate a job to copy one or more file or folder from a fileset backup to the source host. Returns the job instance ID.</td>
+<td>Initiate a job to copy files and folders from a fileset backup to the source host. Returns the job instance ID.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset/{id}/unprotect</td>
@@ -286,7 +286,7 @@
 <td>POST /fileset</td>
 <td>Create a fileset for a network host. A fileset is a fileset template applied to a host.</td>
 <td>mutation bulkCreateFilesets</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later, but not recommended for use. Use <code>POST /fileset/bulk/nas</code> instead.</span></td>
 </tr>
 <tr>
 <td>GET /fileset/request/{id}</td>
@@ -338,33 +338,33 @@
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{snapshot_id}/{location_id}/download_files</td>
-<td>Initiates a job to download one or more files or folders from an archived Fileset snapshot. Returns the job instance ID.</td>
+<td>Initiates a job to download files and folders from an archived Fileset snapshot. Returns the job instance ID.</td>
 <td>mutation downloadFilesetSnapshotFromLocation</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{snapshot_id}/{location_id}/export_files</td>
-<td>Initiates a job to export one or more files or folders from an archived Fileset snapshot to a destination host. Returns the job instance ID.</td>
+<td>Initiates a job to export files and folders from an archived Fileset snapshot to a destination host. Returns the job instance ID.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>POST /fileset/snapshot/{snapshot_id}/{location_id}/restore_files</td>
-<td>Initiate a job to copy one or more file or folder in a fileset backup from specified archival location to the source host. Returns the job instance ID.</td>
+<td>Initiate a job to copy files and folders in a fileset backup from a specified archival location to the source host. Returns the job instance ID.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>GET /fileset/{id}</td>
 <td>Retrieve summary information for a fileset by specifying the fileset ID.</td>
 <td>query linuxFileset/windowsFileset</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>PATCH /fileset/{id}</td>
 <td>Update a Fileset with the specified properties.</td>
 <td></td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available</em> in v8.0.1 and later</span></td>
 </tr>
 <tr>
 <td>DELETE /fileset/{id}</td>
@@ -440,7 +440,7 @@
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-03-26</small>
+            <small>Revised on: 2024-04-22</small>
             </p>
           
 

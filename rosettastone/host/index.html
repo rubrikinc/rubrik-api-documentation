@@ -227,13 +227,13 @@
 <td>POST /host/bulk</td>
 <td>Register hosts with Rubrik clusters.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>POST /nas/system</code> instead.</span></td>
 </tr>
 <tr>
 <td>PATCH /host/bulk</td>
-<td>Change the FQDN and IPv4 address that is assigned to a host object. Enable or disable pre-transfer data compression. Enable or disable change block tracking (CBT) for backups of SQL Server databases on Windows hosts. Enable or disable volume filter driver (VFD) for volume backups on Windows hosts.</td>
+<td>Change the FQDN and IPv4 address assigned to a host object. Enable or disable pre-transfer data compression. Enable or disable change block tracking (CBT) for backups of SQL Server databases on Windows hosts. Enable or disable volume filter driver (VFD) for volume backups on Windows hosts.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>PATCH /nas/system/{id}</code> instead.</span></td>
 </tr>
 <tr>
 <td>POST /host/bulk-delete</td>
@@ -251,7 +251,7 @@
 <td>GET /host/count</td>
 <td>Retrieve the total number of hosts, and the total number of protected hosts. A protected host has at least one protected fileset.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS</span></td>
 </tr>
 <tr>
 <td>GET /host/envoy</td>
@@ -318,25 +318,25 @@
 <td>GET /host</td>
 <td>Retrieve summary information for all hosts that are registered with a Rubrik cluster.</td>
 <td>query physicalHosts</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>GET /nas/system</code> instead.</span></td>
 </tr>
 <tr>
 <td>POST /host</td>
 <td>Register a host.</td>
 <td>mutation bulkRegisterHost</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>POST /nas/system</code> instead.</span></td>
 </tr>
 <tr>
 <td>POST /host/background</td>
-<td>Register a host and perform discovery for databases and Microsoft SQL Server instances. When called, this API returns a success message, but completes the host registration in the background. Monitor the status of the background host discovery with the <code>status</code> field in GET API on /hosts. The POST API on /hosts can take longer for discovery, depending on the number of hosts on the system. POST on this API can be used instead to perform the discovery in the background and quickly register the host. Doing this requires that you install RBS for Linux and Windows hosts, similar to regular register using POST on /hosts.</td>
+<td>Register a host and perform discovery for databases and Microsoft SQL Server instances. When called, this API returns a success message, but completes the host registration in the background. Monitor the status of the background host discovery with the <code>status</code> field in GET API on /hosts. The POST API on /hosts can take longer for discovery, depending on the number of hosts on the system. POST on this API can be used instead to perform the discovery in the background and quickly register the host. To do this you must first install RBS on your Linux and Windows hosts. This requirement is the same as is required for the regular method of registering using POST on /host.</td>
 <td>mutation bulkRegisterHost</td>
 <td><span style="color:green"><em>Available</em></span></td>
 </tr>
 <tr>
 <td>POST /host/bulk_background</td>
-<td>Register multiple hosts and perform discovery for databases and Microsoft SQL Server instances. When called, this API returns a success message, but completes the host registration in the background. Monitor the status of the background host discovery with the <code>status</code> field in GET API on /hosts. The POST API on /hosts can take longer for discovery, depending on the number of hosts on the system. POST on this API can be used instead to perform the discovery in the background and quickly register the host. Doing this requires that you install RBS for Linux and Windows hosts, similar to regular register using POST on /hosts.</td>
+<td>Register multiple hosts and perform discovery for databases and Microsoft SQL Server instances. When called, this API returns a success message, but completes the host registration in the background. Monitor the status of the background host discovery with the <code>status</code> field in GET API on /hosts. The POST API on /hosts can take longer for discovery, depending on the number of hosts on the system. POST on this API can be used instead to perform the discovery in the background and quickly register the host. To do this you must first install RBS on your Linux and Windows hosts. This requirement is the same as is required for the regular method of registering using POST on /host.</td>
 <td></td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>POST /nas/system</code> instead.</span></td>
 </tr>
 <tr>
 <td>PUT /host/certificate/{id}</td>
@@ -396,25 +396,25 @@
 <td>GET /host/{id}</td>
 <td>Retrieve summary information for a registered host.</td>
 <td>query physicalHost</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>GET /nas/system</code> instead.</span></td>
 </tr>
 <tr>
 <td>PATCH /host/{id}</td>
-<td>Change the FQDN and IPv4 address that is assigned to a host object. Enable or disable pre-transfer data compression. Enable or disable change block tracking (CBT) for backups of SQL Server databases on Windows hosts. Enable or disable volume filter driver (VFD) for volume backups on Windows hosts. Set an Oracle user with sysdba privileges to permit Oracle discovery queries.</td>
+<td>Change the FQDN and IPv4 address assigned to a host object. Enable or disable pre-transfer data compression. Enable or disable change block tracking (CBT) for backups of SQL Server databases on Windows hosts. Enable or disable volume filter driver (VFD) for volume backups on Windows hosts. Set an Oracle user with sysdba privileges to permit Oracle discovery queries.</td>
 <td>mutation updateHost</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>PATCH /nas/system/{id}</code> instead.</span></td>
 </tr>
 <tr>
 <td>DELETE /host/{id}</td>
 <td>Delete host by specifying the host ID.</td>
 <td>mutation deleteHost</td>
-<td><span style="color:red"><em>Restricted</em></span></td>
+<td><span style="color:green"><em>Available, but deprecated for NAS. For NAS, use <code>DELETE /nas/system/{id}</code> instead.</em></span></td>
 </tr>
 <tr>
 <td>POST /host/{id}/refresh</td>
 <td>Refresh the properties of a host object when changes on the host are not seen in the Rubrik web UI.</td>
 <td>mutation refreshHost</td>
-<td><span style="color:green"><em>Available</em></span></td>
+<td><span style="color:green"><em>Available</em>, but deprecated for NAS. For NAS, use <code>POST /nas/system/discover</code> instead.</span></td>
 </tr>
 <tr>
 <td>GET /host/{id}/search</td>
@@ -453,7 +453,7 @@
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-03-26</small>
+            <small>Revised on: 2024-04-22</small>
             </p>
           
 
