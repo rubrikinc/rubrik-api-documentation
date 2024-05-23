@@ -200,6 +200,10 @@
       <a href="#deperecations">Deperecations</a>
     </li>
     <li class="second-level">
+      <a href="#20240601">2024/06/01</a>
+    </li>
+    
+    <li class="second-level">
       <a href="#20240501">2024/05/01</a>
     </li>
     
@@ -270,14 +274,30 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deperecations">Deperecations</h1>
-<h2 id="20240501">2024/05/01</h2>
+<h2 id="20240601">2024/06/01</h2>
 <ul>
 <li>
-<p>Field <code>maxProtectedAppsCount</code> was deprecated in <code>Query</code> type.</p>
-<p>Reason: This is deprecated as we don't use protected apps anymore.
-Scheduled for removal after 2024/10/01.</p>
+<p>Field <code>logConfig</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
+<p>Reason: Use objectSpecificConfigs instead.
+Scheduled for removal after 2025/05/09.</p>
+</li>
+<li>
+<p>Field <code>updateClusterLocation</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Deprecated. Use updateClusterSettings instead.
+Scheduled for removal after 2025/04/22.</p>
+</li>
+<li>
+<p>Field <code>mandatoryTotpEnforcementDate</code> was deprecated in <code>GetMfaSettingReply</code> type.</p>
+<p>Reason: Deprecated. Query MandatoryTotpGracePeriod instead.
+Scheduled for removal after 2025/04/26.</p>
 </li>
 </ul>
+<h2 id="20240501">2024/05/01</h2>
+<ul>
+<li>Field <code>maxProtectedAppsCount</code> was deprecated in <code>Query</code> type.</li>
+</ul>
+<p>Reason: This is deprecated as we don't use protected apps anymore.
+Scheduled for removal after 2024/10/01.</p>
 <h2 id="20240401">2024/04/01</h2>
 <ul>
 <li>Field <code>vsphereVMRecoverableRange</code> was deprecated in <code>Query</code> type.</li>
@@ -596,7 +616,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-04-22</small>
+            <small>Revised on: 2024-05-22</small>
             </p>
           
 

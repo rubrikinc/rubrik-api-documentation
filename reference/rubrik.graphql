@@ -391,6 +391,11 @@ type Query {
     # Cloud account ID.
     cloudAccountId: String!): [AzureCloudAccountRegion!]!
 
+  # Retrieve all available regions for Azure with availability zone details.
+  allAzureRegionsWithAzDetails(
+    # Cloud account ID.
+    cloudAccountId: String!): [AzureLocationDetailType!]!
+
   # Get resource groups for a service principal in Azure.
   allAzureResourceGroups(
     # Cloud account ID.
@@ -599,6 +604,29 @@ type Query {
   allConnectedClusters(
     # Specification to filter cluster based on type.
     clusterFilterArg: ClusterTypeEnum): [DataLocationSupportedCluster!]!
+
+  # List all cross-account clusters.
+  allCrossAccountClusters(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Specification on how to filter a list of cross-account clusters.
+    filter: [GetCrossAccountClustersFilter!],
+
+    # Specifies the field by which the list of cross-account clusters will be sorted.
+    sortBy: GetCrossAccountClustersSortByField,
+
+    # Sorting order for the results.
+    sortOrder: SortOrder): CrossAccountClusterConnection!
 
   # Current permissions are the set of permissions the client has given to Rubrik. This will retrieve permissions for all the features currently active in the account. If these permissions are older than the latest set of permissions we require, the account will go in Update Permissions state
   allCurrentFeaturePermissionsForCloudAccounts(
@@ -1040,7 +1068,10 @@ type Query {
     excludeQuarantined: Boolean,
 
     # Specifies whether to exclude anomalous snapshots.
-    excludeAnomalous: Boolean): [ClosestSnapshotSearchResult!]!
+    excludeAnomalous: Boolean,
+
+    # Specifies whether to include full snapshot workload details.
+    getFullDetails: Boolean): [ClosestSnapshotSearchResult!]!
 
   # Summary of all storage arrays
   # 
@@ -2699,6 +2730,11 @@ type Query {
     # Returns the elements in the list that come before the specified cursor.
     before: String): ReportMigrationStatusConnection!
 
+  # Rubrik cluster routes information.
+  clusterRoutes(
+    # The Rubrik cluster ID.
+    clusterUuid: UUID!): ClusterRoutesReply!
+
   # Returns paginated list of SLA domains that were created on Rubrik CDM.
   clusterSlaDomains(
     # Returns the first n elements from the list.
@@ -2768,7 +2804,13 @@ type Query {
     wildcard: String,
 
     # A list of preferred data locations that group members must match.
-    pdls: [String!]!): O365ConfiguredGroupMemberConnection!
+    pdls: [String!]!,
+
+    # Each enumeration value represents the hierarchy of a specific workload type for RBAC and SLA Domain assignments. The None value represents the hierarchy of all workload types.
+    workloadHierarchy: WorkloadLevelHierarchy,
+
+    # A list of attributes to filter out group members.
+    groupFilterAttributes: [GroupFilterAttribute!]): O365ConfiguredGroupMemberConnection!
 
   # The number of objects protected by the SLA Domains.
   countOfObjectsProtectedBySlas(
@@ -3201,11 +3243,6 @@ type Query {
 
     # Host failover cluster root type.
     hostFailoverClusterRoot: HostFailoverClusterRoot!): FailoverClusterTopLevelDescendantTypeConnection!
-
-  # Returns the failures and warnings stats of an M365 organization.
-  failuresAndWarningsStats(
-    # Org UUID.
-    orgId: UUID!): FailuresAndWarningsStatsReply!
 
   # Status of the federated login.
   federatedLoginStatus: FederatedLoginStatus!
@@ -4312,6 +4349,11 @@ type Query {
     # Workload type for M365 dashboard.
     dashboardWorkloadType: M365DashboardWorkloadType!): DayToDayModeStats!
 
+  # Lists down the directory object attribute present in the Microsoft tenant.
+  m365DirectoryObjectAttributes(
+    # The input for the ListO365DirectoryObjectAttributes mutation.
+    input: ListM365DirectoryObjectAttributesInput!): ListO365DirectoryObjectAttributesResp!
+
   # Returns the backup statistics of an M365 organization product in onboarding mode.
   m365OnboardingModeBackupStats(
     # Org UUID.
@@ -5248,6 +5290,32 @@ type Query {
 
     # The Rubrik UUID for the object.
     fid: UUID!): O365SharepointObjectConnection! @deprecated(reason: "This is deprecated as it was tied to the specific object type. Use o365SharepointObjectList instead.")
+
+  # Compared to the endpoint o365SharepointObjectList, this endpoint retrieves and persists SharePoint site hierarchy from Microsoft directly. Returns the SharePoint objects after filtering by the object types.
+  o365SharepointObjectsNew(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Sort hierarchy objects by hierarchy field.
+    sortBy: HierarchySortByField,
+
+    # Sorting order for the results.
+    sortOrder: SortOrder,
+
+    # The hierarchy object filter.
+    filter: [Filter!],
+
+    # Types of objects to include.
+    objectTypeFilter: [String!],
+
+    # If true, the entire hierarchy will be searched.
+    includeEntireHierarchy: Boolean!,
+
+    # The Rubrik UUID for the object.
+    fid: UUID!): O365SharepointObjectConnection!
 
   # Details for the SharePoint site corresponding to the site ID.
   o365SharepointSite(
@@ -7364,7 +7432,8 @@ type Query {
   # Preview list of virtual machines of a proposed filter condition
   # 
   # Supported in v7.0+
-  # Preview list of virtual machines of a proposed filter condition. The result might not be accurate if new virtual machines were added after last vCenter refresh.
+  # v7.0-v9.1: Preview list of virtual machines of a proposed filter condition. The result might not be accurate if new virtual machines were added after last vCenter refresh.
+  # v9.2: Preview list of virtual machines of a proposed filter condition. The result might not be accurate if new virtual machines were added after last vCenter refresh. It is not supported on Standalone Hosts.
   vCenterAdvancedTagPreview(
     # Input for V1PreviewFilter.
     input: PreviewFilterInput!): VcenterAdvancedTagPreviewReply!
@@ -7419,6 +7488,23 @@ type Query {
   vCenterPreAddInfo(
     # Input for V1PreAddVcenter.
     input: PreAddVcenterInput!): VcenterPreAddInfo!
+
+  # A paginated list of Nutanix virtual machines with the vDisk Mount privilege.
+  vDiskMountableNutanixVms(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Sort hierarchy objects by hierarchy field.
+    sortBy: HierarchySortByField,
+
+    # Sorting order for the results.
+    sortOrder: SortOrder,
+
+    # The hierarchy object filter.
+    filter: [Filter!]): NutanixVmConnection!
   vSphereComputeCluster(
     # The Rubrik UUID for the object.
     fid: UUID!): VsphereComputeCluster!
@@ -8060,6 +8146,11 @@ type Mutation {
   addVmAppConsistentSpecs(
     # Input required to add Azure native virtual machine application consistency specifications.
     input: AddVmAppConsistentSpecsInput!): AddVmAppConsistentSpecsReply!
+
+  # Update the air-gap status of the Rubrik cluster.
+  airGapStatus(
+    # Input for updating the air-gap status of the Rubrik cluster.
+    input: AirGapStatusInput!): Void
 
   # Approve private endpoint.
   approveRcvPrivateEndpoint(
@@ -9038,7 +9129,8 @@ type Mutation {
   # Create a multi-tag filter for vSphere tags
   # 
   # Supported in v7.0+
-  # Create a filter consisting of vSphere tags joined with logical operators.
+  # v7.0-v9.1: Create a filter consisting of vSphere tags joined with logical operators.
+  # v9.2: Create a filter consisting of vSphere tags joined with logical operators. It is not supported onStandalone Hosts.
   createVsphereAdvancedTag(
     # Input for V1CreateFilter.
     input: CreateVsphereAdvancedTagInput!): CreateVsphereAdvancedTagReply!
@@ -9476,7 +9568,8 @@ type Mutation {
   # Remove the multi-tag filter
   # 
   # Supported in v7.0+
-  # Remove the multi-tag filter.
+  # v7.0-v9.1: Remove the multi-tag filter.
+  # v9.2: Remove the multi-tag filter. It is not supported on Standalone Hosts.
   deleteVsphereAdvancedTag(
     # Input for V1DeleteFilter.
     input: DeleteVsphereAdvancedTagInput!): RequestSuccess!
@@ -11247,6 +11340,11 @@ type Mutation {
     # Input for InternalUpdateVmAgentDeploymentSetting.
     input: UpdateVmAgentDeploymentSettingInput!): AgentDeploymentSettings!
 
+  # Change the Rubrik Backup Service deployment setting in batch.
+  updateAgentDeploymentSettingInBatch(
+    # List of Rubrik Backup Service deployment settings.
+    input: UpdateAgentDeploymentSettingInBatchInput!): UpdateAgentDeploymentSettingInBatchReply!
+
   # Update the hidden status for the given auth domain users.
   updateAuthDomainUsersHiddenStatus(
     # Specifies the auth domain user and their new hidden status.
@@ -11353,7 +11451,7 @@ type Mutation {
     input: UpdateClusterDefaultAddressInput!): UpdateClusterDefaultAddressReply!
   updateClusterLocation(
     # The Rubrik cluster ID.
-    clusterUuid: UUID!, clusterLocation: ClusterLocationEdit!): Cluster!
+    clusterUuid: UUID!, clusterLocation: ClusterLocationEdit!): Cluster! @deprecated(reason: "Deprecated. Use updateClusterSettings instead.")
 
   # Assign NTP servers to Rubrik cluster
   # 
@@ -11650,7 +11748,7 @@ type Mutation {
   # v8.1+: Patch virtual machine with specified properties.
   updateNutanixVm(
     # Input for InternalPatchNutanixVm.
-    input: UpdateNutanixVmInput!): Void
+    input: UpdateNutanixVmInput!): NutanixVmDetail!
 
   # Update O365 App authentication status to applicable app version.
   updateO365AppAuthStatus(
@@ -11826,7 +11924,8 @@ type Mutation {
   # Update the multi-tag filter
   # 
   # Supported in v7.0+
-  # Updates the name, condition, and description of the specified multi-tag filter.
+  # v7.0-v9.1: Updates the name, condition, and description of the specified multi-tag filter.
+  # v9.2: Updates the name, condition, and description of the specified multi-tag filter. It is not supported on Standalone Hosts.
   updateVsphereAdvancedTag(
     # Input for V1UpdateFilter.
     input: UpdateVsphereAdvancedTagInput!): UpdateVsphereAdvancedTagReply!
@@ -11923,6 +12022,14 @@ type Mutation {
   validateOracleDatabaseBackups(
     # Input for V1CreateOracleValidateBackupJob.
     input: ValidateOracleDatabaseBackupsInput!): AsyncRequestStatus!
+
+  # Make this cluster the primary for agents on a set of VMs
+  # 
+  # Supported in v5.3+
+  # Migrate the primary cluster with which the agent is able to communicate. For disaster recovery when migrating everything over from another cluster, the /host/make_primary endpoint can be used with the oldPrimaryClusterUuid parameter.
+  vmMakePrimary(
+    # Input for V1VmMakePrimary.
+    input: VmMakePrimaryInput!): AsyncRequestStatus!
   vmwareDownloadSnapshotFromLocation(
     # Input for V2VmwareDownloadSnapshotFromLocation.
     input: VmwareDownloadSnapshotFromLocationInput!): AsyncRequestStatus!
@@ -12083,6 +12190,14 @@ type Mutation {
   vsphereVmRegisterAgent(
     # Input for V1VmRegisterAgent.
     input: VsphereVmRegisterAgentInput!): RequestSuccess!
+
+  # Register Rubrik Backup Service
+  # 
+  # Supported in v5.0+
+  # Register the Rubrik Backup Service that is running on a specified host with the specified Rubrik cluster.
+  vsphereVmRegisterAgentWithOrg(
+    # Input for register Virtual Machine agent with CDM.
+    input: VsphereVmRegisterAgentWithOrgInput!): RequestSuccess!
 
   # Warms the search cache for an O365 workload.
   warmSearchCache(
@@ -12612,7 +12727,10 @@ type ActiveDirectoryDomainController implements CdmHierarchyObject , HierarchyOb
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -12630,6 +12748,9 @@ type ActiveDirectoryDomainController implements CdmHierarchyObject , HierarchyOb
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -12966,6 +13087,9 @@ input ActiveDirectoryObjectRecoveryConfigInput {
   # ID of the archival or replication location.
   locationId: String
 
+  # Specify the Host ID for performing this restore on the alternate domain controller.
+  hostId: String
+
   # Supported in v9.0+
   # Behavior to be followed when an object name conflicts with an existing object in Active Directory.
   nameConflict: ActiveDirectoryObjectNameConflictOption
@@ -13081,13 +13205,6 @@ type ActiveDirectorySearchVersions {
   # Distinguished name of the Active Directory object.
   dn: String!
 
-  # Required. Supported in v9.1+
-  # The Distinguished Name Tag (DNT) of the Active Directory object.
-  dnt: Int!
-
-  # Type of the object.
-  activeDirectoryObjectType: ActiveDirectoryObjectType!
-
   # Snapshot containing the Active Directory object.
   snapshot: CdmSnapshot!
 }
@@ -13102,8 +13219,13 @@ type ActiveDirectoryServiceStatus {
 # List of matching objects.
 type ActiveDirectorySnappableSearchResponse {
   # Required. Supported in v9.1+
+  # The Distinguished Name Tag (DNT) of the Active Directory object.
+  dnt: Int!
+
+  # Required. Supported in v9.1+
   # Display name of the Active Directory object.
   name: String!
+  objectType: ActiveDirectoryObjectType!
 
   # Required. Supported in v9.1+
   # Resultant versions of the objects with that name.
@@ -13195,6 +13317,9 @@ type Activity {
 
   # Additional information pertaining to this activity.
   activityInfo: String
+
+  # Information about the Rubrik error associated with this activity.
+  errorInfo: String
 
   # The ID of the activity.
   id: ID!
@@ -13453,6 +13578,9 @@ enum ActivityObjectTypeEnum {
   # Specifies that the activity object type is NAS Fileset.
   NAS_FILESET
 
+  # Specifies that the activity object type is Nutanix Era.
+  NUTANIX_ERA
+
   # Specifies that the activity object type is Nutanix Prism Central.
   NUTANIX_PRISM_CENTRAL
 
@@ -13498,6 +13626,9 @@ enum ActivityObjectTypeEnum {
   # Specifies that the activity object type is OAuth Token.
   OAUTH_TOKEN
 
+  # Specifies that the activity object type is Tenant Organization.
+  ORGANIZATION
+
   # Specifies that the activity object type is Object Protection.
   ObjectProtection
 
@@ -13530,6 +13661,15 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Rubrik EC2 Instance.
   RubrikEc2Instance
+
+  # Specifies that the activity object type is Salesforce metadata.
+  SALESFORCE_METADATA
+
+  # Specifies that the activity object type is a Salesforce object.
+  SALESFORCE_OBJECT
+
+  # Specifies that the activity object type is a Salesforce organization.
+  SALESFORCE_ORGANIZATION
 
   # Specifies that the activity object type is Saml SSO.
   SamlSso
@@ -14009,6 +14149,9 @@ enum ActivityTypeEnum {
   # Activity representing tenant permission overlap.
   TENANT_OVERLAP
 
+  # Activity representing tenant quota event type.
+  TENANT_QUOTA
+
   # Activity representing threat feed event type.
   THREAT_FEED
 
@@ -14030,6 +14173,14 @@ type AdGroup {
 
   # Display name of the AD Group.
   displayName: String!
+}
+# Specification to create an AD group.
+input AdGroupSpecInput {
+  # The natural ID of the Azure AD group.
+  naturalId: UUID!
+
+  # The additional attribute to filter out user members who are part of an AD group.
+  filterAttributes: [GroupFilterAttribute!]!
 }
 # Active Directory volume export.
 type AdVolumeExport {
@@ -14152,6 +14303,9 @@ input AddAdGroupsToHierarchyInput {
 
   # The natural IDs of the Azure AD groups to add.
   naturalIds: [UUID!]!
+
+  # The spec of the Azure AD groups to add.
+  adGroupSpec: [AdGroupSpecInput!]
 }
 input AddAndJoinSmbDomainInput {
   # Required. UUID used to identify the cluster the request goes to.
@@ -14480,6 +14634,12 @@ input AddConfiguredGroupToHierarchyInput {
 
   # The preferred data locations configured for this group. When empty, group members will not be constrained on data location. These are three-letter region codes as defined in Microsoft Azure.
   pdls: [String!]!
+
+  # The workload for the group.
+  workload: WorkloadLevelHierarchy
+
+  # The filters to narrow down group members based on attribute tags.For more information, see https://learn.microsoft.com/en-us/graph/extensibility-overview.
+  groupFilterAttributes: [GroupFilterAttribute!]
 }
 # Response for the addition of a configuration group.
 type AddConfiguredGroupToHierarchyReply {
@@ -14850,6 +15010,14 @@ type AdvancedVirtualMachineSummary {
   # Script to execute before backup.
   preBackupScript: VirtualMachineScriptDetail
 }
+# Supported in v5.0+
+# The agent connection status.
+enum AgentConnectStatus {
+  AGENT_CONNECT_STATUS_CONNECTED
+  AGENT_CONNECT_STATUS_DISCONNECTED
+  AGENT_CONNECT_STATUS_SECONDARY_CLUSTER
+  AGENT_CONNECT_STATUS_UNREGISTERED
+}
 enum AgentConnectionStatus {
   CONNECTED
   DISCONNECTED
@@ -14897,6 +15065,14 @@ type AggregatedValues {
 
   # The total number of workload anomalies.
   total: Long!
+}
+# Request parameters for updating the air-gap status of the Rubrik cluster.
+input AirGapStatusInput {
+  # Air-gap status of the Rubrik cluster.
+  isAirGapped: Boolean = false
+
+  # Rubrik cluster UUID.
+  clusterUuid: UUID!
 }
 # Input for recovering Cloud Direct path.
 input AllCloudDirectSharesInput {
@@ -15116,6 +15292,9 @@ type AnalyzerHits {
 
   # Low-risk analyzer hits.
   lowRiskHits: SummaryHits
+
+  # No-risk analyzer hits.
+  noRiskHits: SummaryHits
 }
 type AnalyzerMapping {
   analyzerResult: AnalyzerResult!
@@ -16391,6 +16570,20 @@ type AttachmentSpecsForVirtualMachine {
   # Specifies whether the managed disk is excluded from snapshots.
   isExcludedFromSnapshot: Boolean!
 }
+# Group filter attribute type.
+enum AttributeType {
+  # Azure Administrative Unit.
+  ADMINISTRATIVE_UNIT
+
+  # Unspecified.
+  ATTRIBUTE_UNSPECIFIED
+
+  # M365 Extension attributes.
+  EXTENSION_ATTRIBUTES
+
+  # M365 Schema Extension attributes.
+  SCHEMA_EXTENSION_ATTRIBUTES
+}
 # Represents all the object types for which we expect to see audits.
 enum AuditObjectType {
   # Active Directory domain.
@@ -16605,6 +16798,9 @@ enum AuditObjectType {
 
   # Nutanix cluster audit object.
   NUTANIX_CLUSTER
+
+  # Nutanix Era audit object.
+  NUTANIX_ERA
 
   # Nutanix prism central audit object.
   NUTANIX_PRISM_CENTRAL
@@ -17090,6 +17286,9 @@ type AwsAccountValidationResponse {
 
   # AWS account cloud type.
   cloudType: AwsCloudType!
+
+  # The AWS organization name with which you onboarded the AWS account.
+  orgName: String!
 }
 # List of AWS artifacts that need to be deleted for a given list for features.
 type AwsArtifactsToDelete {
@@ -17206,6 +17405,9 @@ type AwsCloudAccount {
   # Whether seamless flow is enabled on cloud account.
   seamlessFlowEnabled: Boolean!
 
+  # The AWS organization name with which you onboarded the AWS account.
+  orgName: String!
+
   # Type of cloud account.
   cloudType: AwsCloudType!
 }
@@ -17248,6 +17450,9 @@ type AwsCloudAccountCreateResponse {
 
   # Role ARN for the feature (if valid).
   roleArn: String!
+
+  # ID of IAM pair, only for data center role-based archival.
+  awsIamPairId: String!
 }
 # Feature version of AWS cloud accounts.
 type AwsCloudAccountFeatureVersion {
@@ -17284,6 +17489,9 @@ input AwsCloudAccountInput {
 
   # Whether seamless setup flow is enabled on cloud account.
   seamlessFlowEnabled: Boolean = false
+
+  # The AWS organization name with which you onboarded the AWS account.
+  orgName: String = ""
 
   # Cloud type (Standard/China) for the cloud account.
   cloudType: AwsCloudType = STANDARD
@@ -17612,6 +17820,9 @@ type AwsExocomputeClusterConnectReply {
   # The command is to be run at the remote k8s cluster to establish a secure connection with RSC.
   connectionCommand: String!
 
+  # This field contains the Kubernetes configuration YAML, detailing the specifications for the resources that must be created in the customer managed Kubernetes cluster to establish a tunnel connection with  RSC.
+  clusterSetupYaml: String!
+
   # The unique id generated for the k8s cluster that was connected to RSC.
   clusterUuid: UUID!
 }
@@ -17784,6 +17995,14 @@ input AwsGetPermissionPoliciesInput {
 
   # List of cloud account features with specific permissions group. This is a valid input only for customer-managed cluster users.
   featuresWithPermissionsGroups: [FeatureWithPermissionsGroups!]
+}
+# Input to specify either AWS IAM pair ID or AWS IAM role name.
+input AwsIamPairInput {
+  # ID of the AWS IAM pair.
+  awsIamPairId: String = ""
+
+  # Name of the AWS IAM role.
+  awsIamRoleName: String = ""
 }
 # Immutability settings for creating AWS locations.
 input AwsImmutabilitySettings {
@@ -23211,6 +23430,9 @@ enum AzureAdObjectSearchType {
   # Principal user name of the user.
   PRINCIPAL_USER_NAME
 
+  # Name of the Role.
+  ROLE_NAME
+
   # User name of the user.
   USER_NAME
 
@@ -23224,6 +23446,9 @@ enum AzureAdObjectType {
 
   # Object type is Azure AD group.
   GROUP
+
+  # Object type is Azure AD role.
+  ROLE
 
   # Object type is Azure AD user.
   USER
@@ -23249,6 +23474,9 @@ type AzureAdObjects {
 
   # Azure AD group type.
   azureAdGroup: AzureAdGroup
+
+  # Azure AD role type.
+  azureAdRole: AzureAdRole
 }
 # Azure AD on-prem sync status.
 enum AzureAdOnPremSyncStatus {
@@ -23359,6 +23587,32 @@ enum AzureAdReverseRelationshipType {
 
   # Unknown reverse relationship type.
   REVERSE_RELATIONSHIP_TYPE_UNKNOWN
+
+  # Assignee of a role. For example, a user assigned to the admin role.
+  ROLE_ASSIGNMENT_OF
+}
+# Azure AD role.
+type AzureAdRole {
+  # Role Definition ID of the Azure AD role.
+  roleDefinitionId: String!
+
+  # Role ID of the Azure AD role.
+  roleId: String!
+
+  # Role Name of the Azure AD role.
+  roleName: String!
+
+  # Description of the Azure AD role.
+  description: String!
+
+  # Specifies whether the Azure AD role is built in role.
+  isBuiltIn: Boolean!
+
+  # Specifies whether the Azure AD role is active.
+  isActive: Boolean!
+
+  # Specifies whether the Azure AD role is privileged.
+  isPrivileged: Boolean!
 }
 # Azure AD user.
 type AzureAdUser {
@@ -23391,6 +23645,20 @@ enum AzureAppPermission {
   # Represents the impersonation permission needed for authenticating and
   # connecting to an Azure Storage.
   AZURE_STORAGE_IMPERSONATION
+}
+# Details about an Exocompute configuration.
+type AzureApplicationCloudAccountToExocomputeConfig {
+  # Application cloud account ID for which configurations are applicable.
+  applicationCloudAccountId: String!
+
+  # Specifies whether the cloud account is the host cloud account.
+  isHost: Boolean!
+
+  # Details about the Exocompute configurations.
+  exocomputeConfigs: [AzureExocomputeGetConfigResponse!]!
+
+  # Mapped Exocompute account details.
+  mappedExocomputeAccount: CloudAccountDetails
 }
 # Custom role ARM template corresponding to the feature.
 type AzureArmTemplateByFeature {
@@ -24189,6 +24457,25 @@ type AzureKeyVault {
   # Whether the Key Vault is accessible by the user assigned managed identity. False by default if userAssignedManagedIdentityPrincipalId is not provided.
   isAccessibleByUserAssignedManagedIdentity: Boolean!
 }
+# Input for identifying a specific Azure Key Vault key.
+input AzureKeyVaultKeyIdentifierInput {
+  # Azure Key Vault ID.
+  keyVaultId: UUID!
+
+  # Azure Key Vault key name.
+  keyName: String!
+
+  # Azure Key Vault key version.
+  keyVersion: String!
+}
+# Input for identifying a specific Azure Key Vault key.
+input AzureKeyVaultKeyIdentifierWithoutKeyVersionInput {
+  # Azure Key Vault ID.
+  keyVaultId: UUID!
+
+  # Azure Key Vault key name.
+  keyName: String!
+}
 # Input for getting Azure Key Vaults in a region.
 input AzureKeyVaultsInput {
   # The Rubrik ID of the cloud account.
@@ -24199,6 +24486,14 @@ input AzureKeyVaultsInput {
 
   # The Principal ID of the user assigned managed identity.
   userAssignedManagedIdentityPrincipalId: UUID
+}
+# Azure region detail, including name and availability zones.
+type AzureLocationDetailType {
+  # Name of the azure location.
+  location: AzureCloudAccountRegion!
+
+  # Available availability zones in the region.
+  logicalAvailabilityZones: [String!]!
 }
 # AzureManagedIdentitiesRequest input for the Azure account.
 input AzureManagedIdentitiesRequest {
@@ -24762,11 +25057,20 @@ enum AzureNativeManagedDiskType {
   # Azure Managed Disk type is not specified.
   NOT_SPECIFIED
 
+  # Azure Managed Disk type is Premium V2 LRS.
+  PREMIUMV2_LRS
+
   # Azure Managed Disk type is Premium LRS.
   PREMIUM_LRS
 
+  # Azure Managed Disk type is Premium ZRS.
+  PREMIUM_ZRS
+
   # Azure Managed Disk type is Standard SSD LRS.
   STANDARDSSD_LRS
+
+  # Azure Managed Disk type is Standard SSD ZRS.
+  STANDARDSSD_ZRS
 
   # Azure Managed Disk type is Standard LRS.
   STANDARD_LRS
@@ -25405,6 +25709,9 @@ type AzureNativeSubscription implements PolarisHierarchyObject , HierarchyObject
 
   # The authorized operations on the object.
   authorizedOperations: [PolarisObjectAuthorizedOperationsEnum!]!
+
+  # List of Exocompute configurations for the Azure subscription.
+  applicationCloudAccountExoConfigs: AzureApplicationCloudAccountToExocomputeConfig!
 
   # Paginated list of all Azure Resource Groups in the subscription.
   azureNativeResourceGroups(
@@ -28968,6 +29275,11 @@ input BulkUpdateRansomwareInvestigationEnabledInput {
   # The new Ransomware Investigation status.
   isRansomwareMonitoringEnabled: Boolean!
 }
+# Metadata associated with an Exocompute container image bundle.
+input BundleMetadataInput {
+  # EKS version for this bundle version. This is not required if you are using Bring Your Own Kubernetes (BYOK).
+  eksVersion: String
+}
 # Email address input for organizer and/or attendee.
 input CalendarEmailAddressFilter {
   emailAddress: String = ""
@@ -30620,7 +30932,10 @@ interface CdmHierarchySnappableNew {
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -30638,6 +30953,9 @@ interface CdmHierarchySnappableNew {
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -31411,6 +31729,9 @@ type CdmSnapshot implements GenericSnapshot {
 
   # Resource spec for a snapshot.
   resourceSpec: String
+
+  # Sub objects for the snapshot.
+  subObjs: [SnapshotSubObject!]!
   cluster: Cluster!
 
   # The ID of the parent snapshot.
@@ -31430,6 +31751,9 @@ type CdmSnapshot implements GenericSnapshot {
 
   # Active Directory specific metadata for the snapshot. Null if snapshot is not of a domain controller.
   activeDirectoryAppMetadata: ActiveDirectoryAppMetadata
+
+  # PostgreSQL Database Cluster-specific metadata. Null if the snapshot is not of a PostgreSQL Database Cluster.
+  postgresDbClusterAppMetadata: KosmosWorkloadAppMetadata
 
   # Number of files in the snapshot.
   fileCount: Long!
@@ -32397,6 +32721,9 @@ enum ChannelMembershipType {
   # Used to retrieve only private channels.
   PRIVATE
 
+  # Used to retrieve only shared channels.
+  SHARED
+
   # Used to retrieve only public channels.
   STANDARD
 }
@@ -32426,12 +32753,16 @@ type CheckLatestVersionMgmtAppExistsReply {
   # Boolean which specifies whether the latest version of Microsoft 365 Management App exists.
   latestMgmtAppExist: Boolean!
 }
+# Color for defined and custom policies.
 enum ClassificationPolicyColor {
+  # Used for predefined policies.
   COLOR_001
   COLOR_002
   COLOR_003
   COLOR_004
   COLOR_005
+
+  # Used for custom policies.
   COLOR_006
   COLOR_007
   COLOR_008
@@ -32439,6 +32770,9 @@ enum ClassificationPolicyColor {
   COLOR_010
   COLOR_011
   COLOR_012
+
+  # COLOR_013 is for imported Laminar data-categories.
+  COLOR_013
   UNKNOWN
 }
 type ClassificationPolicyDetail {
@@ -32563,6 +32897,9 @@ type ClosestSnapshotDetail {
 
   # The snapshot creation time.
   date: DateTime!
+
+  # The workload snapshot details.
+  snapshotDetail: GenericSnapshot
 
   # Specifies whether the snapshot is anomalous or not.
   isAnomaly: Boolean!
@@ -33537,6 +33874,9 @@ type Cluster {
   # Pause status of the cluster.
   pauseStatus: ClusterPauseStatus
 
+  # Cyber Event Lockdown mode of the Rubrik cluster.
+  cyberEventLockdownMode: ClusterCyberEventLockdownMode
+
   # End of support date.
   eosDate: String
 
@@ -33755,6 +34095,9 @@ type Cluster {
 
   # The cluster's raw address.
   rawAddress: String
+
+  # Air-gap status of the Rubrik cluster.
+  isAirGapped: Boolean
 }
 # CDM archiving specification.
 type ClusterArchivalSpec {
@@ -33875,6 +34218,17 @@ type ClusterCsr {
   # Required. Supported in v7.0+
   # Certificate signing request generated from the private key of the Rubrik cluster.
   csr: String!
+}
+# Cyber Event Lockdown mode of the Rubrik cluster.
+enum ClusterCyberEventLockdownMode {
+  # Cyber Event Lockdown Mode Unspecified.
+  CYBER_EVENT_LOCKDOWN_MODE_UNSPECIFIED
+
+  # Cyber Event Lockdown enabled.
+  ENABLED
+
+  # Cyber Event Lockdown not enabled.
+  NOT_ENABLED
 }
 # Rubrik cluster disk type.
 type ClusterDisk {
@@ -34610,6 +34964,9 @@ type ClusterNodeStats {
   # Memory used on the node, in percentage.
   usedMemoryStat: Int!
 
+  # Cluster-level physical data ingestion, in bytes per second.
+  clusterPhysicalDataIngest: Long!
+
   # Time at which the performance metrics were retrieved.
   time: DateTime!
 
@@ -34787,6 +35144,11 @@ enum ClusterReportMigrationStatus {
 
   # Unspecified.
   UNSPECIFIED
+}
+# Represents the response of a request to retrieve cluster routes information from a Rubrik cluster.
+type ClusterRoutesReply {
+  # Rubrik cluster network routes.
+  clusterRoutes: [RouteConfig!]!
 }
 # Metadata for rendering a Rubrik cluster SLA Domain.
 type ClusterSlaDomain implements SlaDomain {
@@ -36004,6 +36366,14 @@ type ClusterWebSignedCertificateReply {
   # Signed certificate of the web server.
   cert: AddClusterCertificateReply
 }
+# Information about the Rubrik cluster and any applicable capacity quota for the cluster in the organization.
+type ClusterWithCapacityQuota {
+  # The capacity quota that the organization has on the cluster, if it exists.
+  quotaOpt: ClusterCapacityQuota
+
+  # Cluster on which the capacity quota is enforced.
+  cluster: Cluster!
+}
 # Available cold storage class options for tiering.
 enum ColdStorageClass {
   # Glacier cold storage class for AWS.
@@ -36740,6 +37110,9 @@ input CreateAutomaticRcsTargetMappingInput {
 
   # Specifies whether the proxy settings must be bypassed for  the RCV archival target.
   shouldBypassProxy: Boolean
+
+  # Azure Key Vault key to encrypt the archival target.
+  azureKeyVaultKey: AzureKeyVaultKeyIdentifierInput
 }
 # Input for creating an AWS account.
 input CreateAwsAccountInput {
@@ -36879,6 +37252,9 @@ input CreateAwsReaderTargetInput {
   # Compute proxy settings for AWS reader target.
   computeProxySettings: ProxySettingsInput
 
+  # Internal ID of the AWS IAM pair. This field is required only when connecting as a reader to Data Center AWS role-based archival locations.
+  awsIamPairId: String
+
   # Specifies whether the proxy settings should be bypassed for creating this target location.
   bypassProxy: Boolean! = false
 }
@@ -36938,6 +37314,9 @@ input CreateAwsTargetInput {
   # Optional field for specifying the KMS server endpoint when using KMS-based encryption, for example a VPC endpoint. When not specified, the default, region-based KMS server endpoint is used.
   kmsEndpoint: String
 
+  # Internal ID of the AWS IAM pair. This field is required only when creating Data Center AWS role-based archival locations.
+  awsIamPairId: String
+
   # Specifies whether the proxy settings should be bypassed for creating this AWS archival target.
   bypassProxy: Boolean! = false
 }
@@ -36993,7 +37372,7 @@ input CreateAzureReaderTargetInput {
   instanceType: InstanceTypeEnum!
 
   # Field for specifying RSA key for encryption.
-  rsaKey: String!
+  rsaKey: String
 
   # Field for Azure compute settings.
   computeSettings: AzureCloudComputeSettingsInput
@@ -37015,6 +37394,9 @@ input CreateAzureReaderTargetInput {
 
   # Specifies whether the proxy settings should be bypassed for creating this target location.
   bypassProxy: Boolean! = false
+
+  # Azure Key Vault key used to encrypt the archival target.
+  azureKeyVaultKey: AzureKeyVaultKeyIdentifierWithoutKeyVersionInput
 }
 # Response containing the Azure AAD application details.
 type CreateAzureSaasAppAadReply {
@@ -37045,7 +37427,7 @@ input CreateAzureTargetInput {
   instanceType: InstanceTypeEnum!
 
   # RSA key of the Azure archival target for encryption.
-  rsaKey: String!
+  rsaKey: String
 
   # Compute settings of the Azure archival target.
   computeSettings: AzureCloudComputeSettingsInput
@@ -37064,6 +37446,9 @@ input CreateAzureTargetInput {
 
   # Specifies whether the proxy settings should be bypassed for creating this target location.
   bypassProxy: Boolean! = false
+
+  # Azure Key Vault key to encrypt the archival target.
+  azureKeyVaultKey: AzureKeyVaultKeyIdentifierInput
 }
 # Input to create a storage setting for AWS.
 input CreateCloudNativeAwsStorageSettingInput {
@@ -37498,7 +37883,7 @@ input CreateGlobalSlaInput {
   # Backup Window specifications for SLA Domain.
   backupWindows: [BackupWindowInput!] = []
 
-  # Log configuration of the SLA Domain.
+  # Log configuration of the SLA Domain. Deprecated: use objectSpecificConfigs instead.
   logConfig: LogConfig
 
   # Object-specific configuration of the SLA Domain.
@@ -37820,6 +38205,9 @@ input CreateNutanixPrismCentralInput {
 
   # A one-to-one mapping between each Prism Element and the corresponding CDM cluster to use while adding the Nutanix Prism Central object.
   prismElementCdmTuple: [PrismElementCdmTuple!]!
+
+  # Specifies whether Nutanix DR support is enabled for the Prism Central object.
+  isDrEnabled: Boolean
 }
 # Configuration for O365 Azure AD App creation flow completion.
 input CreateO365AppCompleteInput {
@@ -38073,6 +38461,9 @@ input CreateRcvLocationsFromTemplateInput {
 
   # RSA key for the RCV location.
   rsaKey: String
+
+  # Azure Key Vault key to encrypt the archival target.
+  azureKeyVaultKey: AzureKeyVaultKeyIdentifierInput
 }
 # Input for adding private endpoint support to an RCV location.
 input CreateRcvPrivateEndpointApprovalRequestInput {
@@ -38231,6 +38622,9 @@ input CreateScheduledReportInput {
   # List of email addresses of non-Rubrik user recipients of the scheduled report.
   nonRubrikRecipientEmails: [String!]!
   updateCreator: Boolean
+
+  # Time zone of the schedule time in IANA format.
+  timeZone: String
 
   # List of weekdays for weekly schedule of reports.
   weeklyDays: [WeekDay!]
@@ -38440,6 +38834,48 @@ enum CrossAccountCapability {
 
   # Replication as a service capability.
   REPLICATION_AS_A_SERVICE
+}
+# Cross-account cluster-specific information.
+type CrossAccountCluster {
+  # Name of the cross-account cluster.
+  name: String!
+
+  # UUID of the cross-account cluster.
+  uuid: String!
+
+  # Version of the cross-account cluster.
+  version: String!
+
+  # The account name of cross-account the cluster is associated with.
+  accountName: String!
+
+  # API version of the cross-account cluster.
+  apiVersion: String!
+
+  # If the Rubrik cluster is air-gapped.
+  isAirGapped: Boolean!
+}
+# Paginated list of CrossAccountCluster objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
+type CrossAccountClusterConnection {
+  # List of CrossAccountCluster objects with additional pagination information. Use `nodes` if per-object cursors are not needed.
+  edges: [CrossAccountClusterEdge!]!
+
+  # List of CrossAccountCluster objects.
+  nodes: [CrossAccountCluster!]!
+
+  # General information about this page of results.
+  pageInfo: PageInfo!
+
+  # Total number of CrossAccountCluster objects matching the request arguments.
+  count: Int!
+}
+# Wrapper around the CrossAccountCluster object. This wrapper is used for pagination.
+type CrossAccountClusterEdge {
+  # String used to identify this edge.
+  cursor: String!
+
+  # The actual CrossAccountCluster object wrapped by this edge.
+  node: CrossAccountCluster!
 }
 # Details of an organization associated with an cross-account pair.
 type CrossAccountOrganization {
@@ -38828,6 +39264,9 @@ type CustomerFacingFile {
   # Name of the file.
   filename: String!
 
+  # Timestamp when the file generation was completed.
+  completedAt: DateTime
+
   # File type.
   type: FileTypeEnumType!
 
@@ -39203,6 +39642,9 @@ type DataLocationSupportedCluster {
 
   # API version of the supported Rubrik cluster.
   apiVersion: String!
+
+  # If the Rubrik cluster is air-gapped.
+  isAirGapped: Boolean!
 }
 # Supported in v5.0+
 type DataStoreSummary {
@@ -39273,8 +39715,8 @@ enum DataTypeEnum {
 }
 # All reporting table schemas.
 enum DataViewTypeEnum {
-  # Specifies the Scanned Objects report information.
-  ANOMALY_DETECTION
+  # Specifies the Readable Snapshots report information.
+  ANOMALIES
 
   # Specifies the database schema for audits.
   AUDIT_LIST
@@ -39303,8 +39745,8 @@ enum DataViewTypeEnum {
   MONITORING_SCHEDULED
   MONITORING_TASK_COUNT_TIME_SERIES
 
-  # Specifies the Unscannable Objects report information.
-  NF_ANOMALY_DETECTION
+  # Specifies the Unreadable Objects report information.
+  NF_ANOMALIES
   OBJECT_AUDIT_DETAIL
   OBJECT_AUDIT_LIST
 
@@ -39831,7 +40273,10 @@ type Db2Database implements CdmHierarchyObject , CdmHierarchySnappableNew , Hier
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -39849,6 +40294,9 @@ type Db2Database implements CdmHierarchyObject , CdmHierarchySnappableNew , Hier
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -40466,6 +40914,18 @@ type Db2LogBackupFile {
 
   # End time for log backup.
   endTime: DateTime
+
+  # Start time for log backup.
+  startTime: DateTime
+
+  # Name of the log file.
+  logFileName: String
+
+  # Chain number for the log backup.
+  chainNumber: String
+
+  # Partition number for the log backup.
+  partitionNumber: Int
 }
 # Db2 log snapshot object.
 type Db2LogSnapshot {
@@ -41629,6 +42089,28 @@ enum DirectResourceAssignmentSortBy {
   # SortBy field is unspecified.
   RESOURCE_SORT_UNSPECIFIED
 }
+# O365 directory object attribute definition.
+type DirectoryObjectAttribute {
+  # The ID of the directory object attribute.
+  id: String!
+
+  # The display name of the directory object attribute.
+  displayName: String!
+
+  # The property of the directory object attribute.
+  subProperty: [String!]!
+}
+# Azure Active Directory object type.
+enum DirectoryObjectType {
+  # Azure Active Directory group object.
+  GROUP
+
+  # Unsupported Azure Directory object.
+  UNSPECIFIED
+
+  # Azure Active Directory user object.
+  USER
+}
 # Supported in v5.3+
 input DisablePerLocationPauseInput {
   # Required. Supported in v5.3+
@@ -42242,6 +42724,9 @@ enum DownloadIdentifierEnum {
 
   # Data classification files download.
   SONAR_DOWNLOAD
+
+  # User awareness summary download.
+  USER_AWARENESS_DOWNLOAD
 }
 # Download job progress information.
 type DownloadJobInfo {
@@ -42940,7 +43425,7 @@ input EventDigestConfig {
   # Activity statuses to include in event digest.
   activityStatus: [ActivityStatusEnum!]
 
-  # Activity types included in event digest. Valid types are: Storage, THREAT_MONITORING, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, SCHEDULE_RECOVERY, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
+  # Activity types included in event digest. Valid types are: Storage, THREAT_MONITORING, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, SCHEDULE_RECOVERY, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, TENANT_QUOTA, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
   activityType: [String!]
 
   # Audit types included in event digest. Valid types are: Audit, Classification, SlaModification, LegalHold, THREAT_FEED, BULK_RECOVERY, THREAT_HUNT, ISOLATED_RECOVERY, Configuration, ENCRYPTION_MANAGEMENT_OPERATION, RECOVERY_SCHEDULE, QUARANTINE, Login, LOCAL_RECOVERY, Failover, Diagnostic, RUBY_AI, UnknownUserAuditType, SlaAssignment, AccessManagement, Search, Backup, Sync, ANOMALY, Recovery, Download, FILE_DOWNLOAD, and Index.
@@ -42963,7 +43448,7 @@ type EventDigestConfigInfo {
   # Activity statuses to include in event digest.
   activityStatus: [ActivityStatusEnum!]
 
-  # Activity types included in event digest. Valid types are: Storage, THREAT_MONITORING, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, SCHEDULE_RECOVERY, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
+  # Activity types included in event digest. Valid types are: Storage, THREAT_MONITORING, Tpr, Classification, LegalHold, HypervScvmm, THREAT_FEED, Hdfs, SCHEDULE_RECOVERY, RadarAnalysis, VolumeGroup, LockSnapshot, Instantiate, BULK_RECOVERY, LOG_BACKUP, HypervServer, ISOLATED_RECOVERY, Configuration, Upgrade, ENCRYPTION_MANAGEMENT_OPERATION, CloudNativeVm, StorageArray, Connection, Conversion, AuthDomain, UnknownEventType, CloudNativeVirtualMachine, Discovery, Replication, Maintenance, Support, Fileset, LocalRecovery, System, Failover, OWNERSHIP, StormResource, Diagnostic, Vcd, Anomaly, Archive, CloudNativeSource, HostEvent, AwsEvent, ResourceOperations, Backup, Sync, TENANT_QUOTA, Hardware, TestFailover, Recovery, Download, EmbeddedEvent, TENANT_OVERLAP, NutanixCluster, VCenter, Index, ThreatHunt, and OTHER_FILTER_ITEM.
   activityType: [String!]
 
   # Audit types included in event digest. Valid types are: Audit, Classification, SlaModification, LegalHold, THREAT_FEED, BULK_RECOVERY, THREAT_HUNT, ISOLATED_RECOVERY, Configuration, ENCRYPTION_MANAGEMENT_OPERATION, RECOVERY_SCHEDULE, QUARANTINE, Login, LOCAL_RECOVERY, Failover, Diagnostic, RUBY_AI, UnknownUserAuditType, SlaAssignment, AccessManagement, Search, Backup, Sync, ANOMALY, Recovery, Download, FILE_DOWNLOAD, and Index.
@@ -43275,6 +43760,9 @@ enum EventObjectType {
   # Nutanix cluster object.
   OBJECT_TYPE_NUTANIX_CLUSTER
 
+  # Nutanix Era object.
+  OBJECT_TYPE_NUTANIX_ERA
+
   # Nutanix Prism Central object.
   OBJECT_TYPE_NUTANIX_PRISM_CENTRAL
 
@@ -43304,6 +43792,9 @@ enum EventObjectType {
 
   # Oracle RAC object.
   ORACLE_RAC
+
+  # Organization object.
+  ORGANIZATION
 
   # Postgres Database Cluster.
   POSTGRES_DB_CLUSTER
@@ -43583,6 +44074,9 @@ enum EventType {
 
   # Tenant overlap event type.
   TENANT_OVERLAP
+
+  # Tenant quota event type.
+  TENANT_QUOTA
 
   # Test failover event.
   TEST_FAILOVER
@@ -44051,7 +44545,10 @@ type ExchangeDatabase implements CdmHierarchyObject , HierarchySnappable , CdmHi
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -44069,6 +44566,9 @@ type ExchangeDatabase implements CdmHierarchyObject , HierarchySnappable , CdmHi
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -44115,6 +44615,14 @@ type ExchangeDatabaseEdge {
 
   # The actual ExchangeDatabase object wrapped by this edge.
   node: ExchangeDatabase!
+}
+# Type of hierarchy for all exchange items like emails, calendars, contacts, calendar groups, etc.
+enum ExchangeItemHierarchyType {
+  # Denotes items (emails, folders, calendars, etc.) that belong to the default mailbox hierarchy.
+  DEFAULT_HIERARCHY
+
+  # Denotes items (emails, folders, calendars, etc.) that belong to the recoverable Items hierarchy.
+  RIF_HIERARCHY
 }
 # Exchange live mount.
 type ExchangeLiveMount {
@@ -45933,25 +46441,6 @@ type Failure {
   # Details of the error that occurred when connecting to the Rubrik Backup Service.
   error: String!
 }
-# Stores the failures and warnings stats within a time range bucket.
-type FailuresAndWarningsStats {
-  # Start time of the bucket.
-  startTime: DateTime
-
-  # End time of the bucket.
-  endTime: DateTime
-
-  # Number of failures per workload type.
-  workloadTypeToFailureCount: [WorkloadTypeToEventCount!]!
-
-  # Number of warnings per workload type.
-  workloadTypeToWarningCount: [WorkloadTypeToEventCount!]!
-}
-# Stores the failures and warnings stats for all workload types.
-type FailuresAndWarningsStatsReply {
-  # Failures and warnings stats for all workload types.
-  failuresAndWarningsStats: [FailuresAndWarningsStats!]!
-}
 # Input to check feature support for CDM version.
 input FeatureCdmVersionInput {
   # Required. Cluster to check for feature.
@@ -45993,6 +46482,12 @@ type FeatureDetail {
 
   # Permissions groups onboarded for the cloud accounts feature. Permissions groups will be present only for customer-managed cluster users.
   permissionsGroups: [PermissionsGroup!]
+
+  # The internal ID of the IAM pair corresponds to the feature. The ID can be non-empty only for the DATA_CENTER_ROLE_BASED_ARCHIVAL feature.
+  awsIamPairId: String
+
+  # The name of the IAM pair corresponds to the feature. The name can be non-empty only for the DATA_CENTER_ROLE_BASED_ARCHIVAL feature.
+  iamPairName: String
 }
 # Input to minimum CDM version supporting all given features.
 input FeatureListMinimumCdmVersionInputType {
@@ -47422,6 +47917,9 @@ input FinalizeAwsCloudAccountDeletionInput {
 
   # Protection feature to be deleted for the cloud account.
   feature: CloudAccountFeature!
+
+  # The internal ID of the IAM pair. This field is required only when the feature to be deleted is DATA_CENTER_ROLE_BASED_ARCHIVAL.
+  awsIamPairId: String
 }
 # Process delete of aws cloud account.
 type FinalizeAwsCloudAccountDeletionReply {
@@ -47459,6 +47957,9 @@ input FinalizeAwsCloudAccountProtectionInput {
 
   # List of features to onboard for the cloud account along with specific permissions groups. This list is a valid input only for customer-managed cluster users.
   featuresWithPermissionsGroups: [FeatureWithPermissionsGroups!]
+
+  # Details of IAM role to be used for data center role-based archival.
+  awsIamPairId: String
 }
 # Response for the operation to finalize protection for AWS cloud accounts.
 type FinalizeAwsCloudAccountProtectionReply {
@@ -49345,6 +49846,33 @@ input GetContainersInput {
   # Required. ID of the Nutanix cluster.
   id: String!
 }
+# Filter for cross-account clusters request.
+input GetCrossAccountClustersFilter {
+  # Field from which query should be filtered.
+  field: GetCrossAccountClustersFilterField = FILTER_FIELD_UNSPECIFIED
+
+  # Value of the field.
+  text: String = ""
+}
+# Filter for querying cross-account clusters.
+enum GetCrossAccountClustersFilterField {
+  # Filter by cross-account cluster name.
+  CLUSTER_NAME
+
+  # Unspecified filter field.
+  FILTER_FIELD_UNSPECIFIED
+
+  # Filter by organization.
+  ORG_ID
+}
+# Field to sort by for cross-account clusters.
+enum GetCrossAccountClustersSortByField {
+  # Cross-account cluster name.
+  CLUSTER_NAME
+
+  # Unspecified sort by field.
+  SORT_BY_FIELD_UNSPECIFIED
+}
 # Filter for cross-account pairs request.
 input GetCrossAccountPairsFilter {
   # Field from which query should be filtered.
@@ -49528,7 +50056,7 @@ type GetMfaSettingReply {
   isTotpGlobalEnforceLocked: Boolean!
 
   # Specifies the date when TOTP enforcement becomes mandatory.
-  mandatoryTotpEnforcementDate: DateTime
+  mandatoryTotpEnforcementDate: DateTime @deprecated(reason: "Deprecated. Query MandatoryTotpGracePeriod instead.")
 
   # Specifies whether TOTP is mandatory.
   isTotpMandatory: Boolean!
@@ -50287,7 +50815,7 @@ type GlobalSlaReply implements SlaDomain {
   clusterToSyncStatusMap: [GlobalSlaSyncStatus!]!
 
   # Log configuration of the SLA Domain.
-  logConfig: LogConfigResult
+  logConfig: LogConfigResult @deprecated(reason: "Use objectSpecificConfigs instead.")
 
   # The object-specific configurations of the SLA Domain.
   objectSpecificConfigs: ObjectSpecificConfigs
@@ -50530,6 +51058,20 @@ type GroupEdge {
 
   # The actual Group object wrapped by this edge.
   node: Group!
+}
+# Group filter attribute configuration.
+input GroupFilterAttribute {
+  # Specifies the filter operation with other filter attributes.
+  filterOpType: JoinOpType = AND
+
+  # Specifies the type of Microsoft directory object attribute type to apply filer. For more information, see https://learn.microsoft.com/en-us/graph/extensibility-overview?tabs=http#comparison-of-extension-types.
+  attributeType: AttributeType = ATTRIBUTE_UNSPECIFIED
+
+  # Specifies the name of the attribute to apply filter.
+  attributeKey: String = ""
+
+  # Specifies the value of the attribute key.
+  attributeValue: String = ""
 }
 # Input for filtering user groups.
 input GroupFilterInput {
@@ -51584,6 +52126,9 @@ enum HierarchyFilterField {
   # Filter by software version of the cluster.
   ON_OR_ABOVE_CLUSTER_VERSION
 
+  # Filter Oracle host and RAC objects by OS type.
+  ORACLE_OS_TYPE
+
   # Filter by organization ID.
   ORGANIZATION_ID
 
@@ -51625,6 +52170,9 @@ enum HierarchyFilterField {
 
   # Filter by recovery plan type.
   RECOVERY_PLAN_TYPE
+
+  # Filter by Recovery Plan workload type.
+  RECOVERY_PLAN_WORKLOAD_TYPE
 
   # Filter by recovery status.
   RECOVERY_STATUS
@@ -52465,6 +53013,10 @@ type HostDetail {
   # Specifies whether the refresh of host metadata for this host is paused.
   isRefreshPaused: Boolean
   hostSummary: HostSummary
+
+  # Supported in v9.2
+  # Specifies the username configured for the SQL server instance for sensitive data discovery.
+  mssqlSddUsername: String
 
   # Supported in v9.0+
   # Specify the name of active directory domain.
@@ -53534,6 +54086,11 @@ type HostVolumeSummary {
   volumeGroupId: String
   volumeGroupSnapshotVolumeSummary: VolumeGroupSnapshotVolumeSummary
 }
+# Additional information for `HOST_BULK_REGISTER_ASYNC` jobs.
+input HostsInfo {
+  # ID of registered hosts.
+  hostFids: [String!] = []
+}
 # Supported in v5.3+
 type HotAddBandwidthInfo {
   # Required. Supported in v5.3+
@@ -54575,7 +55132,10 @@ type HyperVVirtualMachine implements HierarchyObject , CdmHierarchyObject , CdmH
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -54593,6 +55153,9 @@ type HyperVVirtualMachine implements HierarchyObject , CdmHierarchyObject , CdmH
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -55123,6 +55686,7 @@ type HypervScvmmSummary {
   # Supported in v9.0+
   # Version of SCVMM.
   scvmmVersion: String
+  statusEnum: HostRbsConnectionStatus
   slaAssignable: SlaAssignable
 }
 # Supported in v5.0+
@@ -55688,6 +56252,9 @@ type HypervVirtualMachineMountSummary {
   # Supported in v9.1+
   # A boolean field that indicates whether the mount is a disk-level mount.
   isDiskLevelMount: Boolean
+
+  # This field indicates the time of mounting.
+  mountTime: DateTime
   powerStatus: HypervVirtualMachineMountSummaryPowerStatus!
 }
 enum HypervVirtualMachineMountSummaryPowerStatus {
@@ -55746,6 +56313,7 @@ type HypervVirtualMachineSummary {
   # Supported in v9.0+
   # The status of the Rubrik Backup Service agent for virtual machines.
   agentStatus: CdmAgentStatus
+  agentConnectStatus: AgentConnectStatus
   snappable: CdmWorkload
 }
 # Supported in v5.0+
@@ -56127,6 +56695,9 @@ type Integration {
 type IntegrationConfig {
   # The Data Loss Prevention configuration.
   dataLossPrevention: DlpConfig
+
+  # The ServiceNow ITSM configuration.
+  serviceNowItsm: ServiceNowItsmIntegrationConfig
 }
 # Holds the configuration of a single integration. Note that IntegrationConfig
 # can hold multiple configurations at once but only the configuration specified
@@ -56134,6 +56705,9 @@ type IntegrationConfig {
 input IntegrationConfigInput {
   # The Data Loss Prevention configuration.
   dataLossPrevention: DlpConfigInput
+
+  # The ServiceNow ITSM configuration.
+  serviceNowItsm: ServiceNowItsmIntegrationConfigInput
 }
 # Specifies the type of an integration. Note that the values are stored in a
 # database and therefore cannot be changed.
@@ -56144,6 +56718,9 @@ enum IntegrationType {
 
   # Represents an unspecified integration.
   INTEGRATION_TYPE_UNSPECIFIED
+
+  # Represents a ServiceNow ITSM integration.
+  SERVICENOW_ITSM
 }
 # Interface CIDR Info.
 type InterfaceCidr {
@@ -56794,6 +57371,15 @@ input JobInfoRequestDetails {
 
   # Populate for `POSTGRES_DB_CLUSTER` jobs.
   postgresDbClusterInfo: PostgresDbClusterInfo
+
+  # Populate for `HOST_BULK_REGISTER_ASYNC` jobs.
+  hostsInfo: HostsInfo
+
+  # Populate for `VSPHERE_VM_MAKE_PRIMARY` jobs.
+  vsphereVmMakePrimaryInfo: VsphereVmMakePrimaryInfo
+
+  # Populate for `DISCOVERED_MSSQL_OBJECTS_NOTIFICATIONS_POLLER` jobs.
+  mssqlAddHost: MssqlAddHostOperation
 }
 type JobMetadata {
   id: Long!
@@ -56895,6 +57481,10 @@ enum JobType {
   # Deletetion of a Mosaic storage location.
   DELETE_MOSAIC_STORAGE_LOCATION
 
+  # Start a poller that will send a notification to user
+  # of new MSSQL objects discovered for the given host.
+  DISCOVERED_MSSQL_OBJECTS_NOTIFICATIONS_POLLER
+
   # Discovered Microsoft SQL Server objects metrics.
   DISCOVERED_MSSQL_OBJECTS_SYNC_METRIC_POLLER
 
@@ -56924,6 +57514,9 @@ enum JobType {
 
   # Export of VCD VApp snapshot.
   EXPORT_VCD_VAPP_SNAPSHOT
+
+  # Register host async.
+  HOST_BULK_REGISTER_ASYNC
 
   # Make host primary.
   HOST_MAKE_PRIMARY_POLLER
@@ -56975,6 +57568,9 @@ enum JobType {
 
   # Microsoft SQL Server restore.
   MSSQL_RESTORE
+
+  # Microsoft SQL Server database snapshot.
+  MSSQL_SNAPSHOT
 
   # Unmount of a Microsoft SQL Server.
   MSSQL_UNMOUNT
@@ -57053,9 +57649,20 @@ enum JobType {
 
   # Vsphere unmount.
   VSPHERE_UNMOUNT
+
+  # Vsphere update primary Rubrik cluster for RBS.
+  VSPHERE_VM_MAKE_PRIMARY
 }
 type JobsReply {
   jobs: [JobReply!]!
+}
+# Group filter attribute Join type.
+enum JoinOpType {
+  # AND operator.
+  AND
+
+  # OR operator.
+  OR
 }
 input JoinSmbDomainInput {
   # Required. Configuration for joining Active Directory.
@@ -57217,6 +57824,17 @@ input K8sClusterAddInput {
   # Distribution of the Kubernetes cluster to be added.
   distribution: String
 
+  # The configuration for the kupr server proxy to be added.
+  kuprServerProxyConfig: KuprServerProxyConfigInput
+
+  # Supported in v9.1+
+  # The pull secret required for pulling Rubrik container images.
+  pullSecret: String
+
+  # Supported in v9.1+
+  # The transport type used for communication with the Kubernetes cluster.
+  transport: String
+
   # Supported in v9.1+
   # The client secret for the service account.
   clientSecret: String
@@ -57228,6 +57846,9 @@ input K8sClusterAddInput {
   # Supported in v9.1+
   # Region of the Kubernetes cluster to be added.
   region: String
+
+  # The type of onboarding. It can be kubeconfig or kubeconfigless.
+  onboardingType: String
 
   # Supported in v9.1+
   # The client ID for the service account.
@@ -57408,6 +58029,10 @@ type K8sClusterSummary {
   # Distribution of the Kubernetes cluster.
   distribution: String
 
+  # Supported in v9.1+
+  # The transport type used for communication with the Kubernetes cluster.
+  transport: String
+
   # Supported in v9.0+
   # Last refresh time of the Kubernetes cluster.
   lastRefreshTime: DateTime
@@ -57448,6 +58073,17 @@ input K8sClusterUpdateConfigInput {
   # Supported in v9.1+
   # The name of the RSC service account.
   serviceAccountName: String
+
+  # The configuration for the kupr server proxy to be updated.
+  kuprServerProxyConfig: KuprServerProxyConfigInput
+
+  # Supported in v9.1+
+  # The pull secret required for pulling Rubrik container images.
+  pullSecret: String
+
+  # Supported in v9.1+
+  # The transport type used for communication with the Kubernetes cluster.
+  transport: String
 
   # Supported in v9.1+
   # The client secret for the service account.
@@ -57961,6 +58597,25 @@ type KnowledgeBaseArticle {
   # A flattened list of nodes representing the summary section of the knowledge base article.
   summary: [ContentNode!]!
 }
+# The Statistics of the Kosmos workload Snapshots.
+type KosmosDataSnapshotStats {
+  # The number of used inodes.
+  usedInodes: Long
+
+  # Total number of inodes.
+  totalInodes: Long
+
+  # The amount of logical space used.
+  logicalBytes: Long!
+
+  # The amount of physical space used.
+  physicalBytes: Long!
+}
+# Kosmos workload Snapshot related app metadata for a Snapshot.
+type KosmosWorkloadAppMetadata {
+  # The Statistics of the Kosmos workload Snapshots.
+  stats: KosmosDataSnapshotStats!
+}
 # Kubernetes cluster.
 type KubernetesCluster implements HierarchyObject , CdmHierarchyObject {
   # ID of Kubernetes ProtectionSet on Rubrik CDM.
@@ -58390,7 +59045,10 @@ type KubernetesProtectionSet implements HierarchyObject , HierarchySnappable , C
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -58408,6 +59066,9 @@ type KubernetesProtectionSet implements HierarchyObject , HierarchySnappable , C
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -58462,6 +59123,17 @@ enum KuprClusterPortsType {
 
   # USER_DRIVEN type of ports.
   USER_DRIVEN
+}
+# The configuration of kupr server proxy.
+input KuprServerProxyConfigInput {
+  # Port number of kupr server proxy for nodeport.
+  port: Int
+
+  # Required. Public Certificate of kupr server proxy.
+  cert: String!
+
+  # Required. The IP address of kupr server proxy for either nodeport or loadbalancer.
+  ipAddress: String!
 }
 type Label {
   key: String!
@@ -59160,7 +59832,10 @@ type LinuxFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -59178,6 +59853,9 @@ type LinuxFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -59266,6 +59944,25 @@ type ListIntegrationsReply {
 type ListLocationsReply {
   # List of Ransomware Investigation workload locations.
   locations: [String!]!
+}
+# Configuration for the retrieval or directory object attributes.
+input ListM365DirectoryObjectAttributesInput {
+  # UUID of the org.
+  orgId: String = ""
+
+  # The directory object type applicable for attributes.
+  objectType: DirectoryObjectType = UNSPECIFIED
+
+  # The attribute type definitions to retrieve. For more information, see https://learn.microsoft.com/en-us/graph/extensibility-overview.
+  attributeType: AttributeType = ATTRIBUTE_UNSPECIFIED
+
+  # Attribute definitions prefixes that you must match.
+  searchTextPrefix: String = ""
+}
+# List O365 directory object response.
+type ListO365DirectoryObjectAttributesResp {
+  # Response of M365DirectoryObjectAttributes operation and the holding list of queried directory object attributes.
+  attributes: [DirectoryObjectAttribute!]!
 }
 input ListObjectFilesFiltersInput {
   openAccessTypes: [OpenAccessType!] = []
@@ -60652,7 +61349,10 @@ type ManagedVolume implements HierarchyObject , CdmHierarchyObject , CdmHierarch
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -60670,6 +61370,9 @@ type ManagedVolume implements HierarchyObject , CdmHierarchyObject , CdmHierarch
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -61827,6 +62530,9 @@ type Metadata {
 }
 # The types of metadata key.
 enum MetadataKey {
+  # Flag to determine if a row is expandable.
+  CAN_TABLE_ROW_EXPAND
+
   # Cluster ID used to generate cluster hyperlink.
   CLUSTER_LINK_ID
 
@@ -61847,6 +62553,12 @@ enum MetadataKey {
 
   # Table cell dot color.
   TABLE_CELL_DOT_COLOR
+
+  # Row hover color.
+  TABLE_ROW_HOVER_COLOR
+
+  # Name of the table row.
+  TABLE_ROW_NAME
 }
 # The generic Metadata with a list of key-values pairs.
 type MetadataV2 {
@@ -62482,7 +63194,10 @@ type MongoCollectionSet implements HierarchyObject , CdmHierarchyObject , MongoS
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -62500,6 +63215,9 @@ type MongoCollectionSet implements HierarchyObject , CdmHierarchyObject , MongoS
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -65554,6 +66272,14 @@ type MountedVolume {
   # Mount path in host.
   hostMountPath: String
 }
+# Additional information for `DISCOVERED_MSSQL_OBJECTS_NOTIFICATIONS_POLLER` jobs.
+input MssqlAddHostOperation {
+  # FID of the host that was added.
+  hostFid: String = ""
+
+  # ID of user who initiated the add host operation.
+  userId: String = ""
+}
 # Backup metadata for a Mssql snapshot.
 type MssqlAppMetadata {
   # End timestamp for the backup.
@@ -66351,7 +67077,10 @@ type MssqlDatabase implements HierarchyObject , CdmHierarchyObject , HierarchySn
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -66369,6 +67098,9 @@ type MssqlDatabase implements HierarchyObject , CdmHierarchyObject , HierarchySn
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -66884,6 +67616,14 @@ input MssqlDbUpdateInput {
 
   # Supported in Rubrik cluster versions 9.0 and later. Non-SLA-Domain properties of a SQL Server database.
   mssqlSlaRelatedProperties: MssqlSlaRelatedPropertiesInput
+
+  # Supported in v9.2
+  # Specifies whether to clear the post-backup script. When true, the post-backup script parameters are cleared and set to null.
+  shouldClearPostBackupScript: Boolean
+
+  # Supported in v9.2
+  # Specifies whether to clear the pre-backup script. When true, the pre-backup script parameters are cleared and set to null.
+  shouldClearPreBackupScript: Boolean
 }
 # Supported in v5.0+
 type MssqlDefaultPropertiesOnClusterReply {
@@ -68273,7 +69013,7 @@ type NasFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hiera
   # Whether optimized backup of hardlinks is supported on this fileset.
   hardlinkSupportEnabled: Boolean!
 
-  # Information pertaining to migration of the NAS host from Rubrik CDM to RSC.
+  # Information pertaining to switching the NAS host from Rubrik CDM to RSC.
   nasMigrationInfo: String!
 
   # The object's FID.
@@ -68432,7 +69172,10 @@ type NasFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hiera
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -68450,6 +69193,9 @@ type NasFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hiera
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -69634,6 +70380,10 @@ input NasSystemUpdateInput {
   # Supported in v7.0+
   # The updated API credentials of the NAS system.
   nasApiCredentials: NasApiCredentialsInput
+
+  # Supported in v9.0+
+  # Optional parameter that specifies whether to remove the system-generated (not user-supplied) SMB credentials in namespaces and recreate them. If this parameter is true, the system-generated SMB credentials in all namespaces are removed. In addition, when the NAS system does not have user-supplied (system level) SMB credentials, new SMB credentials are generated in each namespace that does not have user-supplied (namespace level) SMB credentials. The API credentials must be provided when this parameter is true.
+  shouldResetGeneratedNamespaceSmbCredentials: Boolean
 
   # Supported in v8.1+
   nasFlashBladeApiCredentials: FlashBladeSystemParametersInput
@@ -71974,15 +72724,19 @@ type NutanixClusterSummary {
   username: String!
   slaAssignable: SlaAssignable
 
+  # Supported in v9.1+
   # The name of the Nutanix Prism Central to which this Nutanix cluster belongs.
   prismCentralName: String
 
+  # Supported in v9.1+
   # Nutanix Operating System version of the Nutanix cluster.
   version: String
 
+  # Supported in v9.1+
   # The ID of the Nutanix Prism Central to which this Nutanix cluster belongs.
   prismCentralId: String
 
+  # Supported in v9.1+
   # Last refresh time of the Nutanix cluster.
   lastRefreshTime: DateTime
   snapshotConsistencyMandate: CdmNutanixSnapshotConsistencyMandate
@@ -72865,6 +73619,44 @@ interface NutanixTopLevelDescendantType {
   # The organizations to which this hierarchy object belongs.
   allOrgs: [Org!]!
 }
+# Supported in v5.2+
+type NutanixVirtualDiskSummary {
+  # Supported in v5.2+
+  # Type of virtual disk.
+  deviceType: String
+
+  # Supported in v5.2+
+  # Size of the virtual disk in bytes.
+  sizeInBytes: Long
+
+  # Supported in v5.2-v5.3
+  # UUID of the disk
+  uuid: String
+
+  # Supported in v6.0+
+  # Specifies whether the Nutanix device can create a snapshot of the disk. Value is true when a snapshot can be created.
+  isSnapshottable: Boolean
+
+  # Supported in v6.0+
+  # Label of the disk assigned by Nutanix.
+  label: String
+
+  # Supported in v6.0+
+  # UUID of the virtual machine disk.
+  vmDiskUuid: String
+}
+# Supported in v6.0+
+type NutanixVirtualMachineScriptDetail {
+  # Required. Supported in v6.0+
+  # v6.0-v8.0: The command to be run in VM guest OS.
+  # v8.1+: The command to be run in virtual machine guest OS.
+  scriptPath: String!
+
+  # Required. Supported in v6.0+
+  # Time (in ms) after which the script will be terminated if it has not completed.
+  timeoutMs: Long!
+  failureHandling: NutanixVirtualMachineScriptDetailFailureHandling!
+}
 enum NutanixVirtualMachineScriptDetailFailureHandling {
   NUTANIX_VIRTUAL_MACHINE_SCRIPT_DETAIL_FAILURE_HANDLING_ABORT
   NUTANIX_VIRTUAL_MACHINE_SCRIPT_DETAIL_FAILURE_HANDLING_CONTINUE
@@ -72922,6 +73714,15 @@ type NutanixVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
 
   # ID of the AHV host where virtual machine is located. This field will be set to null if not provided by Nutanix.
   currentHostId: String
+
+  # Specifies whether the virtual machine belongs to a disaster recovery.
+  isBlueprintChild: Boolean!
+
+  # Name of the Recovery Plan this Nutanix virtual machine belongs to.
+  blueprintName: String
+
+  # ID of the Recovery Plan this Nutanix virtual machine belongs to.
+  blueprintId: String
 
   # Object ID.
   id: UUID!
@@ -73085,7 +73886,10 @@ type NutanixVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -73103,6 +73907,9 @@ type NutanixVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -73166,6 +73973,27 @@ type NutanixVmConnection {
 
   # Total number of NutanixVm objects matching the request arguments.
   count: Int!
+}
+# Supported in v5.0+
+type NutanixVmDetail {
+  # Required. Supported in v5.0+
+  # A list of virtual disk IDs to exclude from the backup for this virtual machine.
+  excludedDiskIds: [String!]!
+
+  # Required. Supported in v5.0+
+  # Returns whether the Rubrik connector is installed and service is registered.
+  isAgentRegistered: Boolean!
+
+  # Required. Supported in v5.0+
+  # Whether backup/archival/replication is paused for this System Volume.
+  isPaused: Boolean!
+
+  # Supported in v5.2+
+  # Information of all the virtual disks for this virtual machine.
+  virtualDisks: [NutanixVirtualDiskSummary!]!
+  nutanixVmPatch: NutanixVmPatch
+  nutanixVmSummary: NutanixVmSummary
+  blackoutWindowResponseInfo: BlackoutWindowResponseInfo
 }
 # Nutanix Virtual Machine disk details.
 type NutanixVmDisk {
@@ -73352,6 +74180,34 @@ type NutanixVmMountSummary {
   mountStatus: NutanixVmMountStatus
 }
 # Supported in v5.0+
+type NutanixVmPatch {
+  # Supported in v5.0+
+  # v5.0-v5.1: Assign this VM to the given SLA domain.
+  # v5.2-v8.0: Assign this VM to the given SLA domain. Existing snapshots of the object will be retained with the configuration of specified SLA Domain.
+  # v8.1+: Assigns this virtual machine to the given SLA domain. Existing snapshots of the object will be retained with the configuration of specified SLA Domain.
+  configuredSlaDomainId: String
+
+  # Supported in v5.0+
+  # A list of virtual disks IDs to exclude from the backup for this virtual machine.
+  excludedDiskIds: [String!]!
+
+  # Supported in v5.0+
+  # v5.0-v5.3: Whether backup/archival/replication is paused for this VM
+  # v6.0-v8.0: Whether backup/archival/replication is paused for this VM.
+  # v8.1+: Specifies whether backup/archival/replication is paused for this virtual machine.
+  isPaused: Boolean
+
+  # Supported in v6.0+
+  postBackupScript: NutanixVirtualMachineScriptDetail
+
+  # Supported in v6.0+
+  postSnapScript: NutanixVirtualMachineScriptDetail
+
+  # Supported in v6.0+
+  preBackupScript: NutanixVirtualMachineScriptDetail
+  snapshotConsistencyMandate: CdmNutanixSnapshotConsistencyMandate
+}
+# Supported in v5.0+
 input NutanixVmPatchInput {
   # Assigns this virtual machine to the given SLA domain. Existing snapshots of the object will be retained with the configuration of specified SLA Domain.
   configuredSlaDomainId: String
@@ -73414,6 +74270,44 @@ type NutanixVmSnapshotSummary {
 
   # This field contains the base information of a snapshot which are common across other workloads.
   baseSnapshotSummary: BaseSnapshotSummary
+}
+# Supported in v5.0+
+type NutanixVmSummary {
+  # Required. Supported in v5.0+
+  id: String!
+
+  # Required. Supported in v5.0+
+  # v5.0-v5.3: Whether this Nutanix VM is currently present on the Nutanix cluster
+  # v6.0-v8.0: Whether this Nutanix VM is currently present on the Nutanix cluster.
+  # v8.1+: Specifies whether this Nutanix virtual machine is currently present on the Nutanix cluster.
+  isRelic: Boolean!
+
+  # Required. Supported in v5.0+
+  name: String!
+
+  # Supported in v5.0+
+  # v5.0-v5.3: The ID of the Nutanix cluster to which this VM belongs
+  # v6.0-v8.0: The ID of the Nutanix cluster to which this VM belongs.
+  # v8.1+: The ID of the Nutanix cluster to which this virtual machine belongs.
+  nutanixClusterId: String
+
+  # Supported in v5.0+
+  # v5.0-v5.3: The name of the Nutanix cluster to which this VM belongs
+  # v6.0-v8.0: The name of the Nutanix cluster to which this VM belongs.
+  # v8.1+: The name of the Nutanix cluster to which this virtual machine belongs.
+  nutanixClusterName: String
+  snappable: CdmWorkload
+  agentConnectStatus: AgentConnectStatus
+  operatingSystemType: OperatingSystemType
+  snapshotConsistencyMandate: CdmNutanixSnapshotConsistencyMandate!
+
+  # Supported in v5.0+
+  # The status of the Rubrik Backup Service agent for Nutanix virtual machines.
+  agentStatus: CdmAgentStatus
+
+  # Supported in v5.3+
+  # Describes any pending SLA Domain assignment on this object.
+  pendingSlaDomain: ManagedObjectPendingSlaInfo
 }
 type O365App implements O365AppObject {
   # The ID of the O365 app.
@@ -73919,7 +74813,13 @@ type O365Email implements O365ExchangeObject {
   receivedDateTime: DateTime
   parentFolderId: String
   snapshotNum: Int
+
+  # The timestamp when the email was last modified.
+  lastModifiedDateTime: DateTime
   snapshotId: UUID
+
+  # Type of hierarchy for the specified email.
+  hierarchyType: ExchangeItemHierarchyType!
 }
 interface O365ExchangeObject {
   # The ID of the O365 exchange object.
@@ -73956,6 +74856,9 @@ type O365Folder implements O365ExchangeObject {
   parentFolderId: String
   snapshotNum: Int
   snapshotId: UUID
+
+  # Type of hierarchy for the specified folder.
+  hierarchyType: ExchangeItemHierarchyType!
 }
 # An O365 SharePoint descendant object.
 type O365FullSpDescendant implements O365FullSpObject {
@@ -76824,6 +77727,16 @@ enum OpenAccessType {
   NOT_OPEN
   UNKNOWN_ACCESS
 }
+# Supported in v5.0+
+# Operating system of a specified machine.
+enum OperatingSystemType {
+  OPERATING_SYSTEM_TYPE_AIX
+  OPERATING_SYSTEM_TYPE_HPUX
+  OPERATING_SYSTEM_TYPE_LINUX
+  OPERATING_SYSTEM_TYPE_SUN_OS
+  OPERATING_SYSTEM_TYPE_UNKNOWN
+  OPERATING_SYSTEM_TYPE_WINDOWS
+}
 # Operations defined in the RBAC system.
 enum Operation {
   # Access Rubrik clusters via federated access.
@@ -77014,6 +77927,9 @@ enum Operation {
   # Use the Rubrik cluster as a replication target.
   USE_AS_REPLICATION_TARGET
   VIEW_ACCESS
+
+  # View anomaly detection results.
+  VIEW_ANOMALY_DETECTION_RESULTS
 
   # View archival location.
   VIEW_ARCHIVAL_LOCATION
@@ -77447,7 +78363,10 @@ type OracleDataGuardGroup implements HierarchyObject , HierarchySnappable , CdmH
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -77465,6 +78384,9 @@ type OracleDataGuardGroup implements HierarchyObject , HierarchySnappable , CdmH
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -77929,7 +78851,10 @@ type OracleDatabase implements HierarchyObject , CdmHierarchyObject , HierarchyS
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -77947,6 +78872,9 @@ type OracleDatabase implements HierarchyObject , CdmHierarchyObject , HierarchyS
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -79720,7 +80648,7 @@ type Org {
   allUrls: [String!]!
 
   # All cluster capacity quotas enforced on the organization.
-  allClusterCapacityQuotas: [ClusterCapacityQuota!]!
+  allClusterCapacityQuotas: [ClusterWithCapacityQuota!]!
 
   # Specifies cross-account capabilities enabled for this organization.
   crossAccountCapabilities: [CrossAccountCapability!]!
@@ -80476,9 +81404,6 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
   # The Oracle User details of this Physical Host.
   oracleUserDetails: OracleUserDetails
 
-  # Information pertaining to migration of the NAS host from Rubrik CDM to RSC.
-  nasMigrationInfo: String
-
   # Specifies the NAS vendor, which can be ISILON, NETAPP, FLASHBLADE, or NUTANIX.
   nasVendorType: String
 
@@ -80496,6 +81421,9 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
 
   # The CBT status of this Physical Host.
   cbtStatus: String
+
+  # Information pertaining to switching the NAS host from Rubrik CDM to RSC.
+  nasMigrationInfo: String
 
   # A link to view the workload on the Rubrik cluster. Currently for Volume Group use only.
   cdmLink: String!
@@ -81699,6 +82627,9 @@ input PrepareAwsCloudAccountDeletionInput {
 
   # Role customization options.
   awsRoleCustomization: AwsRoleCustomization
+
+  # The internal ID of the IAM pair. This field is required only when the feature to be deleted is DATA_CENTER_ROLE_BASED_ARCHIVAL.
+  awsIamPairId: String
 }
 # Prepares AWS cloud account for deletion and initiates deletion of the account.
 type PrepareAwsCloudAccountDeletionReply {
@@ -81724,6 +82655,9 @@ input PrepareFeatureUpdateForAwsCloudAccountInput {
 
   # Role customization options.
   awsRoleCustomization: AwsRoleCustomization
+
+  # Internal ID of the IAM pair. This field is required only when the feature to be updated is DATA_CENTER_ROLE_BASED_ARCHIVAL.
+  awsIamPairId: String
 }
 # Response to prepare updation of AWS cloud account.
 type PrepareFeatureUpdateForAwsCloudAccountReply {
@@ -81762,6 +82696,9 @@ type Principal {
   name: String!
   email: String
   description: String
+
+  # Name of the authentication domain.
+  authDomainName: String!
 }
 # PrincipalAccessInfo represents the principal access info.
 type PrincipalAccessInfo {
@@ -81798,6 +82735,9 @@ type PrincipalCounts {
 
   # Number of principals.
   totalCount: SummaryCount
+
+  # Number of No-risk principals.
+  noRiskCount: SummaryCount
 }
 # Wrapper around the Principal object. This wrapper is used for pagination.
 type PrincipalEdge {
@@ -83051,6 +83991,9 @@ type RcvEntitlement {
 
   # Rubrik Cloud Vault (RCV) redundancy level.
   redundancy: RcvRedundancy!
+
+  # Rubrik Cloud Vault (RCV) entitlement creation date.
+  createdAt: DateTime
 }
 # Rubrik Cloud Vault (RCV) entitlement with expiration date.
 type RcvEntitlementWithExpirationDate {
@@ -83068,6 +84011,9 @@ type RcvEntitlementWithExpirationDate {
 
   # Rubrik Cloud Vault (RCV) redundancy level.
   redundancy: RcvRedundancy!
+
+  # Rubrik Cloud Vault (RCV) entitlement creation date.
+  createdAt: DateTime
 }
 # Rubrik Cloud Vault (RCV) entitlement with order number.
 type RcvEntitlementWithOrderNumber {
@@ -83098,6 +84044,35 @@ enum RcvRedundancy {
 
   # Rubrik Cloud Vault (RCV) Azure redundancy unknown.
   UNKNOWN_AZURE_REDUNDANCY
+}
+# Current redundancy state for an RCV archival location.
+enum RcvRedundancyState {
+  # RCV Location redundancy state is primary fail-over in progress.
+  P_FIP
+
+  # RCV Location redundancy state is primary geo-redundant.
+  P_GRS
+
+  # RCV Location redundancy state is primary local-redundant.
+  P_LRS
+
+  # RCV Location redundancy state is primary re-establishment in progress.
+  P_RIP
+
+  # RCV Location redundancy state is secondary fail-over in progress.
+  S_FIP
+
+  # RCV Location redundancy state is secondary geo-redundant.
+  S_GRS
+
+  # RCV Location redundancy state is secondary local-redundant.
+  S_LRS
+
+  # RCV Location redundancy state is secondary re-establishment in progress.
+  S_RIP
+
+  # RCV Location redundancy state is unknown.
+  UNKNOWN_REDUNDANCY_STATE
 }
 # Rubrik Cloud Vault (RCV) region bundle.
 enum RcvRegionBundle {
@@ -83847,6 +84822,9 @@ type ReplicationCluster {
 
   # The account name that the Rubrik cluster is associated with.
   accountName: String!
+
+  # Air-gap status of the Rubrik cluster.
+  isAirGapped: Boolean!
 }
 # Gateway information for a Rubrik cluster.
 input ReplicationGatewayInfo {
@@ -83955,6 +84933,14 @@ type ReplicationPairEdge {
   # The actual ReplicationPair object wrapped by this edge.
   node: ReplicationPair!
 }
+# Datacenter replication pair.
+input ReplicationPairInput {
+  # ID of the source cluster.
+  sourceClusterId: UUID!
+
+  # ID of the target cluster.
+  targetClusterId: UUID!
+}
 # Filter for replication pairs request.
 input ReplicationPairsQueryFilter {
   # Rubrik cluster name.
@@ -84053,6 +85039,9 @@ type ReplicationSpecV2 {
   # Rubrik cluster used as the replication target.
   cluster: SlaReplicationCluster
 
+  # Datacenter replication pairs.
+  replicationPairs: [SlaReplicationPair!]
+
   # AWS region.
   awsRegion: String!
 
@@ -84087,6 +85076,9 @@ input ReplicationSpecV2Input {
 
   # Cascading Archival Specifications.
   cascadingArchivalSpecs: [CascadingArchivalSpecInput!] = []
+
+  # Datacenter replication pairs.
+  replicationPairs: [ReplicationPairInput!] = []
 
   # AWS region.
   awsRegion: AwsNativeRegionForReplication
@@ -85041,6 +86033,12 @@ input RestoreO365TeamsConversationsInput {
   #  Specifies whether a new destination channel needs to be created in Teams.
   shouldCreateDestChannel: Boolean!
 
+  # Recovery action type for the restore job.
+  actionType: O365RestoreActionType
+
+  # In-place restore configuration for the restore job.
+  inplaceRestoreConfig: InplaceRestoreConfig
+
   #  Information about the destination channel conversation.
   channelInfoForFullRestore: O365TeamConvChannelInput
 
@@ -85082,8 +86080,11 @@ input RestoreO365TeamsFilesInput {
   # Specifies whether destination channel should be created.
   shouldCreateDestChannel: Boolean!
 
-  # Recovery action type for the job.
+  # Recovery action type for the restore job.
   actionType: O365RestoreActionType!
+
+  # In-place restore configuration for the restore job.
+  inplaceRestoreConfig: InplaceRestoreConfig
 
   # Indicates whether the channel being restored is STANDARD or PRIVATE.
   channelRecoveryType: ChannelMembershipType!
@@ -85265,6 +86266,9 @@ enum RiskReason {
   # Risk due to medium-risk analyzer hits.
   MEDIUM_RISK_ANALYZER_HITS
 
+  # Risk due to no-risk analyzer hits.
+  NO_RISK_ANALYZER_HITS
+
   # Risk due to open access.
   OPEN_ACCESS
 
@@ -85433,6 +86437,9 @@ type RouteConfig {
 type Row {
   values: [CellData!]!
   metadata: [Metadata!]!
+
+  # New version of metadata object.
+  metadataV2: [MetadataV2!]!
 }
 # Paginated list of Row objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type RowConnection {
@@ -85957,6 +86964,15 @@ type RubrikManagedRcsTarget implements Target {
 
   # Tiers for RCV target.
   tier: RcsTierEnumType!
+
+  # Redundancy for RCV target.
+  redundancy: RcvRedundancy!
+
+  # Redundancy state for RCV target.
+  redundancyState: RcvRedundancyState!
+
+  # Last time when redundancy state was synchronized for the RCV target.
+  lastRedundancySyncTime: DateTime
 
   # Space usage threshold of RCV target above which alert will be raised.
   spaceUsageAlertThreshold: Int!
@@ -86520,14 +87536,17 @@ type SapHanaDatabase implements CdmHierarchyObject , CdmHierarchySnappableNew , 
     # Field to filter SAP HANA log snapshots.
     filter: SapHanaLogSnapshotFilterInput): SapHanaLogSnapshotConnection!
 
-  # The oldest snapshot for SAP HANA database.
+  # The oldest snapshot for SAP HANA workload.
   oldestSnapshot: CdmSnapshot
 
-  # The most recent snapshot for SAP HANA database.
+  # The most recent snapshot for SAP HANA workload.
   newestSnapshot: CdmSnapshot
 
-  # The number of on-demand snapshots for SAP HANA database.
+  # The number of on-demand snapshots for SAP HANA workloads.
   onDemandSnapshotCount: Int!
+
+  # The total number of snapshots for SAP HANA workloads.
+  totalSnapshotCount: Int!
 
   # Rubrik cluster where this object originated.
   cluster: Cluster!
@@ -86679,7 +87698,10 @@ type SapHanaDatabase implements CdmHierarchyObject , CdmHierarchySnappableNew , 
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -86697,6 +87719,9 @@ type SapHanaDatabase implements CdmHierarchyObject , CdmHierarchySnappableNew , 
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -87424,7 +88449,10 @@ type SapHanaSystem implements CdmHierarchyObject , CdmHierarchySnappableNew , Hi
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -87442,6 +88470,9 @@ type SapHanaSystem implements CdmHierarchyObject , CdmHierarchySnappableNew , Hi
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -87963,6 +88994,9 @@ type ScheduledReport {
   # List of email addresses of (non-Rubrik user) recipients of the scheduled report.
   recipientEmails: [String!]!
 
+  # Time zone of the schedule time in IANA format.
+  timeZone: String!
+
   # Weekdays for report delivery if weekly schedule is enabled.
   weeklyDays: [WeekDay!]
 }
@@ -88004,6 +89038,9 @@ input ScheduledReportCreate {
 
   # List of email addresses of non-Rubrik user recipients of the scheduled report.
   nonRubrikRecipientEmails: [String!]!
+
+  # Time zone of the schedule time in IANA format.
+  timeZone: String
 
   # Specifies whether to update the creator with the current user. This is typically used when the user account that was the schedule creator has been deleted from Rubrik. It will be null in createScheduledReport.
   updateCreator: Boolean
@@ -88236,6 +89273,9 @@ type SensitiveFiles {
 
   # Total sensitive files.
   totalFileCount: SummaryCount
+
+  # No-risk sensitive files.
+  noRiskFileCount: SummaryCount
 }
 # Sensitive hits for different risk categories.
 type SensitiveHits {
@@ -88250,6 +89290,9 @@ type SensitiveHits {
 
   # Total sensitive hits.
   totalHits: SummaryHits
+
+  # No risk-sensitive hits.
+  noRiskHits: SummaryHits
 }
 # A server can perform a wide range of roles.
 enum ServerRoles {
@@ -88305,6 +89348,16 @@ type ServiceAccountEdge {
 enum ServiceAccountSortBy {
   # Name of the service account.
   NAME
+}
+# Holds the configuration of the ServiceNow integration.
+type ServiceNowItsmIntegrationConfig {
+  # The service account ID.
+  serviceAccountId: String!
+}
+# Holds the configuration of the ServiceNow integration.
+input ServiceNowItsmIntegrationConfigInput {
+  # The service account ID.
+  serviceAccountId: String!
 }
 # Status of the Active Directory service.
 enum ServiceStatus {
@@ -88395,6 +89448,9 @@ input SetBundleApprovalStatusInput {
 
   # The desired status of the bundle.
   approvalStatus: ExoBundleApprovalStatus!
+
+  # Metadata associated with an Exocompute container image bundle.
+  bundleMetadata: BundleMetadataInput
 }
 # Input to set customer-specified tags for a particular cloud type.
 input SetCustomerTagsInput {
@@ -88751,7 +89807,10 @@ type ShareFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -88769,6 +89828,9 @@ type ShareFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -89394,6 +90456,9 @@ enum SlaMigrationIneligibilityReason {
   # The SLA Domain has retention lock configured, which is not supported in Rubrik currently.
   RETENTION_LOCK_CONFIGURED
 
+  # The SLA Domain on RSC is out of synchronization. To resynchronize, edit the local SLA Domain without making configuration changes.
+  SLA_OUT_OF_SYNC_ON_RSC
+
   # The Two-person rule is enabled on the Rubrik cluster, which is not supported for SLA Domain migration.
   TPR_ENABLED_ON_CLUSTER
 
@@ -89548,6 +90613,14 @@ type SlaReplicationCluster {
 
   # Version of the replication cluster.
   version: String
+}
+# Datacenter replication pair.
+type SlaReplicationPair {
+  # The cluster from which the SLA Domain replicates the snapshots.
+  sourceCluster: UUID!
+
+  # The cluster to which the SLA Domain replicates the snapshots.
+  targetCluster: UUID!
 }
 type SlaResult {
   success: Boolean!
@@ -89772,6 +90845,9 @@ input SmbDomainJoinRequestInput {
   # Supported in v5.0+
   # A Boolean value that determines whether to run the SMB service when no shares are exposed. When this value is 'true,' the SMB service runs even when no shares are exposed. When this value is 'false,' the SMB service does not run when no shares are exposed.
   isStickySmbService: Boolean
+
+  # Organizational network ID used by the domain. Applicable only when Rubrik Envoy is used to reach SMB domain from the Rubrik cluster.
+  orgNetworkId: String
 
   # Required. Supported in v5.0+
   # Password for joining Active Directory.
@@ -93410,6 +94486,9 @@ enum TargetQueryFilterField {
   # Filter archival locations by the RSC-managed ID or the CDM FID.
   LOCATION_ID
 
+  # Filter by redundancy for RCV archival location.
+  LOCATION_REDUNDANCY
+
   # Filter RSC archival locations by region.
   LOCATION_REGION
 
@@ -93487,6 +94566,12 @@ input TargetToClusterMapping {
 enum TargetType {
   # Amazon S3 type of archival location.
   AWS
+
+  # AWS secret region (DCA) type of archival location.
+  AWS_SECRET_REGION_DCA
+
+  # AWS secret region (LCK) type of archival location.
+  AWS_SECRET_REGION_LCK
 
   # Azure container type of archival location.
   AZURE
@@ -94421,6 +95506,8 @@ type TimelineEntry {
   policyId: String!
   hits: Hits
 }
+# Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+scalar Timezone
 # Total Risk Summary Details.
 type TotalRiskSummary {
   # Total number of hits.
@@ -94857,6 +95944,16 @@ input UnmountInfo {
   # ID of the Live Mount.
   liveMountFid: String = ""
 }
+# Input for updating Rubrik Backup Service deployment settings.
+input UpdateAgentDeploymentSettingInBatchInput {
+  # List of Rubrik Backup Service deployment settings.
+  requests: [UpdateVmAgentDeploymentSettingInput!]!
+}
+# Response of updating Rubrik Backup Service deployment settings.
+type UpdateAgentDeploymentSettingInBatchReply {
+  # List of Rubrik Backup Service deployment settings.
+  settings: [AgentDeploymentSettingsInfo!]!
+}
 # Specifies the information about the auth domain users to be hidden or unhidden.
 input UpdateAuthDomainUsersHiddenStatusInput {
   # Required. Specifies the user IDs of the auth domain users to update hidden status for.
@@ -95080,6 +96177,9 @@ input UpdateAwsTargetInput {
 
   # Specifies whether the proxy settings should be bypassed for creating this target location.
   bypassProxy: Boolean
+
+  # Internal ID of the AWS IAM pair. This field is required only when editing Data Center AWS role-based archival locations.
+  awsIamPairId: String
 }
 # Input for editing an Azure account.
 input UpdateAzureAccountInput {
@@ -95384,6 +96484,9 @@ input UpdateConfiguredGroupInput {
   # The updated preferred data locations configured for this group. When empty, group members will not be constrained on data location.
   updatedPdls: [String!]!
 
+  # The updated group filter attributes for the configured group.
+  updatedGroupFilterAttributes: [GroupFilterAttribute!]
+
   # When true, the group will be archived.
   performArchival: Boolean!
 }
@@ -95684,7 +96787,7 @@ input UpdateGlobalSlaInput {
   # Backup Window specifications for SLA Domain.
   backupWindows: [BackupWindowInput!] = []
 
-  # Log configuration of the SLA Domain.
+  # Log configuration of the SLA Domain. Deprecated: use objectSpecificConfigs instead.
   logConfig: LogConfig
 
   # Object-specific configuration of the SLA Domain.
@@ -97571,6 +98674,9 @@ enum UserAuditObjectTypeEnum {
   # MSSQL database type.
   MssqlDatabase
 
+  # Nutanix Era type.
+  NUTANIX_ERA
+
   # Nutanix Prism Central type.
   NUTANIX_PRISM_CENTRAL
 
@@ -98182,6 +99288,12 @@ type ValidReplicationTarget {
   # API version of the Rubrik cluster.
   apiVersion: String!
 
+  # Specifies whether the Rubrik cluster is cross-account.
+  isCrossAccount: Boolean!
+
+  # Air-gap status of the Rubrik cluster.
+  isAirGapped: Boolean!
+
   # UUID of the Rubrik cluster.
   uuid: UUID!
 }
@@ -98226,6 +99338,9 @@ input ValidateAndCreateAwsCloudAccountInput {
 
   # List of cloud account features with specific permissions groups to onboard. This list is a valid input only for customer-managed cluster users.
   featuresWithPermissionsGroups: [FeatureWithPermissionsGroups!]
+
+  # Details of IAM role to be used for data center role-based archival.
+  awsIamPair: AwsIamPairInput
 }
 # Aws cloud accounts validate response.
 type ValidateAndCreateAwsCloudAccountReply {
@@ -100000,7 +101115,10 @@ type VcdVapp implements HierarchyObject , CdmHierarchyObject , HierarchySnappabl
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -100018,6 +101136,9 @@ type VcdVapp implements HierarchyObject , CdmHierarchyObject , HierarchySnappabl
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -100453,6 +101574,9 @@ enum VcenterProxyVmsFilterField {
 
   # Include total count filter for HotAdd proxy virtual machine results.
   INCLUDE_COUNT
+
+  # Filters by HotAdd proxy virtual machine name.
+  NAME
 }
 # Filter for vcenter hotadd proxy virtual machine results.
 input VcenterProxyVmsFilterInput {
@@ -100943,6 +102067,11 @@ input VmImageUrlInput {
 
   # Type of hypervisor.
   hypervisorType: NcdHypervisorType!
+}
+# IDs of vSphere virtual machines whose RBS installation needs to be switched to a different primary Rubrik cluster.
+input VmMakePrimaryInput {
+  # Required. IDs of hosts to migrate.
+  ids: [String!]!
 }
 # Vapp virtual machine IP addressing mode.
 enum VmNetworkAddressingMode {
@@ -104508,6 +105637,9 @@ type VsphereProxyVmInfo {
 
   # The network configuration of the HotAdd proxy virtual machine.
   networkInfo: VsphereProxyVmNetworkInfo
+
+  # Cluster for the HotAdd proxy virtual machine.
+  cluster: Cluster!
 }
 # Paginated list of VsphereProxyVmInfo objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type VsphereProxyVmInfoConnection {
@@ -106450,7 +107582,10 @@ type VsphereVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -106468,6 +107603,9 @@ type VsphereVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -106676,6 +107814,11 @@ type VsphereVmListEsxiDatastoresReply {
   # v9.1+: Cursor to retrieve the next set of results.
   nextCursor: String
 }
+# Additional info for `VSPHERE_VM_MAKE_PRIMARY` jobs.
+input VsphereVmMakePrimaryInfo {
+  # FIDs of the VMs.
+  vmFids: [String!] = []
+}
 # Input for relocating vSphere mount.
 input VsphereVmMountRelocateInput {
   # Required. Configuration for the RelocateMount request to another data store.
@@ -106742,6 +107885,17 @@ input VsphereVmRegisterAgentInput {
 
   # Required. ID assigned to a virtual machine object.
   id: String!
+}
+# Input for register vSphere agent.
+input VsphereVmRegisterAgentWithOrgInput {
+  # ID of vSphere Virtual Machine.
+  id: String!
+
+  # ID of the org network this Virtual Machine resides in.
+  orgNetworkIdOpt: String
+
+  # Uuid of the CDM cluster.
+  clusterUuid: UUID!
 }
 # Input for warm search cache for an O365 workload.
 input WarmSearchCacheInput {
@@ -107406,7 +108560,10 @@ type WindowsFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , H
     filter: CdmSnapshotFilterInput,
 
     # Groups snapshots by field.
-    groupBy: CdmSnapshotGroupByEnum!): CdmSnapshotGroupByConnection
+    groupBy: CdmSnapshotGroupByEnum!,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone): CdmSnapshotGroupByConnection
 
   # GroupBy connection for the snapshots of this workload.
   snapshotGroupBySummary(
@@ -107424,6 +108581,9 @@ type WindowsFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , H
 
     # Offset based on customer timezone.
     timezoneOffset: Float = 0.0,
+
+    # Time zone identifier string, for the U.S. Pacific Time zone, it is 'America/Los_Angeles'.
+    timezone: Timezone,
 
     # Filter snapshot connection.
     filter: CdmSnapshotFilterInput,
@@ -107698,14 +108858,6 @@ type WorkloadTypeToBackupSetupSpecs {
 
   # The object from where the setup specification is inherited.
   setupSourceObject: PathNode!
-}
-# Stores the event count for a workload type.
-type WorkloadTypeToEventCount {
-  # Event count for the above workload type.
-  count: Int!
-
-  # M365 workload type.
-  workloadType: M365DashboardWorkloadType!
 }
 # Supported in v6.0+
 type YARAMatchDetail {
