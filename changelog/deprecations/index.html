@@ -167,6 +167,11 @@
 
              
 <li >
+  <a href="../../use-cases/cloud-native-private-container-registry/">Cloud Native Private Container Registry</a>
+</li>
+
+             
+<li >
   <a href="../../use-cases/slas/">SLA APIs</a>
 </li>
 
@@ -199,6 +204,14 @@
     <li class="first-level active">
       <a href="#deperecations">Deperecations</a>
     </li>
+    <li class="second-level">
+      <a href="#20240801">2024/08/01</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#20240701">2024/07/01</a>
+    </li>
+    
     <li class="second-level">
       <a href="#20240601">2024/06/01</a>
     </li>
@@ -274,24 +287,48 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deperecations">Deperecations</h1>
-<h2 id="20240601">2024/06/01</h2>
+<h2 id="20240801">2024/08/01</h2>
 <ul>
 <li>
-<p>Field <code>logConfig</code> was deprecated in <code>GlobalSlaReply</code> type.</p>
-<p>Reason: Use objectSpecificConfigs instead.
-Scheduled for removal after 2025/05/09.</p>
+<p>Field <code>exportO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use exportO365MailboxV2 instead.
+Scheduled for removal after 2025/06/23.</p>
 </li>
 <li>
-<p>Field <code>updateClusterLocation</code> was deprecated in <code>Mutation</code> type.</p>
-<p>Reason: Deprecated. Use updateClusterSettings instead.
-Scheduled for removal after 2025/04/22.</p>
-</li>
-<li>
-<p>Field <code>mandatoryTotpEnforcementDate</code> was deprecated in <code>GetMfaSettingReply</code> type.</p>
-<p>Reason: Deprecated. Query MandatoryTotpGracePeriod instead.
-Scheduled for removal after 2025/04/26.</p>
+<p>Field <code>restoreO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use restoreO365MailboxV2 instead.
+Scheduled for removal after 2025/06/23.</p>
 </li>
 </ul>
+<h2 id="20240701">2024/07/01</h2>
+<ul>
+<li>
+<p>Field <code>cloudAccountId</code> was deprecated in <code>CcWithCloudInfo</code> type.</p>
+<p>Reason: This field is deprecated because it is no longer used.
+Scheduled for removal after 2025/06/07.</p>
+</li>
+<li>
+<p>Field <code>dataHosts</code> was deprecated in <code>MongoSource</code> type.</p>
+<p>Reason: Use hostDetails instead.
+Scheduled for removal after 2025/05/31.</p>
+</li>
+</ul>
+<h2 id="20240601">2024/06/01</h2>
+<ul>
+<li>Field <code>logConfig</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
+</ul>
+<p>Reason: Use objectSpecificConfigs instead.
+Scheduled for removal after 2025/05/09.</p>
+<ul>
+<li>Field <code>updateClusterLocation</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
+<p>Reason: Deprecated. Use updateClusterSettings instead.
+Scheduled for removal after 2025/04/22.</p>
+<ul>
+<li>Field <code>mandatoryTotpEnforcementDate</code> was deprecated in <code>GetMfaSettingReply</code> type.</li>
+</ul>
+<p>Reason: Deprecated. Query MandatoryTotpGracePeriod instead.
+Scheduled for removal after 2025/04/26.</p>
 <h2 id="20240501">2024/05/01</h2>
 <ul>
 <li>Field <code>maxProtectedAppsCount</code> was deprecated in <code>Query</code> type.</li>
@@ -616,7 +653,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-05-22</small>
+            <small>Revised on: 2024-07-23</small>
             </p>
           
 

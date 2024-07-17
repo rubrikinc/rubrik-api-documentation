@@ -1,0 +1,12 @@
+query ExotaskImageBundle {
+  exotaskImageBundle {
+    bundleVersion
+    repoUrl
+    bundleImages {
+      name
+      tag
+      sha
+    }
+    eksVersion
+  }
+}

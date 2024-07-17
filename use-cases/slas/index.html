@@ -166,6 +166,11 @@
 </li>
 
              
+<li >
+  <a href="../cloud-native-private-container-registry/">Cloud Native Private Container Registry</a>
+</li>
+
+             
 <li class="active" >
   <a href="./">SLA APIs</a>
 </li>
@@ -240,55 +245,55 @@ Examples variables may include SLA ID, SLA Name, or frequency.</p>
 are for illustrative purposes only.</p>
 <pre><code class="language-bash">MUTATION='{
 &quot;query&quot;: &quot;mutation CreateSlaMutation($createGlobalSlaInput: CreateGlobalSlaInput!) {
-&quot;query&quot;: &quot;  createGlobalSla(input: $createGlobalSlaInput) {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}&quot;,
-&quot;query&quot;: &quot;&quot;variables&quot;: {
-&quot;query&quot;: &quot;  &quot;createGlobalSlaInput&quot;: {
-&quot;query&quot;: &quot;    &quot;name&quot;: &quot;Your Name&quot;,
-&quot;query&quot;: &quot;    &quot;description&quot;: &quot;Your Description&quot;,
-&quot;query&quot;: &quot;    &quot;snapshotSchedule&quot;: {
-&quot;query&quot;: &quot;      &quot;daily&quot;: {
-&quot;query&quot;: &quot;        &quot;basicSchedule&quot;: {
-&quot;query&quot;: &quot;          &quot;frequency&quot;: 1,
-&quot;query&quot;: &quot;          &quot;retention&quot;: 7,
-&quot;query&quot;: &quot;          &quot;retentionUnit&quot;: &quot;DAYS&quot;
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;      },
-&quot;query&quot;: &quot;      &quot;monthly&quot;: {
-&quot;query&quot;: &quot;        &quot;basicSchedule&quot;: {
-&quot;query&quot;: &quot;          &quot;frequency&quot;: 1,
-&quot;query&quot;: &quot;          &quot;retention&quot;: 1,
-&quot;query&quot;: &quot;          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
-&quot;query&quot;: &quot;        },
-&quot;query&quot;: &quot;        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;    },
-&quot;query&quot;: &quot;    &quot;archivalSpecs&quot;: null,
-&quot;query&quot;: &quot;    &quot;localRetentionLimit&quot;: null,
-&quot;query&quot;: &quot;    &quot;backupWindows&quot;: [],
-&quot;query&quot;: &quot;    &quot;firstFullBackupWindows&quot;: [],
-&quot;query&quot;: &quot;    &quot;objectTypes&quot;: [
-&quot;query&quot;: &quot;      &quot;VSPHERE_OBJECT_TYPE&quot;
-&quot;query&quot;: &quot;    ],
-&quot;query&quot;: &quot;    &quot;objectSpecificConfigsInput&quot;: {
-&quot;query&quot;: &quot;      &quot;awsRdsConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;awsNativeS3SlaConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;sapHanaConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;db2ConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;oracleConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;mssqlConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;mongoConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;vmwareVmConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
-&quot;query&quot;: &quot;    },
-&quot;query&quot;: &quot;    &quot;replicationSpecsV2&quot;: null,
-&quot;query&quot;: &quot;    &quot;isRetentionLockedSla&quot;: false
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}
+  createGlobalSla(input: $createGlobalSlaInput) {
+    id
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;createGlobalSlaInput&quot;: {
+    &quot;name&quot;: &quot;Your Name&quot;,
+    &quot;description&quot;: &quot;Your Description&quot;,
+    &quot;snapshotSchedule&quot;: {
+      &quot;daily&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 7,
+          &quot;retentionUnit&quot;: &quot;DAYS&quot;
+        }
+      },
+      &quot;monthly&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 1,
+          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
+        },
+        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
+      }
+    },
+    &quot;archivalSpecs&quot;: null,
+    &quot;localRetentionLimit&quot;: null,
+    &quot;backupWindows&quot;: [],
+    &quot;firstFullBackupWindows&quot;: [],
+    &quot;objectTypes&quot;: [
+      &quot;VSPHERE_OBJECT_TYPE&quot;
+    ],
+    &quot;objectSpecificConfigsInput&quot;: {
+      &quot;awsRdsConfigInput&quot;: null,
+      &quot;awsNativeS3SlaConfigInput&quot;: null,
+      &quot;sapHanaConfigInput&quot;: null,
+      &quot;db2ConfigInput&quot;: null,
+      &quot;oracleConfigInput&quot;: null,
+      &quot;mssqlConfigInput&quot;: null,
+      &quot;mongoConfigInput&quot;: null,
+      &quot;vmwareVmConfigInput&quot;: null,
+      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
+      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
+    },
+    &quot;replicationSpecsV2&quot;: null,
+    &quot;isRetentionLockedSla&quot;: false
+  }
+}
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -299,15 +304,15 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="delete-sla-domain">Delete SLA Domain</h2>
 <pre><code class="language-bash">MUTATION='{
 &quot;query&quot;: &quot;mutation DeleteSlaMutation($id: UUID!, $userNote: String) {
-&quot;query&quot;: &quot;  deleteGlobalSla(id: $id, userNote: $userNote) {
-&quot;query&quot;: &quot;    success
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}&quot;,
-&quot;query&quot;: &quot;&quot;variables&quot;: {
-&quot;query&quot;: &quot;  &quot;id&quot;: &quot;SLA_ID&quot;,
-&quot;query&quot;: &quot;  &quot;userNote&quot;: &quot;&quot;
-&quot;query&quot;: &quot;}
+  deleteGlobalSla(id: $id, userNote: $userNote) {
+    success
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;id&quot;: &quot;SLA_ID&quot;,
+  &quot;userNote&quot;: &quot;&quot;
+}
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -318,64 +323,64 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="update-sla-domain">Update SLA Domain</h2>
 <pre><code class="language-bash">MUTATION='{
 &quot;query&quot;: &quot;mutation UpdateSlaMutation($updateGlobalSlaInput: UpdateGlobalSlaInput!) {
-&quot;query&quot;: &quot;  updateGlobalSla(input: $updateGlobalSlaInput) {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}&quot;,
-&quot;query&quot;: &quot;&quot;variables&quot;: {
-&quot;query&quot;: &quot;  &quot;updateGlobalSlaInput&quot;: {
-&quot;query&quot;: &quot;    &quot;name&quot;: &quot;Your SLA&quot;,
-&quot;query&quot;: &quot;    &quot;description&quot;: &quot;Your Description&quot;,
-&quot;query&quot;: &quot;    &quot;snapshotSchedule&quot;: {
-&quot;query&quot;: &quot;      &quot;daily&quot;: {
-&quot;query&quot;: &quot;        &quot;basicSchedule&quot;: {
-&quot;query&quot;: &quot;          &quot;frequency&quot;: 2,
-&quot;query&quot;: &quot;          &quot;retention&quot;: 7,
-&quot;query&quot;: &quot;          &quot;retentionUnit&quot;: &quot;DAYS&quot;
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;      },
-&quot;query&quot;: &quot;      &quot;monthly&quot;: {
-&quot;query&quot;: &quot;        &quot;basicSchedule&quot;: {
-&quot;query&quot;: &quot;          &quot;frequency&quot;: 1,
-&quot;query&quot;: &quot;          &quot;retention&quot;: 1,
-&quot;query&quot;: &quot;          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
-&quot;query&quot;: &quot;        },
-&quot;query&quot;: &quot;        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;    },
-&quot;query&quot;: &quot;    &quot;archivalSpecs&quot;: null,
-&quot;query&quot;: &quot;    &quot;localRetentionLimit&quot;: null,
-&quot;query&quot;: &quot;    &quot;backupWindows&quot;: [],
-&quot;query&quot;: &quot;    &quot;firstFullBackupWindows&quot;: [],
-&quot;query&quot;: &quot;    &quot;objectTypes&quot;: [
-&quot;query&quot;: &quot;      &quot;VSPHERE_OBJECT_TYPE&quot;
-&quot;query&quot;: &quot;    ],
-&quot;query&quot;: &quot;    &quot;objectSpecificConfigsInput&quot;: {
-&quot;query&quot;: &quot;      &quot;awsRdsConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;awsNativeS3SlaConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;sapHanaConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;db2ConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;oracleConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;mssqlConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;mongoConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;vmwareVmConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
-&quot;query&quot;: &quot;      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
-&quot;query&quot;: &quot;    },
-&quot;query&quot;: &quot;    &quot;replicationSpecsV2&quot;: null,
-&quot;query&quot;: &quot;    &quot;isRetentionLockedSla&quot;: false,
-&quot;query&quot;: &quot;    &quot;retentionLockMode&quot;: &quot;NO_MODE&quot;,
-&quot;query&quot;: &quot;    &quot;id&quot;: &quot;f4251401-d359-4d63-bac0-28bcdf40d9f0&quot;,
-&quot;query&quot;: &quot;    &quot;userNote&quot;: &quot;&quot;,
-&quot;query&quot;: &quot;    &quot;shouldApplyToExistingSnapshots&quot;: {
-&quot;query&quot;: &quot;      &quot;value&quot;: false
-&quot;query&quot;: &quot;    },
-&quot;query&quot;: &quot;    &quot;shouldApplyToNonPolicySnapshots&quot;: {
-&quot;query&quot;: &quot;      &quot;value&quot;: false
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}
+  updateGlobalSla(input: $updateGlobalSlaInput) {
+    id
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;updateGlobalSlaInput&quot;: {
+    &quot;name&quot;: &quot;Your SLA&quot;,
+    &quot;description&quot;: &quot;Your Description&quot;,
+    &quot;snapshotSchedule&quot;: {
+      &quot;daily&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 2,
+          &quot;retention&quot;: 7,
+          &quot;retentionUnit&quot;: &quot;DAYS&quot;
+        }
+      },
+      &quot;monthly&quot;: {
+        &quot;basicSchedule&quot;: {
+          &quot;frequency&quot;: 1,
+          &quot;retention&quot;: 1,
+          &quot;retentionUnit&quot;: &quot;MONTHS&quot;
+        },
+        &quot;dayOfMonth&quot;: &quot;LAST_DAY&quot;
+      }
+    },
+    &quot;archivalSpecs&quot;: null,
+    &quot;localRetentionLimit&quot;: null,
+    &quot;backupWindows&quot;: [],
+    &quot;firstFullBackupWindows&quot;: [],
+    &quot;objectTypes&quot;: [
+      &quot;VSPHERE_OBJECT_TYPE&quot;
+    ],
+    &quot;objectSpecificConfigsInput&quot;: {
+      &quot;awsRdsConfigInput&quot;: null,
+      &quot;awsNativeS3SlaConfigInput&quot;: null,
+      &quot;sapHanaConfigInput&quot;: null,
+      &quot;db2ConfigInput&quot;: null,
+      &quot;oracleConfigInput&quot;: null,
+      &quot;mssqlConfigInput&quot;: null,
+      &quot;mongoConfigInput&quot;: null,
+      &quot;vmwareVmConfigInput&quot;: null,
+      &quot;azureSqlDatabaseDbConfigInput&quot;: null,
+      &quot;azureSqlManagedInstanceDbConfigInput&quot;: null
+    },
+    &quot;replicationSpecsV2&quot;: null,
+    &quot;isRetentionLockedSla&quot;: false,
+    &quot;retentionLockMode&quot;: &quot;NO_MODE&quot;,
+    &quot;id&quot;: &quot;f4251401-d359-4d63-bac0-28bcdf40d9f0&quot;,
+    &quot;userNote&quot;: &quot;&quot;,
+    &quot;shouldApplyToExistingSnapshots&quot;: {
+      &quot;value&quot;: false
+    },
+    &quot;shouldApplyToNonPolicySnapshots&quot;: {
+      &quot;value&quot;: false
+    }
+  }
+}
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -386,15 +391,15 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="pause-sla-domain">Pause SLA Domain</h2>
 <pre><code class="language-bash">MUTATION='{
 &quot;query&quot;: &quot;mutation PauseSLA($clusterId: [String!]!, $slaId: String!) {
-&quot;query&quot;: &quot;  pauseSla(input: {clusterUuids: $clusterId, pauseSla: true, slaId: $slaId}) {
-&quot;query&quot;: &quot;    success
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}&quot;,
-&quot;query&quot;: &quot;&quot;variables&quot;: {
-&quot;query&quot;: &quot;  &quot;clusterId&quot;: &quot;CLUSTER_ID&quot;,
-&quot;query&quot;: &quot;  &quot;slaId&quot;: &quot;SLA_ID&quot;
-&quot;query&quot;: &quot;}
+  pauseSla(input: {clusterUuids: $clusterId, pauseSla: true, slaId: $slaId}) {
+    success
+    __typename
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;clusterId&quot;: &quot;CLUSTER_ID&quot;,
+  &quot;slaId&quot;: &quot;SLA_ID&quot;
+}
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -405,376 +410,376 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="query-details-of-the-sla-domain">Query Details of the SLA Domain</h2>
 <pre><code class="language-bash">QUERY='{
 &quot;query&quot;: &quot;query SLADomain{
-&quot;query&quot;: &quot;  slaDomain (id: &quot;SLA_ID&quot;) {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    name
-&quot;query&quot;: &quot;    version
-&quot;query&quot;: &quot;    ...GlobalSlaReplyFragment
-&quot;query&quot;: &quot;    ... on ClusterSlaDomain {
-&quot;query&quot;: &quot;      cdmId
-&quot;query&quot;: &quot;      ...ClusterSlaDomainFragment
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  fragment GlobalSlaReplyFragment on GlobalSlaReply {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    description
-&quot;query&quot;: &quot;    isRetentionLockedSla
-&quot;query&quot;: &quot;    retentionLockMode
-&quot;query&quot;: &quot;    baseFrequency {
-&quot;query&quot;: &quot;      duration
-&quot;query&quot;: &quot;      unit
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    ownerOrg {
-&quot;query&quot;: &quot;      id
-&quot;query&quot;: &quot;      name
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    backupWindows {
-&quot;query&quot;: &quot;      durationInHours
-&quot;query&quot;: &quot;      startTimeAttributes {
-&quot;query&quot;: &quot;        hour
-&quot;query&quot;: &quot;        minute
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    firstFullBackupWindows {
-&quot;query&quot;: &quot;      durationInHours
-&quot;query&quot;: &quot;      startTimeAttributes {
-&quot;query&quot;: &quot;        dayOfWeek {
-&quot;query&quot;: &quot;          day
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        hour
-&quot;query&quot;: &quot;        minute
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    snapshotSchedule {
-&quot;query&quot;: &quot;      ...SnapshotSchedulesForSlaDomainFragment
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    localRetentionLimit {
-&quot;query&quot;: &quot;      duration
-&quot;query&quot;: &quot;      unit
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    archivalSpecs {
-&quot;query&quot;: &quot;      threshold
-&quot;query&quot;: &quot;      thresholdUnit
-&quot;query&quot;: &quot;      frequencies
-&quot;query&quot;: &quot;      archivalLocationToClusterMapping {
-&quot;query&quot;: &quot;        cluster {
-&quot;query&quot;: &quot;          id
-&quot;query&quot;: &quot;          name
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        location {
-&quot;query&quot;: &quot;          id
-&quot;query&quot;: &quot;          name
-&quot;query&quot;: &quot;          targetType
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      storageSetting {
-&quot;query&quot;: &quot;        id
-&quot;query&quot;: &quot;        name
-&quot;query&quot;: &quot;        groupType
-&quot;query&quot;: &quot;        targetType
-&quot;query&quot;: &quot;        targets {
-&quot;query&quot;: &quot;          id
-&quot;query&quot;: &quot;          name
-&quot;query&quot;: &quot;          cluster {
-&quot;query&quot;: &quot;            id
-&quot;query&quot;: &quot;            name
-&quot;query&quot;: &quot;            __typename
-&quot;query&quot;: &quot;          }
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      archivalTieringSpec {
-&quot;query&quot;: &quot;        coldStorageClass
-&quot;query&quot;: &quot;        shouldTierExistingSnapshots
-&quot;query&quot;: &quot;        minAccessibleDurationInSeconds
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    replicationSpecsV2 {
-&quot;query&quot;: &quot;      ...DetailedReplicationSpecsV2ForSlaDomainFragment
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    objectTypes
-&quot;query&quot;: &quot;    isDefault
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;
-&quot;query&quot;: &quot;  fragment SnapshotSchedulesForSlaDomainFragment on SnapshotSchedule {
-&quot;query&quot;: &quot;    minute {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    hourly {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    daily {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    weekly {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      dayOfWeek
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    monthly {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      dayOfMonth
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    quarterly {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      dayOfQuarter
-&quot;query&quot;: &quot;      quarterStartMonth
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    yearly {
-&quot;query&quot;: &quot;      basicSchedule {
-&quot;query&quot;: &quot;        frequency
-&quot;query&quot;: &quot;        retention
-&quot;query&quot;: &quot;        retentionUnit
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      dayOfYear
-&quot;query&quot;: &quot;      yearStartMonth
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;
-&quot;query&quot;: &quot;fragment DetailedReplicationSpecsV2ForSlaDomainFragment on ReplicationSpecV2 {
-&quot;query&quot;: &quot;  replicationLocalRetentionDuration {
-&quot;query&quot;: &quot;    duration
-&quot;query&quot;: &quot;    unit
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  cascadingArchivalSpecs {
-&quot;query&quot;: &quot;    archivalTieringSpec {
-&quot;query&quot;: &quot;      coldStorageClass
-&quot;query&quot;: &quot;      shouldTierExistingSnapshots
-&quot;query&quot;: &quot;      minAccessibleDurationInSeconds
-&quot;query&quot;: &quot;      isInstantTieringEnabled
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    archivalLocation {
-&quot;query&quot;: &quot;      id
-&quot;query&quot;: &quot;      name
-&quot;query&quot;: &quot;      targetType
-&quot;query&quot;: &quot;      ... on RubrikManagedAwsTarget {
-&quot;query&quot;: &quot;        immutabilitySettings {
-&quot;query&quot;: &quot;          lockDurationDays
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      ... on RubrikManagedAzureTarget {
-&quot;query&quot;: &quot;        immutabilitySettings {
-&quot;query&quot;: &quot;          lockDurationDays
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      ... on CdmManagedAwsTarget {
-&quot;query&quot;: &quot;        immutabilitySettings {
-&quot;query&quot;: &quot;          lockDurationDays
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      ... on CdmManagedAzureTarget {
-&quot;query&quot;: &quot;        immutabilitySettings {
-&quot;query&quot;: &quot;          lockDurationDays
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      ... on RubrikManagedRcsTarget {
-&quot;query&quot;: &quot;        immutabilityPeriodDays
-&quot;query&quot;: &quot;        syncStatus
-&quot;query&quot;: &quot;        tier
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      ... on RubrikManagedS3CompatibleTarget {
-&quot;query&quot;: &quot;        immutabilitySetting {
-&quot;query&quot;: &quot;          bucketLockDurationDays
-&quot;query&quot;: &quot;          __typename
-&quot;query&quot;: &quot;        }
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    frequency
-&quot;query&quot;: &quot;    archivalThreshold {
-&quot;query&quot;: &quot;      duration
-&quot;query&quot;: &quot;      unit
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  retentionDuration {
-&quot;query&quot;: &quot;    duration
-&quot;query&quot;: &quot;    unit
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  cluster {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    name
-&quot;query&quot;: &quot;    version
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  targetMapping {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    name
-&quot;query&quot;: &quot;    targets {
-&quot;query&quot;: &quot;      id
-&quot;query&quot;: &quot;      name
-&quot;query&quot;: &quot;      cluster {
-&quot;query&quot;: &quot;        id
-&quot;query&quot;: &quot;        name
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  awsTarget {
-&quot;query&quot;: &quot;    accountId
-&quot;query&quot;: &quot;    accountName
-&quot;query&quot;: &quot;    region
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  azureTarget {
-&quot;query&quot;: &quot;    region
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  __typename
-&quot;query&quot;: &quot;}
-&quot;query&quot;: &quot;
-&quot;query&quot;: &quot;fragment ClusterSlaDomainFragment on ClusterSlaDomain {
-&quot;query&quot;: &quot;  cluster {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    name
-&quot;query&quot;: &quot;    version
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  ownerOrg {
-&quot;query&quot;: &quot;    id
-&quot;query&quot;: &quot;    name
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  baseFrequency {
-&quot;query&quot;: &quot;    duration
-&quot;query&quot;: &quot;    unit
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  backupWindows {
-&quot;query&quot;: &quot;    durationInHours
-&quot;query&quot;: &quot;    startTimeAttributes {
-&quot;query&quot;: &quot;      hour
-&quot;query&quot;: &quot;      minute
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  firstFullBackupWindows {
-&quot;query&quot;: &quot;    durationInHours
-&quot;query&quot;: &quot;    startTimeAttributes {
-&quot;query&quot;: &quot;      dayOfWeek {
-&quot;query&quot;: &quot;        day
-&quot;query&quot;: &quot;        __typename
-&quot;query&quot;: &quot;      }
-&quot;query&quot;: &quot;      hour
-&quot;query&quot;: &quot;      minute
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  snapshotSchedule {
-&quot;query&quot;: &quot;    ...SnapshotSchedulesForSlaDomainFragment
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  archivalSpec {
-&quot;query&quot;: &quot;    archivalLocationName
-&quot;query&quot;: &quot;    archivalLocationId
-&quot;query&quot;: &quot;    threshold
-&quot;query&quot;: &quot;    thresholdUnit
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  archivalSpecs {
-&quot;query&quot;: &quot;    archivalLocationName
-&quot;query&quot;: &quot;    archivalLocationId
-&quot;query&quot;: &quot;    threshold
-&quot;query&quot;: &quot;    archivalTieringSpec {
-&quot;query&quot;: &quot;      isInstantTieringEnabled
-&quot;query&quot;: &quot;      minAccessibleDurationInSeconds
-&quot;query&quot;: &quot;      coldStorageClass
-&quot;query&quot;: &quot;      shouldTierExistingSnapshots
-&quot;query&quot;: &quot;      __typename
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;    thresholdUnit
-&quot;query&quot;: &quot;    frequencies
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  replicationSpecsV2 {
-&quot;query&quot;: &quot;    ...DetailedReplicationSpecsV2ForSlaDomainFragment
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  localRetentionLimit {
-&quot;query&quot;: &quot;    duration
-&quot;query&quot;: &quot;    unit
-&quot;query&quot;: &quot;    __typename
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  isRetentionLockedSla
-&quot;query&quot;: &quot;  retentionLockMode
-&quot;query&quot;: &quot;  __typename
-&quot;query&quot;: &quot;}&quot;
+  slaDomain (id: &quot;SLA_ID&quot;) {
+    id
+    name
+    version
+    ...GlobalSlaReplyFragment
+    ... on ClusterSlaDomain {
+      cdmId
+      ...ClusterSlaDomainFragment
+      __typename
+    }
+    __typename
+  }
+  }
+  fragment GlobalSlaReplyFragment on GlobalSlaReply {
+    id
+    description
+    isRetentionLockedSla
+    retentionLockMode
+    baseFrequency {
+      duration
+      unit
+      __typename
+    }
+    ownerOrg {
+      id
+      name
+      __typename
+    }
+    backupWindows {
+      durationInHours
+      startTimeAttributes {
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    firstFullBackupWindows {
+      durationInHours
+      startTimeAttributes {
+        dayOfWeek {
+          day
+          __typename
+        }
+        hour
+        minute
+        __typename
+      }
+      __typename
+    }
+    snapshotSchedule {
+      ...SnapshotSchedulesForSlaDomainFragment
+      __typename
+    }
+    localRetentionLimit {
+      duration
+      unit
+      __typename
+    }
+    archivalSpecs {
+      threshold
+      thresholdUnit
+      frequencies
+      archivalLocationToClusterMapping {
+        cluster {
+          id
+          name
+          __typename
+        }
+        location {
+          id
+          name
+          targetType
+          __typename
+        }
+        __typename
+      }
+      storageSetting {
+        id
+        name
+        groupType
+        targetType
+        targets {
+          id
+          name
+          cluster {
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      archivalTieringSpec {
+        coldStorageClass
+        shouldTierExistingSnapshots
+        minAccessibleDurationInSeconds
+        __typename
+      }
+      __typename
+    }
+    replicationSpecsV2 {
+      ...DetailedReplicationSpecsV2ForSlaDomainFragment
+      __typename
+    }
+    objectTypes
+    isDefault
+    __typename
+  }
+
+  fragment SnapshotSchedulesForSlaDomainFragment on SnapshotSchedule {
+    minute {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    hourly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    daily {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      __typename
+    }
+    weekly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfWeek
+      __typename
+    }
+    monthly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfMonth
+      __typename
+    }
+    quarterly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfQuarter
+      quarterStartMonth
+      __typename
+    }
+    yearly {
+      basicSchedule {
+        frequency
+        retention
+        retentionUnit
+        __typename
+      }
+      dayOfYear
+      yearStartMonth
+      __typename
+    }
+    __typename
+  }
+
+fragment DetailedReplicationSpecsV2ForSlaDomainFragment on ReplicationSpecV2 {
+  replicationLocalRetentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cascadingArchivalSpecs {
+    archivalTieringSpec {
+      coldStorageClass
+      shouldTierExistingSnapshots
+      minAccessibleDurationInSeconds
+      isInstantTieringEnabled
+      __typename
+    }
+    archivalLocation {
+      id
+      name
+      targetType
+      ... on RubrikManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAwsTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on CdmManagedAzureTarget {
+        immutabilitySettings {
+          lockDurationDays
+          __typename
+        }
+        __typename
+      }
+      ... on RubrikManagedRcsTarget {
+        immutabilityPeriodDays
+        syncStatus
+        tier
+        __typename
+      }
+      ... on RubrikManagedS3CompatibleTarget {
+        immutabilitySetting {
+          bucketLockDurationDays
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    frequency
+    archivalThreshold {
+      duration
+      unit
+      __typename
+    }
+    __typename
+  }
+  retentionDuration {
+    duration
+    unit
+    __typename
+  }
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  targetMapping {
+    id
+    name
+    targets {
+      id
+      name
+      cluster {
+        id
+        name
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  awsTarget {
+    accountId
+    accountName
+    region
+    __typename
+  }
+  azureTarget {
+    region
+    __typename
+  }
+  __typename
+}
+
+fragment ClusterSlaDomainFragment on ClusterSlaDomain {
+  cluster {
+    id
+    name
+    version
+    __typename
+  }
+  ownerOrg {
+    id
+    name
+    __typename
+  }
+  baseFrequency {
+    duration
+    unit
+    __typename
+  }
+  backupWindows {
+    durationInHours
+    startTimeAttributes {
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  firstFullBackupWindows {
+    durationInHours
+    startTimeAttributes {
+      dayOfWeek {
+        day
+        __typename
+      }
+      hour
+      minute
+      __typename
+    }
+    __typename
+  }
+  snapshotSchedule {
+    ...SnapshotSchedulesForSlaDomainFragment
+    __typename
+  }
+  archivalSpec {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    thresholdUnit
+    __typename
+  }
+  archivalSpecs {
+    archivalLocationName
+    archivalLocationId
+    threshold
+    archivalTieringSpec {
+      isInstantTieringEnabled
+      minAccessibleDurationInSeconds
+      coldStorageClass
+      shouldTierExistingSnapshots
+      __typename
+    }
+    thresholdUnit
+    frequencies
+    __typename
+  }
+  replicationSpecsV2 {
+    ...DetailedReplicationSpecsV2ForSlaDomainFragment
+    __typename
+  }
+  localRetentionLimit {
+    duration
+    unit
+    __typename
+  }
+  isRetentionLockedSla
+  retentionLockMode
+  __typename
+}&quot;
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -785,15 +790,15 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="query-sla-domains">Query SLA Domains</h2>
 <pre><code class="language-bash">QUERY='{
 &quot;query&quot;: &quot;query SLADomains {
-&quot;query&quot;: &quot;  slaDomains {
-&quot;query&quot;: &quot;    nodes {
-&quot;query&quot;: &quot;      name
-&quot;query&quot;: &quot;      id
-&quot;query&quot;: &quot;      version
-&quot;query&quot;: &quot;    }
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;  __typename
-&quot;query&quot;: &quot;}&quot;
+  slaDomains {
+    nodes {
+      name
+      id
+      version
+    }
+  }
+  __typename
+}&quot;
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -804,23 +809,23 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <h2 id="assign-sla-domain">Assign SLA Domain</h2>
 <pre><code class="language-bash">MUTATION='{
 &quot;query&quot;: &quot;mutation assignSla($objectIds: [UUID!]! $slaId: UUID) {
-&quot;query&quot;: &quot;  assignSla(input: {
-&quot;query&quot;: &quot;    objectIds: $objectIds
-&quot;query&quot;: &quot;    #slaDomainAssignType can be set to protectWithSlaId, noAssignment, doNotProtect
-&quot;query&quot;: &quot;    slaDomainAssignType: protectWithSlaId
-&quot;query&quot;: &quot;    slaOptionalId: $slaId
-&quot;query&quot;: &quot;    #shouldApplyToExistingSnapshots: false
-&quot;query&quot;: &quot;    #shouldApplyToNonPolicySnapshots: false
-&quot;query&quot;: &quot;    # Snapshot retention can be set to RETAIN_SNAPSHOTS, EXPIRE_IMMEDIATELY, KEEP_FOREVER, NOT_APPLICABLE
-&quot;query&quot;: &quot;    #existingSnapshotRetention: RETAIN_SNAPSHOTS
-&quot;query&quot;: &quot;  }) {
-&quot;query&quot;: &quot;    success
-&quot;query&quot;: &quot;  }
-&quot;query&quot;: &quot;}&quot;,
-&quot;query&quot;: &quot;&quot;variables&quot;: {
-&quot;query&quot;: &quot;  &quot;objectIds&quot;: [&quot;00000000-0000-0000-0000-000000000000&quot;, &quot;00000000-0000-0000-0000-000000000000&quot;],
-&quot;query&quot;: &quot;  &quot;slaId&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;
-&quot;query&quot;: &quot;}
+  assignSla(input: {
+    objectIds: $objectIds
+    #slaDomainAssignType can be set to protectWithSlaId, noAssignment, doNotProtect
+    slaDomainAssignType: protectWithSlaId
+    slaOptionalId: $slaId
+    #shouldApplyToExistingSnapshots: false
+    #shouldApplyToNonPolicySnapshots: false
+    # Snapshot retention can be set to RETAIN_SNAPSHOTS, EXPIRE_IMMEDIATELY, KEEP_FOREVER, NOT_APPLICABLE
+    #existingSnapshotRetention: RETAIN_SNAPSHOTS
+  }) {
+    success
+  }
+}&quot;,
+&quot;variables&quot;: {
+  &quot;objectIds&quot;: [&quot;00000000-0000-0000-0000-000000000000&quot;, &quot;00000000-0000-0000-0000-000000000000&quot;],
+  &quot;slaId&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;
+}
 }'
 
 curl -X POST https://$account.my.rubrik.com/api/graphql \
@@ -839,7 +844,7 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-05-22</small>
+            <small>Revised on: 2024-07-23</small>
             </p>
           
 

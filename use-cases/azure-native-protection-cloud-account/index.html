@@ -167,6 +167,11 @@
 
              
 <li >
+  <a href="../cloud-native-private-container-registry/">Cloud Native Private Container Registry</a>
+</li>
+
+             
+<li >
   <a href="../slas/">SLA APIs</a>
 </li>
 
@@ -268,19 +273,19 @@ AAD and the ID of the Azure session that is created.</p>
 <p>The session expires after 60 minutes.</p>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation StartAzureCloudAccountOauth(
-  &quot;query&quot;: &quot;  $tenantDomainName: String!
-  &quot;query&quot;: &quot;  $azureCloudType: AzureCloudType!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  startAzureCloudAccountOauth(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      tenantDomainName: $tenantDomainName
-  &quot;query&quot;: &quot;      azureCloudType: $azureCloudType
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    clientId
-  &quot;query&quot;: &quot;    sessionId
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  startAzureCloudAccountOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+    }
+  ) {
+    clientId
+    sessionId
+  }
+}
 &quot;
 }'
 
@@ -317,25 +322,25 @@ develop/v2-oauth2-auth-code-flow#request-an-authorization-code">Azure documentat
 a service principal for accessing the Azure subscription.</p>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation CompleteAzureCloudAccountOauth(
-  &quot;query&quot;: &quot;  $sessionId: String!
-  &quot;query&quot;: &quot;  $authorizationCode: String!
-  &quot;query&quot;: &quot;  $tenantDomainName: String!
-  &quot;query&quot;: &quot;  $azureCloudType: AzureCloudType!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  completeAzureCloudAccountOauth(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      sessionId: $sessionId
-  &quot;query&quot;: &quot;      authorizationCode: $authorizationCode
-  &quot;query&quot;: &quot;      redirectUrl: &quot;https://$account.my.rubrik.com/setup_azure&quot;
-  &quot;query&quot;: &quot;      tenantDomainName: $tenantDomainName
-  &quot;query&quot;: &quot;      features: [CLOUD_NATIVE_PROTECTION]
-  &quot;query&quot;: &quot;      azureCloudType: $azureCloudType
-  &quot;query&quot;: &quot;      shouldSkipPermissionChecks: false
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    isSuccess
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $sessionId: String!
+  $authorizationCode: String!
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  completeAzureCloudAccountOauth(
+    input: {
+      sessionId: $sessionId
+      authorizationCode: $authorizationCode
+      redirectUrl: &quot;https://$account.my.rubrik.com/setup_azure&quot;
+      tenantDomainName: $tenantDomainName
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureCloudType: $azureCloudType
+      shouldSkipPermissionChecks: false
+    }
+  ) {
+    isSuccess
+  }
+}
 &quot;
 }'
 
@@ -363,36 +368,36 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation AddAzureCloudAccount(
-  &quot;query&quot;: &quot;  $sessionId: String!
-  &quot;query&quot;: &quot;  $regions: [AzureCloudAccountRegion!]!
-  &quot;query&quot;: &quot;  $azureSubscriptionNativeId: String!
-  &quot;query&quot;: &quot;  $subscriptionName: String!
-  &quot;query&quot;: &quot;  $tenantDomainName: String!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  addAzureCloudAccount(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      sessionId: $sessionId
-  &quot;query&quot;: &quot;      regions: $regions
-  &quot;query&quot;: &quot;      subscriptions: [
-  &quot;query&quot;: &quot;        {
-  &quot;query&quot;: &quot;          features: [{featureType: CLOUD_NATIVE_PROTECTION}]
-  &quot;query&quot;: &quot;          subscription: {
-  &quot;query&quot;: &quot;            nativeId: $azureSubscriptionNativeId
-  &quot;query&quot;: &quot;            name: $subscriptionName
-  &quot;query&quot;: &quot;          }
-  &quot;query&quot;: &quot;        }
-  &quot;query&quot;: &quot;      ]
-  &quot;query&quot;: &quot;      tenantDomainName: $tenantDomainName
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    status {
-  &quot;query&quot;: &quot;      error
-  &quot;query&quot;: &quot;      azureSubscriptionRubrikId
-  &quot;query&quot;: &quot;      azureSubscriptionNativeId
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;    tenantId
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $sessionId: String!
+  $regions: [AzureCloudAccountRegion!]!
+  $azureSubscriptionNativeId: String!
+  $subscriptionName: String!
+  $tenantDomainName: String!
+) {
+  addAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      regions: $regions
+      subscriptions: [
+        {
+          features: [{featureType: CLOUD_NATIVE_PROTECTION}]
+          subscription: {
+            nativeId: $azureSubscriptionNativeId
+            name: $subscriptionName
+          }
+        }
+      ]
+      tenantDomainName: $tenantDomainName
+    }
+  ) {
+    status {
+      error
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+    }
+    tenantId
+  }
+}
 &quot;
 }'
 
@@ -424,24 +429,24 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation SetAzureCloudAccountCustomerAppCredentials(
-  &quot;query&quot;: &quot;  $appClientId: String!
-  &quot;query&quot;: &quot;  $appClientSecret: String!
-  &quot;query&quot;: &quot;  $appTenantId: String!
-  &quot;query&quot;: &quot;  $appName: String!
-  &quot;query&quot;: &quot;  $tenantDomainName: String!
-  &quot;query&quot;: &quot;  $azureCloudType: AzureCloudType!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  setAzureCloudAccountCustomerAppCredentials(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      appId: $appClientId
-  &quot;query&quot;: &quot;      appSecretKey: $appClientSecret
-  &quot;query&quot;: &quot;      appTenantId: $appTenantId
-  &quot;query&quot;: &quot;      appName: $appName
-  &quot;query&quot;: &quot;      tenantDomainName: $tenantDomainName
-  &quot;query&quot;: &quot;      azureCloudType: $azureCloudType
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  )
-  &quot;query&quot;: &quot;}
+  $appClientId: String!
+  $appClientSecret: String!
+  $appTenantId: String!
+  $appName: String!
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+) {
+  setAzureCloudAccountCustomerAppCredentials(
+    input: {
+      appId: $appClientId
+      appSecretKey: $appClientSecret
+      appTenantId: $appTenantId
+      appName: $appName
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+    }
+  )
+}
 &quot;
 }'
 
@@ -456,34 +461,34 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation AddAzureCloudAccountWithoutOauth(
-  &quot;query&quot;: &quot;  $tenantDomainName: String!
-  &quot;query&quot;: &quot;  $azureCloudType: AzureCloudType!
-  &quot;query&quot;: &quot;  $subscriptionName: String!
-  &quot;query&quot;: &quot;  $azureSubscriptionNativeId: String!
-  &quot;query&quot;: &quot;  $regions: [AzureCloudAccountRegion!]!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  addAzureCloudAccountWithoutOauth(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      tenantDomainName: $tenantDomainName
-  &quot;query&quot;: &quot;      azureCloudType: $azureCloudType
-  &quot;query&quot;: &quot;      subscriptions: {
-  &quot;query&quot;: &quot;        subscription: {
-  &quot;query&quot;: &quot;          name: $subscriptionName
-  &quot;query&quot;: &quot;          nativeId: $azureSubscriptionNativeId
-  &quot;query&quot;: &quot;        }
-  &quot;query&quot;: &quot;        features: [{featureType: CLOUD_NATIVE_PROTECTION, policyVersion: 1}]
-  &quot;query&quot;: &quot;      }
-  &quot;query&quot;: &quot;      regions: $regions
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    tenantId
-  &quot;query&quot;: &quot;    status {
-  &quot;query&quot;: &quot;      azureSubscriptionRubrikId
-  &quot;query&quot;: &quot;      azureSubscriptionNativeId
-  &quot;query&quot;: &quot;      error
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $tenantDomainName: String!
+  $azureCloudType: AzureCloudType!
+  $subscriptionName: String!
+  $azureSubscriptionNativeId: String!
+  $regions: [AzureCloudAccountRegion!]!
+) {
+  addAzureCloudAccountWithoutOauth(
+    input: {
+      tenantDomainName: $tenantDomainName
+      azureCloudType: $azureCloudType
+      subscriptions: {
+        subscription: {
+          name: $subscriptionName
+          nativeId: $azureSubscriptionNativeId
+        }
+        features: [{featureType: CLOUD_NATIVE_PROTECTION, policyVersion: 1}]
+      }
+      regions: $regions
+    }
+  ) {
+    tenantId
+    status {
+      azureSubscriptionRubrikId
+      azureSubscriptionNativeId
+      error
+    }
+  }
+}
 &quot;
 }'
 
@@ -510,22 +515,22 @@ changes from <code>connected</code> to <code>missing permissions</code>.</p>
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation UpgradeAzureCloudAccount(
-  &quot;query&quot;: &quot;  $sessionId: String!
-  &quot;query&quot;: &quot;  $azureSubscriptionRubrikId: UUID!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  upgradeAzureCloudAccount(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      sessionId: $sessionId
-  &quot;query&quot;: &quot;      features: [CLOUD_NATIVE_PROTECTION]
-  &quot;query&quot;: &quot;      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    status {
-  &quot;query&quot;: &quot;      azureSubscriptionNativeId
-  &quot;query&quot;: &quot;      isSuccess
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  upgradeAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: [CLOUD_NATIVE_PROTECTION]
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}
 &quot;
 }'
 
@@ -556,14 +561,14 @@ check <a href="https://docs.microsoft.com/en-us/azure/role-based-access-control/
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation UpgradeAzureCloudAccountPermissionsWithoutOauth(
-  &quot;query&quot;: &quot;  $cloudAccountId: UUID!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  upgradeAzureCloudAccountPermissionsWithoutOauth(
-  &quot;query&quot;: &quot;    input: {cloudAccountId: $cloudAccountId, feature: CLOUD_NATIVE_PROTECTION}
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    status
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $cloudAccountId: UUID!
+) {
+  upgradeAzureCloudAccountPermissionsWithoutOauth(
+    input: {cloudAccountId: $cloudAccountId, feature: CLOUD_NATIVE_PROTECTION}
+  ) {
+    status
+  }
+}
 &quot;
 }'
 
@@ -578,24 +583,24 @@ object as the input.</p>
 <p>Updating a cloud account involves updating its properties, like the name or the Azure subscription regions configured of the cloud account.</p>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation UpdateAzureCloudAccount(
-  &quot;query&quot;: &quot;  $subscriptions: [AzureCloudAccountSubscriptionInput!]!
-  &quot;query&quot;: &quot;  $regionsToAdd: [AzureCloudAccountRegion!]!
-  &quot;query&quot;: &quot;  $regionsToRemove: [AzureCloudAccountRegion!]!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  updateAzureCloudAccount(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      subscriptions: $subscriptions
-  &quot;query&quot;: &quot;      features: [CLOUD_NATIVE_PROTECTION]
-  &quot;query&quot;: &quot;      regionsToAdd: $regionsToAdd
-  &quot;query&quot;: &quot;      regionsToRemove: $regionsToRemove
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    status {
-  &quot;query&quot;: &quot;      azureSubscriptionNativeId
-  &quot;query&quot;: &quot;      isSuccess
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $subscriptions: [AzureCloudAccountSubscriptionInput!]!
+  $regionsToAdd: [AzureCloudAccountRegion!]!
+  $regionsToRemove: [AzureCloudAccountRegion!]!
+) {
+  updateAzureCloudAccount(
+    input: {
+      subscriptions: $subscriptions
+      features: [CLOUD_NATIVE_PROTECTION]
+      regionsToAdd: $regionsToAdd
+      regionsToRemove: $regionsToRemove
+    }
+  ) {
+    status {
+      azureSubscriptionNativeId
+      isSuccess
+    }
+  }
+}
 &quot;
 }'
 
@@ -613,20 +618,20 @@ mutation to initiate an asynchronous job to disable the subscription.
 When the job completes, the subscription will be in <code>disabled</code> state.</p>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation StartDisableAzureNativeSubscriptionProtectionJob(
-  &quot;query&quot;: &quot;  $azureSubscriptionRubrikId: UUID!
-  &quot;query&quot;: &quot;  $shouldDeleteNativeSnapshots: Boolean!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  startDisableAzureNativeSubscriptionProtectionJob(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      azureSubscriptionRubrikId: $azureSubscriptionRubrikId
-  &quot;query&quot;: &quot;      shouldDeleteNativeSnapshots: $shouldDeleteNativeSnapshots
-  &quot;query&quot;: &quot;      azureNativeProtectionFeature: SQL_DB
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    jobId
-  &quot;query&quot;: &quot;    error
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $azureSubscriptionRubrikId: UUID!
+  $shouldDeleteNativeSnapshots: Boolean!
+) {
+  startDisableAzureNativeSubscriptionProtectionJob(
+    input: {
+      azureSubscriptionRubrikId: $azureSubscriptionRubrikId
+      shouldDeleteNativeSnapshots: $shouldDeleteNativeSnapshots
+      azureNativeProtectionFeature: SQL_DB
+    }
+  ) {
+    jobId
+    error
+  }
+}
 &quot;
 }'
 
@@ -655,22 +660,22 @@ in <a href="#use-case-disabling-a-cloud-account">Disabling a cloud account</a>.<
 </ul>
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;: &quot;mutation DeleteAzureCloudAccount(
-  &quot;query&quot;: &quot;  $sessionId: String!
-  &quot;query&quot;: &quot;  $azureSubscriptionRubrikId: UUID!
-  &quot;query&quot;: &quot;) {
-  &quot;query&quot;: &quot;  deleteAzureCloudAccount(
-  &quot;query&quot;: &quot;    input: {
-  &quot;query&quot;: &quot;      sessionId: $sessionId
-  &quot;query&quot;: &quot;      features: CLOUD_NATIVE_PROTECTION
-  &quot;query&quot;: &quot;      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  ) {
-  &quot;query&quot;: &quot;    status {
-  &quot;query&quot;: &quot;      isSuccess
-  &quot;query&quot;: &quot;      error
-  &quot;query&quot;: &quot;    }
-  &quot;query&quot;: &quot;  }
-  &quot;query&quot;: &quot;}
+  $sessionId: String!
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccount(
+    input: {
+      sessionId: $sessionId
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}
 &quot;
 }'
 
@@ -688,20 +693,20 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 <pre><code class="language-bash">MUTATION='{
   &quot;query&quot;:
 &quot;mutation DeleteAzureCloudAccountWithoutOauth(
-&quot;  $azureSubscriptionRubrikId: UUID!
-&quot;) {
-&quot;  deleteAzureCloudAccountWithoutOauth(
-&quot;    input: {
-&quot;      features: CLOUD_NATIVE_PROTECTION
-&quot;      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
-&quot;    }
-&quot;  ) {
-&quot;    status {
-&quot;      isSuccess
-&quot;      error
-&quot;    }
-&quot;  }
-&quot;}
+  $azureSubscriptionRubrikId: UUID!
+) {
+  deleteAzureCloudAccountWithoutOauth(
+    input: {
+      features: CLOUD_NATIVE_PROTECTION
+      azureSubscriptionRubrikIds: [$azureSubscriptionRubrikId]
+    }
+  ) {
+    status {
+      isSuccess
+      error
+    }
+  }
+}
 &quot;
 }'
 
@@ -727,7 +732,7 @@ object as the input.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-05-22</small>
+            <small>Revised on: 2024-07-23</small>
             </p>
           
 
