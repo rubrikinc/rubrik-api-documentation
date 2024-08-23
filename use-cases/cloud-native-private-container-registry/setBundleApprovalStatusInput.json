@@ -1,0 +1,9 @@
+{
+  "input": {
+    "bundleVersion": "<BundleVersion>",
+    "bundleMetadata": {
+      "eksVersion": "<EKSVersion>"
+    },
+    "approvalStatus": "<ApprovalStatus>"
+  }
+}

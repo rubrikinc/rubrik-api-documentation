@@ -1531,6 +1531,11 @@ type Query {
     # Corresponds to Compute Setting Id in Rubrik tables
     computeSettingId: UUID!): AwsComputeSettings! @deprecated(reason: "This query is no longer supported.")
 
+  # Obtains the connection command and yaml which can be used to connect a customer-managed cluster to RSC.
+  awsExocomputeGetClusterConnectionInfo(
+    # Input to obtain the connection command and yaml which can be used to connect a customer-managed cluster to RSC.
+    input: AwsExocomputeGetClusterConnectionInput!): AwsExocomputeGetClusterConnectionInfoReply!
+
   # Refers to the AWS Native account that serves as a container for all your AWS resources. The AWS Native account contains information about the metadata related to the AWS Native resources.
   awsNativeAccount(
     # The Rubrik ID for the AWS Native account.
@@ -2634,7 +2639,9 @@ type Query {
     searchPrefix: String): SnapshotFileConnection!
 
   # Returns the script to setup backup for a SQL Server database.
-  cloudNativeSqlServerSetupScript: CloudNativeSqlServerSetupScript!
+  cloudNativeSqlServerSetupScript(
+    # Cloud Native Object Type.
+    cloudNativeObjectType: CloudNativeObjectType): CloudNativeSqlServerSetupScript!
 
   # Cloud native tag rules.
   cloudNativeTagRules(
@@ -4161,6 +4168,9 @@ type Query {
     # Specifies the Rubrik CDM upgrade tarball version.
     version: String!): Boolean!
 
+  # Verify whether the trigger RCV GRS failover quorum authorization policy is set.
+  isTriggerRcvGrsTprConfigured: Boolean!
+
   # Is upgrade available for a particular cluster.
   isUpgradeAvailable(
     # Specifies the cluster UUID.
@@ -4463,6 +4473,9 @@ type Query {
   m365DirectoryObjectAttributes(
     # The input for the ListO365DirectoryObjectAttributes mutation.
     input: ListM365DirectoryObjectAttributesInput!): ListO365DirectoryObjectAttributesResp!
+
+  # Display license entitlement for M365 workloads.
+  m365LicenseEntitlement: M365LicenseEntitlementReply!
 
   # Returns the backup statistics of an M365 organization product in onboarding mode.
   m365OnboardingModeBackupStats(
@@ -5954,6 +5967,9 @@ type Query {
     # Specifies whether the policy assignment type is direct or inherited.
     policyAssignmentType: PolicyAssignmentType,
 
+    # Include data type hits.
+    includeDataTypeHits: Boolean,
+
     # Returns the first n elements from the list.
     first: Int,
 
@@ -5967,7 +5983,15 @@ type Query {
     before: String): ClassificationPolicyDetail!
 
   # Returns active policies for an account.
-  policyDetails: PolicyDetailConnection!
+  policyDetails(
+    # Filter for data category IDs.
+    dataCategoryIds: [String!],
+
+    # Data type IDs to filter.
+    dataTypeIds: [String!],
+
+    # Filter for data category type.
+    dataCategoryType: DataCategoryType): PolicyDetailConnection!
 
   # Returns details for one policy object.
   policyObj(snappableFid: String!, snapshotFid: String!,
@@ -6046,14 +6070,17 @@ type Query {
     # Data Type IDs to filter.
     dataTypeIdsFilter: [String!],
 
-    # First seen time range specified in the local timezone of the user.
+    # The first seen time range specified in the UTC timezone.
     firstSeenTimeRange: UserTimeRangeInput,
 
-    # Last access time range specified in the local timezone of the user.
+    # The last access time range specified in the UTC timezone.
     lastAccessTimeRange: UserTimeRangeInput,
 
-    # Creation time range specified in the local timezone of the user.
+    # The creation time range specified in the UTC timezone.
     creationTimeRange: UserTimeRangeInput,
+
+    # The last scan time range specified in the UTC timezone.
+    lastScanTimeRange: UserTimeRangeInput,
 
     # Object tags associated with workloads as key-value pairs.
     objectTagsFilter: ObjectTagsFilterInput,
@@ -7444,20 +7471,20 @@ type Query {
 
   # The details of a threat hunt.
   threatHuntDetail(
-    # The ID of the threat hunt.
+    # ID of the threat hunt.
     huntId: String!): ThreatHunt!
 
   # The results of the Threat Hunt.
   threatHuntResult(
-    # The ID of the threat hunt.
+    # ID of the threat hunt.
     huntId: String!,
 
     # The ID of the object in the threat hunt.
     objectId: String): ThreatHuntResult!
 
-  # The summary of a threat hunt.
+  # The summary of the threat hunt.
   threatHuntSummary(
-    # The ID of the threat hunt.
+    # ID of the threat hunt.
     huntId: String!): ThreatHuntSummaryReply!
 
   # List of Threat Hunts.
@@ -7590,6 +7617,11 @@ type Query {
 
     # Start time, in string format (YYYY-MM-DD).
     startDay: String!, timezone: String!): GetUserDetailReply!
+
+  # User file.
+  userFile(
+    # The external ID of the file to download.
+    externalId: String!): CustomerFacingFile!
   userFileActivityTimeline(userId: String!, resource: ResourceInput, nativePath: String!,
 
     # Start time, in string format (YYYY-MM-DD).
@@ -8237,6 +8269,11 @@ type Mutation {
   addClusterNodes(
     # Input for add nodes.
     AddClusterNodesInput: AddClusterNodesInput!): AddClusterNodesReply!
+
+  # Add a new route config to all hosts in a Rubrik cluster. Supported in Rubrik CDM v5.0+
+  addClusterRoute(
+    # Input for InternalAddRoute.
+    input: AddClusterRouteInput!): AddClusterRouteReply!
 
   # Add a Configured Group to the O365 hierarchy.
   addConfiguredGroupToHierarchy(
@@ -9448,6 +9485,11 @@ type Mutation {
     # Input to delete Rubrik Security Cloud snapshot.
     input: DeleteCloudWorkloadSnapshotInput!): Boolean!
 
+  # Delete an existing route on a Rubrik cluster. Supported in Rubrik CDM v5.0+
+  deleteClusterRoute(
+    # Input for InternalDeleteRoute.
+    input: DeleteClusterRouteInput!): Void
+
   # Delete cross-account pair.
   deleteCrossAccountPair(
     # Cross-account ID input for pair deletion.
@@ -9556,7 +9598,7 @@ type Mutation {
   # Delete intel feed.
   deleteIntelFeed(
     # Delete intel feed input.
-    input: DeleteIntelFeedInput!): DeleteIntelFeedReply!
+    input: DeleteIntelFeedInput!): Void
 
   # Delete a Kubernetes cluster
   # 
@@ -9890,6 +9932,14 @@ type Mutation {
     # Input for V1DownloadDb2Snapshot.
     input: DownloadDb2SnapshotInput!): AsyncRequestStatus!
 
+  # Download Db2 database snapshot from archive
+  # 
+  # Supported in v9.2+
+  # Downloads a specific Db2 database snapshot from the specified archival location.
+  downloadDb2SnapshotV2(
+    # Input for V2DownloadDb2SnapshotV2.
+    input: DownloadDb2SnapshotV2Input!): AsyncRequestStatus!
+
   # Download Db2 database snapshots from archive for a point in time recovery
   # 
   # Supported in v8.0+
@@ -9905,6 +9955,14 @@ type Mutation {
   downloadExchangeSnapshot(
     # Input for V1DownloadExchangeSnapshot.
     input: DownloadExchangeSnapshotInput!): AsyncRequestStatus!
+
+  # Download exchange database snapshot from archive
+  # 
+  # Supported in v9.2+
+  # Downloads a Microsoft Exchange database snapshot from the specified archival location.
+  downloadExchangeSnapshotV2(
+    # Input for V2DownloadExchangeSnapshotV2.
+    input: DownloadExchangeSnapshotV2Input!): AsyncRequestStatus!
 
   # v5.0-v8.0: Download files from a Nutanix VM backup
   # v8.1+: Download files from a Nutanix virtual machine backup
@@ -9926,6 +9984,11 @@ type Mutation {
   downloadFilesetSnapshotFromLocation(
     # Input for V2DownloadFilesetSnapshotFromLocation.
     input: DownloadFilesetSnapshotFromLocationInput!): AsyncRequestStatus!
+
+  # Download Microsoft SQL Server Database snapshot from archival location.
+  downloadFromArchiveV2(
+    # Input for V2DownloadFromArchiveV2.
+    input: DownloadFromArchiveV2Input!): AsyncRequestStatus!
 
   # Download a snapshot from a replication target
   # 
@@ -10039,6 +10102,14 @@ type Mutation {
   downloadOracleSnapshotFromLocation(
     # Input for V1DownloadOracleSnapshotFromLocation.
     input: DownloadOracleSnapshotFromLocationInput!): AsyncRequestStatus!
+
+  # Download Oracle snapshot from an archival location
+  # 
+  # Supported in v9.2+
+  # Initiates an asynchronous job to download an Oracle database snapshot and associated log snapshots using the snapshot ID. The response includes the ID of the asynchronous job request. To see the status of the request, poll /oracle/request/{id}.
+  downloadOracleSnapshotFromLocationV2(
+    # Input for V2DownloadOracleSnapshotFromLocationV2.
+    input: DownloadOracleSnapshotFromLocationV2Input!): AsyncRequestStatus!
 
   # Download a report in CSV format asynchronously.
   downloadReportCsvAsync(input: DownloadReportCsvAsyncInput!): AsyncDownloadReply!
@@ -10559,6 +10630,11 @@ type Mutation {
     # Input for V1HostMakePrimary.
     input: MakePrimaryInput!): AsyncRequestStatus!
 
+  # Manage protection for linked objects, allowing objects to be linked or unlinked and allow changes in SLA Domain assignment for linked objects.
+  manageProtectionForLinkedObjects(
+    # Input for manage protection for linked objects.
+    input: ManageProtectionForLinkedObjectsInput!): CreateOnDemandJobReply!
+
   # Map Azure cloud accounts to an Exocompute subscription.
   mapAzureCloudAccountExocomputeSubscription(
     # Input for mapping Azure cloud accounts to an Exocompute subscription.
@@ -10578,6 +10654,11 @@ type Mutation {
   markAgentSecondaryCertificate(
     # Input for V1MarkAgentSecondaryCertificate.
     input: MarkAgentSecondaryCertificateInput!): MarkAgentSecondaryCertificateReply!
+
+  # Migrate the disks on cloud cluster.
+  migrateCloudClusterDisks(
+    # Input for migrating disks on a cloud cluster.
+    input: MigrateCloudClusterDisksInput!): CcProvisionJobReply!
 
   # Relocate a Nutanix virtual machine to another storage container
   # 
@@ -11784,7 +11865,7 @@ type Mutation {
   # Update custom intel feed.
   updateCustomIntelFeed(
     # Input for update custom intel feed.
-    input: UpdateCustomIntelFeedInput!): UpdateCustomIntelFeedReply!
+    input: UpdateCustomIntelFeedInput!): Void
 
   # Update a custom report.
   updateCustomReport(input: UpdateCustomReportInput!): UpdateCustomReportReply!
@@ -12222,6 +12303,14 @@ type Mutation {
     # Input for V1SetHotAddNetwork.
     input: UpdateVcenterHotAddNetworkInput!): RequestSuccess!
 
+  # Update vCenter Server
+  # 
+  # Supported in v8.1+
+  # Update the address, username, and password of the specified vCenter Server object.
+  updateVcenterV2(
+    # Input for V2UpdateVcenterV2.
+    input: UpdateVcenterV2Input!): UpdateVcenterV2Reply!
+
   # Update a VLAN interface on the Rubrik cluster
   # 
   # Supported in v8.0+
@@ -12542,6 +12631,11 @@ type Mutation {
     # Input for register Virtual Machine agent with CDM.
     input: VsphereVmRegisterAgentWithOrgInput!): RequestSuccess!
 
+  # Update auto unmount time for a virtual machine.
+  vsphereVmUpdateUnmountTime(
+    # Input for V1UpdateVmUnmountTime.
+    input: VsphereVmUpdateUnmountTimeInput!): Void
+
   # Warms the search cache for an O365 workload.
   warmSearchCache(
     # The input for warm search cache for an O365 workload.
@@ -12723,6 +12817,24 @@ enum ActionType {
 
   # Upgrade start.
   START
+}
+# Supported in v9.2+
+type ActiveDirectoryAdditionalInfo {
+  # Supported in v9.2+
+  # The ID of the forest to which the host belongs.
+  forestId: String
+
+  # Supported in v9.2+
+  # The domains in the forest to which the host belongs.
+  forestDomains: [String!]!
+
+  # Supported in v9.2+
+  # Specify the name of active directory domain.
+  hostDomainName: String
+
+  # Supported in v9.2+
+  # Id of the Active Directory Domain if the windows host has domain controller hosted.
+  hostDomainId: String
 }
 # Active Directory workload related app metadata for a snapshot.
 type ActiveDirectoryAppMetadata {
@@ -12916,6 +13028,9 @@ type ActiveDirectoryDomainController implements CdmHierarchyObject , HierarchyOb
 
   # Mentions if services like DNS or DHCP are hosted.
   serverRoles: [ServerRoles!]!
+
+  # Indicates whether the domain controller is a global catalog.
+  isGlobalCatalog: Boolean
 
   # Includes statistics for the protected objects, for example, archive storage.
   reportWorkload: Snappable
@@ -13114,7 +13229,9 @@ type ActiveDirectoryDomainController implements CdmHierarchyObject , HierarchyOb
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -13360,9 +13477,21 @@ input ActiveDirectoryLiveMountConfigInput {
   # List of valid SMB host IP addresses that can access the SMB share for this Live Mount.
   validIps: [String!] = []
 
+  # Supported in v9.2+
+  # Expiry hint of the mount in minutes.
+  mountExpiryInMinutes: Int
+
+  # Supported in v9.2+
+  # Domain Controller ID for which this mount is valid. If this parameter is present in the request, the validUsers, validIPs, and password fields are ignored.
+  domainControllerId: String
+
   # Supported in v9.0+
   # Password to authenticate the mounting of the share on host.
   password: String
+
+  # Supported in v9.2+
+  # Specifies whether the mount must be writable.
+  shouldBeWritable: Boolean
 
   # Supported in v9.0+
   # Valid Active Directory domain name for users accessing this Live Mount over SMB.
@@ -13429,6 +13558,10 @@ input ActiveDirectoryObjectRecoveryConfigInput {
   # Specifies whether to remove the attribute if it is not present in the backup copy but is present in the Active Directory live copy.
   clearUpAttrsIfNullInBackup: Boolean
 
+  # Supported in v9.2+
+  # Specify the Domain Controller ID for performing this restore on the alternate domain controller.
+  alternateDcId: String
+
   # Supported in v9.0+
   # Whether to restore the parent objects of the provided Distinguished Name Tag if the parent objects are absent.
   shouldCreateMissingParents: Boolean
@@ -13438,7 +13571,7 @@ input ActiveDirectoryObjectRecoveryConfigInput {
   locationId: String
 
   # Supported in v9.2+
-  # Specify the Host ID for performing this restore on the alternate domain controller.
+  # Deprecated - Specify the Host ID for performing this restore on the alternate domain controller. Use alternateDcId instead.
   hostId: String
 
   # Supported in v9.0+
@@ -13736,6 +13869,9 @@ enum ActivityObjectTypeEnum {
   # Specifies that the activity object type is related to Activity Directory domain controller.
   ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
 
+  # Specifies that the activity object type is related to Active Directory forest.
+  ACTIVE_DIRECTORY_FOREST
+
   # Specifies that the activity object type is Atlassian site.
   ATLASSIAN_SITE
 
@@ -13810,6 +13946,9 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Cloud Direct NAS export.
   CLOUD_DIRECT_NAS_EXPORT
+
+  # Specifies that the activity object type is Confluence Space.
+  CONFLUENCE_SPACE
 
   # Cross-account pair.
   CROSS_ACCOUNT_PAIR
@@ -13915,6 +14054,21 @@ enum ActivityObjectTypeEnum {
 
   # Specifies that the activity object type is Linux Host.
   LinuxHost
+
+  # Microsoft 365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # Microsoft 365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # Microsoft 365 Backup Storage OneDrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # M365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORG
+
+  # Microsoft 365 Backup Storage SharePoint Site.
+  M365_BACKUP_STORAGE_SITE
 
   # Specifies that the activity object type is MongoDB collection.
   MONGODB_COLLECTION
@@ -15000,6 +15154,18 @@ type AddClusterNodesReply {
 
   # Add nodes job status.
   status: String!
+}
+# Input for adding a route on a CDM cluster.
+input AddClusterRouteInput {
+  # Required. UUID used to identify to which Rubrik cluster the request goes.
+  clusterUuid: String!
+
+  # Required. Network, netmask, gateway, and device.
+  routeConfig: RouteConfigInput!
+}
+# Reply Object for AddRoute.
+type AddClusterRouteReply {
+  output: RouteConfig
 }
 # Configuration for the addition of Configured Groups in O365.
 input AddConfiguredGroupToHierarchyInput {
@@ -16914,6 +17080,9 @@ type AsyncDownloadReply {
 
   # The ID of the download entity.
   downloadId: Long!
+
+  # The external ID of the download entity.
+  externalId: String!
 }
 type AsyncJobStatus {
   # Job ID for object if pre validation succeeds for object. If pre validation failed Job ID will be empty and detials will be present in error field.
@@ -17062,6 +17231,9 @@ enum AuditObjectType {
   # Active Directory domain controller.
   ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
 
+  # Active Directory forest.
+  ACTIVE_DIRECTORY_FOREST
+
   # App blueprint audit object.
   APP_BLUEPRINT
 
@@ -17142,6 +17314,9 @@ enum AuditObjectType {
 
   # Cluster audit object.
   CLUSTER
+
+  # Confluence Space.
+  CONFLUENCE_SPACE
 
   # Cross-account pair.
   CROSS_ACCOUNT_PAIR
@@ -17236,6 +17411,21 @@ enum AuditObjectType {
   # Linux host object.
   LINUX_HOST
 
+  # Microsoft 365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # Microsoft 365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # Microsoft 365 Backup Storage OneDrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # Microsoft 365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORG
+
+  # Microsoft 365 Backup Storage SharePoint Site.
+  M365_BACKUP_STORAGE_SITE
+
   # Managed volume object.
   MANAGED_VOLUME
 
@@ -17262,6 +17452,9 @@ enum AuditObjectType {
 
   # MsSQL object.
   MSSQL_OBJECT
+
+  # NAS Fileset.
+  NAS_FILESET
 
   # NAS host object.
   NAS_HOST
@@ -18262,6 +18455,9 @@ type AwsComputeSettings {
 type AwsCustomerManagedExocomputeConfig implements AwsExocomputeGetConfigurationResponse {
   clusterName: String! @deprecated(reason: "Use  clusterName from AwsExocomputeClusterConnect API instead.")
 
+  # Cluster ID of the customer managed exocompute.
+  byokClusterId: String!
+
   # Exocompute configuration UUID.
   configUuid: UUID!
 
@@ -18375,6 +18571,28 @@ type AwsExocomputeConfigsDeletionStatusType {
 
   # Specifies whether the deletion of the Exocompute configuration was successful.
   success: Boolean!
+}
+# Response to Exocompute Cluster Connect request.
+type AwsExocomputeGetClusterConnectionInfoReply {
+  # Run the command on the remote Kubernetes cluster to establish a secure connection with RSC.
+  connectionCommand: String!
+
+  # This field contains the Kubernetes configuration YAML, detailing the specifications for the resources that must be created in the customer managed Kubernetes cluster to establish a tunnel connection with  RSC.
+  clusterSetupYaml: String!
+
+  # The unique ID generated for the Kubernetes cluster that is connected to RSC.
+  clusterUuid: UUID!
+}
+# Input to obtain the connection command and yaml which can be used to connect a customer-managed cluster to RSC.
+input AwsExocomputeGetClusterConnectionInput {
+  # Name of the customer managed cluster.
+  clusterName: String = ""
+
+  # Exocompute Configuration ID obtained after configuring the Exocompute for regions.
+  exocomputeConfigId: UUID!
+
+  # Deprecated, use clusterName instead. UUID of the customer-managed Exocompute cluster.
+  clusterUuid: UUID
 }
 # AWS Exocompute configuration in a region.
 type AwsExocomputeGetConfigResponse {
@@ -23319,6 +23537,9 @@ type AwsOutpostAccountInitiateResponse {
 
   # External ID for the outpost account.
   externalId: String!
+
+  # Stack name of the AWS CloudFormation.
+  stackName: String!
 }
 # Aws outpost account validate response.
 type AwsOutpostAccountValidateResponse {
@@ -23584,6 +23805,9 @@ enum AwsStorageClass {
 
   # Amazon S3 One Zone-IA storage class.
   ONEZONE_IA
+
+  # Deprecated: REDUCED_REDUNDANCY class for legacy locations.
+  REDUCED_REDUNDANCY
 
   # Amazon S3 Standard storage class.
   STANDARD
@@ -24601,6 +24825,9 @@ enum AzureCloudAccountRegion {
   # Azure Cloud account region is Korea South.
   KOREASOUTH
 
+  # Azure Cloud account region is Mexico Central.
+  MEXICOCENTRAL
+
   # Azure Cloud account region is North Central US.
   NORTHCENTRALUS
 
@@ -24633,6 +24860,9 @@ enum AzureCloudAccountRegion {
 
   # Azure Cloud account region is South India.
   SOUTHINDIA
+
+  # Azure Cloud account region is Spain Central.
+  SPAINCENTRAL
 
   # Azure Cloud account region is Sweden Central.
   SWEDENCENTRAL
@@ -25922,6 +26152,9 @@ enum AzureNativeRegion {
   # Azure native region is Korea South.
   KOREA_SOUTH
 
+  # Azure native region is Mexico Central.
+  MEXICO_CENTRAL
+
   # Azure native region is North Central US.
   NORTH_CENTRAL_US
 
@@ -25957,6 +26190,9 @@ enum AzureNativeRegion {
 
   # Azure native region is South India.
   SOUTH_INDIA
+
+  # Azure native region is Spain Central.
+  SPAIN_CENTRAL
 
   # Azure native region is Sweden Central.
   SWEDEN_CENTRAL
@@ -26091,6 +26327,9 @@ enum AzureNativeRegionForReplication {
   # Azure native region for replication is Korea South.
   KOREA_SOUTH
 
+  # Azure native region for replication is Mexico Central.
+  MEXICO_CENTRAL
+
   # Azure native region for replication is North Central US.
   NORTH_CENTRAL_US
 
@@ -26129,6 +26368,9 @@ enum AzureNativeRegionForReplication {
 
   # Azure native region for replication is South India.
   SOUTH_INDIA
+
+  # Azure native region for replication is Spain Central.
+  SPAIN_CENTRAL
 
   # Azure native region for replication is Sweden Central.
   SWEDEN_CENTRAL
@@ -27273,6 +27515,9 @@ enum AzureRegion {
   # Azure region is Korea South.
   KOREA_SOUTH
 
+  # Azure region is Mexico Central.
+  MEXICO_CENTRAL
+
   # Azure region is Norway East.
   NORWAY_EAST
 
@@ -27290,6 +27535,9 @@ enum AzureRegion {
 
   # Azure region is South Africa West.
   SOUTH_AFRICA_WEST
+
+  # Azure region is Spain Central.
+  SPAIN_CENTRAL
 
   # Azure region is Sweden Central.
   SWEDEN_CENTRAL
@@ -28984,7 +29232,7 @@ input BackupAzureAdDirectoryInput {
   # SLA Domain ID required for snapshot retention.
   snapshotRetentionSlaId: UUID
 }
-# Represents the status of the backup for a specific M365 snapshot.
+# Status of the backup for a specific SaaS snapshot.
 type BackupEventStatus {
   # Status of the backup.
   status: SnapshotServiceBackupStatus!
@@ -29091,6 +29339,27 @@ enum BackupStatus {
 
   # Specifies whether the asset is backed up by Rubrik.
   RUBRIK_BACKED_UP
+}
+# BackupStorageProtectionStatus is the status of protection
+# for the Microsoft 365 Backup Storage objects.
+enum BackupStorageProtectionStatus {
+  # Object is enabled for protection.
+  STATUS_PROTECTED
+
+  # Object has been requested to be enabled for protection.
+  STATUS_PROTECT_REQUESTED
+
+  # Object has been requested to be removed from policy.
+  STATUS_REMOVE_REQUESTED
+
+  # Object is not enabled for protection.
+  STATUS_UNPROTECTED
+
+  # Object has been requested to be removed from protection.
+  STATUS_UNPROTECT_REQUESTED
+
+  # The status of the object is unspecified.
+  STATUS_UNSPECIFIED
 }
 # Supported in v5.1+
 type BackupTaskDiagnosticInfo {
@@ -29809,6 +30078,12 @@ input BulkCreateNasFilesetInput {
   # Supported in v7.0+
   isPassthrough: Boolean
 
+  # Rubrik CDM uses prefix matching to select the latest SnapMirror snapshot that matches this value when taking a full backup of a SnapMirror destination share.
+  snapMirrorLabelForFullBackup: String
+
+  # Rubrik CDM uses prefix matching to select the latest SnapMirror snapshot that matches this value when taking an incremental backup of a SnapMirror destination share.
+  snapMirrorLabelForIncrementalBackup: String
+
   # Required. Supported in v7.0+
   # Fileset Template object.
   filesetTemplate: FilesetTemplateCreateInput!
@@ -30320,6 +30595,9 @@ type CascadingArchivalSpec {
 
   # Archival location for snapshot on target.
   archivalLocation: Target
+
+  # Mapping between archival location and Rubrik cluster.
+  archivalLocationToClusterMapping: [ArchivalLocationToClusterMapping!]
 }
 # Cascading archiving specification.
 input CascadingArchivalSpecInput {
@@ -30334,6 +30612,9 @@ input CascadingArchivalSpecInput {
 
   # Frequencies that are associated with this cascaded archival location.
   frequency: [RetentionUnit!] = []
+
+  # Mapping between archival location and Rubrik cluster.
+  archivalLocationToClusterMapping: [ArchivalLocationToClusterMappingInput!] = []
 }
 # Backup Params configured on the management object.
 type CassandraBackupParams {
@@ -31489,6 +31770,9 @@ enum CdmFeatureFlagType {
   # ARCHIVAL_QSTAR.
   ARCHIVAL_QSTAR
 
+  # Supports assigning an SLA Domain for snapshot downloaded from archival location.
+  ASSIGN_SLA_FOR_CDM_ARCHIVAL_SNAPSHOT_DOWNLOAD
+
   # Upgrade CDM managed archival locations.
   CDM_LOCATION_UPGRADE
 
@@ -31913,7 +32197,9 @@ interface CdmHierarchySnappableNew {
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -33732,6 +34018,7 @@ enum ClassificationPolicyColor {
   COLOR_013
   UNKNOWN
 }
+# Detailed view of a data classification policy.
 type ClassificationPolicyDetail {
   id: String!
   name: String!
@@ -33743,6 +34030,9 @@ type ClassificationPolicyDetail {
   hierarchyObjectIds: [String!]!
   analyzers: [Analyzer!]!
   deletable: Boolean!
+
+  # Data category classification result.
+  dataCategoryResult: DataCategoryResult
   creator: User
 
   # Connection on hierarchy objects.
@@ -33935,6 +34225,18 @@ enum CloudAccountFeature {
 
   # Cloud account feature is Archival.
   ARCHIVAL
+
+  # Cloud account feature is Azure Laminar Outpost Application.
+  AZURE_LAMINAR_OUTPOST_APPLICATION
+
+  # Cloud account feature is Azure Laminar Outpost Managed Identity.
+  AZURE_LAMINAR_OUTPOST_MANAGED_IDENTITY
+
+  # Cloud account feature is Azure Laminar Target Application.
+  AZURE_LAMINAR_TARGET_APPLICATION
+
+  # Cloud account feature is Azure Laminar Target Managed Identity.
+  AZURE_LAMINAR_TARGET_MANAGED_IDENTITY
 
   # Cloud account feature is Azure SQL DB Protection.
   AZURE_SQL_DB_PROTECTION
@@ -34357,6 +34659,9 @@ type CloudDirectSite {
 
   # The management endpoint URL for the site.
   endpoint: String!
+
+  # The Rubrik cluster UUID for the site.
+  clusterUuid: UUID!
 }
 # Cloud Direct systems.
 type CloudDirectSystems {
@@ -34667,6 +34972,9 @@ type CloudNativeSnapshotTypeDetailsReply {
 type CloudNativeSqlServerSetupScript {
   # Contents of the script.
   script: String!
+
+  # Azure Resource Manager (ARM) template for the logic application.
+  logicAppArmTemplate: String!
 }
 # Object Type for cloud-native tag rule.
 enum CloudNativeTagObjectType {
@@ -35188,7 +35496,7 @@ type ClusterConnection {
   aggregateClusterStatistics: ClusterStatsAggregation!
 
   # Aggregate Rubrik clusters' health information based on filters and pagination arguments.
-  aggregateClusterHealth: ClusterHealthAggregation!
+  aggregateClusterHealth: ClusterHealthAggregation! @deprecated(reason: "This field is deprecated because it is no longer used.")
 }
 # Connection status of the cluster with Rubrik.
 enum ClusterConnectionStatus {
@@ -37594,6 +37902,9 @@ type ComplianceState {
 
   # Describes if a switch to onboarding mode can be allowed.
   shouldAllowSwitchToOnboardingMode: Boolean!
+
+  # Returns the last compliance update time.
+  lastComplianceUpdateTime: DateTime
 }
 type ComplianceStatus {
   enumValue: ComplianceStatusEnum!
@@ -38604,10 +38915,10 @@ input CreateCloudNativeLabelRuleInput {
   # Label key-value pair for label rule.
   label: LabelType!
 
-  # Corresponds to the assignment type for the SLA.
-  slaAssignType: TagRuleSlaAssignType!
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
+  slaAssignType: TagRuleSlaAssignType
 
-  # Corresponds to optional global SLA Rubrik ID.
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
   slaId: UUID
 
   # Cloud native accounts on which label rule will be applied.
@@ -38628,6 +38939,9 @@ input CreateCloudNativeRcvAzureStorageSettingInput {
 
   # Rubrik Cloud Vault location region. For source region template type, this field will be 'UNKNOWN_AZURE_REGION'. For specific region template type, this field must be an Azure region supported for RCV in COOL tier.
   region: AzureRegion!
+
+  # Tier for the Rubrik Cloud Vault (RCV) location supports Backup with Azure Cool storage and Archive with Azure Archive storage.
+  tier: AzureStorageTier
 
   # Template type of the storage settings - SOURCE_REGION or SPECIFIC_REGION.
   cloudNativeLocTemplateType: CloudNativeLocTemplateType!
@@ -38651,10 +38965,10 @@ input CreateCloudNativeTagRuleInput {
   # Tag key-value pair for tag rule.
   tag: TagType!
 
-  # Corresponds to the assignment type for the SLA.
-  slaAssignType: TagRuleSlaAssignType!
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
+  slaAssignType: TagRuleSlaAssignType
 
-  # Corresponds to optional global SLA Rubrik ID.
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
   slaId: UUID
 
   # Cloud native accounts on which tag rule will be applied.
@@ -39593,6 +39907,9 @@ input CreateReplicationPairInput {
   # Network interface for communication between the source and target clusters.
   targetNetworkInterface: NetworkInterfaceDetails
 
+  # Network interface names for communication between the source and target clusters. This applies only to the private network setup type.
+  networkInterface: NetworkInterfaceSelection
+
   # Source Rubrik cluster UUID.
   sourceClusterUuid: UUID!
 
@@ -40467,6 +40784,36 @@ input DailySnapshotScheduleInput {
   # Basic daily snapshot schedule.
   basicSchedule: BasicSnapshotScheduleInput
 }
+# Hits stats of an individual data category.
+type DataCategoryHits {
+  # Identifier of the data category.
+  dataCategoryId: String!
+
+  # Total hits of the data category.
+  totalHits: Long!
+
+  # Total violated hits of the data category.
+  totalViolatedHits: Long!
+}
+# Data category result indicates the classification result for a data category.
+type DataCategoryResult {
+  # Data category hits.
+  dataCategoryHits: DataCategoryHits
+
+  # Data type hits include hits for all the data types within a data category.
+  dataTypeHits: [DataTypeHits!]!
+}
+# Type of data category.
+enum DataCategoryType {
+  # Custom data categories.
+  CUSTOM
+
+  # All data categories.
+  DEFAULT
+
+  # Predefined data categories.
+  PREDEFINED
+}
 # Supported in v5.0+
 type DataCenterSummary {
   # Supported in v5.0
@@ -40502,6 +40849,15 @@ enum DataGovFileMode {
 # Filters objects by object type.
 # Note: All the object types, except CDM, are granular object types.
 enum DataGovObjectType {
+  # Represents AWS EBS volume.
+  AWS_NATIVE_EBS_VOLUME
+
+  # Represents AWS EC2 Instance.
+  AWS_NATIVE_EC2_INSTANCE
+
+  # Represents AWS RDS Instance.
+  AWS_NATIVE_RDS_INSTANCE
+
   # Represents AWS S3 bucket.
   AWS_NATIVE_S3_BUCKET
 
@@ -40854,6 +41210,20 @@ enum DataTypeEnum {
   LONG
   STRING
   URL
+}
+# Hits stats of an individual data type within a data category.
+type DataTypeHits {
+  # Identifier of the data type for a given data category.
+  id: String!
+
+  # Identifier of the data type.
+  dataTypeId: String!
+
+  # Total hits of the data type.
+  totalHits: Long!
+
+  # Total violated hits of the data type.
+  totalViolatedHits: Long!
 }
 # DataTypeResult represents the result for a specific data type.
 type DataTypeResult {
@@ -41481,7 +41851,9 @@ type Db2Database implements CdmHierarchyObject , CdmHierarchySnappableNew , Hier
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -41752,7 +42124,7 @@ type Db2InstanceConnection {
   # Total number of Db2Instance objects matching the request arguments.
   count: Int!
 }
-# Descendant type of a Db2 instance.
+# Descendant type of a Db2 instance, such as Db2 Database. Use the hosts field for information about associated hosts.
 interface Db2InstanceDescendantType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
@@ -41877,7 +42249,7 @@ input Db2InstancePatchRequestConfigInput {
   # Instance name of the Db2 instance.
   instanceName: String
 }
-# Physical child type of a Db2 instance.
+# Physical child type of a Db2 instance, such as Db2 Database. Use the hosts field for information about associated hosts.
 interface Db2InstancePhysicalChildType {
   # Rubrik cluster where this object originated.
   cluster: Cluster!
@@ -42266,6 +42638,12 @@ enum Db2RecoverableRangeSortBy {
   # Sort Db2 recoverable range by start time.
   START_TIME
 }
+# Input for snapshot download from location for V2 API of Db2.
+input Db2SnapshotDownloadRequestInput {
+  # Supported in v9.2+
+  # ID of the SLA Domain used to manage downloaded snapshot retention. This configuration does not manage log snapshot retention.
+  slaId: String
+}
 # Enum for db2 snapshot type.
 enum Db2SnapshotType {
   # Db2 Snapshot since last successful full snapshot.
@@ -42525,6 +42903,14 @@ input DeleteCloudWorkloadSnapshotInput {
   # The forever UUID in Rubrik Security Cloud for the snapshot to be deleted.
   snapshotId: UUID!
 }
+# Input for deleting a static route on a CDM cluster.
+input DeleteClusterRouteInput {
+  # Required. UUID used to identify to which Rubrik cluster the request goes.
+  clusterUuid: String!
+
+  # Required. Network and netmask.
+  routeConfig: RouteDeletionConfigInput!
+}
 # Input for deleting cross-account pair.
 input DeleteCrossAccountPairInput {
   # Cross-account ID for pair deletion.
@@ -42639,13 +43025,8 @@ input DeleteIntegrationsInput {
 }
 # Delete intel feed input.
 input DeleteIntelFeedInput {
-  # Feed ID.
-  feedId: String = ""
-}
-# Return information after deleting an intel feed.
-type DeleteIntelFeedReply {
-  # Feed ID.
-  feedId: UUID!
+  # Provider ID.
+  providerId: String = ""
 }
 # Input for deleting a Kubernetes cluster.
 input DeleteK8sClusterInput {
@@ -43814,6 +44195,17 @@ input DownloadDb2SnapshotInput {
   # Required. ID of the Db2 database snapshot.
   snapshotId: String!
 }
+# Input for downloading Db2 snapshot from location for V2 API.
+input DownloadDb2SnapshotV2Input {
+  # Additional configuration for the snapshot download operation.
+  downloadConfig: Db2SnapshotDownloadRequestInput
+
+  # Required. ID of the location from where the Db2 database snapshot is downloaded.
+  locationId: String!
+
+  # Required. ID of the Db2 database snapshot.
+  snapshotId: String!
+}
 # Download Db2 snapshots from archival location to the local Rubrik cluster for point-in-time (PIT) recovery.
 input DownloadDb2SnapshotsForPointInTimeRecoveryInput {
   # Required. Object containing information required for downloading snapshots for a point in time recovery. The object includes the point in time and the ID of the archival location for the snapshots to be downloaded.
@@ -43825,6 +44217,17 @@ input DownloadDb2SnapshotsForPointInTimeRecoveryInput {
 input DownloadExchangeSnapshotInput {
   # Required. UUID used to identify the cluster the request goes to.
   clusterUuid: String!
+
+  # Required. ID of the location from where the Microsoft Exchange database will be downloaded.
+  locationId: String!
+
+  # Required. ID of the Microsoft Exchange database snapshot.
+  snapshotId: String!
+}
+# Input for downloading Exchange snapshot from a location for V2 API.
+input DownloadExchangeSnapshotV2Input {
+  # Additional configuration for the snapshot download operation.
+  downloadConfig: ExchangeSnapshotDownloadRequestInput
 
   # Required. ID of the location from where the Microsoft Exchange database will be downloaded.
   locationId: String!
@@ -43878,6 +44281,17 @@ input DownloadFilesetSnapshotFromLocationInput {
 input DownloadFilesetSnapshotInput {
   # Required. ID of snapshot.
   id: String!
+}
+# Input for downloading mssql snapshot from archive.
+input DownloadFromArchiveV2Input {
+  # Required. Configuration for the archive download request.
+  config: MssqlDownloadFromArchiveConfigV2Input!
+
+  # Required. ID of the SQL Server database.
+  id: String!
+
+  # Required. ID of the archival location.
+  locationId: String!
 }
 # Input location to download the Hyper-V snapshot from.
 input DownloadHypervSnapshotFromLocationInput {
@@ -44065,6 +44479,17 @@ input DownloadOracleDatabaseSnapshotInput {
 }
 # Input for downloading Oracle snapshot from a location.
 input DownloadOracleSnapshotFromLocationInput {
+  # Required. ID of the archival location.
+  locationId: String!
+
+  # Required. ID assigned to an Oracle database snapshot.
+  snapshotId: String!
+}
+# Input for downloading Oracle snapshot from a location for V2 API.
+input DownloadOracleSnapshotFromLocationV2Input {
+  # Additional configuration for the snapshot download operation.
+  downloadConfig: OracleSnapshotDownloadRequestInput
+
   # Required. ID of the archival location.
   locationId: String!
 
@@ -44755,6 +45180,9 @@ enum EventObjectType {
   # Active Directory domain controller.
   ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
 
+  # Active Directory forest.
+  ACTIVE_DIRECTORY_FOREST
+
   # App Blueprint object.
   APP_BLUEPRINT
 
@@ -44839,6 +45267,9 @@ enum EventObjectType {
   # Compute instance object.
   COMPUTE_INSTANCE
 
+  # Confluence Space.
+  CONFLUENCE_SPACE
+
   # Cross-account pair event type.
   CROSS_ACCOUNT_PAIR
 
@@ -44916,6 +45347,21 @@ enum EventObjectType {
 
   # Linux host object.
   LINUX_HOST
+
+  # Microsoft 365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # Microsoft 365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # Microsoft 365 Backup Storage OneDrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # Microsoft 365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORG
+
+  # Microsoft 365 Backup Storage SharePoint Site.
+  M365_BACKUP_STORAGE_SITE
 
   # Managed Volume object.
   MANAGED_VOLUME
@@ -45839,7 +46285,9 @@ type ExchangeDatabase implements CdmHierarchyObject , HierarchySnappable , CdmHi
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -46226,6 +46674,12 @@ type ExchangeServerEdge {
 
   # The actual ExchangeServer object wrapped by this edge.
   node: ExchangeServer!
+}
+# Input for snapshot download from location for V2 API of Exchange.
+input ExchangeSnapshotDownloadRequestInput {
+  # Supported in v9.2+
+  # ID of SLA domain that manages the retention of downloaded snapshots.
+  slaId: String
 }
 # Input to mark volumes to be excluded for EC2 snapshot.
 input ExcludeAwsNativeEbsVolumesFromSnapshotInput {
@@ -48110,13 +48564,32 @@ type FileResultEdge {
   # The actual FileResult object wrapped by this edge.
   node: FileResult!
 }
+# Parameter for sorting file results.
 enum FileResultSortBy {
   CLUSTER
+
+  # Sort by creation time.
+  CREATION_TIME
   DAILY_CHANGE
+
+  # Sort by number of hits for a data category.
+  DATA_CATEGORY
+
+  # Sort by number of hits for a data type.
+  DATA_TYPE
   FILES_WITH_HITS
   FILES_WITH_OPEN_ACCESS_HITS
   HITS
+
+  # Sort by number of hits by sensitivity.
+  HITS_BY_SENSITIVITY
   LAST_ACCESS_TIME
+
+  # Sort by last modified time.
+  LAST_MODIFIED
+
+  # Sort by last scan time.
+  LAST_SCAN_TIME
   NAME
   NATIVE_PATH
   NUM_ACTIVITIES
@@ -48131,6 +48604,9 @@ input FileResultSortInput {
   sortBy: FileResultSortBy = HITS
   sortOrder: SortOrder = ASC
   analyzerGroupId: String = ""
+
+  # ID of data type to sort file results.
+  dataTypeId: String
 }
 # Represents the OneDrive file snapshot to be restored.
 input FileSnapshotInfo {
@@ -48165,6 +48641,9 @@ enum FileSystemType {
 enum FileTypeEnumType {
   # File type is report.
   REPORT
+
+  # File type for SaaS apps.
+  SAAS_APPS
 
   # File type is unknown.
   UNKNOWN
@@ -48341,7 +48820,7 @@ input FilesetExportFilesJobConfigInput {
   # Network share ID.
   shareId: String
 
-  # Supported in v9.3
+  # Supported in v9.2+
   # Optional field which excludes the paths specified during recovery.
   excludePaths: [String!] = []
 
@@ -48450,7 +48929,7 @@ input FilesetRestoreFilesJobConfigInput {
   # Optional field to determine if we should ignore single error during restore. Default value is false.
   ignoreErrors: Boolean
 
-  # Supported in v9.3
+  # Supported in v9.2+
   # Optional field which excludes the paths specified during recovery.
   excludePaths: [String!] = []
 
@@ -51408,6 +51887,9 @@ type GetLambdaConfigReply {
 
   # Enable or disable threat monitoring.
   isThreatMonitoringEnabled: Boolean!
+
+  # Enable or disable full scans for threat monitoring.
+  enableThreatMonitoringFullScan: Boolean!
 }
 # Get license request type.
 enum GetLicenseNotificationRequest {
@@ -53177,6 +53659,9 @@ enum HierarchyFilterField {
   # Filter by FSMO role of a domain controller.
   DOMAIN_CONTROLLER_FSMO_ROLE
 
+  # Filter domains by forest.
+  DOMAIN_HAS_FOREST
+
   # Filter by EBSVolume native ID.
   EBS_VOLUME_ID
 
@@ -53449,6 +53934,10 @@ enum HierarchyFilterField {
 
   # Filter by location or path of an object.
   LOCATION
+
+  # Filter objects with mismatched SLA Domain and backup storage protection
+  # status.
+  M365_BACKUP_STORAGE_PROTECTION_STATUS_MISMATCH
 
   # Filter by preferred data location. Applicable for M365 workloads.
   M365_PREFERRED_DATA_LOCATION
@@ -53849,6 +54338,9 @@ enum HierarchyObjectTypeEnum {
 
   # Cloud Direct NAS export.
   CLOUD_DIRECT_NAS_EXPORT
+
+  # Confluence space.
+  CONFLUENCE_SPACE
   CloudNativeTagRule
   Db2Database
   Db2Instance
@@ -53896,6 +54388,24 @@ enum HierarchyObjectTypeEnum {
   KuprNamespace
   LinuxFileset
 
+  # M365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # M365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # M365 Backup Storage Onedrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # M365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORG
+
+  # M365 Backup Storage Sharepoint Site.
+  M365_BACKUP_STORAGE_SITE
+
+  # M365 Backup Storage User.
+  M365_BACKUP_STORAGE_USER
+
   # Managed Volume Export.
   MANAGED_VOLUME_EXPORT
 
@@ -53922,6 +54432,12 @@ enum HierarchyObjectTypeEnum {
 
   # MongoDB Source.
   MONGO_SOURCE
+
+  # MySQL Database.
+  MYSQLDB_DATABASE
+
+  # MySQL Instance.
+  MYSQLDB_INSTANCE
 
   # Managed Volume.
   ManagedVolume
@@ -54113,6 +54629,7 @@ type HierarchySnappableFileVersion {
 
   # Quarantine information corresponding to the path.
   quarantineInfo: QuarantineInfo
+  snapshotTime: DateTime
   snapshot: CdmSnapshot
 }
 enum HierarchySortByField {
@@ -54522,15 +55039,26 @@ type HostDetail {
   hostSummary: HostSummary
 
   # Supported in v9.2+
+  # v9.2:
+  # v9.3: Additional Active Directory info for the host if applicable.
+  activeDirectoryAdditionalInfo: ActiveDirectoryAdditionalInfo
+
+  # Supported in v9.3
+  # Specifies the certificate ID corresponding to the public key certificate of the CA that signed the SQL server certificate for Sensitive Data Discovery.
+  mssqlSddCertificateId: String
+
+  # Supported in v9.2+
   # Specifies the username configured for the SQL server instance for sensitive data discovery.
   mssqlSddUsername: String
 
   # Supported in v9.0+
-  # Specify the name of active directory domain.
+  # v9.0-v9.1: Specify the name of active directory domain.
+  # v9.2+: (DEPRECATED) This field is deprecate in favor of activeDirectoryAdditionalInfo. Specify the name of active directory domain.
   hostDomainName: String
 
   # Supported in v9.0+
-  # Id of the Active Directory Domain if the windows host has domain controller hosted.
+  # v9.0-v9.1: Id of the Active Directory Domain if the windows host has domain controller hosted.
+  # v9.2+: (DEPRECATED) This field is deprecate in favor of activeDirectoryAdditionalInfo. Id of the Active Directory Domain if the windows host has domain controller hosted.
   hostDomainId: String
   hostVfdDriverState: HostVfdState!
   hostVfdEnabled: HostVfdInstallConfig
@@ -55009,6 +55537,9 @@ input HostRegisterInput {
   # Supported in v5.2+
   # A Boolean that specifies whether to discover Oracle information at registration. A value of 'true' discovers Oracle information at registration.
   isOracleHost: Boolean
+
+  # Supported in v9.3. The certificate ID is the identifier associated with the public key certificate issued by the Certificate Authority (CA) that signed the SQL Server certificate. This ID is used to validate the identity of the SQL Server host during Sensitive Data Discovery.
+  mssqlSddCertificateId: String
 
   # Supported in v8.1+
   # The ID of the RSC orgNetwork to which the host is assigned. This field should only be set when the host registration is called by RSC and the host belongs to a RSC orgNetwork. This field should always be set to None in other cases. 1) The call is from CDM; or 2) the call is from RSC but the host does not belong to an orgNetwork.
@@ -55552,6 +56083,9 @@ input HostUpdateInput {
   # Supported in v9.0+
   # A Boolean that specifies whether the host refresh is paused or not.
   isRefreshPaused: Boolean
+
+  # Supported in v9.3. The certificate ID is the identifier associated with the public key certificate issued by the Certificate Authority (CA) that signed the SQL Server certificate. This ID is used to validate the identity of the SQL Server host during Sensitive Data Discovery.
+  mssqlSddCertificateId: String
 
   # Supported in v5.0+
   hostVfdEnabled: HostVfdInstallConfig
@@ -56722,7 +57256,9 @@ type HyperVVirtualMachine implements HierarchyObject , CdmHierarchyObject , CdmH
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -58032,10 +58568,10 @@ input InPlaceRecoveryJobConfigV2Input {
 }
 # Indicator of Compromise.
 type IndicatorOfCompromise {
-  # IOC kind.
+  # Specifies the ioc kind.
   iocKind: IndicatorOfCompromiseKind!
 
-  # IOC value as a string.
+  # Specifies the ioc value.
   iocValue: String!
 }
 # The data which represents indicator of compromise: a file path/pattern, hash, or YARA rule.
@@ -58266,6 +58802,9 @@ type IntegrationConfig {
 
   # The ServiceNow ITSM configuration.
   serviceNowItsm: ServiceNowItsmIntegrationConfig
+
+  # The OKTA configuration.
+  okta: OktaIntegrationConfig
 }
 # Holds the configuration of a single integration. Note that IntegrationConfig
 # can hold multiple configurations at once but only the configuration specified
@@ -58276,6 +58815,9 @@ input IntegrationConfigInput {
 
   # The ServiceNow ITSM configuration.
   serviceNowItsm: ServiceNowItsmIntegrationConfigInput
+
+  # The OKTA configuration.
+  okta: OktaIntegrationConfigInput
 }
 # Fields by which you can sort the integrations.
 enum IntegrationSortBy {
@@ -58291,6 +58833,9 @@ enum IntegrationType {
 
   # Represents an unspecified integration.
   INTEGRATION_TYPE_UNSPECIFIED
+
+  # Represents a OKTA ITP integration.
+  OKTA
 
   # Represents a ServiceNow ITSM integration.
   SERVICENOW_ITSM
@@ -58425,6 +58970,9 @@ enum InventoryCard {
   # Inventory Card is Linux Hosts.
   LINUX_UNIX_HOSTS_CDM
 
+  # Inventory Card is Microsoft 365 Backup Storage.
+  M365_BACKUP_STORAGE
+
   # Inventory Card is Managed Volumes.
   MANAGED_VOLUMES
 
@@ -58442,6 +58990,9 @@ enum InventoryCard {
 
   # Inventory Card is MSSQL.
   MSSQL
+
+  # Inventory Card is MySQL.
+  MYSQL
 
   # Inventory Card is NAS Shares.
   NAS_SHARES
@@ -58622,6 +59173,9 @@ enum InventorySubHierarchyRootEnum {
   K8S_ROOT
   KUPR_ROOT
   LINUX_HOST_ROOT
+
+  # M365 Backup Storage Root.
+  M365_BACKUP_STORAGE_ROOT
   MANAGED_VOLUME_ROOT
 
   # MongoDB Root.
@@ -58630,6 +59184,9 @@ enum InventorySubHierarchyRootEnum {
   # MongoDB Root.
   MONGO_ROOT
   MSSQL_ROOT
+
+  # MySQL root.
+  MYSQLDB_ROOT
   NAS_HOST_ROOT
   NAS_ROOT
   NUTANIX_ROOT
@@ -60763,7 +61320,9 @@ type KubernetesProtectionSet implements HierarchyObject , HierarchySnappable , C
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -61293,10 +61852,13 @@ type License {
 # Stores license consumption statistics.
 type LicenseConsumptionType {
   # Total number of licensed users protected.
-  usersProtected: Int!
+  usersProtected: Int
 
   # Total amount of frontend storage consumed in bytes.
-  fetbConsumed: Long!
+  fetbConsumed: Long
+
+  # User and shared mailbox details.
+  protectedUserDetails: ProtectedUserDetails
 }
 # Represents a single licensed product.
 type LicensedClusterProduct {
@@ -61575,7 +62137,9 @@ type LinuxFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -62009,6 +62573,358 @@ input LsnRecoveryPointInput {
   # LSN of the recovery point.
   lsn: String!
 }
+# Microsoft 365 Backup Storage OneDrive.
+type M365BackupStorageOnedrive implements HierarchyObject , HierarchySnappable , PolarisHierarchyObject , PolarisHierarchySnappable , MicrosoftOnedrive {
+  # Specifies whether the OneDrive is a relic.
+  isRelic: Boolean!
+
+  # The user principal name of the OneDrive.
+  userPrincipalName: String!
+
+  # The preferred data location of the OneDrive.
+  preferredDataLocation: String!
+
+  # Protection status in Microsoft 365 Backup Storage.
+  backupStorageProtectionStatus: BackupStorageProtectionStatus!
+
+  # The FID of the hierarchy object.
+  id: UUID!
+
+  # The name of the hierarchy object.
+  name: String!
+
+  # The type of this object.
+  objectType: HierarchyObjectTypeEnum!
+
+  # The SLA Domain assignment type for this object.
+  slaAssignment: SlaAssignmentTypeEnum!
+
+  # The effective SLA Domain of the hierarchy object.
+  effectiveSlaDomain: SlaDomain!
+
+  # The pause status of the effective SLA Domain of the hierarchy object.
+  slaPauseStatus: Boolean!
+
+  # The distribution of the snapshots of the hierarchy object.
+  snapshotDistribution: SnapshotDistribution!
+
+  # The effective retention of the SLA Domain of the hierarchy object.
+  effectiveRetentionSlaDomain: SlaDomain
+
+  # The SLA Domain configured for the hierarchy object.
+  configuredSlaDomain: SlaDomain!
+
+  # The path node of the effective SLA Domain source.
+  effectiveSlaSourceObject: PathNode
+
+  # A sequential list of this object's logical ancestors.
+  logicalPath: [PathNode!]!
+
+  # A sequential list of this object's physical ancestors.
+  physicalPath: [PathNode!]!
+
+  # The number of descendant workloads of this object.
+  numWorkloadDescendants: Int!
+
+  # The organizations to which this hierarchy object belongs.
+  allOrgs: [Org!]!
+
+  # Security posture metadata.
+  securityMetadata: SecurityMetadata
+
+  # SLA Domain assignment which is pending on the Rubrik Security Cloud native objects.
+  rscNativeObjectPendingSla: CompactSlaDomain
+
+  # The list of snapshots taken for this workload.
+  snapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Sort Rubrik Security Cloud snapshots by field.
+    sortBy: PolarisSnapshotSortByEnum = Date,
+
+    # Sort order of result.
+    sortOrder: SortOrder): PolarisSnapshotConnection
+
+  # The list of snapshots taken for this workload.
+  workloadSnapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # The FID of the workload.
+    workloadId: String!,
+
+    # Filter for snapshot connection.
+    snapshotFilter: [SnapshotQueryFilterInput!],
+
+    # Sort order of result.
+    sortOrder: SortOrder,
+
+    # Sort snapshots by field.
+    sortBy: SnapshotQuerySortByField,
+
+    # Time range input.
+    timeRange: TimeRangeInput,
+
+    # Specifies whether to ignore the active workload check.
+    ignoreActiveWorkloadCheck: Boolean): GenericSnapshotConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    groupBy: PolarisSnapshotGroupByEnum!): PolarisSnapshotGroupByConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByNewConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    snapshotFilter: [PolarisSnapshotFilterNewInput!]!,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    snapshotGroupBy: SnapshotGroupByTime!): PolarisSnapshotGroupByNewConnection
+
+  # The most recent snapshot of this workload.
+  newestSnapshot: PolarisSnapshot
+
+  # The oldest snapshot of this workload.
+  oldestSnapshot: PolarisSnapshot
+
+  # The number of on-demand snapshots.
+  onDemandSnapshotCount: Int!
+
+  # The newest snapshot that is indexed and unexpired, and therefore restorable.
+  newestIndexedSnapshot: PolarisSnapshot
+
+  # The authorized operations on the object.
+  authorizedOperations: [Operation!]!
+}
+# Microsoft 365 Backup Storage Organization.
+type M365BackupStorageOrg implements MicrosoftOrg , HierarchyObject , PolarisHierarchyObject {
+  # Status of the Microsoft 365 Backup Storage Organization.
+  status: OrgStatus!
+
+  # The list of snapshots taken for this workload.
+  snapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Sort Rubrik Security Cloud snapshots by field.
+    sortBy: PolarisSnapshotSortByEnum = Date,
+
+    # Sort order of result.
+    sortOrder: SortOrder): PolarisSnapshotConnection
+
+  # The list of snapshots taken for this workload.
+  workloadSnapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # The FID of the workload.
+    workloadId: String!,
+
+    # Filter for snapshot connection.
+    snapshotFilter: [SnapshotQueryFilterInput!],
+
+    # Sort order of result.
+    sortOrder: SortOrder,
+
+    # Sort snapshots by field.
+    sortBy: SnapshotQuerySortByField,
+
+    # Time range input.
+    timeRange: TimeRangeInput,
+
+    # Specifies whether to ignore the active workload check.
+    ignoreActiveWorkloadCheck: Boolean): GenericSnapshotConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    groupBy: PolarisSnapshotGroupByEnum!): PolarisSnapshotGroupByConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByNewConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    snapshotFilter: [PolarisSnapshotFilterNewInput!]!,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    snapshotGroupBy: SnapshotGroupByTime!): PolarisSnapshotGroupByNewConnection
+
+  # The most recent snapshot of this workload.
+  newestSnapshot: PolarisSnapshot
+
+  # The oldest snapshot of this workload.
+  oldestSnapshot: PolarisSnapshot
+
+  # The number of on-demand snapshots.
+  onDemandSnapshotCount: Int!
+
+  # The newest snapshot that is indexed and unexpired, and therefore restorable.
+  newestIndexedSnapshot: PolarisSnapshot
+
+  # The FID of the hierarchy object.
+  id: UUID!
+
+  # The name of the hierarchy object.
+  name: String!
+
+  # The type of this object.
+  objectType: HierarchyObjectTypeEnum!
+
+  # The SLA Domain assignment type for this object.
+  slaAssignment: SlaAssignmentTypeEnum!
+
+  # The effective SLA Domain of the hierarchy object.
+  effectiveSlaDomain: SlaDomain!
+
+  # The pause status of the effective SLA Domain of the hierarchy object.
+  slaPauseStatus: Boolean!
+
+  # The distribution of the snapshots of the hierarchy object.
+  snapshotDistribution: SnapshotDistribution!
+
+  # The effective retention of the SLA Domain of the hierarchy object.
+  effectiveRetentionSlaDomain: SlaDomain
+
+  # The SLA Domain configured for the hierarchy object.
+  configuredSlaDomain: SlaDomain!
+
+  # The path node of the effective SLA Domain source.
+  effectiveSlaSourceObject: PathNode
+
+  # A sequential list of this object's logical ancestors.
+  logicalPath: [PathNode!]!
+
+  # A sequential list of this object's physical ancestors.
+  physicalPath: [PathNode!]!
+
+  # The number of descendant workloads of this object.
+  numWorkloadDescendants: Int!
+
+  # The organizations to which this hierarchy object belongs.
+  allOrgs: [Org!]!
+
+  # Security posture metadata.
+  securityMetadata: SecurityMetadata
+
+  # Summary of workload by type.
+  workloadSummary(
+    # Workload types for protection summary.
+    workloadTypes: [ManagedObjectType!]!): [O365WorkloadSummary!]!
+
+  # The authorized operations on the object.
+  authorizedOperations: [Operation!]!
+
+  # SLA Domain assignment which is pending on the Rubrik Security Cloud native objects.
+  rscNativeObjectPendingSla: CompactSlaDomain
+}
 # The cloud type for o365 subscription.
 enum M365Cloud {
   # Commercial cloud type.
@@ -62044,6 +62960,14 @@ enum M365DashboardWorkloadType {
 
   # Teams workload type.
   DST_TEAMS
+}
+# Stores the Microsoft 365 license entitlement.
+type M365LicenseEntitlementReply {
+  # Total number of entitlements for protected users.
+  usersEntitled: Long
+
+  # Total backup capacity purchased in bytes.
+  capacityEntitledInBytes: Long
 }
 # Stores the backup locations of an M365 organization.
 type M365OrgBackupLocations {
@@ -62319,6 +63243,25 @@ type MalwareScanStats {
   # v9.0+: The total time, in seconds, spent on YARA analysis.
   totalYaraAnalysisDurationInSeconds: Long
 }
+# Input for manage protection for linked objects.
+input ManageProtectionForLinkedObjectsInput {
+  # Type of operation.
+  operation: ManageProtectionForLinkedObjectsOperationType!
+
+  # Request parameters for SLA assignment.
+  assignSlaReq: AssignSlaInput!
+}
+# Operation to manage protection for linked objects.
+enum ManageProtectionForLinkedObjectsOperationType {
+  # Update the SLA Domain assignment for the linked objects.
+  ASSIGN_SLA
+
+  # Link the objects together and update the SLA Domain assignment.
+  LINK
+
+  # Unlink the linked objects and update the SLA Domain assignment.
+  UNLINK
+}
 # Represents whether a cluster is managed by Rubrik Security Cloud.
 enum ManagedByRubrik {
   # The cluster is not managed by Rubrik Security Cloud.
@@ -62345,6 +63288,14 @@ type ManagedHierarchyObjectAncestor {
 
   # Required. Supported in v5.0+
   name: String!
+}
+# Object ID and type.
+type ManagedId {
+  # Object type.
+  objectType: ManagedObjectType!
+
+  # Object ID.
+  id: String!
 }
 # Supported in v5.2+
 type ManagedObjectPendingSlaInfo {
@@ -62483,6 +63434,9 @@ enum ManagedObjectType {
   # Cloud tag rule.
   CLOUD_NATIVE_TAG_RULE
 
+  # Confluence Space.
+  CONFLUENCE_SPACE
+
   # DB2 database.
   DB2_DATABASE
 
@@ -62561,6 +63515,24 @@ enum ManagedObjectType {
   # Linux fileset.
   LINUX_FILESET
 
+  # M365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # M365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # M365 Backup Storage Onedrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # M365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORGANIZATION
+
+  # M365 Backup Storage Sharepoint Site.
+  M365_BACKUP_STORAGE_SHAREPOINT_SITE
+
+  # M365 Backup Storage User.
+  M365_BACKUP_STORAGE_USER
+
   # Managed Volume.
   MANAGED_VOLUME
 
@@ -62602,6 +63574,12 @@ enum ManagedObjectType {
 
   # MSSQL instance.
   MSSQL_INSTANCE
+
+  # MySQL Database.
+  MYSQLDB_DATABASE
+
+  # MySQL Instance.
+  MYSQLDB_INSTANCE
 
   # NAS fileset associated with a NAS share object.
   NAS_FILESET
@@ -63150,7 +64128,9 @@ type ManagedVolume implements HierarchyObject , CdmHierarchyObject , CdmHierarch
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -64357,6 +65337,357 @@ type Microsoft365RansomwareInvestigationEnablement {
   # Whether Ransomware Monitoring is enabled.
   enabled: Boolean!
 }
+# An interface for Microsoft Onedrive.
+interface MicrosoftOnedrive {
+  # The list of snapshots taken for this workload.
+  snapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Sort Rubrik Security Cloud snapshots by field.
+    sortBy: PolarisSnapshotSortByEnum = Date,
+
+    # Sort order of result.
+    sortOrder: SortOrder): PolarisSnapshotConnection
+
+  # The list of snapshots taken for this workload.
+  workloadSnapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # The FID of the workload.
+    workloadId: String!,
+
+    # Filter for snapshot connection.
+    snapshotFilter: [SnapshotQueryFilterInput!],
+
+    # Sort order of result.
+    sortOrder: SortOrder,
+
+    # Sort snapshots by field.
+    sortBy: SnapshotQuerySortByField,
+
+    # Time range input.
+    timeRange: TimeRangeInput,
+
+    # Specifies whether to ignore the active workload check.
+    ignoreActiveWorkloadCheck: Boolean): GenericSnapshotConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    groupBy: PolarisSnapshotGroupByEnum!): PolarisSnapshotGroupByConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByNewConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    snapshotFilter: [PolarisSnapshotFilterNewInput!]!,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    snapshotGroupBy: SnapshotGroupByTime!): PolarisSnapshotGroupByNewConnection
+
+  # The most recent snapshot of this workload.
+  newestSnapshot: PolarisSnapshot
+
+  # The oldest snapshot of this workload.
+  oldestSnapshot: PolarisSnapshot
+
+  # The number of on-demand snapshots.
+  onDemandSnapshotCount: Int!
+
+  # The newest snapshot that is indexed and unexpired, and therefore restorable.
+  newestIndexedSnapshot: PolarisSnapshot
+
+  # The FID of the hierarchy object.
+  id: UUID!
+
+  # The name of the hierarchy object.
+  name: String!
+
+  # The type of this object.
+  objectType: HierarchyObjectTypeEnum!
+
+  # The SLA Domain assignment type for this object.
+  slaAssignment: SlaAssignmentTypeEnum!
+
+  # The effective SLA Domain of the hierarchy object.
+  effectiveSlaDomain: SlaDomain!
+
+  # The pause status of the effective SLA Domain of the hierarchy object.
+  slaPauseStatus: Boolean!
+
+  # The distribution of the snapshots of the hierarchy object.
+  snapshotDistribution: SnapshotDistribution!
+
+  # The effective retention of the SLA Domain of the hierarchy object.
+  effectiveRetentionSlaDomain: SlaDomain
+
+  # The SLA Domain configured for the hierarchy object.
+  configuredSlaDomain: SlaDomain!
+
+  # The path node of the effective SLA Domain source.
+  effectiveSlaSourceObject: PathNode
+
+  # A sequential list of this object's logical ancestors.
+  logicalPath: [PathNode!]!
+
+  # A sequential list of this object's physical ancestors.
+  physicalPath: [PathNode!]!
+
+  # The number of descendant workloads of this object.
+  numWorkloadDescendants: Int!
+
+  # The organizations to which this hierarchy object belongs.
+  allOrgs: [Org!]!
+
+  # Security posture metadata.
+  securityMetadata: SecurityMetadata
+
+  # The user principal name of the object.
+  userPrincipalName: String!
+
+  # The preferred data location of the workload.
+  preferredDataLocation: String!
+
+  # The authorized operations on the object.
+  authorizedOperations: [Operation!]!
+}
+# An interface for Microsoft organizations.
+interface MicrosoftOrg {
+  # The list of snapshots taken for this workload.
+  snapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Sort Rubrik Security Cloud snapshots by field.
+    sortBy: PolarisSnapshotSortByEnum = Date,
+
+    # Sort order of result.
+    sortOrder: SortOrder): PolarisSnapshotConnection
+
+  # The list of snapshots taken for this workload.
+  workloadSnapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # The FID of the workload.
+    workloadId: String!,
+
+    # Filter for snapshot connection.
+    snapshotFilter: [SnapshotQueryFilterInput!],
+
+    # Sort order of result.
+    sortOrder: SortOrder,
+
+    # Sort snapshots by field.
+    sortBy: SnapshotQuerySortByField,
+
+    # Time range input.
+    timeRange: TimeRangeInput,
+
+    # Specifies whether to ignore the active workload check.
+    ignoreActiveWorkloadCheck: Boolean): GenericSnapshotConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    groupBy: PolarisSnapshotGroupByEnum!): PolarisSnapshotGroupByConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByNewConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    snapshotFilter: [PolarisSnapshotFilterNewInput!]!,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    snapshotGroupBy: SnapshotGroupByTime!): PolarisSnapshotGroupByNewConnection
+
+  # The most recent snapshot of this workload.
+  newestSnapshot: PolarisSnapshot
+
+  # The oldest snapshot of this workload.
+  oldestSnapshot: PolarisSnapshot
+
+  # The number of on-demand snapshots.
+  onDemandSnapshotCount: Int!
+
+  # The newest snapshot that is indexed and unexpired, and therefore restorable.
+  newestIndexedSnapshot: PolarisSnapshot
+
+  # The FID of the hierarchy object.
+  id: UUID!
+
+  # The name of the hierarchy object.
+  name: String!
+
+  # The type of this object.
+  objectType: HierarchyObjectTypeEnum!
+
+  # The SLA Domain assignment type for this object.
+  slaAssignment: SlaAssignmentTypeEnum!
+
+  # The effective SLA Domain of the hierarchy object.
+  effectiveSlaDomain: SlaDomain!
+
+  # The pause status of the effective SLA Domain of the hierarchy object.
+  slaPauseStatus: Boolean!
+
+  # The distribution of the snapshots of the hierarchy object.
+  snapshotDistribution: SnapshotDistribution!
+
+  # The effective retention of the SLA Domain of the hierarchy object.
+  effectiveRetentionSlaDomain: SlaDomain
+
+  # The SLA Domain configured for the hierarchy object.
+  configuredSlaDomain: SlaDomain!
+
+  # The path node of the effective SLA Domain source.
+  effectiveSlaSourceObject: PathNode
+
+  # A sequential list of this object's logical ancestors.
+  logicalPath: [PathNode!]!
+
+  # A sequential list of this object's physical ancestors.
+  physicalPath: [PathNode!]!
+
+  # The number of descendant workloads of this object.
+  numWorkloadDescendants: Int!
+
+  # The organizations to which this hierarchy object belongs.
+  allOrgs: [Org!]!
+
+  # Security posture metadata.
+  securityMetadata: SecurityMetadata
+
+  # Status of the Microsoft organization.
+  status: OrgStatus!
+
+  # Summary of workload by type.
+  workloadSummary(
+    # Workload types for protection summary.
+    workloadTypes: [ManagedObjectType!]!): [O365WorkloadSummary!]!
+
+  # The authorized operations on the object.
+  authorizedOperations: [Operation!]!
+}
+# Disk migration request for a cloud cluster.
+input MigrateCloudClusterDisksInput {
+  # Customer cloud account UUID.
+  cloudAccountId: UUID!
+
+  # Cloud vendor type.
+  vendor: CcpVendorType!
+
+  # Cluster UUID.
+  clusterUuid: UUID!
+}
 # Input for migrating a Nutanix live Mount.
 input MigrateNutanixMountV1Input {
   # Required. ID of the Live Mount.
@@ -65098,7 +66429,9 @@ type MongoCollectionSet implements HierarchyObject , CdmHierarchyObject , MongoS
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -69169,7 +70502,9 @@ type MssqlDatabase implements HierarchyObject , CdmHierarchyObject , HierarchySn
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -69741,6 +71076,14 @@ type MssqlDefaultPropertiesOnClusterReply {
 # Supported in v5.2+
 input MssqlDownloadFromArchiveConfigInput {
   # Required. Supported in v5.2+
+  recoveryPoint: MssqlRecoveryPointInput!
+}
+# Supported in Rubrik CDM v9.1.2+.
+input MssqlDownloadFromArchiveConfigV2Input {
+  # Supported in Rubrik CDM v9.1.2+. ID of the SLA Domain that manages the retention of downloaded snapshots.
+  slaId: String
+
+  # Required. Supported in Rubrik CDM v9.1.2+.
   recoveryPoint: MssqlRecoveryPointInput!
 }
 # Input for getting restore files of a SQL Server database.
@@ -70957,6 +72300,22 @@ type MultiTenancyConsumptionType {
   # Consumption statistics of a multitenancy tenant.
   consumption: LicenseConsumptionType
 }
+# SLA Domain configuration for MySQL.
+type MysqldbSlaConfig {
+  # Frequency value for the log backup of MySQL instances.
+  logFrequency: Duration
+
+  # Specifies the duration for which the MySQL instance logs will be retained.
+  logRetention: Duration
+}
+# Input to configure the SLA Domain for MySQL.
+input MysqldbSlaConfigInput {
+  # Frequency value for the log backup of MySQL instances.
+  logFrequency: SlaDurationInput
+
+  # Specifies the duration for which the MySQL instance logs will be retained.
+  logRetention: SlaDurationInput
+}
 # Name collision resolution rule.
 enum NameCollisionRule {
   # Append suffix to the item name in case of name collision.
@@ -71329,7 +72688,9 @@ type NasFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hiera
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -72929,6 +74290,12 @@ type NcdFilesObjectProtectionStatusData {
 type NcdFrontEndCapacity {
   # The front-end capacity usage in bytes.
   usageInBytes: Long!
+
+  # The new front-end capacity backup usage in bytes.
+  backupFetb: Long!
+
+  # The new front-end capacity archive usage in bytes.
+  archiveFetb: Long!
 }
 # Type of NAS Cloud Direct virtual machine disk.
 enum NcdHypervisorType {
@@ -73155,6 +74522,22 @@ type NetworkInterfaceListResponse {
   # v9.0: Cursor to fetch the next set of results.
   # v9.1+: Cursor to retrieve the next set of results.
   nextCursor: String
+}
+# Network interface names for source and target clusters.
+input NetworkInterfaceSelection {
+  # Network interface name for the target cluster.
+  targetInterfaceName: String = ""
+
+  # Network interface name for the source cluster.
+  sourceInterfaceName: String = ""
+}
+# Network interface names for source and target clusters.
+type NetworkInterfaceSelectionType {
+  # Network interface name for the target cluster.
+  targetInterfaceName: String!
+
+  # Network interface name for the source cluster.
+  sourceInterfaceName: String!
 }
 # Supported in v5.0+
 # Type of network interfaces.
@@ -76256,7 +77639,9 @@ type NutanixVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -77801,7 +79186,7 @@ type O365OauthConsentKickoffReply {
   tenantId: String!
   csrfToken: String!
 }
-type O365Onedrive implements HierarchyObject , HierarchySnappable , PolarisHierarchyObject , PolarisHierarchySnappable , O365OrgDescendant , O365UserDescendant , O365UserDescendantMetadata {
+type O365Onedrive implements HierarchyObject , HierarchySnappable , PolarisHierarchyObject , PolarisHierarchySnappable , O365OrgDescendant , O365UserDescendant , O365UserDescendantMetadata , MicrosoftOnedrive {
   userID: String!
   isRelic: Boolean!
   totalStorageInBytes: Long!
@@ -78136,7 +79521,7 @@ type O365OnedriveObjectEdge {
   # The actual O365OnedriveObject object wrapped by this edge.
   node: O365OnedriveObject!
 }
-type O365Org implements HierarchyObject , PolarisHierarchyObject {
+type O365Org implements MicrosoftOrg , HierarchyObject , PolarisHierarchyObject {
   status: OrgStatus!
   exocomputeId: String!
 
@@ -78219,6 +79604,119 @@ type O365Org implements HierarchyObject , PolarisHierarchyObject {
   # Number of O365 Users with no SLA assigned.
   unprotectedUsersCount: Int!
 
+  # The list of snapshots taken for this workload.
+  snapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Sort Rubrik Security Cloud snapshots by field.
+    sortBy: PolarisSnapshotSortByEnum = Date,
+
+    # Sort order of result.
+    sortOrder: SortOrder): PolarisSnapshotConnection
+
+  # The list of snapshots taken for this workload.
+  workloadSnapshotConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # The FID of the workload.
+    workloadId: String!,
+
+    # Filter for snapshot connection.
+    snapshotFilter: [SnapshotQueryFilterInput!],
+
+    # Sort order of result.
+    sortOrder: SortOrder,
+
+    # Sort snapshots by field.
+    sortBy: SnapshotQuerySortByField,
+
+    # Time range input.
+    timeRange: TimeRangeInput,
+
+    # Specifies whether to ignore the active workload check.
+    ignoreActiveWorkloadCheck: Boolean): GenericSnapshotConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    filter: PolarisSnapshotFilterInput,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    groupBy: PolarisSnapshotGroupByEnum!): PolarisSnapshotGroupByConnection
+
+  # GroupBy connection for this workload's snapshots.
+  snapshotGroupByNewConnection(
+    # Returns the first n elements from the list.
+    first: Int,
+
+    # Returns the elements in the list that come after the specified cursor.
+    after: String,
+
+    # Returns the last n elements from the list.
+    last: Int,
+
+    # Returns the elements in the list that come before the specified cursor.
+    before: String,
+
+    # Offset based on customer timezone.
+    timezoneOffset: Float = 0.0,
+
+    # Filter Rubrik Security Cloud snapshot connection.
+    snapshotFilter: [PolarisSnapshotFilterNewInput!]!,
+
+    # Group Rubrik Security Cloud snapshots by field.
+    snapshotGroupBy: SnapshotGroupByTime!): PolarisSnapshotGroupByNewConnection
+
+  # The most recent snapshot of this workload.
+  newestSnapshot: PolarisSnapshot
+
+  # The oldest snapshot of this workload.
+  oldestSnapshot: PolarisSnapshot
+
+  # The number of on-demand snapshots.
+  onDemandSnapshotCount: Int!
+
+  # The newest snapshot that is indexed and unexpired, and therefore restorable.
+  newestIndexedSnapshot: PolarisSnapshot
+
   # The FID of the hierarchy object.
   id: UUID!
 
@@ -78263,6 +79761,11 @@ type O365Org implements HierarchyObject , PolarisHierarchyObject {
 
   # Security posture metadata.
   securityMetadata: SecurityMetadata
+
+  # Summary of workload by type.
+  workloadSummary(
+    # Workload types for protection summary.
+    workloadTypes: [ManagedObjectType!]!): [O365WorkloadSummary!]!
 
   # SLA Domain assignment which is pending on the Rubrik Security Cloud native objects.
   rscNativeObjectPendingSla: CompactSlaDomain
@@ -79793,6 +81296,17 @@ type O365UserEdge {
   # The actual O365User object wrapped by this edge.
   node: O365User!
 }
+# Microsoft 365 workload summary.
+type O365WorkloadSummary {
+  # Total count of objects.
+  totalObjectCount: Int!
+
+  # Count of protected objects.
+  protectedObjectCount: Int!
+
+  # Managed object type.
+  objectType: ManagedObjectType!
+}
 # Request parameters for an OauthAccessTokenRequest.
 type OauthAccessToken {
   # ClientID required to authenticate OAuth request for access token.
@@ -79933,6 +81447,9 @@ type ObjectSpecificConfigs {
 
   # SLA Domain configuration for Postgres DB Cluster object.
   postgresDbClusterSlaConfig: PostgresDbClusterSlaConfig
+
+  # SLA Domain configuration for MySQL object.
+  mysqldbSlaConfig: MysqldbSlaConfig
 }
 # Object-specific configurations.
 input ObjectSpecificConfigsInput {
@@ -79974,6 +81491,9 @@ input ObjectSpecificConfigsInput {
 
   # Input to configure the SLA Domain for Postgres DB Cluster.
   postgresDbClusterSlaConfigInput: PostgresDbClusterSlaConfigInput
+
+  # Input to configure the SLA Domain for MySQL.
+  mysqldbConfigInput: MysqldbSlaConfigInput
 }
 # State of the object.
 enum ObjectState {
@@ -80104,6 +81624,9 @@ enum ObjectTypeEnum {
 
   # Cloud Direct NAS Export.
   CLOUD_DIRECT_NAS_EXPORT
+
+  # Confluence Space.
+  CONFLUENCE_SPACE
   Db2Database
   Ec2Instance
 
@@ -80126,6 +81649,15 @@ enum ObjectTypeEnum {
   KuprNamespace
   LinuxFileset
 
+  # M365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # M365 Backup Storage Onedrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # M365 Backup Storage Sharepoint Site.
+  M365_BACKUP_STORAGE_SITE
+
   # MongoDB Collection.
   MONGODB_COLLECTION
 
@@ -80146,6 +81678,9 @@ enum ObjectTypeEnum {
 
   # MongoDB Source.
   MONGO_SOURCE
+
+  # MySQL Instance.
+  MYSQLDB_INSTANCE
 
   # Managed Volume.
   ManagedVolume
@@ -80196,6 +81731,16 @@ input ObjectTypeSummariesFilter {
 
   # Object types to filter.
   objectTypes: [DataGovObjectType!] = []
+}
+# Holds the configuration of the Okta integration.
+type OktaIntegrationConfig {
+  # The Okta tenant URL.
+  oktaTenantUrl: String!
+}
+# Holds the configuration of the Okta integration.
+input OktaIntegrationConfigInput {
+  # The Okta tenant URL.
+  oktaTenantUrl: String!
 }
 # Input for restore path pair.
 input OldRestorePathPairInput {
@@ -80438,12 +81983,15 @@ enum Operation {
 
   # Manage recoveries within Orchestrated Recovery.
   MANAGE_ORCHESTRATED_RECOVERY
+
+  # Manage Organization Networks.
+  MANAGE_ORGANIZATION_NETWORKS
   MANAGE_PROTECTION
 
   # Manage Recovery Plans within Orchestrated Recovery.
   MANAGE_RECOVERY_PLAN
 
-  # Manage ServiceNow Integration.
+  # Manage ServiceNow integration.
   MANAGE_SERVICENOW_INTEGRATION
   MANAGE_SLA
 
@@ -80516,7 +82064,7 @@ enum Operation {
   USE_AS_REPLICATION_TARGET
   VIEW_ACCESS
 
-  # View anomaly detection results.
+  # View Anomaly Detection results.
   VIEW_ANOMALY_DETECTION_RESULTS
 
   # View archival location.
@@ -80579,11 +82127,14 @@ enum Operation {
   # View Orchestrated Recovery application.
   VIEW_ORCHESTRATED_RECOVERY_APP
   VIEW_ORGANIZATION
+
+  # View Organization Networks.
+  VIEW_ORGANIZATION_NETWORKS
   VIEW_REPLICATION_SETTINGS
   VIEW_REPORT
   VIEW_SECURITY_SETTINGS
 
-  # View ServiceNow Integration.
+  # View ServiceNow integration.
   VIEW_SERVICENOW_INTEGRATION
   VIEW_SLA
 
@@ -80991,7 +82542,9 @@ type OracleDataGuardGroup implements HierarchyObject , HierarchySnappable , CdmH
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -81488,7 +83041,9 @@ type OracleDatabase implements HierarchyObject , CdmHierarchyObject , HierarchyS
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -83002,6 +84557,12 @@ input OracleRecoveryPointInput {
   # v5.3+: A timestamp in milliseconds that specifies a recovery point.
   timestampMs: Long
 }
+# Input for snapshot download from location for V2 API.
+input OracleSnapshotDownloadRequestInput {
+  # Supported in v9.2+
+  # ID of the SLA Domain to manage downloaded snapshot retention. Log snapshot retention is not managed by this configuration.
+  slaId: String
+}
 # Supported in v6.0+
 input OracleTimeRangeInput {
   # Required. Supported in v6.0+
@@ -84036,6 +85597,11 @@ enum PermissionsGroup {
   # snapshots. These permissions are applicable to the cloud native
   # protection feature.
   SNAPSHOT_PRIVATE_ACCESS
+
+  # Represents the permissions required to enable Azure AD authorization to
+  # store Azure SQL and MI snapshots in an archival location using Colossus.
+  # These permissions apply to Cloud Native Archival Feature.
+  SQL_ARCHIVAL
 }
 # Permissions group with accompanying version number.
 type PermissionsGroupWithVersion {
@@ -84098,6 +85664,12 @@ type PhysicalHost implements CdmHierarchyObject , HierarchyObject , MssqlTopLeve
 
   # ID of the Rubrik Backup Service (RBS) installed on the host.
   agentId: String
+
+  # Specifies the NAS API endpoint.
+  nasApiEndpoint: String
+
+  # Specifies the NAS API hostname.
+  nasApiHostname: String
 
   # The operating system type of the physical host.
   osType: GuestOsType
@@ -85033,6 +86605,15 @@ type PolicyDetail {
   # Time when the policy was last updated.
   lastUpdatedTime: Long!
 
+  # Total sensitive hits in a policy.
+  totalHits: Long!
+
+  # List of datatype IDs in a policy.
+  dataTypeIds: [String!]!
+
+  # Percentage of objects covered.
+  objectsPercentCoverage: Int!
+
   # Policy creator.
   creator: User
 }
@@ -85516,6 +87097,12 @@ input PrismElementCdmTuple {
 
   # The ID of the CDM cluster.
   cdmClusterId: UUID!
+
+  # Username of the Nutanix cluster.
+  username: String
+
+  # Password of the Nutanix cluster.
+  password: String
 }
 # Details of Private Container Registry, consisting of registry URL and details related to how user will be pulling image from our container registry.
 type PrivateContainerRegistryDetailsType {
@@ -85897,6 +87484,14 @@ type ProtectedObjectsEdge {
 
   # The actual ProtectedObjects object wrapped by this edge.
   node: ProtectedObjects!
+}
+# Stores the details of protected users.
+type ProtectedUserDetails {
+  # Total number of protected user mailboxes.
+  userMailboxProtected: Int
+
+  # Total number of protected shared mailboxes.
+  sharedMailboxProtected: Int
 }
 type ProtectionStatus {
   enumValue: ProtectionStatusEnum!
@@ -86543,13 +88138,16 @@ type RbaInstallerUrls {
 # The object which permissions assigned to.
 type RbacObject {
   # The ID of the object.
-  objectId: String!
+  objectId: String! @deprecated(reason: "Deprecated: use managedId instead.")
 
   # The workload hierarchy of the object.
   workloadHierarchy: WorkloadLevelHierarchy!
 
   #  The Rubrik cluster ID of the object.
   clusterId: String!
+
+  # The managed ID of the object.
+  managedId: ManagedId!
 }
 # Specifies permissions assigned to the organization.
 type RbacPermission {
@@ -86658,11 +88256,17 @@ enum RcsRegionEnumType {
   # Asia Southeast or Singapore.
   ASIA_SOUTHEAST
 
+  # Australia Central or Canberra.
+  AUSTRALIA_CENTRAL
+
   # Australia East or New South Wales.
   AUSTRALIA_EAST
 
   # Australia Southeast or Victoria.
   AUSTRALIA_SOUTHEAST
+
+  # Brazil South or Sao Paulo State.
+  BRAZIL_SOUTH
 
   # Canada Central or Toronto.
   CANADA_CENTRAL
@@ -86688,8 +88292,20 @@ enum RcsRegionEnumType {
   # Gov US Virginia or US Gov Virginia.
   GOV_US_VIRGINIA
 
+  # India Central or Pune.
+  INDIA_CENTRAL
+
   # India South or Chennai.
   INDIA_SOUTH
+
+  # India West or Mumbai.
+  INDIA_WEST
+
+  # Israel Central or Israel.
+  ISRAEL_CENTRAL
+
+  # Italy North or Milan.
+  ITALY_NORTH
 
   # Japan East or Tokyo.
   JAPAN_EAST
@@ -86697,14 +88313,29 @@ enum RcsRegionEnumType {
   # Japan West or Osaka.
   JAPAN_WEST
 
+  # Korea Central or Seoul.
+  KOREA_CENTRAL
+
+  # Korea South or Busan.
+  KOREA_SOUTH
+
+  # Mexico Central or Queretaro State.
+  MEXICO_CENTRAL
+
   # Norway East or Oslo.
   NORWAY_EAST
 
   # Poland Central or Warsaw.
   POLAND_CENTRAL
 
+  # Qatar Central or Doha.
+  QATAR_CENTRAL
+
   # South Africa North or Johannesburg.
   SOUTH_AFRICA_NORTH
+
+  # Spain Central or Madrid.
+  SPAIN_CENTRAL
 
   # Sweden Central or Gavle.
   SWEDEN_CENTRAL
@@ -87699,6 +89330,9 @@ type ReplicationPairConfigDetails {
 
   # Target Rubrik cluster gateway information.
   targetGateway: GatewayInfo
+
+  # Network interface names for communication between the source and target clusters. This only applies to the private network setup type.
+  networkInterface: NetworkInterfaceSelectionType
 }
 # Paginated list of ReplicationPair objects. Each page of the results will include at most 1000 entries. Query the `pageInfo.hasNextPage` field to know whether all objects were returned.
 type ReplicationPairConnection {
@@ -88948,6 +90582,9 @@ input RestoreObjectConfig {
 
   # Specify the hierarchy type of the mailbox object to be restored, whether it is an email or a folder.
   hierarchyType: ExchangeItemHierarchyType
+
+  # ID of the parent folder of the mailbox object being restored, whether the object is an email or a folder.
+  parentFolderId: String
 }
 # Supported in v6.0+
 input RestoreOracleLogsConfigInput {
@@ -89232,11 +90869,14 @@ type RoleTemplateEdge {
 }
 # Overall RU status.
 type RollingUpgradeInfo {
-  # List of nodes (names), currently being upgraded.
+  # The list of names of the nodes that are currently being upgraded.
   ruCurrentNodes: [String!]!
 
-  # List of RuNodeInfoEntry objects, one per node.
+  # The list of RuNodeInfoEntry objects, one per node.
   ruNodeInfoList: [RollingUpgradeNodeInfoEntry!]!
+
+  # The list of names of the nodes that are planned in the upgrade.
+  ruNodesPlan: String!
 }
 # Detailed RU status of a node.
 type RollingUpgradeNodeInfo {
@@ -89288,6 +90928,28 @@ type RouteConfig {
   netmask: String!
 
   # Required. Supported in v5.0+
+  network: String!
+}
+# Supported in Rubrik CDM v5.0+.
+input RouteConfigInput {
+  # Required. Supported in Rubrik CDM v5.0+.
+  device: String!
+
+  # Required. Supported in Rubrik CDM v5.0+.
+  gateway: String!
+
+  # Required. Supported in Rubrik CDM v5.0+.
+  netmask: String!
+
+  # Required. Supported in Rubrik CDM v5.0+.
+  network: String!
+}
+# Supported in Rubrik CDM v5.0+
+input RouteDeletionConfigInput {
+  # Required. Supported in Rubrik CDM v5.0+.
+  netmask: String!
+
+  # Required. Supported in Rubrik CDM v5.0+.
   network: String!
 }
 type Row {
@@ -90413,7 +92075,9 @@ type SapHanaDatabase implements CdmHierarchyObject , CdmHierarchySnappableNew , 
   oldestSnapshot: CdmSnapshot
 
   # The most recent snapshot for SAP HANA workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The number of on-demand snapshots for SAP HANA workloads.
   onDemandSnapshotCount: Int!
@@ -91363,7 +93027,9 @@ type SapHanaSystem implements CdmHierarchyObject , CdmHierarchySnappableNew , Hi
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -92111,6 +93777,9 @@ type SecurityMetadata {
 
   # Sensitivity status of a workload.
   sensitivityStatus: SensitivityStatus!
+
+  # True if Laminar is enabled for a given workload.
+  isLaminarEnabled: Boolean!
 }
 type SeedEnabledPoliciesReply {
   policies: [ClassificationPolicyDetail!]!
@@ -92134,7 +93803,7 @@ type SelfServicePermission {
 }
 # When an org member adds an object to Rubrik that matches the provided (`inventoryRoot`, `inventoryWorkloadType`) category, the org is granted all permission operations specified within the `operations` field on that new object.
 input SelfServicePermissionInput {
-  # The inventory hierarchy root to which this set of permissions will apply.
+  # Deprecated field, use hierarchyRoot instead.
   inventoryRoot: InventorySubHierarchyRootEnum
 
   # The inventory workload type to which this set of permissions will apply.
@@ -92829,7 +94498,9 @@ type ShareFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , Hie
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -93551,6 +95222,9 @@ enum SlaObjectType {
   # Kubernetes object.
   KUPR_OBJECT_TYPE
 
+  # Microsoft 365 Backup Storage object.
+  M365_BACKUP_STORAGE_OBJECT_TYPE
+
   # Managed Volume object.
   MANAGED_VOLUME_OBJECT_TYPE
 
@@ -93562,6 +95236,9 @@ enum SlaObjectType {
 
   # MSSQL object.
   MSSQL_OBJECT_TYPE
+
+  # MySQL object.
+  MYSQLDB_OBJECT_TYPE
 
   # NAS object.
   NAS_OBJECT_TYPE
@@ -98218,6 +99895,18 @@ type ThreatHunt {
   # The stats based on results of the threat hunt.
   stats: ThreatHuntStats
 
+  # Name of the threat hunt.
+  name: String!
+
+  # Start time of the threat hunt.
+  startTime: DateTime
+
+  # Name of the user who created the threat hunt.
+  createdBy: String!
+
+  # Type of threat hunt.
+  huntType: ThreatHuntType!
+
   # The details/configuration of the threat hunt.
   huntDetails: ThreatHuntDetails!
 }
@@ -98269,10 +99958,10 @@ type ThreatHuntConnection {
 }
 # Details for the threat hunt.
 type ThreatHuntDetails {
-  # Start time of the hunt.
+  # Start time of the threat hunt.
   startTime: DateTime
 
-  # End time of the hunt.
+  # End time of the threat hunt.
   endTime: DateTime
 
   # The object ids and corresponding snapshot ids targeted for scanning.
@@ -98383,6 +100072,9 @@ type ThreatHuntResultSnapshotStats {
   # List of IOCs found in this snapshot.
   matchTypes: [IndicatorOfCompromise!]!
 
+  # Status of scanning this snapshot.
+  snapshotScanStatus: ThreatHuntStatus!
+
   # Specifies whether the snapshot has expired.
   isExpired: Boolean!
 
@@ -98411,6 +100103,9 @@ type ThreatHuntStats {
 
   # Total objects scanned.
   totalObjectsScanned: Long!
+
+  # Total number of IOCs.
+  totalIocs: Long!
 }
 # Status of the running threat hunt.
 enum ThreatHuntStatus {
@@ -98455,6 +100150,17 @@ type ThreatHuntSummaryReply {
 
   # Threat hunt summaries for each object.
   objectsSummary: [ThreatHuntResultObjectsSummary!]!
+}
+# Specifies the threat hunt type.
+enum ThreatHuntType {
+  # Threat hunt type v1.
+  THREAT_HUNT_V1
+
+  # Threat hunt type v2.
+  THREAT_HUNT_V2
+
+  # Turbo threat hunt type.
+  TURBO_THREAT_HUNT
 }
 # Entity type for Threat Monitoring.
 enum ThreatMonitoringEnablementEntity {
@@ -98682,6 +100388,9 @@ enum TprRule {
 
   # The TPR rule is for replacing a cluster node.
   REPLACE_CLUSTER_NODE
+
+  # Quorum authorization is required for resetting passkeys for a QAuth user.
+  RESET_USER_PASSKEYS
 
   # The TPR rule is for resetting MFA for a TPR user.
   RESET_USER_TOTP_CONFIG
@@ -99534,10 +101243,10 @@ input UpdateCloudNativeLabelRuleInput {
   # Name of the label rule.
   labelRuleName: String!
 
-  # Corresponds to the assignment type for the SLA.
-  slaAssignType: TagRuleSlaAssignType!
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
+  slaAssignType: TagRuleSlaAssignType
 
-  # Corresponds to optional global SLA Rubrik ID.
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
   slaId: UUID
 
   # Cloud native accounts on which label rule will be applied.
@@ -99567,10 +101276,10 @@ input UpdateCloudNativeTagRuleInput {
   # Name of the tag rule.
   tagRuleName: String!
 
-  # Corresponds to the assignment type for the SLA.
-  slaAssignType: TagRuleSlaAssignType!
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
+  slaAssignType: TagRuleSlaAssignType
 
-  # Corresponds to optional global SLA Rubrik ID.
+  # Deprecated: use bulkAssignSlas to assign SLA Domain to tag rule.
   slaId: UUID
 
   # Cloud native accounts on which tag rule will be applied.
@@ -99702,11 +101411,6 @@ input UpdateCustomIntelFeedInput {
   # 1) A hash (MD5/SHA1/SHA256)
   # 2) MD5 of a yara rule
   entriesToRemove: [String!]
-}
-# Update custom intel feed reply.
-type UpdateCustomIntelFeedReply {
-  # Feed ID.
-  feedId: UUID!
 }
 # Input for updating a custom report.
 input UpdateCustomReportInput {
@@ -100820,6 +102524,9 @@ input UpdateReplicationTargetInput {
   # Network interface for communication between the source and target clusters.
   targetNetworkInterface: NetworkInterfaceDetails
 
+  # Network interface names for communication between the source and target clusters. This applies only to the private network setup type.
+  networkInterface: NetworkInterfaceSelection
+
   # Source Rubrik cluster UUID.
   sourceClusterUuid: UUID!
 
@@ -101138,6 +102845,18 @@ input UpdateVcenterInput {
 type UpdateVcenterReply {
   output: VcenterSummary
 }
+# Input for update the vSphere vCenter.
+input UpdateVcenterV2Input {
+  # Required. ID of the vCenter Server.
+  id: String!
+
+  # Required. Object containing updated vCenter Server information.
+  updateProperties: VcenterUpdateConfigV2Input!
+}
+# Reply Object for UpdateVcenterV2.
+type UpdateVcenterV2Reply {
+  output: VcenterSummaryV2
+}
 input UpdateVlanInput {
   # Required. ID of the Rubrik cluster, or *me* for self.
   id: String!
@@ -101268,6 +102987,11 @@ type UpdateWebhookReply {
 
   # This field is empty if the webhook test was not requested (shouldSendTestEvent request field), or was carried out successfully. In case of a webhook test failure, this field contains the failure details.
   testError: ErrorInfo
+}
+# Input for the updated unmount time of a Live Mount.
+input UpdatedUnmountTimeInput {
+  # Required. The absolute new unmount time.
+  newUnmountTime: Long!
 }
 # Input to update status of features of AWS cloud account to connected from update permissions state.
 input UpgradeAwsCloudAccountFeaturesWithoutCftInput {
@@ -101741,6 +103465,9 @@ enum UserAuditObjectTypeEnum {
   # Active Directory domain controller type.
   ACTIVE_DIRECTORY_DOMAIN_CONTROLLER
 
+  # Active Directory forest type.
+  ACTIVE_DIRECTORY_FOREST
+
   # Atlassian site.
   ATLASSIAN_SITE
 
@@ -101912,6 +103639,21 @@ enum UserAuditObjectTypeEnum {
   # Linux host type.
   LinuxHost
 
+  # Microsoft 365 Backup Storage Group.
+  M365_BACKUP_STORAGE_GROUP
+
+  # Microsoft 365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # Microsoft 365 Backup Storage OneDrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # M365 Backup Storage Organization.
+  M365_BACKUP_STORAGE_ORG
+
+  # Microsoft 365 Backup Storage SharePoint Site.
+  M365_BACKUP_STORAGE_SITE
+
   # MongoDB source type.
   MONGODB_SOURCE
 
@@ -101938,6 +103680,9 @@ enum UserAuditObjectTypeEnum {
 
   # MSSQL database type.
   MssqlDatabase
+
+  # NAS Fileset type.
+  NAS_FILESET
 
   # NAS system type.
   NAS_SYSTEM
@@ -104479,7 +106224,9 @@ type VcdVapp implements HierarchyObject , CdmHierarchyObject , HierarchySnappabl
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -104980,6 +106727,35 @@ enum VcenterSummaryConflictResolutionAuthz {
   VCENTER_SUMMARY_CONFLICT_RESOLUTION_AUTHZ_ALLOW_AUTO_CONFLICT_RESOLUTION
   VCENTER_SUMMARY_CONFLICT_RESOLUTION_AUTHZ_NO_CONFLICT_RESOLUTION
 }
+# Supported in v8.1+
+type VcenterSummaryV2 {
+  # Supported in v9.0+ An optional field that specifies whether HotAdd transport mode is enabled for On-Premise vCenter. When this value is `true`, HotAdd transport mode is enabled for this vCenter. When this value is `false`, HotAdd transport mode is not enabled for this vCenter. If this value is not specified, it indicates that this is a VMware Cloud (VMC) vCenter.
+  isHotAddProxyEnabledForOnPremVcenter: Boolean
+
+  # Supported in v8.1+
+  # Concatenated X.509 certificates in Base64 encoded DER format. Each certificate must start with -----BEGIN CERTIFICATE----- and end with -----END CERTIFICATE-----. Use an empty string to remove the existing certificates for the vCenter.
+  caCerts: String
+
+  # Details of the SLA Domain assigned to vSphere vCenter.
+  slaAssignable: SlaAssignable
+
+  # Required. Supported in v8.1+
+  hostname: String!
+
+  # Required. Supported in v8.1+
+  username: String!
+
+  # Supported in v9.0+ Set to 'AllowAutoConflictResolution' to link the relic virtual machine objects of a virtual machine to the current object for the virtual machine or to 'NoConflictResolution' to prevent linking. When a vCenter Server is added, the Rubrik cluster generates a unique ID for each virtual machine. If a virtual machine moves to another vCenter Server or is unregistered and then registered again with the same vCenter Server, a new unique ID is generated. This results in the original virtual machine object becoming a relic. This option links relic virtual machine objects with the current virtual machine object, allowing the snapshot history to be accessed through the current object. The default value is 'NoConflictResolution'.
+  conflictResolutionAuthz: VcenterSummaryV2ConflictResolutionAuthz
+}
+# Enum for vCenter conflictResolutionAuthz.
+enum VcenterSummaryV2ConflictResolutionAuthz {
+  # Link the relic virtual machine objects of a virtual machine to the current object for the virtual machine.
+  VCENTER_SUMMARY_V2_CONFLICT_RESOLUTION_AUTHZ_ALLOW_AUTO_CONFLICT_RESOLUTION
+
+  # Prevent linking the relic virtual machine objects of a virtual machine to the current object for the virtual machine.
+  VCENTER_SUMMARY_V2_CONFLICT_RESOLUTION_AUTHZ_NO_CONFLICT_RESOLUTION
+}
 # Input for configuration containing updated vCenter Server information.
 input VcenterUpdateConfigInput {
   # Supported in v9.2+
@@ -104988,6 +106764,39 @@ input VcenterUpdateConfigInput {
 
   # Configuration containing a part of updated vCenter Server information.
   vcenterConfig: VcenterConfigInput
+}
+# Enum for vCenter conflictResolutionAuthz.
+enum VcenterUpdateConfigV2ConflictResolutionAuthz {
+  # Link the relic virtual machine objects of a virtual machine to the current object for the virtual machine.
+  VCENTER_UPDATE_CONFIG_V2_CONFLICT_RESOLUTION_AUTHZ_ALLOW_AUTO_CONFLICT_RESOLUTION
+
+  # Prevent linking the relic virtual machine objects of a virtual machine to the current object for the virtual machine.
+  VCENTER_UPDATE_CONFIG_V2_CONFLICT_RESOLUTION_AUTHZ_NO_CONFLICT_RESOLUTION
+}
+# Supported in v8.1+
+input VcenterUpdateConfigV2Input {
+  # Supported in v8.1+
+  # Concatenated X.509 certificates in Base64 encoded DER format. Each certificate must start with -----BEGIN CERTIFICATE----- and end with -----END CERTIFICATE-----.
+  caCerts: String
+
+  # Supported in v8.1+
+  # v8.1-v9.1: A Boolean value that determines whether to enable HotAdd transport mode for On-Premise vCenter. When this value is `true`, VMware virtual machines can use HotAdd proxy to transport virtual disk data in addition to NBDSSL. When this value is `false`, VMware virtual machines can only use NBDSSL to transport virtual disk data. Default value is `false`.
+  # v9.2+: A Boolean value that determines whether to enable HotAdd transport mode for On-Premise vCenter. When this value is `true`, VMware virtual machines can use HotAdd proxy to transport virtual disk data in addition to NBD(SSL). When this value is `false`, VMware virtual machines can only use NBD(SSL) to transport virtual disk data. Default value is `false`.
+  shouldEnableHotAddProxyForOnPrem: Boolean
+
+  # Supported in v8.1+
+  # v8.1-v9.1: Set to 'AllowAutoConflictResolution' to link the relic virtual machine objects of a virtual machine to the current object for the virtual machine or to 'NoConflictResolution' to prevent linking. The Rubrik cluster generates a unique ID for each virtual machine when a vCenter Server is added. When a virtual machine changes to another vCenter Server or unregisters and registers with the same vCenter Server, a new unique ID is generated for that virtual machine. When this happens, the virtual machine object associated with the original ID becomes a relic. Setting this option to 'AllowAutoConflictResolution' links relic virtual machine objects with the current virtual machine object of a specific virtual machine, and makes the collective snapshot history available through the current object. Default value is 'NoConflictResolution'.
+  # v9.2+: Set to 'AllowAutoConflictResolution' to link the relic virtual machine objects of a virtual machine to the current object for the virtual machine or to 'NoConflictResolution' to prevent linking. The Rubrik cluster generates a unique ID for each virtual machine when a vCenter Server is added. When a virtual machine changes to another vCenter Server or unregisters and registers with the same vCenter Server, a new unique ID is generated for that virtual machine. When this happens, the virtual machine object associated with the original ID becomes a relic. This option links relic virtual machine objects with the current virtual machine object of a specific virtual machine, and makes the collective snapshot history available through the current object. Default value is 'NoConflictResolution'.
+  conflictResolutionAuthz: VcenterUpdateConfigV2ConflictResolutionAuthz
+
+  # Required. Supported in v8.1+
+  hostname: String!
+
+  # Required. Supported in v8.1+
+  password: String!
+
+  # Required. Supported in v8.1+
+  username: String!
 }
 # Response verifying if the cluster is replication target in a SLA Domain.
 type VerifySlaWithReplicationToClusterResponse {
@@ -108801,6 +110610,9 @@ type VsphereLiveMount {
   # Migrate datastore request id of the vSphere Live Mount.
   migrateDatastoreRequestId: String!
 
+  # Vcenter of the Live Mount.
+  vCenter: VsphereVcenter
+
   # Cluster id of the vSphere Live Mount.
   cluster: Cluster!
 
@@ -109081,7 +110893,7 @@ type VsphereNetwork implements CdmHierarchyObject , HierarchyObject , VsphereHos
   # Security posture metadata.
   securityMetadata: SecurityMetadata
 }
-# Input for taking on demand snapshot of vSphere virtual machine.
+# Input for tqaking on demand snapshot of vSphere virtual machine.
 input VsphereOnDemandSnapshotInput {
   # Configuration for the on-demand snapshot.
   config: BaseOnDemandSnapshotConfigInput
@@ -111176,7 +112988,9 @@ type VsphereVm implements CdmHierarchyObject , CdmHierarchySnappableNew , Hierar
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -111455,6 +113269,14 @@ input VsphereVmRegisterAgentWithOrgInput {
 
   # Uuid of the CDM cluster.
   clusterUuid: UUID!
+}
+# Input for updating the unmount time of a Live Mount.
+input VsphereVmUpdateUnmountTimeInput {
+  # Required. The new unmount time.
+  config: UpdatedUnmountTimeInput!
+
+  # Required. ID of a Live Mount.
+  mountId: String!
 }
 # Input for warm search cache for an O365 workload.
 input WarmSearchCacheInput {
@@ -112166,7 +113988,9 @@ type WindowsFileset implements CdmHierarchyObject , CdmHierarchySnappableNew , H
   newestIndexedSnapshot: CdmSnapshot
 
   # The most recent snapshot of this workload.
-  newestSnapshot: CdmSnapshot
+  newestSnapshot(
+    # Specifies the time at which or before the snapshot was taken.
+    beforeTime: DateTime): CdmSnapshot
 
   # The oldest snapshot of this workload.
   oldestSnapshot: CdmSnapshot
@@ -112360,6 +114184,15 @@ enum WorkloadLevelHierarchy {
   AzureSqlManagedInstanceDb
   GcpNativeGCEInstance
   KuprNamespace
+
+  # Microsoft 365 Backup Storage Mailbox.
+  M365_BACKUP_STORAGE_MAILBOX
+
+  # Microsoft 365 Backup Storage OneDrive.
+  M365_BACKUP_STORAGE_ONEDRIVE
+
+  # Microsoft 365 Backup Storage SharePoint site.
+  M365_BACKUP_STORAGE_SHAREPOINT_SITE
   O365Mailbox
   O365Onedrive
   O365SharePointDrive

@@ -208,6 +208,9 @@
       <a href="#downloading-an-image-bundle">Downloading an image bundle</a>
     </li>
     
+    <li class="third-level">
+      <a href="#query-input">Query input</a>
+    </li>
     <li class="second-level">
       <a href="#image-bundle-approval">Image bundle approval</a>
     </li>
@@ -253,6 +256,27 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 --header &quot;content-type: application/json&quot; \
 --data &quot;$(echo $QUERY)&quot;
 </code></pre>
+<h3 id="query-input">Query input</h3>
+<p>If you are using BYOK, use the following input</p>
+<pre><code class="language-bash">{
+  &quot;input&quot;: {
+    &quot;eksVersion&quot;: &quot;&lt;EksVersion&gt;&quot;
+  }
+}
+
+</code></pre>
+<p>If you are not using BYOK, no input is needed.</p>
+<h4 id="steps-to-download-the-images">Steps to download the images:</h4>
+<p>Ensure that you download images from the AWS account you whitelisted during PCR setup. Otherwise,
+you will not be authorized to pull the Docker images from Rubrik's ECR.</p>
+<ol>
+<li>Install <code>docker</code> on your system and ensure that the docker daemon is running.</li>
+<li>Install and configure the <code>aws</code> CLI.</li>
+<li>Use the response of the <code>exotaskImageBundle</code> GQL API to log in to Rubrik's ECR and download
+the Docker images. For more information, see <a href="https://github.com/rubrikinc/rubrik-polaris-sdk-for-python/tree/beta/sample/pcr-aws">Rubrik's python script</a>.</li>
+<li>If you are using your own script and uploading the images to your PCR, tag the images with
+the bundle version you got from Rubrik as part of the <code>exotaskImageBundle</code> GQL API. If you use Rubrik's Python script, the script will automatically tag the images with the bundle version.</li>
+</ol>
 <h2 id="image-bundle-approval">Image bundle approval</h2>
 <p>To approve an image bundle, use the following:</p>
 <pre><code class="language-bash">MUTATION='{&quot;mutation&quot;: &quot;mutation SetBundleApprovalStatus($input: SetBundleApprovalStatusInput!) {
@@ -266,16 +290,6 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 --data &quot;$(echo $MUTATION)&quot;
 </code></pre>
 <h3 id="mutation-input">Mutation input</h3>
-<p>If you are not using BYOK, use the following input</p>
-<pre><code class="language-bash">{
-  &quot;input&quot;: {
-    &quot;bundleVersion&quot;: &quot;&lt;BundleVersion&gt;&quot;,
-    &quot;approvalStatus&quot;: &quot;&lt;ApprovalStatus&gt;&quot;
-  }
-}
-
-</code></pre>
-<p>If you are using BYOK, use the following input</p>
 <pre><code class="language-bash">{
   &quot;input&quot;: {
     &quot;bundleVersion&quot;: &quot;&lt;BundleVersion&gt;&quot;,
@@ -298,7 +312,7 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-07-23</small>
+            <small>Revised on: 2024-08-23</small>
             </p>
           
 
