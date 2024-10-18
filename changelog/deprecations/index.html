@@ -205,6 +205,10 @@
       <a href="#deperecations">Deperecations</a>
     </li>
     <li class="second-level">
+      <a href="#20241001">2024/10/01</a>
+    </li>
+    
+    <li class="second-level">
       <a href="#20240901">2024/09/01</a>
     </li>
     
@@ -291,45 +295,107 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deperecations">Deperecations</h1>
+<h2 id="20241001">2024/10/01</h2>
+<ul>
+<li>
+<p>Field <code>mongodbSources</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoSources instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbCollections</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoCollections instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>updateMongodbSource</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use patchMongoSource instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>bulkDeleteMongodbSources</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use bulkDeleteMongoSources instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>createMongodbSource</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use addMongoSource instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbCollectionRecoverableRange</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoRecoverableRanges instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbCollection</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoCollection instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbSource</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoSource instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>deleteMongodbSource</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use deleteMongoSource instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbDatabase</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoDatabase instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbBulkRecoverableRange</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoBulkRecoverableRanges instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>recoverMongodbSource</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: Use recoverMongoSource instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+<li>
+<p>Field <code>mongodbDatabases</code> was deprecated in <code>Query</code> type.</p>
+<p>Reason: Use mongoDatabases instead.
+Scheduled for removal after 2025/09/03.</p>
+</li>
+</ul>
 <h2 id="20240901">2024/09/01</h2>
 <ul>
-<li>
-<p>Field <code>aggregateClusterHealth</code> was deprecated in <code>ClusterConnection</code> type.</p>
+<li>Field <code>aggregateClusterHealth</code> was deprecated in <code>ClusterConnection</code> type.</li>
+</ul>
 <p>Reason: This field is deprecated because it is no longer used.
 Scheduled for removal after 2025/07/29.</p>
-</li>
-<li>
-<p>Field <code>objectId</code> was deprecated in <code>RbacObject</code> type.</p>
+<ul>
+<li>Field <code>objectId</code> was deprecated in <code>RbacObject</code> type.</li>
+</ul>
 <p>Reason: Deprecated: use managedId instead.
 Scheduled for removal after 2025/08/12.</p>
-</li>
-</ul>
 <h2 id="20240801">2024/08/01</h2>
 <ul>
-<li>
-<p>Field <code>restoreO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
+<li>Field <code>restoreO365Mailbox</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use restoreO365MailboxV2 instead.
 Scheduled for removal after 2025/07/30.</p>
-</li>
-<li>
-<p>Field <code>exportO365Mailbox</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>exportO365Mailbox</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use exportO365MailboxV2 instead.
 Scheduled for removal after 2025/07/30.</p>
-</li>
-</ul>
 <h2 id="20240701">2024/07/01</h2>
 <ul>
-<li>
-<p>Field <code>dataHosts</code> was deprecated in <code>MongoSource</code> type.</p>
+<li>Field <code>dataHosts</code> was deprecated in <code>MongoSource</code> type.</li>
+</ul>
 <p>Reason: Use hostDetails instead.
 Scheduled for removal after 2025/07/30.</p>
-</li>
-<li>
-<p>Field <code>cloudAccountId</code> was deprecated in <code>CcWithCloudInfo</code> type.</p>
+<ul>
+<li>Field <code>cloudAccountId</code> was deprecated in <code>CcWithCloudInfo</code> type.</li>
+</ul>
 <p>Reason: This field is deprecated because it is no longer used.
 Scheduled for removal after 2025/07/30.</p>
-</li>
-</ul>
 <h2 id="20240601">2024/06/01</h2>
 <ul>
 <li>Field <code>logConfig</code> was deprecated in <code>GlobalSlaReply</code> type.</li>
@@ -670,7 +736,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-08-23</small>
+            <small>Revised on: 2024-10-17</small>
             </p>
           
 
