@@ -1,12 +1,25 @@
 query ExotaskImageBundle {
   exotaskImageBundle {
+  azureImages{
     bundleVersion
     repoUrl
-    bundleImages {
+    bundleImages
+    {
+      name
+      tag
+      sha
+    }
+  },
+  awsImages{
+    bundleVersion
+    repoUrl
+    bundleImages
+    {
       name
       tag
       sha
     }
     eksVersion
+  }
   }
 }

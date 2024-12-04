@@ -239,14 +239,27 @@ ECR.</li>
 <p>To download an image bundle from Rubrik's ECR, use the following:</p>
 <pre><code class="language-bash">QUERY='{&quot;query&quot;: &quot;query ExotaskImageBundle {
   exotaskImageBundle {
+  azureImages{
     bundleVersion
     repoUrl
-    bundleImages {
+    bundleImages
+    {
+      name
+      tag
+      sha
+    }
+  },
+  awsImages{
+    bundleVersion
+    repoUrl
+    bundleImages
+    {
       name
       tag
       sha
     }
     eksVersion
+  }
   }
 }
 &quot;}'
@@ -257,7 +270,7 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 --data &quot;$(echo $QUERY)&quot;
 </code></pre>
 <h3 id="query-input">Query input</h3>
-<p>If you are using BYOK, use the following input</p>
+<p>If you are using BYOK with AWS, use the following input</p>
 <pre><code class="language-bash">{
   &quot;input&quot;: {
     &quot;eksVersion&quot;: &quot;&lt;EksVersion&gt;&quot;
@@ -265,20 +278,31 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
 }
 
 </code></pre>
-<p>If you are not using BYOK, no input is needed.</p>
-<h4 id="steps-to-download-the-images">Steps to download the images:</h4>
+<p>If you are not using BYOK with AWS, no input is needed.</p>
+<h4 id="steps-to-download-the-images-from-aws-ecr">Steps to download the images from AWS ECR:</h4>
 <p>Ensure that you download images from the AWS account you whitelisted during PCR setup. Otherwise,
 you will not be authorized to pull the Docker images from Rubrik's ECR.</p>
 <ol>
 <li>Install <code>docker</code> on your system and ensure that the docker daemon is running.</li>
 <li>Install and configure the <code>aws</code> CLI.</li>
-<li>Use the response of the <code>exotaskImageBundle</code> GQL API to log in to Rubrik's ECR and download
+<li>Use the response of the <code>exotaskImageBundle</code> GQL API- <code>exotaskImageBundle.awsImages</code>  to log in to Rubrik's ECR and download
 the Docker images. For more information, see <a href="https://github.com/rubrikinc/rubrik-polaris-sdk-for-python/tree/beta/sample/pcr-aws">Rubrik's python script</a>.</li>
 <li>If you are using your own script and uploading the images to your PCR, tag the images with
 the bundle version you got from Rubrik as part of the <code>exotaskImageBundle</code> GQL API. If you use Rubrik's Python script, the script will automatically tag the images with the bundle version.</li>
 </ol>
+<h4 id="steps-to-download-the-images-from-azure-acr">Steps to download the images from Azure ACR:</h4>
+<p>Ensure that you download images using the Azure AppID that you whitelisted during PCR setup. Otherwise,
+you will not be authorized to pull the Docker images from Rubrik's ACR.</p>
+<ol>
+<li>Install <code>docker</code> on your system and ensure that the docker daemon is running.</li>
+<li>Install and configure the <code>Azure</code> CLI.</li>
+<li>Use the response of the <code>exotaskImageBundle</code> GQL API- <code>exotaskImageBundle.azureImages</code>  to log in to Rubrik's ACR and download
+   the Docker images. For more information, see <a href="https://github.com/rubrikinc/rubrik-polaris-sdk-for-python/tree/beta/sample/pcr-aws">Rubrik's python script</a>.</li>
+<li>If you are using your own script and uploading the images to your PCR, tag the images with
+   the bundle version you got from Rubrik as part of the <code>exotaskImageBundle</code> GQL API. If you use Rubrik's Python script, the script will automatically tag the images with the bundle version.</li>
+</ol>
 <h2 id="image-bundle-approval">Image bundle approval</h2>
-<p>To approve an image bundle, use the following:</p>
+<p>To approve an image bundle, use the following (EKS version is needed only if AWS is being used):</p>
 <pre><code class="language-bash">MUTATION='{&quot;mutation&quot;: &quot;mutation SetBundleApprovalStatus($input: SetBundleApprovalStatusInput!) {
   setBundleApprovalStatus(input: $input)
 }
@@ -312,7 +336,7 @@ curl -X POST https://$account.my.rubrik.com/api/graphql \
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2024-10-17</small>
+            <small>Revised on: 2024-12-04</small>
             </p>
           
 
