@@ -38,10 +38,20 @@ jobs:
         with:
           source: ./
           destination: ./_site
-      - name: Clean up temporary files
+      - name: Clear Ruby/Bundler Cache
         run: |
-          echo "Cleaning up node_modules to free disk space..."
-          rm -rf node_modules
+          echo "Clearing Bundler cache and installed gems..."
+          rm -rf vendor/bundle
+          # If you know the exact path Bundler installs to, add it here.
+      - name: Aggressive Runner System Cleanup
+        run: |
+          echo "Performing aggressive cleanup on system directories..."
+          # Clear the temporary directory
+          sudo rm -rf /tmp/*
+          # Clear NuGet/dotnet fallback cache (common large files on ubuntu-latest)
+          sudo rm -rf /usr/share/dotnet/sdk/NuGetFallbackFolder
+          # Clear the apt cache
+          sudo apt clean
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
