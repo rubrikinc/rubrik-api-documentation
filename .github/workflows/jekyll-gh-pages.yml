@@ -33,6 +33,15 @@ jobs:
             fetch-depth: 1
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Aggressive Runner System Cleanup
+        run: |
+          echo "Performing aggressive cleanup on system directories..."
+          # Clear the temporary directory
+          sudo rm -rf /tmp/*
+          # Clear NuGet/dotnet fallback cache (common large files on ubuntu-latest)
+          sudo rm -rf /usr/share/dotnet/sdk/NuGetFallbackFolder
+          # Clear the apt cache
+          sudo apt clean
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
@@ -43,15 +52,6 @@ jobs:
           echo "Clearing Bundler cache and installed gems..."
           rm -rf vendor/bundle
           # If you know the exact path Bundler installs to, add it here.
-      - name: Aggressive Runner System Cleanup
-        run: |
-          echo "Performing aggressive cleanup on system directories..."
-          # Clear the temporary directory
-          sudo rm -rf /tmp/*
-          # Clear NuGet/dotnet fallback cache (common large files on ubuntu-latest)
-          sudo rm -rf /usr/share/dotnet/sdk/NuGetFallbackFolder
-          # Clear the apt cache
-          sudo apt clean
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
