@@ -18,6 +18,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check Disk Space
+        run: |
+            echo "--- Disk Usage ---"
+            df -h
+            echo "--- Largest Folders ---"
+            sudo du -h -d 1 / | sort -hr | head -n 10
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # This frees up about 20GB by removing heavy tools
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true  
+
+      - name: Check Disk Space AGAIN
+        run: |
+            echo "--- Disk Usage ---"
+            df -h
+            echo "--- Largest Folders ---"
+            sudo du -h -d 1 / | sort -hr | head -n 10
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
