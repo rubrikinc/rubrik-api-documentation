@@ -205,6 +205,14 @@
       <a href="#deprecations">Deprecations</a>
     </li>
     <li class="second-level">
+      <a href="#20260301">2026/03/01</a>
+    </li>
+    
+    <li class="second-level">
+      <a href="#20260201">2026/02/01</a>
+    </li>
+    
+    <li class="second-level">
       <a href="#20260101">2026/01/01</a>
     </li>
     
@@ -359,319 +367,413 @@
   </ul>
 </div></div>
         <div class="col-md-9" role="main"> <h1 id="deprecations">Deprecations</h1>
+<h2 id="20260301">2026/03/01</h2>
+<ul>
+<li>
+<p>Field <code>inventoryRoot</code> was deprecated in <code>SelfServicePermission</code> type.</p>
+<p>Reason: No longer in use.
+Scheduled for removal after 2027/02/12.</p>
+</li>
+<li>
+<p>Enum value <code>EC2_INSTANCE_ID</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Use EC2_INSTANCE_NAME_OR_INSTANCE_ID instead.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Enum value <code>AZURE_GRS</code> was deprecated in enum <code>RcvRedundancy</code>.</p>
+<p>Reason: Use MULTI_REGION instead.
+Scheduled for removal after 2026/03/15.</p>
+</li>
+<li>
+<p>Enum value <code>UNIFIED_ENCRYPTION_KEY_MGMT_BASED</code> was deprecated in enum <code>TargetEncryptionTypeEnum</code>.</p>
+<p>Reason: Use UEKM_RSA_BASED or UEKM_AWS_KMS_BASED.
+Scheduled for removal after 2027/02/04.</p>
+</li>
+<li>
+<p>Enum value <code>AZURE_ZRS</code> was deprecated in enum <code>RcvRedundancy</code>.</p>
+<p>Reason: Use MULTI_ZONE instead.
+Scheduled for removal after 2026/03/15.</p>
+</li>
+<li>
+<p>Enum value <code>UNKNOWN_AZURE_REDUNDANCY</code> was deprecated in enum <code>RcvRedundancy</code>.</p>
+<p>Reason: Use REDUNDANCY_UNKNOWN instead.
+Scheduled for removal after 2026/03/15.</p>
+</li>
+<li>
+<p>Enum value <code>COMPLIANCE_RETENTION_LOCK_CONFIGURED</code> was deprecated in enum <code>SlaMigrationIneligibilityReason</code>.</p>
+<p>Reason: This reason is no longer used.
+Scheduled for removal after 2027/02/04.</p>
+</li>
+<li>
+<p>Enum value <code>EC2_INSTANCE_NAME</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Use EC2_INSTANCE_NAME_OR_INSTANCE_ID instead.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Enum value <code>DURABLE_REDUCED_AVAILABILITY_GCP</code> was deprecated in enum <code>GcpStorageClass</code>.</p>
+<p>Reason: Use STANDARD_GCP instead.
+Scheduled for removal after 2024/02/28.</p>
+</li>
+<li>
+<p>Enum value <code>CLOUDDIRECT_NAS_SHARE_HIDDEN</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Not implemented - no longer used.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Enum value <code>AZURE_LRS</code> was deprecated in enum <code>RcvRedundancy</code>.</p>
+<p>Reason: Use SINGLE_ZONE instead.
+Scheduled for removal after 2026/03/15.</p>
+</li>
+<li>
+<p>Enum value <code>UDF_DATABASE_TYPE</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Not implemented - no longer used.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Field <code>archivalLocation</code> was deprecated in <code>CascadingArchivalSpec</code> type.</p>
+<p>Reason: Use archivalLocationToClusterMapping instead.
+Scheduled for removal after 2027/01/27.</p>
+</li>
+<li>
+<p>Enum value <code>ENCRYPTION_MANAGEMENT</code> was deprecated in enum <code>EventObjectType</code>.</p>
+<p>Reason: Use UNIFIED_ENCRYPTION_MANAGEMENT instead.
+Scheduled for removal after 2027/02/04.</p>
+</li>
+<li>
+<p>Enum value <code>ENCRYPTION_MANAGEMENT</code> was deprecated in enum <code>AuditObjectType</code>.</p>
+<p>Reason: Use UNIFIED_ENCRYPTION_MANAGEMENT instead.
+Scheduled for removal after 2027/02/04.</p>
+</li>
+<li>
+<p>Enum value <code>EBS_VOLUME_ID</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Use EBS_VOLUME_NAME_OR_VOLUME_ID instead.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Enum value <code>EBS_VOLUME_NAME</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Use EBS_VOLUME_NAME_OR_VOLUME_ID instead.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+<li>
+<p>Enum value <code>IS_HOST_PROTECTED</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<p>Reason: Not implemented - no longer used.
+Scheduled for removal after 2027/02/06.</p>
+</li>
+</ul>
+<h2 id="20260201">2026/02/01</h2>
+<ul>
+<li>
+<p>Field <code>type</code> was deprecated in <code>Column</code> type.</p>
+<p>Reason: This field is not useful.
+Scheduled for removal after 2027/01/13.</p>
+</li>
+<li>
+<p>Field <code>listCidrsForComputeSetting</code> was deprecated in <code>Mutation</code> type.</p>
+<p>Reason: This endpoint is no longer maintained and will be removed.
+Scheduled for removal after 2027/01/16.</p>
+</li>
+</ul>
 <h2 id="20260101">2026/01/01</h2>
 <ul>
-<li>
-<p>Field <code>azureExocomputeNetworkSetupTemplate</code> was deprecated in <code>Query</code> type.</p>
+<li>Field <code>azureExocomputeNetworkSetupTemplate</code> was deprecated in <code>Query</code> type.</li>
+</ul>
 <p>Reason: Azure networking resources creation for Exocompute using ARM template will not be supported.
 Scheduled for removal after 2026/11/22.</p>
-</li>
-<li>
-<p>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpCloudSqlInstance</code> type.</p>
+<ul>
+<li>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpCloudSqlInstance</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use gcpProjectDetails instead.
 Scheduled for removal after 2026/11/19.</p>
-</li>
-<li>
-<p>Enum value <code>PHYSICAL_HOST_ROOT</code> was deprecated in enum <code>InventorySubHierarchyRootEnum</code>.</p>
+<ul>
+<li>Enum value <code>PHYSICAL_HOST_ROOT</code> was deprecated in enum <code>InventorySubHierarchyRootEnum</code>.</li>
+</ul>
 <p>Reason: This root is no longer in use.
 Scheduled for removal after 2026/05/22.</p>
-</li>
-<li>
-<p>Field <code>operations</code> was deprecated in <code>AuthorizedOps</code> type.</p>
+<ul>
+<li>Field <code>operations</code> was deprecated in <code>AuthorizedOps</code> type.</li>
+</ul>
 <p>Reason: Use authorizedOperations instead.
 Scheduled for removal after 2026/12/02.</p>
-</li>
-<li>
-<p>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpNativeDisk</code> type.</p>
+<ul>
+<li>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpNativeDisk</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use gcpProjectDetails instead.
 Scheduled for removal after 2026/11/19.</p>
-</li>
-<li>
-<p>Enum value <code>INITIALIZING_REPORTS</code> was deprecated in enum <code>ClusterSubStatus</code>.</p>
+<ul>
+<li>Enum value <code>INITIALIZING_REPORTS</code> was deprecated in enum <code>ClusterSubStatus</code>.</li>
+</ul>
 <p>Reason: INITIALIZING_REPORTS is deprecated.
 Scheduled for removal after 2026/12/09.</p>
-</li>
-<li>
-<p>Field <code>dataManagementByObjectWorkloads</code> was deprecated in <code>TprRulesMap</code> type.</p>
+<ul>
+<li>Field <code>dataManagementByObjectWorkloads</code> was deprecated in <code>TprRulesMap</code> type.</li>
+</ul>
 <p>Reason: Use tprRulesByObjectType instead.
 Scheduled for removal after 2026/11/17.</p>
-</li>
-<li>
-<p>Field <code>gcpCloudAccountAddManualAuthProject</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>gcpCloudAccountAddManualAuthProject</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use addGcpCloudAccountManualAuthProject instead.
 Scheduled for removal after 2026/12/09.</p>
-</li>
-<li>
-<p>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpNativeGceInstance</code> type.</p>
+<ul>
+<li>Field <code>gcpNativeProjectDetails</code> was deprecated in <code>GcpNativeGceInstance</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use gcpProjectDetails instead.
 Scheduled for removal after 2026/11/19.</p>
-</li>
-</ul>
 <h2 id="20251201">2025/12/01</h2>
 <ul>
-<li>
-<p>Field <code>aggregate</code> was deprecated in <code>Column</code> type.</p>
+<li>Field <code>aggregate</code> was deprecated in <code>Column</code> type.</li>
+</ul>
 <p>Reason: This field is not useful.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-<li>
-<p>Field <code>setIpWhitelistEnabled</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>setIpWhitelistEnabled</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: use <code>setIpWhitelistSetting</code> instead.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-<li>
-<p>Field <code>nullable</code> was deprecated in <code>Column</code> type.</p>
+<ul>
+<li>Field <code>nullable</code> was deprecated in <code>Column</code> type.</li>
+</ul>
 <p>Reason: This field is not useful.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-<li>
-<p>Field <code>dimensional</code> was deprecated in <code>Column</code> type.</p>
+<ul>
+<li>Field <code>dimensional</code> was deprecated in <code>Column</code> type.</li>
+</ul>
 <p>Reason: This field is not useful.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-<li>
-<p>Field <code>createOnDemandMongoDatabaseBackup</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>createOnDemandMongoDatabaseBackup</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use createOnDemandMongoDatabaseBackupV2 instead.
 Scheduled for removal after 2025/12/13.</p>
-</li>
-<li>
-<p>Enum value <code>OBJECT_AUDIT_LIST</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>OBJECT_AUDIT_LIST</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use OBJECT_PROTECTION_AUDIT_LIST instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Field <code>ipWhitelist</code> was deprecated in <code>Query</code> type.</p>
+<ul>
+<li>Field <code>ipWhitelist</code> was deprecated in <code>Query</code> type.</li>
+</ul>
 <p>Reason: use <code>ipWhitelistEntries</code> and <code>ipWhitelistSettings</code> instead.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-<li>
-<p>Enum value <code>SLA_AUDIT_LIST</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>SLA_AUDIT_LIST</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use SLA_AUDIT_LIST_NG instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Enum value <code>AWS_ACCOUNT</code> was deprecated in enum <code>CloudNativeTagRuleFilterFields</code>.</p>
+<ul>
+<li>Enum value <code>AWS_ACCOUNT</code> was deprecated in enum <code>CloudNativeTagRuleFilterFields</code>.</li>
+</ul>
 <p>Reason: USE CLOUD_NATIVE_ACCOUNT filter instead.
 Scheduled for removal after 2026/10/15.</p>
-</li>
-<li>
-<p>Enum value <code>OBJECT_AUDIT_DETAIL</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>OBJECT_AUDIT_DETAIL</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use OBJECT_PROTECTION_AUDIT_DETAIL instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Enum value <code>INDEXING</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>INDEXING</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use LATEST_GLOBAL_OBJECTS instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Enum value <code>SLA_COMPLIANCE</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>SLA_COMPLIANCE</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use LATEST_GLOBAL_OBJECTS instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Enum value <code>BACKUP_COMPLIANCE</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>BACKUP_COMPLIANCE</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use LATEST_GLOBAL_OBJECTS instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Enum value <code>SLA_AUDIT_DETAIL</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>SLA_AUDIT_DETAIL</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use SLA_AUDIT_DETAIL_NG instead.
 Scheduled for removal after 2026/11/14.</p>
-</li>
-<li>
-<p>Field <code>updateIpWhitelist</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>updateIpWhitelist</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: use <code>setIpWhitelistSetting</code> to update the mode, or <code>update/add/deleteIpWhitelistEntries</code> to update entries instead.
 Scheduled for removal after 2026/11/05.</p>
-</li>
-</ul>
 <h2 id="20251101">2025/11/01</h2>
 <ul>
-<li>
-<p>Field <code>migrationUnavailabilityReason</code> was deprecated in <code>RcvBliMigrationDetails</code> type.</p>
+<li>Field <code>migrationUnavailabilityReason</code> was deprecated in <code>RcvBliMigrationDetails</code> type.</li>
+</ul>
 <p>Reason: Use bli_migration_unavailability_reason instead.
 Scheduled for removal after 2026/09/23.</p>
-</li>
-<li>
-<p>Enum value <code>GENERIC</code> was deprecated in enum <code>CloudDirectNasVendorType</code>.</p>
+<ul>
+<li>Enum value <code>GENERIC</code> was deprecated in enum <code>CloudDirectNasVendorType</code>.</li>
+</ul>
 <p>Reason: Use specific vendor types instead of GENERIC.
 Scheduled for removal after 2026/10/07.</p>
-</li>
-<li>
-<p>Field <code>migrationStatus</code> was deprecated in <code>RcvBliMigrationDetails</code> type.</p>
+<ul>
+<li>Field <code>migrationStatus</code> was deprecated in <code>RcvBliMigrationDetails</code> type.</li>
+</ul>
 <p>Reason: Use bli_migration_status instead.
 Scheduled for removal after 2026/09/23.</p>
-</li>
-<li>
-<p>Enum value <code>UNKNOWN_ACCESS</code> was deprecated in enum <code>OpenAccessType</code>.</p>
+<ul>
+<li>Enum value <code>UNKNOWN_ACCESS</code> was deprecated in enum <code>OpenAccessType</code>.</li>
+</ul>
 <p>Reason: enum value is deprecated.
 Scheduled for removal after 2026/10/07.</p>
-</li>
-<li>
-<p>Enum value <code>NETAPP</code> was deprecated in enum <code>CloudDirectNasVendorType</code>.</p>
+<ul>
+<li>Enum value <code>NETAPP</code> was deprecated in enum <code>CloudDirectNasVendorType</code>.</li>
+</ul>
 <p>Reason: Use FSXN (AWS FSx for NetApp ONTAP) or other specific vendor types instead of NETAPP.
 Scheduled for removal after 2026/10/07.</p>
-</li>
-</ul>
 <h2 id="20251001">2025/10/01</h2>
 <ul>
-<li>
-<p>Field <code>gcpNativeProject</code> was deprecated in <code>GcpNativeDisk</code> type.</p>
+<li>Field <code>gcpNativeProject</code> was deprecated in <code>GcpNativeDisk</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use <code>gcpProject</code> instead.
 Scheduled for removal after 2026/08/28.</p>
-</li>
-<li>
-<p>Field <code>taskDetailGroupByConnection</code> was deprecated in <code>Query</code> type.</p>
+<ul>
+<li>Field <code>taskDetailGroupByConnection</code> was deprecated in <code>Query</code> type.</li>
+</ul>
 <p>Reason: This endpoint doesn't provide new data. Use the count field in taskDetailConnection instead.
 Scheduled for removal after 2026/09/16.</p>
-</li>
-<li>
-<p>Field <code>gcpNativeProject</code> was deprecated in <code>GcpNativeGceInstance</code> type.</p>
+<ul>
+<li>Field <code>gcpNativeProject</code> was deprecated in <code>GcpNativeGceInstance</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use <code>gcpProject</code> instead.
 Scheduled for removal after 2026/08/28.</p>
-</li>
-<li>
-<p>Enum value <code>BACKUP_STRIKES</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>BACKUP_STRIKES</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use BACKUP_STRIKES_V2 instead.
 Scheduled for removal after 2026/08/18.</p>
-</li>
-<li>
-<p>Field <code>downloadAuditLogCsvAsync</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>downloadAuditLogCsvAsync</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use downloadFile instead.
 Scheduled for removal after 2026/09/16.</p>
-</li>
-<li>
-<p>Field <code>relatedObjectIds</code> was deprecated in <code>AzureAdReverseRelationship</code> type.</p>
+<ul>
+<li>Field <code>relatedObjectIds</code> was deprecated in <code>AzureAdReverseRelationship</code> type.</li>
+</ul>
 <p>Reason: use <code>relatedObjects</code> instead.
 Scheduled for removal after 2026/09/08.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_OUTPOST_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_OUTPOST_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_OUTPOST_APPLICATION</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Field <code>downloadReportPdfAsync</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>downloadReportPdfAsync</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use downloadFile instead.
 Scheduled for removal after 2026/09/16.</p>
-</li>
-<li>
-<p>Enum value <code>ACTIVITY_SERIES</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>ACTIVITY_SERIES</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use EVENT_SERIES instead.
 Scheduled for removal after 2026/08/18.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_TARGET_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_TARGET_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_TARGET_APPLICATION</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_TARGET_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_TARGET_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_TARGET_MANAGED_IDENTITY</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Field <code>relationshipType</code> was deprecated in <code>AzureAdRelatedItemCount</code> type.</p>
+<ul>
+<li>Field <code>relationshipType</code> was deprecated in <code>AzureAdRelatedItemCount</code> type.</li>
+</ul>
 <p>Reason: Deprecated, use relatedItemType instead.
 Scheduled for removal after 2026/08/25.</p>
-</li>
-<li>
-<p>Field <code>gcpNativeDisableProject</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>gcpNativeDisableProject</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use gcpCloudAccountDeleteProjectsV2 instead.
 Scheduled for removal after 2026/08/21.</p>
-</li>
-<li>
-<p>Enum value <code>PROTECTION_TASK_DETAILS</code> was deprecated in enum <code>DataViewTypeEnum</code>.</p>
+<ul>
+<li>Enum value <code>PROTECTION_TASK_DETAILS</code> was deprecated in enum <code>DataViewTypeEnum</code>.</li>
+</ul>
 <p>Reason: Use TASK_DETAILS instead.
 Scheduled for removal after 2026/08/18.</p>
-</li>
-<li>
-<p>Field <code>privateEndpointConnection</code> was deprecated in <code>RubrikManagedRcsTarget</code> type.</p>
+<ul>
+<li>Field <code>privateEndpointConnection</code> was deprecated in <code>RubrikManagedRcsTarget</code> type.</li>
+</ul>
 <p>Reason: Use privateEndpointConnections instead.
 Scheduled for removal after 2026/09/12.</p>
-</li>
-<li>
-<p>Field <code>downloadReportCsvAsync</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>downloadReportCsvAsync</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use downloadFile instead.
 Scheduled for removal after 2026/09/16.</p>
-</li>
-<li>
-<p>Field <code>gcpCloudAccountDeleteProjects</code> was deprecated in <code>Mutation</code> type.</p>
+<ul>
+<li>Field <code>gcpCloudAccountDeleteProjects</code> was deprecated in <code>Mutation</code> type.</li>
+</ul>
 <p>Reason: Use gcpCloudAccountDeleteProjectsV2 instead.
 Scheduled for removal after 2026/08/21.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_OUTPOST_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_OUTPOST_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_OUTPOST_MANAGED_IDENTITY</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-</ul>
 <h2 id="20250901">2025/09/01</h2>
 <ul>
-<li>
-<p>Enum value <code>EXOCOMPUTE_EKS_MASTERNODE_INSTANCE_PROFILE</code> was deprecated in enum <code>AwsCloudExternalArtifact</code>.</p>
+<li>Enum value <code>EXOCOMPUTE_EKS_MASTERNODE_INSTANCE_PROFILE</code> was deprecated in enum <code>AwsCloudExternalArtifact</code>.</li>
+</ul>
 <p>Reason: Instance profile corresponds to worker node in an EKS cluster, please use EXOCOMPUTE_EKS_WORKERNODE_INSTANCE_PROFILE instead.
 Scheduled for removal after 2026/07/18.</p>
-</li>
-<li>
-<p>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>SnapshotQueryFilterField</code>.</p>
+<ul>
+<li>Enum value <code>IS_ARCHIVED</code> was deprecated in enum <code>SnapshotQueryFilterField</code>.</li>
+</ul>
 <p>Reason: A snapshot can potentially be uploaded to multiple archival locations. This field does not give the archival status of the snapshot - whether it is uploaded to all the archival locations or partially uploaded to a few locations. Hence, this filter field is deprecated and would be removed subsequently. Please use a combination of ARCHIVAL_LOCATION_IDS and SOURCE_SNAPSHOT_IDS fields instead.
 Scheduled for removal after 2026/07/23.</p>
-</li>
-<li>
-<p>Field <code>type</code> was deprecated in <code>IdpClaimAttributeType</code> type.</p>
+<ul>
+<li>Field <code>type</code> was deprecated in <code>IdpClaimAttributeType</code> type.</li>
+</ul>
 <p>Reason: type is deprecated, use attributeType instead.
 Scheduled for removal after 2026/08/05.</p>
-</li>
-<li>
-<p>Field <code>tableFilters</code> was deprecated in <code>Query</code> type.</p>
+<ul>
+<li>Field <code>tableFilters</code> was deprecated in <code>Query</code> type.</li>
+</ul>
 <p>Reason: No longer supported.
 Scheduled for removal after 2026/08/07.</p>
-</li>
-<li>
-<p>Enum value <code>SLA_ID</code> was deprecated in enum <code>SnapshotQueryFilterField</code>.</p>
+<ul>
+<li>Enum value <code>SLA_ID</code> was deprecated in enum <code>SnapshotQueryFilterField</code>.</li>
+</ul>
 <p>Reason: There is no concept of SLA ID on a snapshot. SLA is assigned to an object and snapshots are taken based on the configuration of the SLA Domain at that point of time. However, SLA configurations may change at a later point in time, without reflecting the change on the snapshot, if not retroactively assigned. Hence, this filter field is deprecated and would be removed subsequently.
 Scheduled for removal after 2026/07/23.</p>
-</li>
-</ul>
 <h2 id="20250801">2025/08/01</h2>
 <ul>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_TARGET_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<li>Enum value <code>AZURE_LAMINAR_TARGET_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_TARGET_APPLICATION</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_TARGET_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_TARGET_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_TARGET_MANAGED_IDENTITY</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Field <code>isProvisioned</code> was deprecated in <code>AzureAdDirectory</code> type.</p>
+<ul>
+<li>Field <code>isProvisioned</code> was deprecated in <code>AzureAdDirectory</code> type.</li>
+</ul>
 <p>Reason: Use provisioningState instead.
 Scheduled for removal after 2026/06/20.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_OUTPOST_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_OUTPOST_APPLICATION</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_OUTPOST_APPLICATION</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_DISK_ATTACHED_VM</code> was deprecated in enum <code>HierarchySortByField</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_DISK_ATTACHED_VM</code> was deprecated in enum <code>HierarchySortByField</code>.</li>
+</ul>
 <p>Reason: This field is deprecated and no longer used.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Enum value <code>SAASAPPS_IS_RECOVERY_TARGET_ONLY</code> was deprecated in enum <code>HierarchyFilterField</code>.</p>
+<ul>
+<li>Enum value <code>SAASAPPS_IS_RECOVERY_TARGET_ONLY</code> was deprecated in enum <code>HierarchyFilterField</code>.</li>
+</ul>
 <p>Reason: use <code>SAASAPPS_ORGANIZATION_SCOPE</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-<li>
-<p>Enum value <code>AZURE_LAMINAR_OUTPOST_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</p>
+<ul>
+<li>Enum value <code>AZURE_LAMINAR_OUTPOST_MANAGED_IDENTITY</code> was deprecated in enum <code>CloudAccountFeature</code>.</li>
+</ul>
 <p>Reason: Use <code>LAMINAR_OUTPOST_MANAGED_IDENTITY</code> instead.
 Scheduled for removal after 2026/07/07.</p>
-</li>
-</ul>
 <h2 id="20250701">2025/07/01</h2>
 <ul>
 <li>Field <code>failoverClusterTopLevelDescendants</code> was deprecated in <code>Query</code> type.</li>
@@ -1345,7 +1447,7 @@ Scheduled for removal after 2024/01/31.</p>
             <hr>
             <p>
             <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small><br>
-            <small>Revised on: 2026-01-08</small>
+            <small>Revised on: 2026-03-06</small>
             </p>
           
 
