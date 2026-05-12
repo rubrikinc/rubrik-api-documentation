@@ -1,4 +1,4 @@
-name: Deploy API Documentation
+name: Deploy Redirect to GitHub Pages
 
 on:
   push:
@@ -11,53 +11,20 @@ permissions:
   id-token: write
 
 jobs:
-  # JOB 1: The Build (Runs on your high-RAM Internal Runner)
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check Disk Space
-        run: |
-            echo "--- Disk Usage ---"
-            df -h
-            echo "--- Largest Folders ---"
-            sudo du -h -d 1 / | sort -hr | head -n 10
-
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          # This frees up about 20GB by removing heavy tools
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true  
-
-      - name: Check Disk Space AGAIN
-        run: |
-            echo "--- Disk Usage ---"
-            df -h
-            echo "--- Largest Folders ---"
-            sudo du -h -d 1 / | sort -hr | head -n 10
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Path to the folder containing your index.html
-          path: '.' 
-
-  # JOB 2: The Deployment (Runs on GitHub-hosted, uses zero RAM)
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'redirect-site'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
